@@ -1,0 +1,6 @@
+title: Faust components
+contributes:
+  shortcodes:
+    - faust.lua
+  filters:
+    - faust-code.lua

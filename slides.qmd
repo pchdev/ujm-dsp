@@ -1,0 +1,157 @@
+---
+title: "Digital Audio Signal Processing and Synthesis"
+author: "Pierre Cochard"
+format:
+  revealjs:
+    theme: [solarized, custom.scss]
+    transition: fade
+    include-in-header:
+          text: |
+            <script type="module"
+              src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.6.1/dist/faust-web-component.js">
+            </script>
+    smaller: true
+    footer: "Pierre Cochard - Digital Audio Signal Processing and Synthesis - UJM 2026-2027"
+---
+
+# Hello!
+
+My name is **Pierre**, nice to meet you all!
+
+ I'm currently working as a research engineer in Inria/INSA team **Emeraude**, working among other things on a PhD Thesis intitled *Compilation and Optimization methods for Digital Audio Signal Processing and Synthesis on hardware architectures*.
+
+I'm mainly a **software engineer**, a bit specialized in **audio** and **compilation**, I'm involved in the development/maintenance of tools such as:
+
+- **Syfala** (Faust-to-FPGA compilation toolchain)
+- **FloPoCo/HAriCo** (Hardware Arithmetic Core Generator)
+- **Emeraude-MLIR** (Compilation framework)
+- **Faust** (but not really...)
+
+## Learning audio DSP & synthesis stuff
+
+## Agenda
+
+::: {style="font-size: 20%;"}
+<br>
+:::
+
+:::: {.columns}
+::: {.column width="50%"}
+### **October**
+::: {style="font-size: 80%;"}
+- Tuesday **20th** 14h-18h (4 hours)
+:::
+
+::: {style="font-size: 20%;"}
+<br>
+:::
+
+### **November**
+::: {style="font-size: 80%;"}
+- Tuesday **3rd**: 9h-12h (3 hours)
+- Thursday **5th**: 13h-16h 
+- Tuesday **10th**: 9h-12h 
+- Thursday **12th**: 13h-16h 
+- Tuesday **17th**: 9h-12h 
+- Thursday **19th**: 13h-16h
+- Tuesday **24th**: 9h-12h
+- Thursday **26th**: 13h-16h
+:::
+:::
+
+::: {.column width="50%"}
+### **December**
+::: {style="font-size: 80%;"}
+- Tuesday **1st**: 9h-12h
+- Thursday **3rd**: 13h-16h
+:::
+
+::: {style="font-size: 20%;"}
+<br>
+:::
+### **Evaluation**
+- ?
+:::
+::::
+
+## Sound (physical properties)
+:::: {.columns}
+::: {.column width="50%"}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+- Propagation is caused by the **oscillation** (*vibration*) of the medium's particles, around their equilibrium positions.
+- Sound has the following properties:
+  - **Speed**: ~343m/s in air
+  - **Amplitude**: measured in Pascals (Pa)
+  - **Period**: time between two oscillations
+  - **Wavelength**: distance between two oscillations
+  - **Frequency**: cycles per second, in Hertz (Hz, kHz, MHz)
+  - **Spectrum** (or timbre)
+:::
+:::
+:::
+::: {.column width="50%"}
+ANIMATIONS
+:::
+::::
+
+## Sound perception 
+
+<br>
+
+- Our perception of sound is made from the conversion of the **vibrations** reaching our **eardrums** to a **signal of nerve impulses**, transmitted and interpreted by the brain.
+- Human ears can typically identify sounds ranging from **20 Hz to 20 kHz**.
+- Other animal ranges:
+  - **Bat**: 2 kHz to 110 kHz,
+  - **Porpoise**: 75 Hz to 150 kHz,
+  - **Cat**: 45 Hz to 64 kHz,
+  - **Dog**: 67 Hz to 45 kHz,
+  - **Chicken**: 125 Hz to 2 kHz
+
+## Signal
+
+- A signal describes the **evolution** of a certain type of *data* **over time**, like the vibration of an entity: the **membrane of a microphone**.
+- Just like sound waves turning into nerve impulses, the analyzed data usually needs to be first **converted to another physical unit**, or domain (transduction), in order to adapt to measurement/processing tools.
+- The vibration of a microphone's membrane is, for instance, usually converted to **continuous electrical current** before it can be processed and/or analyzed. In this case, the signal is said to be ***analog***.
+
+## Signal
+
+- With an **oscilloscope**, we can measure the **amplitude of a signal** at a given point in time (***time-domain***), through the visualisation of its ***waveform***.
+- An analog signal can already be processed as it is with **analog effects**: *tape delay*, *distortion*, *chorus*, *reverberation *(spring, plate), etc.
+- On the other hand, it is difficult to extract precise information about **frequency and spectrum**. For this purpose, it's far more efficient to switch to the ***frequency domain***, which requires the analog signal to be **turned into a digital signal**...
+
+## Digital Signal
+
+- To *digitize* a continuous signal implies ***discretizing it***. This is made possible by an **Analog-to-Digital Conversion** (**ADC**) process, which implies two key elements: ***sampling*** and ***quantization***.
+- **Sampling** means taking a sample of a signal at a certain frequency/rate (***sample rate***).
+  - **Audio CD**: 44.1 kHz
+  - **Pro Audio**: 48/96 kHz
+  - **MP3 (compressed)**: 320/256/192/128/96/64 kbps
+- Because of ***aliasing*** the sampling rate must be ***at least two times superior to the highest frequency*** we want to represent (**Nyquist-Shannon**)
+
+## Faust
+
+- **FAUST** (Functional Audio Stream) is a programming language specifically made for audio DSP and synthesis. It was created by **Yann Orlarey**, **Dominique Fober** & **Stéphane Letz** at **GRAME** in 2002.
+
+:::: {.columns}
+::: {.column width="50%"}
+  - Functional paradigm,
+  - Declarative, math-like syntax
+  - Produces optimized code for many architectures
+  - Not recommended (yet) for multi-rate (FFT)
+:::
+::: {.column width="50%"}
+  - Plugins: VST, CLAP, AudioUnit
+  - Software: JUCE, Max, Pd, SuperCollider, Csound
+  - OS: Linux, macOS, Windows, Android, iOS,
+  - Embedded: Bela, Teensy, Daisy, ESP32, FPGA...
+  - Code: C/C++, Rust, WASM, Java...
+:::
+- Tutorials & documentation available at https://faust.grame.fr
+- Dedicated online IDE: https:://faustide.grame.fr
+::::
+
+## Test
+
+{{< include faust/basics.qmd >}}

@@ -1,0 +1,165 @@
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 80%;"}
+- Basic program: `import` and `process` statements.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="1-4|5-8|9-11|" filename="comments.dsp"}
+{{< include /faust/examples/basics/comments.dsp >}}
+```
+{{< faust faust/examples/basics/comments.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+- Basic program: `import` and `process` statements.
+:::
+- Use a **Sinewave Oscillator** from the library.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="1-4|5-8|9-11|" filename="libraries.dsp"}
+{{< include /faust/examples/basics/libraries.dsp >}}
+```
+{{< faust faust/examples/basics/libraries.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+- Basic program: `import` and `process` statements.
+- Use a **Sinewave Oscillator** from the library.
+:::
+- In **DSP**, we represent an *audio signal* with ***floating-point*** (decimal) numbers, and scale its values **between -1.0 and +1.0**.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="1-4|5-8|9-11|" filename="amplitude.dsp"}
+{{< include /faust/examples/basics/amplitude.dsp >}}
+```
+{{< faust faust/examples/basics/amplitude.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+- Basic program: `import` and `process` statements.
+- Use a **Sinewave Oscillator** from the library.
+- In **DSP**, we represent an *audio signal* with ***floating-point*** (decimal) numbers, and scale its values **between -1.0 and +1.0**.
+:::
+- **Mixing two signals** can be done using the **'`+`'** operator.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="1-4|5-8|9-11|" filename="mixing.dsp"}
+{{< include /faust/examples/basics/mixing.dsp >}}
+```
+{{< faust faust/examples/basics/mixing.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+- Basic program: `import` and `process` statements.
+- Use a **Sinewave Oscillator** from the library.
+- In **DSP**, we represent an *audio signal* with ***floating-point*** (decimal) numbers, and scale its values **between -1.0 and +1.0**.
+- **Mixing two signals** can be done using the **'`+`'** operator.
+:::
+- When **multiplying two signals** together, we can already make a really **simple DSP effect**: **Amplitude Modulation** (or **Ring Modulation**)
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="1-4|5-8|9-11|" filename="ampmod.dsp"}
+{{< include /faust/examples/basics/ampmod.dsp >}}
+```
+{{< faust faust/examples/basics/ampmod.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+- Basic program: `import` and `process` statements.
+- Use a **Sinewave Oscillator** from the library.
+- In **DSP**, we represent an *audio signal* with ***floating-point*** (decimal) numbers, and scale its values **between -1.0 and +1.0**.
+- **Mixing two signals** can be done using the **'`+`'** operator.
+- When **multiplying two signals** together, we can already make a really **simple DSP effect**: **Amplitude Modulation** (or **Ring Modulation**)
+:::
+- Faust can process **multiple channels**, by using the **'`,`'** symbol (**Parallel Operator**) to put signals **in parallel**.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="1-4|5-8|9-11|" filename="parallel.dsp"}
+{{< include /faust/examples/basics/parallel.dsp >}}
+```
+{{< faust faust/examples/basics/parallel.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+- Basic program: `import` and `process` statements.
+- Use a **Sinewave Oscillator** from the library.
+- In **DSP**, we represent an *audio signal* with ***floating-point*** (decimal) numbers, and scale its values **between -1.0 and +1.0**.
+- **Mixing two signals** can be done using the **'`+`'** operator.
+- When **multiplying two signals** together, we can already make a really **simple DSP effect**: **Amplitude Modulation** (or **Ring Modulation**)
+- Faust can process **multiple channels**, by using the **'`,`'** symbol (**Parallel Operator**) to put signals **in parallel**.
+:::
+- We can declare **custom variables**, and **functions**.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="1-4|5-8|9-11|" filename="custom-functions.dsp"}
+{{< include /faust/examples/basics/custom-functions.dsp >}}
+```
+{{< faust faust/examples/basics/custom-functions.dsp >}}
+:::
+::::

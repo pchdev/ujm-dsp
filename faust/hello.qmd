@@ -1,0 +1,25 @@
+```{.js code-line-numbers="1-4|5-8|9-11|" filename="hello.dsp"}
+import("stdfaust.lib");
+
+// Here, we use the 'oscrc' function
+// from the 'os' (oscillators) library:
+process = os.oscrc(440) * 0.25;
+```
+
+<details> <summary>**run**</summary>
+
+::: {style="font-size: 40%;"}
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// Here, we use the 'oscrc' function
+// from the 'os' (oscillators) library:
+process = os.oscrc(440) * 0.25;
+-->
+</faust-editor>
+
+:::
+
+</details>

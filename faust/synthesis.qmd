@@ -1,0 +1,124 @@
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Synthesis {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+:::
+  - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="3|4|5|6|" filename="faust/examples/synthesis/oscillators.dsp"}
+{{< include /faust/examples/synthesis/oscillators.dsp >}}
+```
+{{< faust faust/examples/synthesis/oscillators.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Synthesis {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
+:::
+  - When a Faust program starts to be a little more complex, its always good practice to ***refactor code*** by using ***custom functions*** with variable **parameters**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="3-7|9-10|9-13|" filename="faust/examples/synthesis/functions.dsp"}
+{{< include /faust/examples/synthesis/functions.dsp >}}
+```
+{{< faust faust/examples/synthesis/functions.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Synthesis {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
+  - When a Faust program starts to be a little more complex, its always good practice to ***refactor code*** by using ***custom functions*** with variable **parameters**.
+:::
+  - In Faust, **functions** can take ***any element of the language as parameters***, including **GUI elements**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="3-7|9-10|9-13|" filename="faust/examples/synthesis/functions-gui.dsp"}
+{{< include /faust/examples/synthesis/functions-gui.dsp >}}
+```
+{{< faust faust/examples/synthesis/functions-gui.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Synthesis {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
+  - When a Faust program starts to be a little more complex, its always good practice to ***refactor code*** by using ***custom functions*** with variable **parameters**.
+  - In Faust, **functions** can take ***any element of the language as parameters***, including **GUI elements**.
+:::
+
+  - Finally, the ***select*** primitive (an equivalent to ***switch*** in Max), allow to select an input from a list. It can be used in this case to *switch between **waveforms***
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="3-4|3-6|3-8|" filename="faust/examples/synthesis/select.dsp"}
+{{< include /faust/examples/synthesis/select.dsp >}}
+```
+{{< faust faust/examples/synthesis/select.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Synthesis {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
+  - When a Faust program starts to be a little more complex, its always good practice to ***refactor code*** by using ***custom functions*** with variable **parameters**.
+  - In Faust, **functions** can take ***any element of the language as parameters***, including **GUI elements**.
+  - Finally, the ***select*** primitive (an equivalent to ***switch*** in Max), allow to select an input from a list. It can be used in this case to *switch between **waveforms***
+:::
+  - Our goal now will be to ***apply this to our previous synthesizer.***
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/synthesis/switch-waveform.dsp"}
+{{< include /faust/examples/synthesis/switch-waveform.dsp >}}
+```
+{{< faust faust/examples/synthesis/switch-waveform.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Synthesis {.scrollable auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+```{.js code-line-numbers="|" filename="faust/examples/synthesis/switch-waveform.dsp"}
+{{< include /faust/examples/synthesis/switch-waveform.dsp >}}
+```
+{{< faust faust/examples/synthesis/switch-waveform.dsp >}}

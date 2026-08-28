@@ -273,6 +273,11 @@ Pierre Cochard
 <li>?</li>
 </ul>
 </div></div>
+</section></section>
+<section>
+<section id="sound-signal" class="title-slide slide level1 center">
+<h1>Sound &amp; Signal ………………………………</h1>
+
 </section>
 <section id="sound-physical-properties" class="slide level2">
 <h2>Sound (physical properties)</h2>
@@ -343,21 +348,29 @@ Pierre Cochard
 </ul></li>
 <li>Because of <strong><em>aliasing</em></strong> the sampling rate must be <strong><em>at least two times superior to the highest frequency</em></strong> we want to represent (<strong>Nyquist-Shannon</strong>)</li>
 </ul>
+</section></section>
+<section>
+<section id="faust-functional-audio-stream" class="title-slide slide level1 center">
+<h1>Faust (Functional Audio Stream)</h1>
+
 </section>
 <section id="faust" class="slide level2">
 <h2>Faust</h2>
 <ul>
-<li><strong>FAUST</strong> (Functional Audio Stream) is a programming language specifically made for audio DSP and synthesis. It was created by <strong>Yann Orlarey</strong>, <strong>Dominique Fober</strong> &amp; <strong>Stéphane Letz</strong> at <strong>GRAME</strong> in 2002.</li>
+<li><strong>FAUST</strong> is a programming language specifically made for audio DSP and synthesis. It was created by <strong>Yann Orlarey</strong>, <strong>Dominique Fober</strong> &amp; <strong>Stéphane Letz</strong> at <strong>GRAME</strong> in 2002.</li>
 </ul>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div style="font-size: 80%;">
 <ul>
 <li>Functional paradigm,</li>
 <li>Declarative, math-like syntax</li>
 <li>Produces optimized code for many architectures</li>
 <li>Not recommended (yet) for multi-rate (FFT)</li>
 </ul>
+</div>
 </div><div class="column" style="width:50%;">
+<div style="font-size: 80%;">
 <ul>
 <li>Plugins: VST, CLAP, AudioUnit</li>
 <li>Software: JUCE, Max, Pd, SuperCollider, Csound</li>
@@ -365,11 +378,16 @@ Pierre Cochard
 <li>Embedded: Bela, Teensy, Daisy, ESP32, FPGA…</li>
 <li>Code: C/C++, Rust, WASM, Java…</li>
 </ul>
+</div>
 </div><ul>
 <li>Tutorials &amp; documentation available at https://faust.grame.fr</li>
 <li>Dedicated online IDE: https:://faustide.grame.fr</li>
 </ul>
 </div>
+</section></section>
+<section>
+<section id="faust-basics" class="title-slide slide level1 center">
+<h1>Faust: Basics</h1>
 <style>
 .add-space{
   padding-right: 5%;
@@ -377,7 +395,7 @@ Pierre Cochard
 </style>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics" class="slide level2">
+<section id="faust-basics-1" class="slide level2">
 <h2>Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
@@ -436,7 +454,7 @@ process = 0;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-1" class="slide level2" data-auto-animate="true">
+<section id="faust-basics-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -492,7 +510,7 @@ process = os.oscrc(440) * 0.25;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-2" class="slide level2" data-auto-animate="true">
+<section id="faust-basics-3" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -553,7 +571,7 @@ process = os.oscrc(440) / 4;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-3" class="slide level2" data-auto-animate="true">
+<section id="faust-basics-4" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -617,7 +635,7 @@ process = (os.oscrc(440) + os.oscrc(880)) * 0.25;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-4" class="slide level2" data-auto-animate="true">
+<section id="faust-basics-5" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -674,7 +692,7 @@ process = os.oscrc(440) * os.oscrc(10) * 0.25;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-5" class="slide level2" data-auto-animate="true">
+<section id="faust-basics-6" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -730,7 +748,7 @@ process = (os.oscrc(440) * 0.25), (os.oscrc(880) * 0.25);
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-6" class="slide level2" data-auto-animate="true">
+<section id="faust-basics-7" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -793,8 +811,8 @@ process = osc440, osc880;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-2-1" class="slide level2">
-<h2>Faust Basics (2)</h2>
+<section id="faust-basics-2-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -808,13 +826,13 @@ process = osc440, osc880;
 <div class="code-with-filename-file">
 <pre><strong>sequential.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="sequential.dsp"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb8-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
-<span id="cb8-2"><a href="" aria-label="2"></a></span>
-<span id="cb8-3"><a href="" aria-label="3"></a><span class="co">// Connect A : B</span></span>
-<span id="cb8-4"><a href="" aria-label="4"></a><span class="co">// A must have the same number of outputs as </span></span>
-<span id="cb8-5"><a href="" aria-label="5"></a><span class="co">// the number of inputs of B.</span></span>
-<span id="cb8-6"><a href="" aria-label="6"></a><span class="bu">process</span> <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">440</span>) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">440</span>)<span class="op">;</span></span>
-<span id="cb8-7"><a href="" aria-label="7"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="sequential.dsp"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb8-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb8-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb8-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Connect A : B</span></span>
+<span id="cb8-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// A must have the same number of outputs as </span></span>
+<span id="cb8-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// the number of inputs of B.</span></span>
+<span id="cb8-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="bu">process</span> <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">440</span>) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb8-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -842,8 +860,8 @@ process = os.sawtooth(440) : fi.lowpass(1, 440);
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-2-2" class="slide level2">
-<h2>Faust Basics (2)</h2>
+<section id="faust-basics-2-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -862,18 +880,18 @@ process = os.sawtooth(440) : fi.lowpass(1, 440);
 <div class="code-with-filename-file">
 <pre><strong>split-cable.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-filename="split-cable.dsp" data-code-line-numbers="3-6|8-11|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
-<span id="cb9-2"><a href="" aria-label="2"></a></span>
-<span id="cb9-3"><a href="" aria-label="3"></a><span class="co">// Connect A : B</span></span>
-<span id="cb9-4"><a href="" aria-label="4"></a><span class="co">// A must have the same number of outputs as </span></span>
-<span id="cb9-5"><a href="" aria-label="5"></a><span class="co">// the number of inputs of B</span></span>
-<span id="cb9-6"><a href="" aria-label="6"></a>saw_filter <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">440</span>) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">440</span>)<span class="op">;</span></span>
-<span id="cb9-7"><a href="" aria-label="7"></a></span>
-<span id="cb9-8"><a href="" aria-label="8"></a><span class="co">// Connect A &lt;: B</span></span>
-<span id="cb9-9"><a href="" aria-label="9"></a><span class="co">// The number of inputs of B must be a multiple </span></span>
-<span id="cb9-10"><a href="" aria-label="10"></a><span class="co">// of the number of outputs of A.</span></span>
-<span id="cb9-11"><a href="" aria-label="11"></a><span class="bu">process</span> <span class="op">=</span>  saw_filter <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
-<span id="cb9-12"><a href="" aria-label="12"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-filename="split-cable.dsp" data-code-line-numbers="3-6|8-11|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb9-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb9-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb9-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Connect A : B</span></span>
+<span id="cb9-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// A must have the same number of outputs as </span></span>
+<span id="cb9-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// the number of inputs of B</span></span>
+<span id="cb9-6" class="hljs-ln-code"><a href="" aria-label="6"></a>saw_filter <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">440</span>) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb9-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb9-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// Connect A &lt;: B</span></span>
+<span id="cb9-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// The number of inputs of B must be a multiple </span></span>
+<span id="cb9-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// of the number of outputs of A.</span></span>
+<span id="cb9-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="bu">process</span> <span class="op">=</span>  saw_filter <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb9-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -906,8 +924,8 @@ process =  saw_filter &lt;: _,_;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-2-3" class="slide level2">
-<h2>Faust Basics (2)</h2>
+<section id="faust-basics-2-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -927,14 +945,14 @@ process =  saw_filter &lt;: _,_;
 <div class="code-with-filename-file">
 <pre><strong>examples/basics2/merge-cable.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="examples/basics2/merge-cable.dsp" data-code-line-numbers="3-5|7|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb10-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
-<span id="cb10-2"><a href="" aria-label="2"></a></span>
-<span id="cb10-3"><a href="" aria-label="3"></a><span class="co">// Equivalent to:</span></span>
-<span id="cb10-4"><a href="" aria-label="4"></a><span class="co">// osc = os.oscrc(440) + os.oscrc(880) </span></span>
-<span id="cb10-5"><a href="" aria-label="5"></a>osc <span class="op">=</span> (os<span class="op">.</span><span class="fu">oscrc</span>(<span class="dv">440</span>)<span class="op">,</span> os<span class="op">.</span><span class="fu">oscrc</span>(<span class="dv">880</span>)) <span class="op">:&gt;</span> _<span class="op">;</span></span>
-<span id="cb10-6"><a href="" aria-label="6"></a></span>
-<span id="cb10-7"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span>  osc <span class="op">*</span> <span class="fl">0.25</span> <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
-<span id="cb10-8"><a href="" aria-label="8"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="examples/basics2/merge-cable.dsp" data-code-line-numbers="3-5|7|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb10-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb10-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb10-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Equivalent to:</span></span>
+<span id="cb10-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// osc = os.oscrc(440) + os.oscrc(880) </span></span>
+<span id="cb10-5" class="hljs-ln-code"><a href="" aria-label="5"></a>osc <span class="op">=</span> (os<span class="op">.</span><span class="fu">oscrc</span>(<span class="dv">440</span>)<span class="op">,</span> os<span class="op">.</span><span class="fu">oscrc</span>(<span class="dv">880</span>)) <span class="op">:&gt;</span> _<span class="op">;</span></span>
+<span id="cb10-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb10-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span>  osc <span class="op">*</span> <span class="fl">0.25</span> <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb10-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -963,8 +981,8 @@ process =  osc * 0.25 &lt;: _,_;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-2-4" class="slide level2">
-<h2>Faust Basics (2)</h2>
+<section id="faust-basics-2-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -985,17 +1003,17 @@ process =  osc * 0.25 &lt;: _,_;
 <div class="code-with-filename-file">
 <pre><strong>examples/basics2/sliders.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-filename="examples/basics2/sliders.dsp" data-code-line-numbers="3-5|7-8|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb11-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
-<span id="cb11-2"><a href="" aria-label="2"></a></span>
-<span id="cb11-3"><a href="" aria-label="3"></a><span class="co">// hslider("name", default, min, max, step)</span></span>
-<span id="cb11-4"><a href="" aria-label="4"></a>saw_freq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"saw_freq"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb11-5"><a href="" aria-label="5"></a>cutoff <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"cutoff"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb11-6"><a href="" aria-label="6"></a></span>
-<span id="cb11-7"><a href="" aria-label="7"></a><span class="co">// We can directly pass the slider variable names as parameters:</span></span>
-<span id="cb11-8"><a href="" aria-label="8"></a>saw_filter <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(saw_freq) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> cutoff)<span class="op">;</span></span>
-<span id="cb11-9"><a href="" aria-label="9"></a></span>
-<span id="cb11-10"><a href="" aria-label="10"></a><span class="bu">process</span> <span class="op">=</span>  saw_filter <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
-<span id="cb11-11"><a href="" aria-label="11"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-filename="examples/basics2/sliders.dsp" data-code-line-numbers="3-5|7-8|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb11-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb11-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb11-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// hslider("name", default, min, max, step)</span></span>
+<span id="cb11-4" class="hljs-ln-code"><a href="" aria-label="4"></a>saw_freq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"saw_freq"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb11-5" class="hljs-ln-code"><a href="" aria-label="5"></a>cutoff <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"cutoff"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb11-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb11-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// We can directly pass the slider variable names as parameters:</span></span>
+<span id="cb11-8" class="hljs-ln-code"><a href="" aria-label="8"></a>saw_filter <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(saw_freq) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> cutoff)<span class="op">;</span></span>
+<span id="cb11-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
+<span id="cb11-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="bu">process</span> <span class="op">=</span>  saw_filter <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb11-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -1027,8 +1045,8 @@ process =  saw_filter &lt;: _,_;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-basics-2-5" class="slide level2">
-<h2>Faust Basics (2)</h2>
+<section id="faust-basics-2-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1050,19 +1068,19 @@ process =  saw_filter &lt;: _,_;
 <div class="code-with-filename-file">
 <pre><strong>examples/basics2/gain.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-filename="examples/basics2/gain.dsp" data-code-line-numbers="3-5|7-8|10|12|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb12-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
-<span id="cb12-2"><a href="" aria-label="2"></a></span>
-<span id="cb12-3"><a href="" aria-label="3"></a><span class="co">// We add the '[style:knob]' metadata,</span></span>
-<span id="cb12-4"><a href="" aria-label="4"></a><span class="co">// and we also specify the unit:</span></span>
-<span id="cb12-5"><a href="" aria-label="5"></a>gain <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"gain[style:knob][unit:dB]"</span><span class="op">,</span> <span class="op">-</span><span class="dv">6</span><span class="op">,</span> <span class="op">-</span><span class="dv">96</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">db2linear</span><span class="op">;</span></span>
-<span id="cb12-6"><a href="" aria-label="6"></a></span>
-<span id="cb12-7"><a href="" aria-label="7"></a>saw_freq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"saw_freq[unit:Hz]"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb12-8"><a href="" aria-label="8"></a>cutoff <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"cutoff[unit:Hz]"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb12-9"><a href="" aria-label="9"></a></span>
-<span id="cb12-10"><a href="" aria-label="10"></a>saw_filter <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(saw_freq) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> cutoff)<span class="op">;</span></span>
-<span id="cb12-11"><a href="" aria-label="11"></a></span>
-<span id="cb12-12"><a href="" aria-label="12"></a><span class="bu">process</span> <span class="op">=</span>  saw_filter <span class="op">*</span> gain <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
-<span id="cb12-13"><a href="" aria-label="13"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-filename="examples/basics2/gain.dsp" data-code-line-numbers="3-5|7-8|10|12|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb12-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb12-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb12-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We add the '[style:knob]' metadata,</span></span>
+<span id="cb12-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// and we also specify the unit:</span></span>
+<span id="cb12-5" class="hljs-ln-code"><a href="" aria-label="5"></a>gain <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"gain[style:knob][unit:dB]"</span><span class="op">,</span> <span class="op">-</span><span class="dv">6</span><span class="op">,</span> <span class="op">-</span><span class="dv">96</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">db2linear</span><span class="op">;</span></span>
+<span id="cb12-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb12-7" class="hljs-ln-code"><a href="" aria-label="7"></a>saw_freq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"saw_freq[unit:Hz]"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb12-8" class="hljs-ln-code"><a href="" aria-label="8"></a>cutoff <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"cutoff[unit:Hz]"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb12-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
+<span id="cb12-10" class="hljs-ln-code"><a href="" aria-label="10"></a>saw_filter <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(saw_freq) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> cutoff)<span class="op">;</span></span>
+<span id="cb12-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb12-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="bu">process</span> <span class="op">=</span>  saw_filter <span class="op">*</span> gain <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb12-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -1094,6 +1112,10 @@ process =  saw_filter * gain &lt;: _,_;
 </div>
 
 </div></div>
+</section></section>
+<section>
+<section id="faust-functions" class="title-slide slide level1 center">
+<h1>Faust: Functions</h1>
 <style>
 .add-space{
   padding-right: 5%;
@@ -1101,8 +1123,8 @@ process =  saw_filter * gain &lt;: _,_;
 </style>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-functions" class="slide level2">
-<h2>Faust Functions</h2>
+<section id="faust-functions-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Functions</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
 <div class="column add-space" style="width:50%;">
@@ -1119,8 +1141,8 @@ process =  saw_filter * gain &lt;: _,_;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-functions-1" class="slide level2">
-<h2>Faust Functions</h2>
+<section id="faust-functions-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Functions</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
 <div class="column add-space" style="width:50%;">
@@ -1139,13 +1161,13 @@ process =  saw_filter * gain &lt;: _,_;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/functions/f1.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-filename="faust/examples/functions/f1.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb13-1"><a href="" aria-label="1"></a><span class="co">// Here, we define the function 'add', </span></span>
-<span id="cb13-2"><a href="" aria-label="2"></a><span class="co">// which takes 2 arguments (or parameters)</span></span>
-<span id="cb13-3"><a href="" aria-label="3"></a><span class="co">// that we call 'a' and 'b'.</span></span>
-<span id="cb13-4"><a href="" aria-label="4"></a><span class="co">// Note: 'a' and 'b' are arbitrary names, </span></span>
-<span id="cb13-5"><a href="" aria-label="5"></a><span class="co">// we could have used any name we wanted.</span></span>
-<span id="cb13-6"><a href="" aria-label="6"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb13-7"><a href="" aria-label="7"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-filename="faust/examples/functions/f1.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb13-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// Here, we define the function 'add', </span></span>
+<span id="cb13-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="co">// which takes 2 arguments (or parameters)</span></span>
+<span id="cb13-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// that we call 'a' and 'b'.</span></span>
+<span id="cb13-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// Note: 'a' and 'b' are arbitrary names, </span></span>
+<span id="cb13-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// we could have used any name we wanted.</span></span>
+<span id="cb13-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb13-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -1174,8 +1196,8 @@ add(a, b) = a + b;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-functions-2" class="slide level2">
-<h2>Faust Functions</h2>
+<section id="faust-functions-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Functions</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
 <div class="column add-space" style="width:50%;">
@@ -1195,17 +1217,17 @@ add(a, b) = a + b;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/functions/f2.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-filename="faust/examples/functions/f2.dsp" data-code-line-numbers="1|1-7|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb14-1"><a href="" aria-label="1"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb14-2"><a href="" aria-label="2"></a></span>
-<span id="cb14-3"><a href="" aria-label="3"></a><span class="co">// If we want to call (execute) that function, </span></span>
-<span id="cb14-4"><a href="" aria-label="4"></a><span class="co">// we need to replace 'a' &amp; 'b' by the parameters</span></span>
-<span id="cb14-5"><a href="" aria-label="5"></a><span class="co">// we want to pass to the function. </span></span>
-<span id="cb14-6"><a href="" aria-label="6"></a><span class="co">// Here, we also store the result into a 'variable' called "result".</span></span>
-<span id="cb14-7"><a href="" aria-label="7"></a>result <span class="op">=</span> <span class="fu">add</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb14-8"><a href="" aria-label="8"></a></span>
-<span id="cb14-9"><a href="" aria-label="9"></a><span class="co">// Under the hood, 'a' and 'b' are replaced by '1' and '2':</span></span>
-<span id="cb14-10"><a href="" aria-label="10"></a><span class="fu">add</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>) <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb14-11"><a href="" aria-label="11"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-filename="faust/examples/functions/f2.dsp" data-code-line-numbers="1|1-7|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb14-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb14-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb14-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// If we want to call (execute) that function, </span></span>
+<span id="cb14-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// we need to replace 'a' &amp; 'b' by the parameters</span></span>
+<span id="cb14-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// we want to pass to the function. </span></span>
+<span id="cb14-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// Here, we also store the result into a 'variable' called "result".</span></span>
+<span id="cb14-7" class="hljs-ln-code"><a href="" aria-label="7"></a>result <span class="op">=</span> <span class="fu">add</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb14-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb14-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// Under the hood, 'a' and 'b' are replaced by '1' and '2':</span></span>
+<span id="cb14-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="fu">add</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>) <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb14-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -1237,8 +1259,8 @@ add(1, 2) = 1 + 2;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-functions-3" class="slide level2">
-<h2>Faust Functions</h2>
+<section id="faust-functions-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Functions</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
 <div class="column add-space" style="width:50%;">
@@ -1259,19 +1281,19 @@ add(1, 2) = 1 + 2;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/functions/f3.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-filename="faust/examples/functions/f3.dsp" data-code-line-numbers="1-2|1-5|1-9|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb15-1"><a href="" aria-label="1"></a>a <span class="op">=</span> <span class="dv">31</span><span class="op">;</span></span>
-<span id="cb15-2"><a href="" aria-label="2"></a>b <span class="op">=</span> <span class="dv">47</span><span class="op">;</span></span>
-<span id="cb15-3"><a href="" aria-label="3"></a></span>
-<span id="cb15-4"><a href="" aria-label="4"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb15-5"><a href="" aria-label="5"></a>result <span class="op">=</span> <span class="fu">add</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span> <span class="co">// result will be 3, not 78!</span></span>
-<span id="cb15-6"><a href="" aria-label="6"></a></span>
-<span id="cb15-7"><a href="" aria-label="7"></a><span class="co">// On the other hand, if we were to change </span></span>
-<span id="cb15-8"><a href="" aria-label="8"></a><span class="co">// the name of the arguments of the 'add' function, like so:</span></span>
-<span id="cb15-9"><a href="" aria-label="9"></a><span class="fu">add</span>(c<span class="op">,</span> d) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span> </span>
-<span id="cb15-10"><a href="" aria-label="10"></a><span class="co">// The result would be 78 this time, </span></span>
-<span id="cb15-11"><a href="" aria-label="11"></a><span class="co">// because 'a' and 'b' now refer to </span></span>
-<span id="cb15-12"><a href="" aria-label="12"></a><span class="co">// the 'a = 31' and 'b = 47' expressions.</span></span>
-<span id="cb15-13"><a href="" aria-label="13"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-filename="faust/examples/functions/f3.dsp" data-code-line-numbers="1-2|1-5|1-9|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb15-1" class="hljs-ln-code"><a href="" aria-label="1"></a>a <span class="op">=</span> <span class="dv">31</span><span class="op">;</span></span>
+<span id="cb15-2" class="hljs-ln-code"><a href="" aria-label="2"></a>b <span class="op">=</span> <span class="dv">47</span><span class="op">;</span></span>
+<span id="cb15-3" class="hljs-ln-code"><a href="" aria-label="3"></a></span>
+<span id="cb15-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb15-5" class="hljs-ln-code"><a href="" aria-label="5"></a>result <span class="op">=</span> <span class="fu">add</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span> <span class="co">// result will be 3, not 78!</span></span>
+<span id="cb15-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb15-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// On the other hand, if we were to change </span></span>
+<span id="cb15-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// the name of the arguments of the 'add' function, like so:</span></span>
+<span id="cb15-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="fu">add</span>(c<span class="op">,</span> d) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span> </span>
+<span id="cb15-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// The result would be 78 this time, </span></span>
+<span id="cb15-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="co">// because 'a' and 'b' now refer to </span></span>
+<span id="cb15-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// the 'a = 31' and 'b = 47' expressions.</span></span>
+<span id="cb15-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -1305,8 +1327,8 @@ add(c, d) = a + b;
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-functions-2-1" class="slide level2">
-<h2>Faust Functions (2)</h2>
+<section id="faust-functions-2-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Functions (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
 <div class="column add-space" style="width:50%;">
@@ -1323,21 +1345,21 @@ add(c, d) = a + b;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/functions-signals/f0.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" data-filename="faust/examples/functions-signals/f0.dsp" data-code-line-numbers="1-4|6-10|6-14|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb16-1"><a href="" aria-label="1"></a><span class="co">// Example of a constant function,</span></span>
-<span id="cb16-2"><a href="" aria-label="2"></a><span class="co">// it will produce the same output no matter</span></span>
-<span id="cb16-3"><a href="" aria-label="3"></a><span class="co">// how many times it is called:</span></span>
-<span id="cb16-4"><a href="" aria-label="4"></a>my_constant_function <span class="op">=</span> <span class="dv">440</span><span class="op">;</span></span>
-<span id="cb16-5"><a href="" aria-label="5"></a></span>
-<span id="cb16-6"><a href="" aria-label="6"></a><span class="co">// We define a function 'oscillator'</span></span>
-<span id="cb16-7"><a href="" aria-label="7"></a><span class="co">// which itself calls the 'os.osci' function.</span></span>
-<span id="cb16-8"><a href="" aria-label="8"></a><span class="co">// os.osci computes for each new sample in time</span></span>
-<span id="cb16-9"><a href="" aria-label="9"></a><span class="co">// a new sinewave value.</span></span>
-<span id="cb16-10"><a href="" aria-label="10"></a>oscillator <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
-<span id="cb16-11"><a href="" aria-label="11"></a></span>
-<span id="cb16-12"><a href="" aria-label="12"></a><span class="co">// Here, we sum the values of the two 'os.osci'</span></span>
-<span id="cb16-13"><a href="" aria-label="13"></a><span class="co">// functions, sample-by-sample:</span></span>
-<span id="cb16-14"><a href="" aria-label="14"></a>mix <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>) <span class="op">+</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">880</span>)<span class="op">;</span></span>
-<span id="cb16-15"><a href="" aria-label="15"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" data-filename="faust/examples/functions-signals/f0.dsp" data-code-line-numbers="1-4|6-10|6-14|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb16-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// Example of a constant function,</span></span>
+<span id="cb16-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="co">// it will produce the same output no matter</span></span>
+<span id="cb16-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// how many times it is called:</span></span>
+<span id="cb16-4" class="hljs-ln-code"><a href="" aria-label="4"></a>my_constant_function <span class="op">=</span> <span class="dv">440</span><span class="op">;</span></span>
+<span id="cb16-5" class="hljs-ln-code"><a href="" aria-label="5"></a></span>
+<span id="cb16-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// We define a function 'oscillator'</span></span>
+<span id="cb16-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// which itself calls the 'os.osci' function.</span></span>
+<span id="cb16-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// os.osci computes for each new sample in time</span></span>
+<span id="cb16-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// a new sinewave value.</span></span>
+<span id="cb16-10" class="hljs-ln-code"><a href="" aria-label="10"></a>oscillator <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb16-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb16-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// Here, we sum the values of the two 'os.osci'</span></span>
+<span id="cb16-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// functions, sample-by-sample:</span></span>
+<span id="cb16-14" class="hljs-ln-code"><a href="" aria-label="14"></a>mix <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>) <span class="op">+</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">880</span>)<span class="op">;</span></span>
+<span id="cb16-15" class="hljs-ln-code"><a href="" aria-label="15"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -1373,8 +1395,8 @@ mix = os.osci(440) + os.osci(880);
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-functions-2-2" class="slide level2">
-<h2>Faust Functions (2)</h2>
+<section id="faust-functions-2-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Functions (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
 <div class="column add-space" style="width:50%;">
@@ -1393,20 +1415,20 @@ mix = os.osci(440) + os.osci(880);
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/functions/f4.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" data-filename="faust/examples/functions/f4.dsp" data-code-line-numbers="1-2|1-7|9-11|1-2,9-13|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb17-1"><a href="" aria-label="1"></a><span class="co">// We can pass anything as a function argument in Faust:</span></span>
-<span id="cb17-2"><a href="" aria-label="2"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb17-3"><a href="" aria-label="3"></a></span>
-<span id="cb17-4"><a href="" aria-label="4"></a><span class="co">// We call 'add' on two sinewave oscillators </span></span>
-<span id="cb17-5"><a href="" aria-label="5"></a><span class="co">// with different frequencies.</span></span>
-<span id="cb17-6"><a href="" aria-label="6"></a><span class="co">// This will sum the two signals together:</span></span>
-<span id="cb17-7"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">add</span>(os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">,</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">880</span>))<span class="op">;</span></span>
-<span id="cb17-8"><a href="" aria-label="8"></a></span>
-<span id="cb17-9"><a href="" aria-label="9"></a><span class="co">// It also works for GUI elements, like sliders:</span></span>
-<span id="cb17-10"><a href="" aria-label="10"></a>slider_a <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"slider_a"</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb17-11"><a href="" aria-label="11"></a>slider_b <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"slider_b"</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb17-12"><a href="" aria-label="12"></a></span>
-<span id="cb17-13"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">add</span>(slider_a<span class="op">,</span> slider_b)<span class="op">;</span></span>
-<span id="cb17-14"><a href="" aria-label="14"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" data-filename="faust/examples/functions/f4.dsp" data-code-line-numbers="1-2|1-7|9-11|1-2,9-13|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb17-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// We can pass anything as a function argument in Faust:</span></span>
+<span id="cb17-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb17-3" class="hljs-ln-code"><a href="" aria-label="3"></a></span>
+<span id="cb17-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// We call 'add' on two sinewave oscillators </span></span>
+<span id="cb17-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// with different frequencies.</span></span>
+<span id="cb17-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// This will sum the two signals together:</span></span>
+<span id="cb17-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">add</span>(os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">,</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">880</span>))<span class="op">;</span></span>
+<span id="cb17-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb17-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// It also works for GUI elements, like sliders:</span></span>
+<span id="cb17-10" class="hljs-ln-code"><a href="" aria-label="10"></a>slider_a <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"slider_a"</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb17-11" class="hljs-ln-code"><a href="" aria-label="11"></a>slider_b <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"slider_b"</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb17-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb17-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">add</span>(slider_a<span class="op">,</span> slider_b)<span class="op">;</span></span>
+<span id="cb17-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -1441,8 +1463,8 @@ process = add(slider_a, slider_b);
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-functions-2-3" class="slide level2">
-<h2>Faust Functions (2)</h2>
+<section id="faust-functions-2-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Functions (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
 <div class="column add-space" style="width:50%;">
@@ -1463,37 +1485,37 @@ process = add(slider_a, slider_b);
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/functions/f5.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" data-filename="faust/examples/functions/f5.dsp"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb18-1"><a href="" aria-label="1"></a><span class="co">// And... other functions!</span></span>
-<span id="cb18-2"><a href="" aria-label="2"></a><span class="co">// Here we declare the function 'osc_a', </span></span>
-<span id="cb18-3"><a href="" aria-label="3"></a><span class="co">// that takes on argument called 'freq',</span></span>
-<span id="cb18-4"><a href="" aria-label="4"></a><span class="co">// which we are going to pass through to the os.osci function.</span></span>
-<span id="cb18-5"><a href="" aria-label="5"></a><span class="co">// And yes 'os.osci' is also a function, which takes one argument (frequency) </span></span>
-<span id="cb18-6"><a href="" aria-label="6"></a><span class="co">// and produces a sinewave at that frequency. </span></span>
-<span id="cb18-7"><a href="" aria-label="7"></a><span class="fu">osc_a</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
-<span id="cb18-8"><a href="" aria-label="8"></a></span>
-<span id="cb18-9"><a href="" aria-label="9"></a><span class="co">// Same here with a sawtooth, the name 'freq' doesn't conflict with the one </span></span>
-<span id="cb18-10"><a href="" aria-label="10"></a><span class="co">// from osc_a because they're only valid within their own scope:</span></span>
-<span id="cb18-11"><a href="" aria-label="11"></a><span class="fu">osc_b</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
-<span id="cb18-12"><a href="" aria-label="12"></a></span>
-<span id="cb18-13"><a href="" aria-label="13"></a><span class="co">// We can call them like this:</span></span>
-<span id="cb18-14"><a href="" aria-label="14"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">+</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)<span class="op">;</span></span>
-<span id="cb18-15"><a href="" aria-label="15"></a></span>
-<span id="cb18-16"><a href="" aria-label="16"></a><span class="co">// And what happens under the hood, if we unroll the function calls, will be this:</span></span>
-<span id="cb18-17"><a href="" aria-label="17"></a><span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
-<span id="cb18-18"><a href="" aria-label="18"></a><span class="fu">osc_b</span>(<span class="dv">880</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">880</span>)<span class="op">;</span></span>
-<span id="cb18-19"><a href="" aria-label="19"></a></span>
-<span id="cb18-20"><a href="" aria-label="20"></a><span class="co">// We can also do the same thing in function calls:</span></span>
-<span id="cb18-21"><a href="" aria-label="21"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb18-22"><a href="" aria-label="22"></a><span class="fu">osc_a</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
-<span id="cb18-23"><a href="" aria-label="23"></a><span class="fu">osc_b</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
-<span id="cb18-24"><a href="" aria-label="24"></a></span>
-<span id="cb18-25"><a href="" aria-label="25"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">add</span>(<span class="fu">osc_a</span>(<span class="dv">440</span>)<span class="op">,</span> <span class="fu">osc_b</span>(<span class="dv">880</span>))<span class="op">;</span></span>
-<span id="cb18-26"><a href="" aria-label="26"></a></span>
-<span id="cb18-27"><a href="" aria-label="27"></a><span class="co">// If we unroll the calls, we get this:</span></span>
-<span id="cb18-28"><a href="" aria-label="28"></a><span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
-<span id="cb18-29"><a href="" aria-label="29"></a><span class="fu">osc_b</span>(<span class="dv">880</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">880</span>)<span class="op">;</span></span>
-<span id="cb18-30"><a href="" aria-label="30"></a><span class="fu">add</span>(<span class="fu">osc_a</span>(<span class="dv">440</span>)<span class="op">,</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)) <span class="op">=</span> <span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">+</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)<span class="op">;</span></span>
-<span id="cb18-31"><a href="" aria-label="31"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" data-filename="faust/examples/functions/f5.dsp"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb18-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// And... other functions!</span></span>
+<span id="cb18-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="co">// Here we declare the function 'osc_a', </span></span>
+<span id="cb18-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// that takes on argument called 'freq',</span></span>
+<span id="cb18-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// which we are going to pass through to the os.osci function.</span></span>
+<span id="cb18-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// And yes 'os.osci' is also a function, which takes one argument (frequency) </span></span>
+<span id="cb18-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// and produces a sinewave at that frequency. </span></span>
+<span id="cb18-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="fu">osc_a</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
+<span id="cb18-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb18-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// Same here with a sawtooth, the name 'freq' doesn't conflict with the one </span></span>
+<span id="cb18-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// from osc_a because they're only valid within their own scope:</span></span>
+<span id="cb18-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="fu">osc_b</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
+<span id="cb18-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb18-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// We can call them like this:</span></span>
+<span id="cb18-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">+</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)<span class="op">;</span></span>
+<span id="cb18-15" class="hljs-ln-code"><a href="" aria-label="15"></a></span>
+<span id="cb18-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="co">// And what happens under the hood, if we unroll the function calls, will be this:</span></span>
+<span id="cb18-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb18-18" class="hljs-ln-code"><a href="" aria-label="18"></a><span class="fu">osc_b</span>(<span class="dv">880</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">880</span>)<span class="op">;</span></span>
+<span id="cb18-19" class="hljs-ln-code"><a href="" aria-label="19"></a></span>
+<span id="cb18-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="co">// We can also do the same thing in function calls:</span></span>
+<span id="cb18-21" class="hljs-ln-code"><a href="" aria-label="21"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb18-22" class="hljs-ln-code"><a href="" aria-label="22"></a><span class="fu">osc_a</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
+<span id="cb18-23" class="hljs-ln-code"><a href="" aria-label="23"></a><span class="fu">osc_b</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
+<span id="cb18-24" class="hljs-ln-code"><a href="" aria-label="24"></a></span>
+<span id="cb18-25" class="hljs-ln-code"><a href="" aria-label="25"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">add</span>(<span class="fu">osc_a</span>(<span class="dv">440</span>)<span class="op">,</span> <span class="fu">osc_b</span>(<span class="dv">880</span>))<span class="op">;</span></span>
+<span id="cb18-26" class="hljs-ln-code"><a href="" aria-label="26"></a></span>
+<span id="cb18-27" class="hljs-ln-code"><a href="" aria-label="27"></a><span class="co">// If we unroll the calls, we get this:</span></span>
+<span id="cb18-28" class="hljs-ln-code"><a href="" aria-label="28"></a><span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb18-29" class="hljs-ln-code"><a href="" aria-label="29"></a><span class="fu">osc_b</span>(<span class="dv">880</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">880</span>)<span class="op">;</span></span>
+<span id="cb18-30" class="hljs-ln-code"><a href="" aria-label="30"></a><span class="fu">add</span>(<span class="fu">osc_a</span>(<span class="dv">440</span>)<span class="op">,</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)) <span class="op">=</span> <span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">+</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)<span class="op">;</span></span>
+<span id="cb18-31" class="hljs-ln-code"><a href="" aria-label="31"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="faust-example">
@@ -1546,44 +1568,44 @@ add(osc_a(440), osc_b(880)) = osc_a(440) + osc_b(880);
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-functions-2-4" class="slide level2 scrollable">
-<h2>Faust Functions (2)</h2>
+<section id="faust-functions-2-4" class="slide level2 scrollable" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Functions (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/functions/f5.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" data-filename="faust/examples/functions/f5.dsp" data-code-line-numbers="1-7|9-11|1-14|7,11,16-18|20-25|27-30|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb19-1"><a href="" aria-label="1"></a><span class="co">// And... other functions!</span></span>
-<span id="cb19-2"><a href="" aria-label="2"></a><span class="co">// Here we declare the function 'osc_a', </span></span>
-<span id="cb19-3"><a href="" aria-label="3"></a><span class="co">// that takes on argument called 'freq',</span></span>
-<span id="cb19-4"><a href="" aria-label="4"></a><span class="co">// which we are going to pass through to the os.osci function.</span></span>
-<span id="cb19-5"><a href="" aria-label="5"></a><span class="co">// And yes 'os.osci' is also a function, which takes one argument (frequency) </span></span>
-<span id="cb19-6"><a href="" aria-label="6"></a><span class="co">// and produces a sinewave at that frequency. </span></span>
-<span id="cb19-7"><a href="" aria-label="7"></a><span class="fu">osc_a</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
-<span id="cb19-8"><a href="" aria-label="8"></a></span>
-<span id="cb19-9"><a href="" aria-label="9"></a><span class="co">// Same here with a sawtooth, the name 'freq' doesn't conflict with the one </span></span>
-<span id="cb19-10"><a href="" aria-label="10"></a><span class="co">// from osc_a because they're only valid within their own scope:</span></span>
-<span id="cb19-11"><a href="" aria-label="11"></a><span class="fu">osc_b</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
-<span id="cb19-12"><a href="" aria-label="12"></a></span>
-<span id="cb19-13"><a href="" aria-label="13"></a><span class="co">// We can call them like this:</span></span>
-<span id="cb19-14"><a href="" aria-label="14"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">+</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)<span class="op">;</span></span>
-<span id="cb19-15"><a href="" aria-label="15"></a></span>
-<span id="cb19-16"><a href="" aria-label="16"></a><span class="co">// And what happens under the hood, if we unroll the function calls, will be this:</span></span>
-<span id="cb19-17"><a href="" aria-label="17"></a><span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
-<span id="cb19-18"><a href="" aria-label="18"></a><span class="fu">osc_b</span>(<span class="dv">880</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">880</span>)<span class="op">;</span></span>
-<span id="cb19-19"><a href="" aria-label="19"></a></span>
-<span id="cb19-20"><a href="" aria-label="20"></a><span class="co">// We can also do the same thing in function calls:</span></span>
-<span id="cb19-21"><a href="" aria-label="21"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb19-22"><a href="" aria-label="22"></a><span class="fu">osc_a</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
-<span id="cb19-23"><a href="" aria-label="23"></a><span class="fu">osc_b</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
-<span id="cb19-24"><a href="" aria-label="24"></a></span>
-<span id="cb19-25"><a href="" aria-label="25"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">add</span>(<span class="fu">osc_a</span>(<span class="dv">440</span>)<span class="op">,</span> <span class="fu">osc_b</span>(<span class="dv">880</span>))<span class="op">;</span></span>
-<span id="cb19-26"><a href="" aria-label="26"></a></span>
-<span id="cb19-27"><a href="" aria-label="27"></a><span class="co">// If we unroll the calls, we get this:</span></span>
-<span id="cb19-28"><a href="" aria-label="28"></a><span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
-<span id="cb19-29"><a href="" aria-label="29"></a><span class="fu">osc_b</span>(<span class="dv">880</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">880</span>)<span class="op">;</span></span>
-<span id="cb19-30"><a href="" aria-label="30"></a><span class="fu">add</span>(<span class="fu">osc_a</span>(<span class="dv">440</span>)<span class="op">,</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)) <span class="op">=</span> <span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">+</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)<span class="op">;</span></span>
-<span id="cb19-31"><a href="" aria-label="31"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" data-filename="faust/examples/functions/f5.dsp" data-code-line-numbers="1-7|9-11|1-14|7,11,16-18|20-25|27-30|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb19-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// And... other functions!</span></span>
+<span id="cb19-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="co">// Here we declare the function 'osc_a', </span></span>
+<span id="cb19-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// that takes on argument called 'freq',</span></span>
+<span id="cb19-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// which we are going to pass through to the os.osci function.</span></span>
+<span id="cb19-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// And yes 'os.osci' is also a function, which takes one argument (frequency) </span></span>
+<span id="cb19-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// and produces a sinewave at that frequency. </span></span>
+<span id="cb19-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="fu">osc_a</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
+<span id="cb19-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb19-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// Same here with a sawtooth, the name 'freq' doesn't conflict with the one </span></span>
+<span id="cb19-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// from osc_a because they're only valid within their own scope:</span></span>
+<span id="cb19-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="fu">osc_b</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
+<span id="cb19-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb19-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// We can call them like this:</span></span>
+<span id="cb19-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">+</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)<span class="op">;</span></span>
+<span id="cb19-15" class="hljs-ln-code"><a href="" aria-label="15"></a></span>
+<span id="cb19-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="co">// And what happens under the hood, if we unroll the function calls, will be this:</span></span>
+<span id="cb19-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb19-18" class="hljs-ln-code"><a href="" aria-label="18"></a><span class="fu">osc_b</span>(<span class="dv">880</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">880</span>)<span class="op">;</span></span>
+<span id="cb19-19" class="hljs-ln-code"><a href="" aria-label="19"></a></span>
+<span id="cb19-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="co">// We can also do the same thing in function calls:</span></span>
+<span id="cb19-21" class="hljs-ln-code"><a href="" aria-label="21"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb19-22" class="hljs-ln-code"><a href="" aria-label="22"></a><span class="fu">osc_a</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
+<span id="cb19-23" class="hljs-ln-code"><a href="" aria-label="23"></a><span class="fu">osc_b</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
+<span id="cb19-24" class="hljs-ln-code"><a href="" aria-label="24"></a></span>
+<span id="cb19-25" class="hljs-ln-code"><a href="" aria-label="25"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">add</span>(<span class="fu">osc_a</span>(<span class="dv">440</span>)<span class="op">,</span> <span class="fu">osc_b</span>(<span class="dv">880</span>))<span class="op">;</span></span>
+<span id="cb19-26" class="hljs-ln-code"><a href="" aria-label="26"></a></span>
+<span id="cb19-27" class="hljs-ln-code"><a href="" aria-label="27"></a><span class="co">// If we unroll the calls, we get this:</span></span>
+<span id="cb19-28" class="hljs-ln-code"><a href="" aria-label="28"></a><span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb19-29" class="hljs-ln-code"><a href="" aria-label="29"></a><span class="fu">osc_b</span>(<span class="dv">880</span>) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">880</span>)<span class="op">;</span></span>
+<span id="cb19-30" class="hljs-ln-code"><a href="" aria-label="30"></a><span class="fu">add</span>(<span class="fu">osc_a</span>(<span class="dv">440</span>)<span class="op">,</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)) <span class="op">=</span> <span class="fu">osc_a</span>(<span class="dv">440</span>) <span class="op">+</span> <span class="fu">osc_b</span>(<span class="dv">880</span>)<span class="op">;</span></span>
+<span id="cb19-31" class="hljs-ln-code"><a href="" aria-label="31"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -1624,6 +1646,434 @@ process = add(osc_a(440), osc_b(880));
 osc_a(440) = os.osci(440);
 osc_b(880) = os.sawtooth(880);
 add(osc_a(440), osc_b(880)) = osc_a(440) + osc_b(880);
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</section></section>
+<section>
+<section id="faust-synthesis" class="title-slide slide level1 center">
+<h1>Faust: Synthesis</h1>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-synthesis-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Synthesis</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li>Faust has a in its libraries a good collection of ‘<em>basic</em>’ <strong>oscillators</strong>, with different <strong><em>waveforms</em></strong>: <em>sine</em>, <em>triangle</em>, <em>sawtooth</em>, <em>square</em>, <em>etc.</em></li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/oscillators.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20" data-filename="faust/examples/synthesis/oscillators.dsp" data-code-line-numbers="3|4|5|6|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb20-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb20-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb20-3" class="hljs-ln-code"><a href="" aria-label="3"></a>sine <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>) <span class="op">*</span> <span class="fl">0.25</span><span class="op">;</span></span>
+<span id="cb20-4" class="hljs-ln-code"><a href="" aria-label="4"></a>triangle <span class="op">=</span> os<span class="op">.</span><span class="fu">triangle</span>(<span class="dv">440</span>) <span class="op">*</span> <span class="fl">0.25</span><span class="op">;</span></span>
+<span id="cb20-5" class="hljs-ln-code"><a href="" aria-label="5"></a>sawtooth <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">440</span>) <span class="op">*</span> <span class="fl">0.25</span><span class="op">;</span></span>
+<span id="cb20-6" class="hljs-ln-code"><a href="" aria-label="6"></a>square <span class="op">=</span> os<span class="op">.</span><span class="fu">square</span>(<span class="dv">440</span>) <span class="op">*</span> <span class="fl">0.25</span><span class="op">;</span></span>
+<span id="cb20-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb20-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="bu">process</span> <span class="op">=</span>  sine<span class="op">;</span></span>
+<span id="cb20-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// process = triangle;</span></span>
+<span id="cb20-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// process = sawtooth;</span></span>
+<span id="cb20-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="co">// process = square;</span></span>
+<span id="cb20-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+sine = os.osci(440) * 0.25;
+triangle = os.triangle(440) * 0.25;
+sawtooth = os.sawtooth(440) * 0.25;
+square = os.square(440) * 0.25;
+
+process =  sine;
+// process = triangle;
+// process = sawtooth;
+// process = square;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-synthesis-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Synthesis</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust has a in its libraries a good collection of ‘<em>basic</em>’ <strong>oscillators</strong>, with different <strong><em>waveforms</em></strong>: <em>sine</em>, <em>triangle</em>, <em>sawtooth</em>, <em>square</em>, <em>etc.</em></li>
+</ul>
+</div>
+<ul>
+<li>When a Faust program starts to be a little more complex, its always good practice to <strong><em>refactor code</em></strong> by using <strong><em>custom functions</em></strong> with variable <strong>parameters</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/functions.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" data-filename="faust/examples/synthesis/functions.dsp" data-code-line-numbers="3-7|9-10|9-13|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb21-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb21-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb21-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Declaring functions, with variable parameters:</span></span>
+<span id="cb21-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">sine</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
+<span id="cb21-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="fu">triangle</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">triangle</span>(freq)<span class="op">;</span></span>
+<span id="cb21-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="fu">sawtooth</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
+<span id="cb21-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="fu">square</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">square</span>(freq)<span class="op">;</span></span>
+<span id="cb21-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb21-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// Passing arguments from function to function:</span></span>
+<span id="cb21-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="fu">synth</span>(osc<span class="op">,</span> freq<span class="op">,</span> gain) <span class="op">=</span> <span class="fu">osc</span>(freq) <span class="op">*</span> gain<span class="op">;</span></span>
+<span id="cb21-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb21-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// This way, we can modify everything here:</span></span>
+<span id="cb21-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span>  <span class="fu">synth</span>(sine<span class="op">,</span> <span class="dv">440</span><span class="op">,</span> ba<span class="op">.</span><span class="fu">db2linear</span>(<span class="op">-</span><span class="dv">16</span>))<span class="op">;</span></span>
+<span id="cb21-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// Declaring functions, with variable parameters:
+sine(freq) = os.osci(freq);
+triangle(freq) = os.triangle(freq);
+sawtooth(freq) = os.sawtooth(freq);
+square(freq) = os.square(freq);
+
+// Passing arguments from function to function:
+synth(osc, freq, gain) = osc(freq) * gain;
+
+// This way, we can modify everything here:
+process =  synth(sine, 440, ba.db2linear(-16));
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-synthesis-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Synthesis</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust has a in its libraries a good collection of ‘<em>basic</em>’ <strong>oscillators</strong>, with different <strong><em>waveforms</em></strong>: <em>sine</em>, <em>triangle</em>, <em>sawtooth</em>, <em>square</em>, <em>etc.</em></li>
+<li>When a Faust program starts to be a little more complex, its always good practice to <strong><em>refactor code</em></strong> by using <strong><em>custom functions</em></strong> with variable <strong>parameters</strong>.</li>
+</ul>
+</div>
+<ul>
+<li>In Faust, <strong>functions</strong> can take <strong><em>any element of the language as parameters</em></strong>, including <strong>GUI elements</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/functions-gui.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22" data-filename="faust/examples/synthesis/functions-gui.dsp" data-code-line-numbers="3-7|9-10|9-13|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb22-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb22-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb22-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">sine</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
+<span id="cb22-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">triangle</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">triangle</span>(freq)<span class="op">;</span></span>
+<span id="cb22-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="fu">sawtooth</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
+<span id="cb22-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="fu">square</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">square</span>(freq)<span class="op">;</span></span>
+<span id="cb22-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb22-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="fu">synth</span>(osc<span class="op">,</span> freq<span class="op">,</span> gain) <span class="op">=</span> <span class="fu">osc</span>(freq) <span class="op">*</span> gain <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> freq)<span class="op">;</span></span>
+<span id="cb22-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
+<span id="cb22-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// Declare some controls:</span></span>
+<span id="cb22-11" class="hljs-ln-code"><a href="" aria-label="11"></a>freq_gui <span class="op">=</span> <span class="fu">nentry</span>(<span class="st">"frequency[unit:Hz]"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">1000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb22-12" class="hljs-ln-code"><a href="" aria-label="12"></a>gain_gui <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"gain[style:knob][unit:dB]"</span><span class="op">,</span> <span class="op">-</span><span class="dv">16</span><span class="op">,</span> <span class="op">-</span><span class="dv">32</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">db2linear</span><span class="op">;</span></span>
+<span id="cb22-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span>
+<span id="cb22-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="co">// We can pass GUI elements to a function:</span></span>
+<span id="cb22-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="bu">process</span> <span class="op">=</span>  <span class="fu">synth</span>(square<span class="op">,</span> freq_gui<span class="op">,</span> gain_gui)<span class="op">;</span></span>
+<span id="cb22-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+sine(freq) = os.osci(freq);
+triangle(freq) = os.triangle(freq);
+sawtooth(freq) = os.sawtooth(freq);
+square(freq) = os.square(freq);
+
+synth(osc, freq, gain) = osc(freq) * gain : fi.lowpass(1, freq);
+
+// Declare some controls:
+freq_gui = nentry("frequency[unit:Hz]", 440, 20, 1000, 1);
+gain_gui = hslider("gain[style:knob][unit:dB]", -16, -32, 0, 1) : ba.db2linear;
+
+// We can pass GUI elements to a function:
+process =  synth(square, freq_gui, gain_gui);
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-synthesis-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Synthesis</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust has a in its libraries a good collection of ‘<em>basic</em>’ <strong>oscillators</strong>, with different <strong><em>waveforms</em></strong>: <em>sine</em>, <em>triangle</em>, <em>sawtooth</em>, <em>square</em>, <em>etc.</em></li>
+<li>When a Faust program starts to be a little more complex, its always good practice to <strong><em>refactor code</em></strong> by using <strong><em>custom functions</em></strong> with variable <strong>parameters</strong>.</li>
+<li>In Faust, <strong>functions</strong> can take <strong><em>any element of the language as parameters</em></strong>, including <strong>GUI elements</strong>.</li>
+</ul>
+</div>
+<ul>
+<li>Finally, the <strong><em>select</em></strong> primitive (an equivalent to <strong><em>switch</em></strong> in Max), allow to select an input from a list. It can be used in this case to <em>switch between <strong>waveforms</strong></em></li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/select.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23" data-filename="faust/examples/synthesis/select.dsp" data-code-line-numbers="3-4|3-6|3-8|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb23-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb23-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb23-3" class="hljs-ln-code"><a href="" aria-label="3"></a>wave1 <span class="op">=</span> os<span class="op">.</span><span class="fu">triangle</span>(<span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb23-4" class="hljs-ln-code"><a href="" aria-label="4"></a>wave2 <span class="op">=</span> os<span class="op">.</span><span class="fu">square</span>(<span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb23-5" class="hljs-ln-code"><a href="" aria-label="5"></a></span>
+<span id="cb23-6" class="hljs-ln-code"><a href="" aria-label="6"></a>switch_gui <span class="op">=</span> <span class="fu">nentry</span>(<span class="st">"waveform"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb23-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb23-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="bu">process</span> <span class="op">=</span> wave1<span class="op">,</span> wave2 <span class="op">:</span> <span class="fu">select2</span>(switch_gui) <span class="op">*</span> <span class="fl">0.25</span><span class="op">;</span></span>
+<span id="cb23-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+wave1 = os.triangle(440);
+wave2 = os.square(440);
+
+switch_gui = nentry("waveform", 0, 0, 1, 1);
+
+process = wave1, wave2 : select2(switch_gui) * 0.25;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-synthesis-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Synthesis</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust has a in its libraries a good collection of ‘<em>basic</em>’ <strong>oscillators</strong>, with different <strong><em>waveforms</em></strong>: <em>sine</em>, <em>triangle</em>, <em>sawtooth</em>, <em>square</em>, <em>etc.</em></li>
+<li>When a Faust program starts to be a little more complex, its always good practice to <strong><em>refactor code</em></strong> by using <strong><em>custom functions</em></strong> with variable <strong>parameters</strong>.</li>
+<li>In Faust, <strong>functions</strong> can take <strong><em>any element of the language as parameters</em></strong>, including <strong>GUI elements</strong>.</li>
+<li>Finally, the <strong><em>select</em></strong> primitive (an equivalent to <strong><em>switch</em></strong> in Max), allow to select an input from a list. It can be used in this case to <em>switch between <strong>waveforms</strong></em></li>
+</ul>
+</div>
+<ul>
+<li>Our goal now will be to <strong><em>apply this to our previous synthesizer.</em></strong></li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/switch-waveform.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" data-filename="faust/examples/synthesis/switch-waveform.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb24-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb24-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb24-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">sine</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
+<span id="cb24-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">triangle</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">triangle</span>(freq)<span class="op">;</span></span>
+<span id="cb24-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="fu">sawtooth</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
+<span id="cb24-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="fu">square</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">square</span>(freq)<span class="op">;</span></span>
+<span id="cb24-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb24-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="fu">oscillator</span>(freq) <span class="op">=</span> <span class="fu">sine</span>(freq)<span class="op">,</span> <span class="fu">triangle</span>(freq)<span class="op">,</span> <span class="fu">sawtooth</span>(freq)<span class="op">,</span> <span class="fu">square</span>(freq)<span class="op">;</span></span>
+<span id="cb24-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
+<span id="cb24-10" class="hljs-ln-code"><a href="" aria-label="10"></a>switch_gui  <span class="op">=</span> <span class="fu">nentry</span>(</span>
+<span id="cb24-11" class="hljs-ln-code"><a href="" aria-label="11"></a>    <span class="st">"waveform[style:menu{'Sine':0; 'Triangle':1; 'Sawtooth':2; 'Square':3}]"</span><span class="op">,</span></span>
+<span id="cb24-12" class="hljs-ln-code"><a href="" aria-label="12"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">1</span></span>
+<span id="cb24-13" class="hljs-ln-code"><a href="" aria-label="13"></a>)<span class="op">;</span></span>
+<span id="cb24-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span>
+<span id="cb24-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="cf">switch</span>(freq) <span class="op">=</span> <span class="fu">oscillator</span>(freq) <span class="op">:</span> ba<span class="op">.</span><span class="fu">selectn</span>(<span class="dv">4</span><span class="op">,</span> switch_gui)<span class="op">;</span></span>
+<span id="cb24-16" class="hljs-ln-code"><a href="" aria-label="16"></a> </span>
+<span id="cb24-17" class="hljs-ln-code"><a href="" aria-label="17"></a>freq_gui <span class="op">=</span> <span class="fu">nentry</span>(<span class="st">"frequency[unit:Hz]"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">1000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb24-18" class="hljs-ln-code"><a href="" aria-label="18"></a>gain_gui <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"gain[style:knob][unit:dB]"</span><span class="op">,</span> <span class="op">-</span><span class="dv">16</span><span class="op">,</span> <span class="op">-</span><span class="dv">32</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">db2linear</span><span class="op">;</span></span>
+<span id="cb24-19" class="hljs-ln-code"><a href="" aria-label="19"></a></span>
+<span id="cb24-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="fu">synth</span>(freq<span class="op">,</span> gain) <span class="op">=</span> <span class="cf">switch</span>(freq) <span class="op">*</span> gain <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> freq)<span class="op">;</span></span>
+<span id="cb24-21" class="hljs-ln-code"><a href="" aria-label="21"></a></span>
+<span id="cb24-22" class="hljs-ln-code"><a href="" aria-label="22"></a><span class="bu">process</span> <span class="op">=</span>  <span class="fu">synth</span>(freq_gui<span class="op">,</span> gain_gui)<span class="op">;</span></span>
+<span id="cb24-23" class="hljs-ln-code"><a href="" aria-label="23"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+sine(freq) = os.osci(freq);
+triangle(freq) = os.triangle(freq);
+sawtooth(freq) = os.sawtooth(freq);
+square(freq) = os.square(freq);
+
+oscillator(freq) = sine(freq), triangle(freq), sawtooth(freq), square(freq);
+
+switch_gui  = nentry(
+    "waveform[style:menu{'Sine':0; 'Triangle':1; 'Sawtooth':2; 'Square':3}]",
+    0, 0, 3, 1
+);
+
+switch(freq) = oscillator(freq) : ba.selectn(4, switch_gui);
+ 
+freq_gui = nentry("frequency[unit:Hz]", 440, 20, 1000, 1);
+gain_gui = hslider("gain[style:knob][unit:dB]", -16, -32, 0, 1) : ba.db2linear;
+
+synth(freq, gain) = switch(freq) * gain : fi.lowpass(1, freq);
+
+process =  synth(freq_gui, gain_gui);
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-synthesis-6" class="slide level2 scrollable" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Synthesis</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/switch-waveform.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" data-filename="faust/examples/synthesis/switch-waveform.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb25-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb25-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb25-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">sine</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(freq)<span class="op">;</span></span>
+<span id="cb25-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">triangle</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">triangle</span>(freq)<span class="op">;</span></span>
+<span id="cb25-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="fu">sawtooth</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(freq)<span class="op">;</span></span>
+<span id="cb25-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="fu">square</span>(freq) <span class="op">=</span> os<span class="op">.</span><span class="fu">square</span>(freq)<span class="op">;</span></span>
+<span id="cb25-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb25-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="fu">oscillator</span>(freq) <span class="op">=</span> <span class="fu">sine</span>(freq)<span class="op">,</span> <span class="fu">triangle</span>(freq)<span class="op">,</span> <span class="fu">sawtooth</span>(freq)<span class="op">,</span> <span class="fu">square</span>(freq)<span class="op">;</span></span>
+<span id="cb25-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
+<span id="cb25-10" class="hljs-ln-code"><a href="" aria-label="10"></a>switch_gui  <span class="op">=</span> <span class="fu">nentry</span>(</span>
+<span id="cb25-11" class="hljs-ln-code"><a href="" aria-label="11"></a>    <span class="st">"waveform[style:menu{'Sine':0; 'Triangle':1; 'Sawtooth':2; 'Square':3}]"</span><span class="op">,</span></span>
+<span id="cb25-12" class="hljs-ln-code"><a href="" aria-label="12"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">1</span></span>
+<span id="cb25-13" class="hljs-ln-code"><a href="" aria-label="13"></a>)<span class="op">;</span></span>
+<span id="cb25-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span>
+<span id="cb25-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="cf">switch</span>(freq) <span class="op">=</span> <span class="fu">oscillator</span>(freq) <span class="op">:</span> ba<span class="op">.</span><span class="fu">selectn</span>(<span class="dv">4</span><span class="op">,</span> switch_gui)<span class="op">;</span></span>
+<span id="cb25-16" class="hljs-ln-code"><a href="" aria-label="16"></a> </span>
+<span id="cb25-17" class="hljs-ln-code"><a href="" aria-label="17"></a>freq_gui <span class="op">=</span> <span class="fu">nentry</span>(<span class="st">"frequency[unit:Hz]"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">1000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb25-18" class="hljs-ln-code"><a href="" aria-label="18"></a>gain_gui <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"gain[style:knob][unit:dB]"</span><span class="op">,</span> <span class="op">-</span><span class="dv">16</span><span class="op">,</span> <span class="op">-</span><span class="dv">32</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">db2linear</span><span class="op">;</span></span>
+<span id="cb25-19" class="hljs-ln-code"><a href="" aria-label="19"></a></span>
+<span id="cb25-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="fu">synth</span>(freq<span class="op">,</span> gain) <span class="op">=</span> <span class="cf">switch</span>(freq) <span class="op">*</span> gain <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> freq)<span class="op">;</span></span>
+<span id="cb25-21" class="hljs-ln-code"><a href="" aria-label="21"></a></span>
+<span id="cb25-22" class="hljs-ln-code"><a href="" aria-label="22"></a><span class="bu">process</span> <span class="op">=</span>  <span class="fu">synth</span>(freq_gui<span class="op">,</span> gain_gui)<span class="op">;</span></span>
+<span id="cb25-23" class="hljs-ln-code"><a href="" aria-label="23"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+sine(freq) = os.osci(freq);
+triangle(freq) = os.triangle(freq);
+sawtooth(freq) = os.sawtooth(freq);
+square(freq) = os.square(freq);
+
+oscillator(freq) = sine(freq), triangle(freq), sawtooth(freq), square(freq);
+
+switch_gui  = nentry(
+    "waveform[style:menu{'Sine':0; 'Triangle':1; 'Sawtooth':2; 'Square':3}]",
+    0, 0, 3, 1
+);
+
+switch(freq) = oscillator(freq) : ba.selectn(4, switch_gui);
+ 
+freq_gui = nentry("frequency[unit:Hz]", 440, 20, 1000, 1);
+gain_gui = hslider("gain[style:knob][unit:dB]", -16, -32, 0, 1) : ba.db2linear;
+
+synth(freq, gain) = switch(freq) * gain : fi.lowpass(1, freq);
+
+process =  synth(freq_gui, gain_gui);
 -->
 </faust-editor>
 

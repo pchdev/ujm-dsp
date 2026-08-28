@@ -101,7 +101,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-e5ecaffcb97cdce5b844e402340cca30.css">
+  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-ce58913f3ff54aa3c2a7adab251cf640.css">
   <link href="slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -370,22 +370,24 @@ Pierre Cochard
 <li>Dedicated online IDE: https:://faustide.grame.fr</li>
 </ul>
 </div>
-</section>
-<section id="test" class="slide level2">
-<h2>Test</h2>
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics" class="slide level2">
 <h2>Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
-<div class="columns">
-<div class="column" style="width:50%;">
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 80%;">
 <ul>
 <li>Basic program: <code>import</code> and <code>process</code> statements.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>comments.dsp</strong></pre>
@@ -438,7 +440,7 @@ process = 0;
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 85%;">
 <div style="opacity: 0.5">
 <ul>
@@ -449,12 +451,12 @@ process = 0;
 <li>Use a <strong>Sinewave Oscillator</strong> from the library.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>libraries.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="libraries.dsp" data-code-line-numbers="1-4|5-8|9-11|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb2-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// Import statement: </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="libraries.dsp" data-code-line-numbers="1-3|5-7|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb2-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// Import statement: </span></span>
 <span id="cb2-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="co">// we import all of the faust libraries.</span></span>
 <span id="cb2-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb2-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
@@ -494,7 +496,7 @@ process = os.oscrc(440) * 0.25;
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 85%;">
 <div style="opacity: 0.5">
 <ul>
@@ -506,12 +508,12 @@ process = os.oscrc(440) * 0.25;
 <li>In <strong>DSP</strong>, we represent an <em>audio signal</em> with <strong><em>floating-point</em></strong> (decimal) numbers, and scale its values <strong>between -1.0 and +1.0</strong>.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>amplitude.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="amplitude.dsp" data-code-line-numbers="1-4|5-8|9-11|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb3-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="amplitude.dsp" data-code-line-numbers="3-6|8-9|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb3-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb3-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb3-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We run the oscillators at 440Hz (A440),</span></span>
 <span id="cb3-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// we multiply its amplitude by 0.25,</span></span>
@@ -555,7 +557,7 @@ process = os.oscrc(440) / 4;
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 85%;">
 <div style="opacity: 0.5">
 <ul>
@@ -568,12 +570,12 @@ process = os.oscrc(440) / 4;
 <li><strong>Mixing two signals</strong> can be done using the <strong>‘<code>+</code>’</strong> operator.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:45%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>mixing.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="mixing.dsp" data-code-line-numbers="1-4|5-8|9-11|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb4-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="mixing.dsp" data-code-line-numbers="3-5|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb4-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb4-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb4-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Mixing two signals means adding them together,</span></span>
 <span id="cb4-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// which can be done by using the '+' operator</span></span>
@@ -619,7 +621,7 @@ process = (os.oscrc(440) + os.oscrc(880)) * 0.25;
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 85%;">
 <div style="opacity: 0.5">
 <ul>
@@ -633,12 +635,12 @@ process = (os.oscrc(440) + os.oscrc(880)) * 0.25;
 <li>When <strong>multiplying two signals</strong> together, we can already make a really <strong>simple DSP effect</strong>: <strong>Amplitude Modulation</strong> (or <strong>Ring Modulation</strong>)</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>ampmod.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="ampmod.dsp" data-code-line-numbers="1-4|5-8|9-11|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb5-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-filename="ampmod.dsp"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb5-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb5-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb5-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Basic amplitude modulation.</span></span>
 <span id="cb5-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// no need for parentheses here, since we only</span></span>
@@ -676,7 +678,7 @@ process = os.oscrc(440) * os.oscrc(10) * 0.25;
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 85%;">
 <div style="opacity: 0.5">
 <ul>
@@ -691,12 +693,12 @@ process = os.oscrc(440) * os.oscrc(10) * 0.25;
 <li>Faust can process <strong>multiple channels</strong>, by using the <strong>‘<code>,</code>’</strong> symbol (<strong>Parallel Operator</strong>) to put signals <strong>in parallel</strong>.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>parallel.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="parallel.dsp" data-code-line-numbers="1-4|5-8|9-11|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb6-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="parallel.dsp"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb6-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb6-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb6-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Here, we use the Parallel Operator ','</span></span>
 <span id="cb6-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// to put two signals in parallel:</span></span>
@@ -732,7 +734,7 @@ process = (os.oscrc(440) * 0.25), (os.oscrc(880) * 0.25);
 <h2 data-id="quarto-animate-title">Faust Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 85%;">
 <div style="opacity: 0.5">
 <ul>
@@ -748,7 +750,7 @@ process = (os.oscrc(440) * 0.25), (os.oscrc(880) * 0.25);
 <li>We can declare <strong>custom variables</strong>, and <strong>functions</strong>.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>custom-functions.dsp</strong></pre>
@@ -780,6 +782,518 @@ osc880 = os.oscrc(880) * 0.25;
 
 // And call them from anywhere:
 process = osc440, osc880;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-basics-2-1" class="slide level2">
+<h2>Faust Basics (2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 80%;">
+<ul>
+<li>In Faust, <strong>connecting DSP functions</strong> can be done using the <strong><em>sequential operator</em></strong> ‘<strong><code>:</code></strong>’.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>sequential.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-filename="sequential.dsp"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb8-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb8-2"><a href="" aria-label="2"></a></span>
+<span id="cb8-3"><a href="" aria-label="3"></a><span class="co">// Connect A : B</span></span>
+<span id="cb8-4"><a href="" aria-label="4"></a><span class="co">// A must have the same number of outputs as </span></span>
+<span id="cb8-5"><a href="" aria-label="5"></a><span class="co">// the number of inputs of B.</span></span>
+<span id="cb8-6"><a href="" aria-label="6"></a><span class="bu">process</span> <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">440</span>) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb8-7"><a href="" aria-label="7"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// Connect A : B
+// A must have the same number of outputs as 
+// the number of inputs of B.
+process = os.sawtooth(440) : fi.lowpass(1, 440);
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-basics-2-2" class="slide level2">
+<h2>Faust Basics (2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>In Faust, <strong>connecting DSP functions</strong> can be done using the <strong><em>sequential operator</em></strong> ‘<strong><code>:</code></strong>’.</li>
+</ul>
+</div>
+<ul>
+<li>The <strong><em>split operator</em></strong> ‘<strong><code>&lt;:</code></strong>’ and <strong><em>cable operator</em></strong> can also be used to connect a signal to <strong>multiple targets</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>split-cable.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-filename="split-cable.dsp" data-code-line-numbers="3-6|8-11|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb9-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb9-2"><a href="" aria-label="2"></a></span>
+<span id="cb9-3"><a href="" aria-label="3"></a><span class="co">// Connect A : B</span></span>
+<span id="cb9-4"><a href="" aria-label="4"></a><span class="co">// A must have the same number of outputs as </span></span>
+<span id="cb9-5"><a href="" aria-label="5"></a><span class="co">// the number of inputs of B</span></span>
+<span id="cb9-6"><a href="" aria-label="6"></a>saw_filter <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(<span class="dv">440</span>) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb9-7"><a href="" aria-label="7"></a></span>
+<span id="cb9-8"><a href="" aria-label="8"></a><span class="co">// Connect A &lt;: B</span></span>
+<span id="cb9-9"><a href="" aria-label="9"></a><span class="co">// The number of inputs of B must be a multiple </span></span>
+<span id="cb9-10"><a href="" aria-label="10"></a><span class="co">// of the number of outputs of A.</span></span>
+<span id="cb9-11"><a href="" aria-label="11"></a><span class="bu">process</span> <span class="op">=</span>  saw_filter <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb9-12"><a href="" aria-label="12"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// Connect A : B
+// A must have the same number of outputs as 
+// the number of inputs of B
+saw_filter = os.sawtooth(440) : fi.lowpass(1, 440);
+
+// Connect A &lt;: B
+// The number of inputs of B must be a multiple 
+// of the number of outputs of A.
+process =  saw_filter &lt;: _,_;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-basics-2-3" class="slide level2">
+<h2>Faust Basics (2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>In Faust, <strong>connecting DSP functions</strong> can be done using the <strong><em>sequential operator</em></strong> ‘<strong><code>:</code></strong>’.</li>
+<li>The <strong><em>split operator</em></strong> ‘<strong><code>&lt;:</code></strong>’ and <strong><em>cable operator</em></strong> can also be used to connect a signal to <strong>multiple targets</strong>.</li>
+</ul>
+</div>
+<ul>
+<li>On the other hand, the <strong><em>merge operator</em></strong> ‘<strong><code>:&gt;</code></strong>’ can be used to <strong>merge</strong> (<strong>mix</strong>) <strong>signals together</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>examples/basics2/merge-cable.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-filename="examples/basics2/merge-cable.dsp" data-code-line-numbers="3-5|7|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb10-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb10-2"><a href="" aria-label="2"></a></span>
+<span id="cb10-3"><a href="" aria-label="3"></a><span class="co">// Equivalent to:</span></span>
+<span id="cb10-4"><a href="" aria-label="4"></a><span class="co">// osc = os.oscrc(440) + os.oscrc(880) </span></span>
+<span id="cb10-5"><a href="" aria-label="5"></a>osc <span class="op">=</span> (os<span class="op">.</span><span class="fu">oscrc</span>(<span class="dv">440</span>)<span class="op">,</span> os<span class="op">.</span><span class="fu">oscrc</span>(<span class="dv">880</span>)) <span class="op">:&gt;</span> _<span class="op">;</span></span>
+<span id="cb10-6"><a href="" aria-label="6"></a></span>
+<span id="cb10-7"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span>  osc <span class="op">*</span> <span class="fl">0.25</span> <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb10-8"><a href="" aria-label="8"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// Equivalent to:
+// osc = os.oscrc(440) + os.oscrc(880) 
+osc = (os.oscrc(440), os.oscrc(880)) :&gt; _;
+
+process =  osc * 0.25 &lt;: _,_;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-basics-2-4" class="slide level2">
+<h2>Faust Basics (2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>In Faust, <strong>connecting DSP functions</strong> can be done using the <strong><em>sequential operator</em></strong> ‘<strong><code>:</code></strong>’.</li>
+<li>The <strong><em>split operator</em></strong> ‘<strong><code>&lt;:</code></strong>’ and <strong><em>cable operator</em></strong> can also be used to connect a signal to <strong>multiple targets</strong>.</li>
+<li>On the other hand, the <strong><em>merge operator</em></strong> ‘<strong><code>:&gt;</code></strong>’ can be used to <strong>merge</strong> (<strong>mix</strong>) <strong>signals together</strong>.</li>
+</ul>
+</div>
+<ul>
+<li><em>Graphical User Interface</em> (<strong>GUI</strong>) elements can be added to <strong><em>control parameters</em></strong>: <em>sliders</em>, <em>buttons</em>, <em>switches</em>, <em>vu-meters</em>, etc.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>examples/basics2/sliders.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-filename="examples/basics2/sliders.dsp" data-code-line-numbers="3-5|7-8|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb11-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb11-2"><a href="" aria-label="2"></a></span>
+<span id="cb11-3"><a href="" aria-label="3"></a><span class="co">// hslider("name", default, min, max, step)</span></span>
+<span id="cb11-4"><a href="" aria-label="4"></a>saw_freq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"saw_freq"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb11-5"><a href="" aria-label="5"></a>cutoff <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"cutoff"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb11-6"><a href="" aria-label="6"></a></span>
+<span id="cb11-7"><a href="" aria-label="7"></a><span class="co">// We can directly pass the slider variable names as parameters:</span></span>
+<span id="cb11-8"><a href="" aria-label="8"></a>saw_filter <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(saw_freq) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> cutoff)<span class="op">;</span></span>
+<span id="cb11-9"><a href="" aria-label="9"></a></span>
+<span id="cb11-10"><a href="" aria-label="10"></a><span class="bu">process</span> <span class="op">=</span>  saw_filter <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb11-11"><a href="" aria-label="11"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// hslider("name", default, min, max, step)
+saw_freq = hslider("saw_freq", 440, 20, 10000, 1);
+cutoff = hslider("cutoff", 440, 20, 10000, 1);
+
+// We can directly pass the slider variable names as parameters:
+saw_filter = os.sawtooth(saw_freq) : fi.lowpass(1, cutoff);
+
+process =  saw_filter &lt;: _,_;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-basics-2-5" class="slide level2">
+<h2>Faust Basics (2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>In Faust, <strong>connecting DSP functions</strong> can be done using the <strong><em>sequential operator</em></strong> ‘<strong><code>:</code></strong>’.</li>
+<li>The <strong><em>split operator</em></strong> ‘<strong><code>&lt;:</code></strong>’ and <strong><em>cable operator</em></strong> can also be used to connect a signal to <strong>multiple targets</strong>.</li>
+<li>On the other hand, the <strong><em>merge operator</em></strong> ‘<strong><code>:&gt;</code></strong>’ can be used to <strong>merge</strong> (<strong>mix</strong>) <strong>signals together</strong>.</li>
+<li><em>Graphical User Interface</em> (<strong>GUI</strong>) elements can be added to <strong><em>control parameters</em></strong>: <em>sliders</em>, <em>buttons</em>, <em>switches</em>, <em>vu-meters</em>, etc.</li>
+</ul>
+</div>
+<ul>
+<li>They can be used to make a proper <strong>gain control</strong> in <strong>dB</strong> for example.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>examples/basics2/gain.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-filename="examples/basics2/gain.dsp" data-code-line-numbers="3-5|7-8|10|12|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb12-1"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb12-2"><a href="" aria-label="2"></a></span>
+<span id="cb12-3"><a href="" aria-label="3"></a><span class="co">// We add the '[style:knob]' metadata,</span></span>
+<span id="cb12-4"><a href="" aria-label="4"></a><span class="co">// and we also specify the unit:</span></span>
+<span id="cb12-5"><a href="" aria-label="5"></a>gain <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"gain[style:knob][unit:dB]"</span><span class="op">,</span> <span class="op">-</span><span class="dv">6</span><span class="op">,</span> <span class="op">-</span><span class="dv">96</span><span class="op">,</span> <span class="dv">6</span><span class="op">,</span> <span class="dv">1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">db2linear</span><span class="op">;</span></span>
+<span id="cb12-6"><a href="" aria-label="6"></a></span>
+<span id="cb12-7"><a href="" aria-label="7"></a>saw_freq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"saw_freq[unit:Hz]"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb12-8"><a href="" aria-label="8"></a>cutoff <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"cutoff[unit:Hz]"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">10000</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb12-9"><a href="" aria-label="9"></a></span>
+<span id="cb12-10"><a href="" aria-label="10"></a>saw_filter <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(saw_freq) <span class="op">:</span> fi<span class="op">.</span><span class="fu">lowpass</span>(<span class="dv">1</span><span class="op">,</span> cutoff)<span class="op">;</span></span>
+<span id="cb12-11"><a href="" aria-label="11"></a></span>
+<span id="cb12-12"><a href="" aria-label="12"></a><span class="bu">process</span> <span class="op">=</span>  saw_filter <span class="op">*</span> gain <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb12-13"><a href="" aria-label="13"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// We add the '[style:knob]' metadata,
+// and we also specify the unit:
+gain = hslider("gain[style:knob][unit:dB]", -6, -96, 6, 1) : ba.db2linear;
+
+saw_freq = hslider("saw_freq[unit:Hz]", 440, 20, 10000, 1);
+cutoff = hslider("cutoff[unit:Hz]", 440, 20, 10000, 1);
+
+saw_filter = os.sawtooth(saw_freq) : fi.lowpass(1, cutoff);
+
+process =  saw_filter * gain &lt;: _,_;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-functions" class="slide level2">
+<h2>Faust Functions</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<ul>
+<li><strong><em>Functions</em></strong> in programming languages usually consist in pieces of code containing a <strong><em>series of instructions to execute</em></strong>. They can be called <em>once or multiple times</em>, <em>with or without variable parameters</em>, and can <em>return values</em>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<!-- ```{.js code-line-numbers="1-4|5-8|9-11|" filename="comments.dsp"} -->
+<!-- {{< include /faust/examples/basics/comments.dsp >}} -->
+<!-- ``` -->
+<!--  -->
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-functions-1" class="slide level2">
+<h2>Faust Functions</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong><em>Functions</em></strong> in programming languages usually consist in pieces of code containing a <strong><em>series of instructions to execute</em></strong>. They can be called <em>once or multiple times</em>, <em>with or without variable parameters</em>, and can <em>return values</em>.</li>
+</ul>
+</div>
+<ul>
+<li><strong><em>Function definitions</em></strong> in Faust have the syntax <em>function(parameter1, parameter2, …) = expression;</em>”.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/functions/f1.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-filename="faust/examples/functions/f1.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb13-1"><a href="" aria-label="1"></a><span class="co">// Here, we define the function 'add', </span></span>
+<span id="cb13-2"><a href="" aria-label="2"></a><span class="co">// which takes 2 arguments (or parameters)</span></span>
+<span id="cb13-3"><a href="" aria-label="3"></a><span class="co">// that we call 'a' and 'b'.</span></span>
+<span id="cb13-4"><a href="" aria-label="4"></a><span class="co">// Note: 'a' and 'b' are arbitrary names, </span></span>
+<span id="cb13-5"><a href="" aria-label="5"></a><span class="co">// we could have used any name we wanted.</span></span>
+<span id="cb13-6"><a href="" aria-label="6"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb13-7"><a href="" aria-label="7"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+// Here, we define the function 'add', 
+// which takes 2 arguments (or parameters)
+// that we call 'a' and 'b'.
+// Note: 'a' and 'b' are arbitrary names, 
+// we could have used any name we wanted.
+add(a, b) = a + b;
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-functions-2" class="slide level2">
+<h2>Faust Functions</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong><em>Functions</em></strong> in programming languages usually consist in pieces of code containing a <strong><em>series of instructions to execute</em></strong>. They can be called <em>once or multiple times</em>, <em>with or without variable parameters</em>, and can <em>return values</em>.</li>
+<li><strong><em>Function definitions</em></strong> in Faust have the syntax <em>function(parameter1, parameter2, …) = expression;</em>”.</li>
+</ul>
+</div>
+<ul>
+<li>In order to <strong><em>call</em></strong> (<strong>execute</strong>) that function, we need to <strong><em>replace its parameters (arguments)</em></strong> with the values we want to pass as parameters.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/functions/f2.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-filename="faust/examples/functions/f2.dsp" data-code-line-numbers="1|1-7|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb14-1"><a href="" aria-label="1"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb14-2"><a href="" aria-label="2"></a></span>
+<span id="cb14-3"><a href="" aria-label="3"></a><span class="co">// If we want to call (execute) that function, </span></span>
+<span id="cb14-4"><a href="" aria-label="4"></a><span class="co">// we need to replace 'a' &amp; 'b' by the parameters</span></span>
+<span id="cb14-5"><a href="" aria-label="5"></a><span class="co">// we want to pass to the function. </span></span>
+<span id="cb14-6"><a href="" aria-label="6"></a><span class="co">// Here, we also store the result into a 'variable' called "result".</span></span>
+<span id="cb14-7"><a href="" aria-label="7"></a>result <span class="op">=</span> <span class="fu">add</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb14-8"><a href="" aria-label="8"></a></span>
+<span id="cb14-9"><a href="" aria-label="9"></a><span class="co">// Under the hood, 'a' and 'b' are replaced by '1' and '2':</span></span>
+<span id="cb14-10"><a href="" aria-label="10"></a><span class="fu">add</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>) <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb14-11"><a href="" aria-label="11"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+add(a, b) = a + b;
+
+// If we want to call (execute) that function, 
+// we need to replace 'a' &amp; 'b' by the parameters
+// we want to pass to the function. 
+// Here, we also store the result into a 'variable' called "result".
+result = add(1, 2);
+
+// Under the hood, 'a' and 'b' are replaced by '1' and '2':
+add(1, 2) = 1 + 2;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-functions-3" class="slide level2">
+<h2>Faust Functions</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong><em>Functions</em></strong> in programming languages usually consist in pieces of code containing a <strong><em>series of instructions to execute</em></strong>. They can be called <em>once or multiple times</em>, <em>with or without variable parameters</em>, and can <em>return values</em>.</li>
+<li><strong><em>Function definitions</em></strong> in Faust have the syntax <em>function(parameter1, parameter2, …) = expression;</em>”.</li>
+<li>In order to <strong><em>call</em></strong> (<strong>execute</strong>) that function, we need to <strong><em>replace its parameters (arguments)</em></strong> with the values we want to pass as parameters.</li>
+</ul>
+</div>
+<ul>
+<li>Arguments are only valid inside of the function definition, we say that they are <em>local to the <strong>scope</strong> of the function</em>. This also means that they <strong><em>take precedence</em></strong> over any other variable or expression that have the same name in the code.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/functions/f3.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-filename="faust/examples/functions/f3.dsp" data-code-line-numbers="1-2|1-5|1-9|"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb15-1"><a href="" aria-label="1"></a>a <span class="op">=</span> <span class="dv">31</span><span class="op">;</span></span>
+<span id="cb15-2"><a href="" aria-label="2"></a>b <span class="op">=</span> <span class="dv">47</span><span class="op">;</span></span>
+<span id="cb15-3"><a href="" aria-label="3"></a></span>
+<span id="cb15-4"><a href="" aria-label="4"></a><span class="fu">add</span>(a<span class="op">,</span> b) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb15-5"><a href="" aria-label="5"></a>result <span class="op">=</span> <span class="fu">add</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span> <span class="co">// result will be 3, not 78!</span></span>
+<span id="cb15-6"><a href="" aria-label="6"></a></span>
+<span id="cb15-7"><a href="" aria-label="7"></a><span class="co">// On the other hand, if we were to change </span></span>
+<span id="cb15-8"><a href="" aria-label="8"></a><span class="co">// the name of the arguments of the 'add' function, like so:</span></span>
+<span id="cb15-9"><a href="" aria-label="9"></a><span class="fu">add</span>(c<span class="op">,</span> d) <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span> </span>
+<span id="cb15-10"><a href="" aria-label="10"></a><span class="co">// The result would be 78 this time, </span></span>
+<span id="cb15-11"><a href="" aria-label="11"></a><span class="co">// because 'a' and 'b' now refer to </span></span>
+<span id="cb15-12"><a href="" aria-label="12"></a><span class="co">// the 'a = 31' and 'b = 47' expressions.</span></span>
+<span id="cb15-13"><a href="" aria-label="13"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+a = 31;
+b = 47;
+
+add(a, b) = a + b;
+result = add(1, 2); // result will be 3, not 78!
+
+// On the other hand, if we were to change 
+// the name of the arguments of the 'add' function, like so:
+add(c, d) = a + b; 
+// The result would be 78 this time, 
+// because 'a' and 'b' now refer to 
+// the 'a = 31' and 'b = 47' expressions.
 -->
 </faust-editor>
 

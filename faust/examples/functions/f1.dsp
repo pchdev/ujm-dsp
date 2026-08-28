@@ -4,10 +4,3 @@
 // Note: 'a' and 'b' are arbitrary names, 
 // we could have used any name we wanted.
 add(a, b) = a + b;
-
-
-
-
-
-
-

@@ -1,0 +1,95 @@
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Functions
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+  -  ***Functions*** in programming languages usually consist in pieces of code containing a ***series of instructions to execute***. They can be called *once or multiple times*, *with or without variable parameters*, and can *return values*. 
+:::
+:::
+
+::: {.column width="44%"}
+<!-- ```{.js code-line-numbers="1-4|5-8|9-11|" filename="comments.dsp"} -->
+<!-- {{< include /faust/examples/basics/comments.dsp >}} -->
+<!-- ``` -->
+<!-- {{< faust faust/examples/basics/comments.dsp >}} -->
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Functions
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  -  ***Functions*** in programming languages usually consist in pieces of code containing a ***series of instructions to execute***. They can be called *once or multiple times*, *with or without variable parameters*, and can *return values*. 
+:::
+  - ***Function definitions*** in Faust have the syntax *function(parameter1, parameter2, ...) = expression;*".
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/functions/f1.dsp"}
+{{< include /faust/examples/functions/f1.dsp >}}
+```
+{{< faust faust/examples/functions/f1.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Functions
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  -  ***Functions*** in programming languages usually consist in pieces of code containing a ***series of instructions to execute***. They can be called *once or multiple times*, *with or without variable parameters*, and can *return values*. 
+  - ***Function definitions*** in Faust have the syntax *function(parameter1, parameter2, ...) = expression;*".
+:::
+
+  - In order to ***call*** (**execute**) that function, we need to ***replace its parameters (arguments)*** with the values we want to pass as parameters.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="1|1-7|" filename="faust/examples/functions/f2.dsp"}
+{{< include /faust/examples/functions/f2.dsp >}}
+```
+{{< faust faust/examples/functions/f2.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Functions
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  -  ***Functions*** in programming languages usually consist in pieces of code containing a ***series of instructions to execute***. They can be called *once or multiple times*, *with or without variable parameters*, and can *return values*. 
+  - ***Function definitions*** in Faust have the syntax *function(parameter1, parameter2, ...) = expression;*".
+  - In order to ***call*** (**execute**) that function, we need to ***replace its parameters (arguments)*** with the values we want to pass as parameters.
+:::
+
+  - Arguments are only valid inside of the function definition, we say that they are *local to the **scope** of the function*. This also means that they ***take precedence*** over any other variable or expression that have the same name in the code.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="1-2|1-5|1-9|" filename="faust/examples/functions/f3.dsp"}
+{{< include /faust/examples/functions/f3.dsp >}}
+```
+{{< faust faust/examples/functions/f3.dsp >}}
+:::
+::::

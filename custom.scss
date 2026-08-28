@@ -1,4 +1,19 @@
 /*-- scss:rules --*/
 .reveal .slide {
-  margin-left:-30px !important
+  margin-left: -50px !important;
+}
+
+.reveal .code-with-filename {
+  width: 115% !important;
+  max-width: none !important;
+}
+
+.reveal .code-with-filename-file {
+  width: 96.5% !important;
+  max-width: none !important;
+}
+
+.reveal .code-with-filename .sourceCode {
+  width: 100% !important;
+  max-width: none !important;
 }

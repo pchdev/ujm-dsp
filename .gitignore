@@ -1,2 +1,5 @@
 .quarto/
 slides_files/
+
+/.quarto/
+**/*.quarto_ipynb

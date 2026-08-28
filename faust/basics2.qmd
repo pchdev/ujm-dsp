@@ -1,0 +1,112 @@
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics (2)
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 80%;"}
+- In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js filename="sequential.dsp"}
+{{< include /faust/examples/basics2/sequential.dsp >}}
+```
+{{< faust faust/examples/basics2/sequential.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics (2)
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+- In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
+:::
+- The ***split operator*** '**`<:`**' and ***cable operator*** can also be used to connect a signal to **multiple targets**.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="3-6|8-11|" filename="split-cable.dsp"}
+{{< include /faust/examples/basics2/split-cable.dsp >}}
+```
+{{< faust faust/examples/basics2/split-cable.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics (2)
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+- In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
+- The ***split operator*** '**`<:`**' and ***cable operator*** can also be used to connect a signal to **multiple targets**.
+:::
+- On the other hand, the ***merge operator*** '**`:>`**' can be used to **merge** (**mix**) **signals together**.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="3-5|7|" filename="examples/basics2/merge-cable.dsp"}
+{{< include /faust/examples/basics2/merge-cable.dsp >}}
+```
+{{< faust faust/examples/basics2/merge-cable.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics (2)
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+- In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
+- The ***split operator*** '**`<:`**' and ***cable operator*** can also be used to connect a signal to **multiple targets**.
+- On the other hand, the ***merge operator*** '**`:>`**' can be used to **merge** (**mix**) **signals together**.
+:::
+- *Graphical User Interface* (**GUI**) elements can be added to ***control parameters***: *sliders*, *buttons*, *switches*, *vu-meters*, etc.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="3-5|7-8|" filename="examples/basics2/sliders.dsp"}
+{{< include /faust/examples/basics2/sliders.dsp >}}
+```
+{{< faust faust/examples/basics2/sliders.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Basics (2)
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%"}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+- In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
+- The ***split operator*** '**`<:`**' and ***cable operator*** can also be used to connect a signal to **multiple targets**.
+- On the other hand, the ***merge operator*** '**`:>`**' can be used to **merge** (**mix**) **signals together**.
+- *Graphical User Interface* (**GUI**) elements can be added to ***control parameters***: *sliders*, *buttons*, *switches*, *vu-meters*, etc.
+:::
+- They can be used to make a proper **gain control** in **dB** for example.
+:::
+:::
+
+::: {.column width="50%"}
+```{.js code-line-numbers="3-5|7-8|10|12|" filename="examples/basics2/gain.dsp"}
+{{< include /faust/examples/basics2/gain.dsp >}}
+```
+{{< faust faust/examples/basics2/gain.dsp >}}
+:::
+::::

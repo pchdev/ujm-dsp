@@ -1,10 +1,15 @@
 ---
 title: "Digital Audio Signal Processing and Synthesis"
 author: "Pierre Cochard"
+render:
+  - slides.qmd
+preview:
+  watch-inputs: true
 format:
   revealjs:
     theme: [solarized, custom.scss]
     transition: fade
+    margin: 0.1
     include-in-header:
           text: |
             <script type="module"
@@ -152,6 +157,7 @@ ANIMATIONS
 - Dedicated online IDE: https:://faustide.grame.fr
 ::::
 
-## Test
-
 {{< include faust/basics.qmd >}}
+{{< include faust/basics2.qmd >}}
+{{< include faust/functions.qmd >}}
+

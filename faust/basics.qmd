@@ -1,15 +1,21 @@
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
+
 <!-- ----------------------------------------------------------------------- -->
 ## Faust Basics
 <!-- ----------------------------------------------------------------------- -->
 
-:::: {.columns}
-::: {.column width="50%"}
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 80%;"}
 - Basic program: `import` and `process` statements.
 :::
 :::
 
-::: {.column width="50%"}
+::: {.column width="44%"}
 ```{.js code-line-numbers="1-4|5-8|9-11|" filename="comments.dsp"}
 {{< include /faust/examples/basics/comments.dsp >}}
 ```
@@ -22,7 +28,7 @@
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
@@ -31,8 +37,8 @@
 :::
 :::
 
-::: {.column width="50%"}
-```{.js code-line-numbers="1-4|5-8|9-11|" filename="libraries.dsp"}
+::: {.column width="44%"}
+```{.js code-line-numbers="1-3|5-7|" filename="libraries.dsp"}
 {{< include /faust/examples/basics/libraries.dsp >}}
 ```
 {{< faust faust/examples/basics/libraries.dsp >}}
@@ -44,7 +50,7 @@
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
@@ -54,8 +60,8 @@
 :::
 :::
 
-::: {.column width="50%"}
-```{.js code-line-numbers="1-4|5-8|9-11|" filename="amplitude.dsp"}
+::: {.column width="44%"}
+```{.js code-line-numbers="3-6|8-9|" filename="amplitude.dsp"}
 {{< include /faust/examples/basics/amplitude.dsp >}}
 ```
 {{< faust faust/examples/basics/amplitude.dsp >}}
@@ -67,7 +73,7 @@
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
@@ -78,8 +84,8 @@
 :::
 :::
 
-::: {.column width="50%"}
-```{.js code-line-numbers="1-4|5-8|9-11|" filename="mixing.dsp"}
+::: {.column width="45%"}
+```{.js code-line-numbers="3-5|" filename="mixing.dsp"}
 {{< include /faust/examples/basics/mixing.dsp >}}
 ```
 {{< faust faust/examples/basics/mixing.dsp >}}
@@ -91,7 +97,7 @@
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
@@ -103,20 +109,21 @@
 :::
 :::
 
-::: {.column width="50%"}
-```{.js code-line-numbers="1-4|5-8|9-11|" filename="ampmod.dsp"}
+::: {.column width="44%"}
+```{.js filename="ampmod.dsp"}
 {{< include /faust/examples/basics/ampmod.dsp >}}
 ```
 {{< faust faust/examples/basics/ampmod.dsp >}}
 :::
 ::::
 
+
 <!-- ----------------------------------------------------------------------- -->
 ## Faust Basics {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
@@ -129,8 +136,8 @@
 :::
 :::
 
-::: {.column width="50%"}
-```{.js code-line-numbers="1-4|5-8|9-11|" filename="parallel.dsp"}
+::: {.column width="44%"}
+```{.js filename="parallel.dsp"}
 {{< include /faust/examples/basics/parallel.dsp >}}
 ```
 {{< faust faust/examples/basics/parallel.dsp >}}
@@ -142,7 +149,7 @@
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
@@ -156,7 +163,7 @@
 :::
 :::
 
-::: {.column width="50%"}
+::: {.column width="44%"}
 ```{.js code-line-numbers="1-4|5-8|9-11|" filename="custom-functions.dsp"}
 {{< include /faust/examples/basics/custom-functions.dsp >}}
 ```

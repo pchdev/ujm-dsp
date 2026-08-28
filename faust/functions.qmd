@@ -93,3 +93,81 @@
 {{< faust faust/examples/functions/f3.dsp >}}
 :::
 ::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Functions (2)
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+:::
+  - In Faust, everything is a ***function of time***. When a function is called in a Faust program, it will be called ***for each computation of a sample***, *e.g. 44100 times per second*.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="1-4|6-10|6-14|" filename="faust/examples/functions-signals/f0.dsp"}
+{{< include /faust/examples/functions-signals/f0.dsp >}}
+```
+{{< faust faust/examples/functions-signals/f0.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Functions (2)
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - In Faust, everything is a ***function of time***. When a function is called in a Faust program, it will be called ***for each computation of a sample***, *e.g. 44100 times per second*.
+:::
+  - In the end, all functions produces a numerical value (integer or floating point).  Therefore, anything can be passed as a ***function argument***...
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="1-2|1-7|9-11|1-2,9-13|" filename="faust/examples/functions/f4.dsp"}
+{{< include /faust/examples/functions/f4.dsp >}}
+```
+{{< faust faust/examples/functions/f4.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Functions (2)
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - In Faust, everything is a ***function of time***. When a function is called in a Faust program, it will be called ***for each computation of a sample***, *e.g. 44100 times per second*.
+  - In the end, all functions produces a numerical value (integer or floating point).  Therefore, anything can be passed as a ***function argument***...
+:::
+  - ...***including functions***!
+:::
+:::
+
+::: {.column width="44%"}
+::: {style="font-size: 90%;"}
+```{.js filename="faust/examples/functions/f5.dsp"}
+{{< include /faust/examples/functions/f5.dsp >}}
+```
+
+:::
+{{< faust faust/examples/functions/f5.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust Functions (2) {.scrollable}
+<!-- ----------------------------------------------------------------------- -->
+
+```{.js code-line-numbers="1-7|9-11|1-14|7,11,16-18|20-25|27-30|" filename="faust/examples/functions/f5.dsp"}
+{{< include /faust/examples/functions/f5.dsp >}}
+```
+{{< faust faust/examples/functions/f5.dsp >}}

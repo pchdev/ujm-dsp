@@ -396,7 +396,7 @@ Pierre Cochard
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-1" class="slide level2">
-<h2>Faust Basics</h2>
+<h2>Faust: Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
 <div class="column add-space" style="width:50%;">
@@ -455,7 +455,7 @@ process = 0;
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-2" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column add-space" style="width:50%;">
@@ -511,7 +511,7 @@ process = os.oscrc(440) * 0.25;
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-3" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column add-space" style="width:50%;">
@@ -572,7 +572,7 @@ process = os.oscrc(440) / 4;
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-4" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column add-space" style="width:50%;">
@@ -636,7 +636,7 @@ process = (os.oscrc(440) + os.oscrc(880)) * 0.25;
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-5" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column add-space" style="width:50%;">
@@ -693,7 +693,7 @@ process = os.oscrc(440) * os.oscrc(10) * 0.25;
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-6" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column add-space" style="width:50%;">
@@ -749,7 +749,7 @@ process = (os.oscrc(440) * 0.25), (os.oscrc(880) * 0.25);
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-7" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
 <div class="column add-space" style="width:50%;">
@@ -809,19 +809,24 @@ process = osc440, osc880;
 </div>
 
 </div></div>
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-2-1" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 80%;">
 <ul>
 <li>In Faust, <strong>connecting DSP functions</strong> can be done using the <strong><em>sequential operator</em></strong> ‘<strong><code>:</code></strong>’.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>sequential.dsp</strong></pre>
@@ -861,10 +866,10 @@ process = os.sawtooth(440) : fi.lowpass(1, 440);
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-2-2" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 80%;">
 <div style="opacity: 0.5">
 <ul>
@@ -875,7 +880,7 @@ process = os.sawtooth(440) : fi.lowpass(1, 440);
 <li>The <strong><em>split operator</em></strong> ‘<strong><code>&lt;:</code></strong>’ and <strong><em>cable operator</em></strong> can also be used to connect a signal to <strong>multiple targets</strong>.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>split-cable.dsp</strong></pre>
@@ -925,10 +930,10 @@ process =  saw_filter &lt;: _,_;
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-2-3" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 80%;">
 <div style="opacity: 0.5">
 <ul>
@@ -940,7 +945,7 @@ process =  saw_filter &lt;: _,_;
 <li>On the other hand, the <strong><em>merge operator</em></strong> ‘<strong><code>:&gt;</code></strong>’ can be used to <strong>merge</strong> (<strong>mix</strong>) <strong>signals together</strong>.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>examples/basics2/merge-cable.dsp</strong></pre>
@@ -982,10 +987,10 @@ process =  osc * 0.25 &lt;: _,_;
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-2-4" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 80%;">
 <div style="opacity: 0.5">
 <ul>
@@ -998,7 +1003,7 @@ process =  osc * 0.25 &lt;: _,_;
 <li><em>Graphical User Interface</em> (<strong>GUI</strong>) elements can be added to <strong><em>control parameters</em></strong>: <em>sliders</em>, <em>buttons</em>, <em>switches</em>, <em>vu-meters</em>, etc.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>examples/basics2/sliders.dsp</strong></pre>
@@ -1046,10 +1051,10 @@ process =  saw_filter &lt;: _,_;
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-basics-2-5" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Faust Basics (2)</h2>
+<h2 data-id="quarto-animate-title">Faust: Basics (2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div style="font-size: 80%;">
 <div style="opacity: 0.5">
 <ul>
@@ -1063,7 +1068,7 @@ process =  saw_filter &lt;: _,_;
 <li>They can be used to make a proper <strong>gain control</strong> in <strong>dB</strong> for example.</li>
 </ul>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:44%;">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>examples/basics2/gain.dsp</strong></pre>
@@ -1134,10 +1139,7 @@ process =  saw_filter * gain &lt;: _,_;
 </ul>
 </div>
 </div><div class="column" style="width:44%;">
-<!-- ```{.js code-line-numbers="1-4|5-8|9-11|" filename="comments.dsp"} -->
-<!-- {{< include /faust/examples/basics/comments.dsp >}} -->
-<!-- ``` -->
-<!--  -->
+
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
@@ -1658,6 +1660,11 @@ add(osc_a(440), osc_b(880)) = osc_a(440) + osc_b(880);
 <section>
 <section id="faust-synthesis" class="title-slide slide level1 center">
 <h1>Faust: Synthesis</h1>
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="faust-synthesis-1" class="slide level2" data-auto-animate="true">
@@ -2082,6 +2089,276 @@ process =  synth(freq_gui, gain_gui);
 
 </div>
 
+</section></section>
+<section>
+<section id="faust-time" class="title-slide slide level1 center">
+<h1>Faust: Time</h1>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-time-12" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Time (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li>Faust has one final composition operator: the <strong><em>recursive operator</em></strong> (‘<strong>~</strong>’) which allows to <strong><em>connect two signals recursively</em></strong> (with <strong><em>a delay of one sample</em></strong>).</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/recursive.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" data-filename="faust/examples/time/recursive.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb26-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// We connect the signal '1' and an empty signal </span></span>
+<span id="cb26-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="co">// to the operator '+'.</span></span>
+<span id="cb26-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// This expression has exactly one input </span></span>
+<span id="cb26-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// and one output, same for an empty signal. </span></span>
+<span id="cb26-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// Therefore, the two expressions can be </span></span>
+<span id="cb26-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// mutually recursive:</span></span>
+<span id="cb26-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span> (_ <span class="op">+</span> <span class="dv">1</span>) <span class="op">~</span> _<span class="op">;</span> </span>
+<span id="cb26-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">//        (  A  ) ~ B</span></span>
+<span id="cb26-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+// We connect the signal '1' and an empty signal 
+// to the operator '+'.
+// This expression has exactly one input 
+// and one output, same for an empty signal. 
+// Therefore, the two expressions can be 
+// mutually recursive:
+process = (_ + 1) ~ _; 
+//        (  A  ) ~ B
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-time-12-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Time (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust has one final composition operator: the <strong><em>recursive operator</em></strong> (‘<strong>~</strong>’) which allows to <strong><em>connect two signals recursively</em></strong> (with <strong><em>a delay of one sample</em></strong>).</li>
+</ul>
+</div>
+<ul>
+<li>The recursive operator is typically used to implement <strong>counters</strong>, and/or <strong><em>to represent time</em></strong>. With it, we can count for instance <em>up to 44100 or 48000 samples</em> to <strong><em>represent one second of audio time</em></strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/counter_samples.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27" data-filename="faust/examples/time/counter_samples.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb27-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb27-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb27-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We could use our previous definition </span></span>
+<span id="cb27-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// of the counter, and wrap it around the </span></span>
+<span id="cb27-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// value of the sample rate (using modulo)</span></span>
+<span id="cb27-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// But there's going to be something wrong</span></span>
+<span id="cb27-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// with it...</span></span>
+<span id="cb27-8" class="hljs-ln-code"><a href="" aria-label="8"></a>increment <span class="op">=</span> (_ <span class="op">+</span> <span class="dv">1</span>) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb27-9" class="hljs-ln-code"><a href="" aria-label="9"></a>bad_counter <span class="op">=</span> increment <span class="op">%</span> <span class="dv">48000</span><span class="op">;</span></span>
+<span id="cb27-10" class="hljs-ln-code"><a href="" aria-label="10"></a></span>
+<span id="cb27-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="co">// This solution works:</span></span>
+<span id="cb27-12" class="hljs-ln-code"><a href="" aria-label="12"></a>counter <span class="op">=</span> ((_ <span class="op">+</span> <span class="dv">1</span>) <span class="op">%</span> <span class="dv">48000</span>) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb27-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">//        (     A         ) ~ B</span></span>
+<span id="cb27-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span>
+<span id="cb27-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="co">// We can put all of this in a function</span></span>
+<span id="cb27-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="co">// and make the limit of the counter variable:</span></span>
+<span id="cb27-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="fu">counter</span>(n) <span class="op">=</span> ((_ <span class="op">+</span> <span class="dv">1</span>) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb27-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span>
+<span id="cb27-19" class="hljs-ln-code"><a href="" aria-label="19"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(ma<span class="op">.</span><span class="at">SR</span>)<span class="op">;</span></span>
+<span id="cb27-20" class="hljs-ln-code"><a href="" aria-label="20"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// We could use our previous definition 
+// of the counter, and wrap it around the 
+// value of the sample rate (using modulo)
+// But there's going to be something wrong
+// with it...
+increment = (_ + 1) ~ _;
+bad_counter = increment % 48000;
+
+// This solution works:
+counter = ((_ + 1) % 48000) ~ _;
+//        (     A         ) ~ B
+
+// We can put all of this in a function
+// and make the limit of the counter variable:
+counter(n) = ((_ + 1) % n) ~ _;
+
+process = counter(ma.SR);
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-time-12-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Time (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust has one final composition operator: the <strong><em>recursive operator</em></strong> (‘<strong>~</strong>’) which allows to <strong><em>connect two signals recursively</em></strong> (with <strong><em>a delay of one sample</em></strong>).</li>
+<li>The recursive operator is typically used to implement <strong>counters</strong>, and/or <strong><em>to represent time</em></strong>. With it, we can count for instance <em>up to 44100 or 48000 samples</em> to <strong><em>represent one second of audio time</em></strong>.</li>
+</ul>
+</div>
+<ul>
+<li>When implementing <strong><em>time-related functions</em></strong>, it can prove very useful to <strong><em>monitor values from the GUI</em></strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/monitoring_values.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-filename="faust/examples/time/monitoring_values.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb28-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb28-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb28-3" class="hljs-ln-code"><a href="" aria-label="3"></a>SR <span class="op">=</span> <span class="dv">48000</span><span class="op">;</span></span>
+<span id="cb28-4" class="hljs-ln-code"><a href="" aria-label="4"></a>gui <span class="op">=</span> <span class="fu">vbargraph</span>(<span class="st">"value[style:numerical]"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> SR)<span class="op">;</span></span>
+<span id="cb28-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="fu">counter</span>(n) <span class="op">=</span> ((_ <span class="op">+</span> <span class="dv">1</span>) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb28-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb28-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(SR)<span class="op">:</span> gui<span class="op">;</span></span>
+<span id="cb28-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+SR = 48000;
+gui = vbargraph("value[style:numerical]", 0, SR);
+counter(n) = ((_ + 1) % n) ~ _;
+
+process = counter(SR): gui;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-time-12-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Time (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust has one final composition operator: the <strong><em>recursive operator</em></strong> (‘<strong>~</strong>’) which allows to <strong><em>connect two signals recursively</em></strong> (with <strong><em>a delay of one sample</em></strong>).</li>
+<li>The recursive operator is typically used to implement <strong>counters</strong>, and/or <strong><em>to represent time</em></strong>. With it, we can count for instance <em>up to 44100 or 48000 samples</em> to <strong><em>represent one second of audio time</em></strong>.</li>
+<li>When implementing <strong><em>time-related functions</em></strong>, it can prove very useful to <strong><em>monitor values from the GUI</em></strong>.</li>
+</ul>
+</div>
+<ul>
+<li>We can for example use a counter to <strong><em>switch our synth’s waveform automatically every second.</em></strong></li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/waveform_switch_counter.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-filename="faust/examples/time/waveform_switch_counter.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb29-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb29-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb29-3" class="hljs-ln-code"><a href="" aria-label="3"></a>SR <span class="op">=</span> <span class="dv">48000</span><span class="op">;</span></span>
+<span id="cb29-4" class="hljs-ln-code"><a href="" aria-label="4"></a>gui <span class="op">=</span> <span class="fu">vbargraph</span>(<span class="st">"value[style:numerical]"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> SR)<span class="op">;</span></span>
+<span id="cb29-5" class="hljs-ln-code"><a href="" aria-label="5"></a></span>
+<span id="cb29-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// We make the '1' (increment) variable:</span></span>
+<span id="cb29-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb29-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb29-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// Outputs the value '1' </span></span>
+<span id="cb29-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// whenever the counter reaches 48000</span></span>
+<span id="cb29-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="co">// (every second):</span></span>
+<span id="cb29-12" class="hljs-ln-code"><a href="" aria-label="12"></a>count1s <span class="op">=</span> <span class="fu">counter</span>(<span class="dv">1</span><span class="op">,</span> SR) <span class="op">==</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb29-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span>
+<span id="cb29-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(count1s<span class="op">,</span> <span class="dv">4</span>) <span class="op">:</span> gui<span class="op">;</span></span>
+<span id="cb29-15" class="hljs-ln-code"><a href="" aria-label="15"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+SR = 48000;
+gui = vbargraph("value[style:numerical]", 0, SR);
+
+// We make the '1' (increment) variable:
+counter(i, n) = ((_ + i) % n) ~ _;
+
+// Outputs the value '1' 
+// whenever the counter reaches 48000
+// (every second):
+count1s = counter(1, SR) == 0;
+
+process = counter(count1s, 4) : gui;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
 
 </section></section>
     </div>

@@ -1,0 +1,87 @@
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Time (1/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+:::
+  - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/recursive.dsp"}
+{{< include /faust/examples/time/recursive.dsp >}}
+```
+{{< faust faust/examples/time/recursive.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Time (1/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
+:::
+  - The recursive operator is typically used to implement **counters**, and/or ***to represent time***. With it, we can count for instance *up to 44100 or 48000 samples* to ***represent one second of audio time***.
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/counter_samples.dsp"}
+{{< include /faust/examples/time/counter_samples.dsp >}}
+```
+{{< faust faust/examples/time/counter_samples.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Time (1/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
+  - The recursive operator is typically used to implement **counters**, and/or ***to represent time***. With it, we can count for instance *up to 44100 or 48000 samples* to ***represent one second of audio time***.
+:::
+  - When implementing ***time-related functions***, it can prove very useful to ***monitor values from the GUI***.
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/monitoring_values.dsp"}
+{{< include /faust/examples/time/monitoring_values.dsp >}}
+```
+{{< faust faust/examples/time/monitoring_values.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Time (1/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
+  - The recursive operator is typically used to implement **counters**, and/or ***to represent time***. With it, we can count for instance *up to 44100 or 48000 samples* to ***represent one second of audio time***.
+  - When implementing ***time-related functions***, it can prove very useful to ***monitor values from the GUI***.
+:::
+  - We can for example use a counter to ***switch our synth's waveform automatically every second.***
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/waveform_switch_counter.dsp"}
+{{< include /faust/examples/time/waveform_switch_counter.dsp >}}
+```
+{{< faust faust/examples/time/waveform_switch_counter.dsp >}}
+:::
+::::
+

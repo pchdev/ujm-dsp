@@ -16,10 +16,6 @@
 :::
 
 ::: {.column width="44%"}
-<!-- ```{.js code-line-numbers="1-4|5-8|9-11|" filename="comments.dsp"} -->
-<!-- {{< include /faust/examples/basics/comments.dsp >}} -->
-<!-- ``` -->
-<!-- {{< faust faust/examples/basics/comments.dsp >}} -->
 :::
 ::::
 

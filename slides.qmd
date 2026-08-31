@@ -178,3 +178,7 @@ ANIMATIONS
 
 {{< include faust/synthesis.qmd >}}
 
+# Faust: Time
+
+{{< include faust/time.qmd >}}
+

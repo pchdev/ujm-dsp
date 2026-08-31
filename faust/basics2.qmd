@@ -1,15 +1,21 @@
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
+
 <!-- ----------------------------------------------------------------------- -->
-## Faust Basics (2) {auto-animate=true}
+## Faust: Basics (2) {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 80%;"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
 :::
 :::
 
-::: {.column width="50%"}
+::: {.column width="44%"}
 ```{.js filename="sequential.dsp"}
 {{< include /faust/examples/basics2/sequential.dsp >}}
 ```
@@ -18,11 +24,11 @@
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Faust Basics (2) {auto-animate=true}
+## Faust: Basics (2) {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 80%;"}
 ::: {style="opacity: 0.5"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
@@ -31,7 +37,7 @@
 :::
 :::
 
-::: {.column width="50%"}
+::: {.column width="44%"}
 ```{.js code-line-numbers="3-6|8-11|" filename="split-cable.dsp"}
 {{< include /faust/examples/basics2/split-cable.dsp >}}
 ```
@@ -40,11 +46,11 @@
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Faust Basics (2) {auto-animate=true}
+## Faust: Basics (2) {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 80%;"}
 ::: {style="opacity: 0.5"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
@@ -54,7 +60,7 @@
 :::
 :::
 
-::: {.column width="50%"}
+::: {.column width="44%"}
 ```{.js code-line-numbers="3-5|7|" filename="examples/basics2/merge-cable.dsp"}
 {{< include /faust/examples/basics2/merge-cable.dsp >}}
 ```
@@ -63,11 +69,11 @@
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Faust Basics (2) {auto-animate=true}
+## Faust: Basics (2) {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 80%;"}
 ::: {style="opacity: 0.5"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
@@ -78,7 +84,7 @@
 :::
 :::
 
-::: {.column width="50%"}
+::: {.column width="44%"}
 ```{.js code-line-numbers="3-5|7-8|" filename="examples/basics2/sliders.dsp"}
 {{< include /faust/examples/basics2/sliders.dsp >}}
 ```
@@ -87,11 +93,11 @@
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Faust Basics (2) {auto-animate=true}
+## Faust: Basics (2) {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="50%" .add-space}
 ::: {style="font-size: 80%;"}
 ::: {style="opacity: 0.5"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
@@ -103,7 +109,7 @@
 :::
 :::
 
-::: {.column width="50%"}
+::: {.column width="44%"}
 ```{.js code-line-numbers="3-5|7-8|10|12|" filename="examples/basics2/gain.dsp"}
 {{< include /faust/examples/basics2/gain.dsp >}}
 ```

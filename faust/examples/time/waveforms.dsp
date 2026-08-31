@@ -35,6 +35,3 @@ triangle(f) =
     * 4.0;
 
 process = phasor(440) * 0.25;
-
-
-

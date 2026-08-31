@@ -15,5 +15,3 @@ counter(i, n) = ((_ + i) % n) ~ _;
 sampler(s) = 0, counter(s, length) : violin;
 
 process = sampler(1);
-
-

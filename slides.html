@@ -2359,6 +2359,1582 @@ process = counter(count1s, 4) : gui;
 </div>
 
 </div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-time-22" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Time (2/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li>A counter can be used as a base for many many things. With it, we can for instance build a <strong><em>ramp signal</em></strong> that <em>goes from 0 to 1 repeatedly at a certain rate</em>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/phasor.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-filename="faust/examples/time/phasor.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb30-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb30-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb30-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We can put a decimal as increment value, </span></span>
+<span id="cb30-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// and wrap it around 0.0 and 1.0:</span></span>
+<span id="cb30-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(<span class="fl">0.00195</span><span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
+<span id="cb30-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb30-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// But it would be much better to </span></span>
+<span id="cb30-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// use the frequency unit in Hertz,</span></span>
+<span id="cb30-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// We know one second of time is the sample rate,</span></span>
+<span id="cb30-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// so to get the increment value, we can use:</span></span>
+<span id="cb30-11" class="hljs-ln-code"><a href="" aria-label="11"></a>frequency <span class="op">=</span> <span class="dv">440</span><span class="op">/</span>ma<span class="op">.</span><span class="at">SR</span><span class="op">;</span></span>
+<span id="cb30-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb30-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(frequency<span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
+<span id="cb30-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+counter(i, n) = ((_ + i) % n) ~ _;
+
+// We can put a decimal as increment value, 
+// and wrap it around 0.0 and 1.0:
+process = counter(0.00195, 1.0);
+
+// But it would be much better to 
+// use the frequency unit in Hertz,
+// We know one second of time is the sample rate,
+// so to get the increment value, we can use:
+frequency = 440/ma.SR;
+
+process = counter(frequency, 1.0);
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-time-22-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Time (2/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>A counter can be used as a base for many many things. With it, we can for instance build a <strong><em>ramp signal</em></strong> that <em>goes from 0 to 1 repeatedly at a certain rate</em>.</li>
+</ul>
+</div>
+<ul>
+<li>Notice anything? A <em>ramp</em> is very much like a <strong><em>sawtooth oscillator</em></strong>, only with a different range (0 to 1 instead of -1 to 1).</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/phasor.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-filename="faust/examples/time/phasor.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb31-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb31-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb31-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We can put a decimal as increment value, </span></span>
+<span id="cb31-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// and wrap it around 0.0 and 1.0:</span></span>
+<span id="cb31-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(<span class="fl">0.00195</span><span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
+<span id="cb31-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb31-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// But it would be much better to </span></span>
+<span id="cb31-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// use the frequency unit in Hertz,</span></span>
+<span id="cb31-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// We know one second of time is the sample rate,</span></span>
+<span id="cb31-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// so to get the increment value, we can use:</span></span>
+<span id="cb31-11" class="hljs-ln-code"><a href="" aria-label="11"></a>frequency <span class="op">=</span> <span class="dv">440</span><span class="op">/</span>ma<span class="op">.</span><span class="at">SR</span><span class="op">;</span></span>
+<span id="cb31-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb31-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(frequency<span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
+<span id="cb31-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+counter(i, n) = ((_ + i) % n) ~ _;
+
+// We can put a decimal as increment value, 
+// and wrap it around 0.0 and 1.0:
+process = counter(0.00195, 1.0);
+
+// But it would be much better to 
+// use the frequency unit in Hertz,
+// We know one second of time is the sample rate,
+// so to get the increment value, we can use:
+frequency = 440/ma.SR;
+
+process = counter(frequency, 1.0);
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-time-22-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Time (2/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li>A counter can be used as a base for many many things. With it, we can for instance build a <strong><em>ramp signal</em></strong> that <em>goes from 0 to 1 repeatedly at a certain rate</em>.</li>
+<li>Notice anything? A <em>ramp</em> is very much like a <strong><em>sawtooth oscillator</em></strong>, only with a different range (0 to 1 instead of -1 to 1).</li>
+</ul>
+</div>
+<ul>
+<li>With a <em>ramp</em> (or <em>phasor</em>), we can pretty much already build <strong><em>all of the simple waveform oscillators</em></strong>, with a few operations…</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/waveforms.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-filename="faust/examples/time/waveforms.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb32-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb32-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb32-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb32-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">phasor</span>(f) <span class="op">=</span> <span class="fu">counter</span>(f<span class="op">/</span>ma<span class="op">.</span><span class="at">SR</span><span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
+<span id="cb32-5" class="hljs-ln-code"><a href="" aria-label="5"></a></span>
+<span id="cb32-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// For sawtooth, we re-scale the signal to [-1, 1]</span></span>
+<span id="cb32-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="fu">sawtooth</span>(f) <span class="op">=</span> <span class="fu">phasor</span>(f) <span class="op">*</span> <span class="fl">2.0</span> <span class="op">-</span> <span class="fl">1.0</span><span class="op">;</span></span>
+<span id="cb32-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb32-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// Sine function has an input range </span></span>
+<span id="cb32-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// of [0, 2*PI]:</span></span>
+<span id="cb32-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="fu">sine</span>(f) <span class="op">=</span> <span class="fu">sin</span>(<span class="fu">phasor</span>(f) <span class="op">*</span> <span class="fl">2.0</span> <span class="op">*</span> ma<span class="op">.</span><span class="at">PI</span>)<span class="op">;</span></span>
+<span id="cb32-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb32-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// For square, we can use a simple 'if' expression</span></span>
+<span id="cb32-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="co">// output -1.0 when phase is below 0.5</span></span>
+<span id="cb32-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="co">// and 1.0 when it's above:</span></span>
+<span id="cb32-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="fu">square</span>(f) <span class="op">=</span> ba<span class="op">.</span><span class="fu">if</span>(</span>
+<span id="cb32-17" class="hljs-ln-code"><a href="" aria-label="17"></a>    <span class="fu">phasor</span>(f) <span class="op">&gt;</span> <span class="fl">0.5</span><span class="op">,</span> <span class="co">// condition</span></span>
+<span id="cb32-18" class="hljs-ln-code"><a href="" aria-label="18"></a>    <span class="fl">1.0</span><span class="op">,</span> <span class="co">// then</span></span>
+<span id="cb32-19" class="hljs-ln-code"><a href="" aria-label="19"></a>   <span class="op">-</span><span class="fl">1.0</span>  <span class="co">// else</span></span>
+<span id="cb32-20" class="hljs-ln-code"><a href="" aria-label="20"></a>)<span class="op">;</span></span>
+<span id="cb32-21" class="hljs-ln-code"><a href="" aria-label="21"></a></span>
+<span id="cb32-22" class="hljs-ln-code"><a href="" aria-label="22"></a><span class="co">// Triangle is a little more complicated,</span></span>
+<span id="cb32-23" class="hljs-ln-code"><a href="" aria-label="23"></a><span class="co">// we need to invert the signal when it </span></span>
+<span id="cb32-24" class="hljs-ln-code"><a href="" aria-label="24"></a><span class="co">// reaches half of its max amplitude,</span></span>
+<span id="cb32-25" class="hljs-ln-code"><a href="" aria-label="25"></a><span class="co">// and then rescale it to [-1, 1]:</span></span>
+<span id="cb32-26" class="hljs-ln-code"><a href="" aria-label="26"></a><span class="fu">triangle</span>(f) <span class="op">=</span> </span>
+<span id="cb32-27" class="hljs-ln-code"><a href="" aria-label="27"></a>    (</span>
+<span id="cb32-28" class="hljs-ln-code"><a href="" aria-label="28"></a>        ba<span class="op">.</span><span class="fu">if</span>(</span>
+<span id="cb32-29" class="hljs-ln-code"><a href="" aria-label="29"></a>            <span class="fu">phasor</span>(f) <span class="op">&lt;</span> <span class="fl">0.5</span><span class="op">,</span> </span>
+<span id="cb32-30" class="hljs-ln-code"><a href="" aria-label="30"></a>            <span class="fu">phasor</span>(f)<span class="op">,</span> </span>
+<span id="cb32-31" class="hljs-ln-code"><a href="" aria-label="31"></a>            <span class="fl">1.0</span><span class="op">-</span><span class="fu">phasor</span>(f)</span>
+<span id="cb32-32" class="hljs-ln-code"><a href="" aria-label="32"></a>        ) </span>
+<span id="cb32-33" class="hljs-ln-code"><a href="" aria-label="33"></a>        <span class="op">-</span> <span class="fl">0.25</span></span>
+<span id="cb32-34" class="hljs-ln-code"><a href="" aria-label="34"></a>    ) </span>
+<span id="cb32-35" class="hljs-ln-code"><a href="" aria-label="35"></a>    <span class="op">*</span> <span class="fl">4.0</span><span class="op">;</span></span>
+<span id="cb32-36" class="hljs-ln-code"><a href="" aria-label="36"></a></span>
+<span id="cb32-37" class="hljs-ln-code"><a href="" aria-label="37"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">phasor</span>(<span class="dv">440</span>) <span class="op">*</span> <span class="fl">0.25</span><span class="op">;</span></span>
+<span id="cb32-38" class="hljs-ln-code"><a href="" aria-label="38"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+counter(i, n) = ((_ + i) % n) ~ _;
+phasor(f) = counter(f/ma.SR, 1.0);
+
+// For sawtooth, we re-scale the signal to [-1, 1]
+sawtooth(f) = phasor(f) * 2.0 - 1.0;
+
+// Sine function has an input range 
+// of [0, 2*PI]:
+sine(f) = sin(phasor(f) * 2.0 * ma.PI);
+
+// For square, we can use a simple 'if' expression
+// output -1.0 when phase is below 0.5
+// and 1.0 when it's above:
+square(f) = ba.if(
+    phasor(f) &gt; 0.5, // condition
+    1.0, // then
+   -1.0  // else
+);
+
+// Triangle is a little more complicated,
+// we need to invert the signal when it 
+// reaches half of its max amplitude,
+// and then rescale it to [-1, 1]:
+triangle(f) = 
+    (
+        ba.if(
+            phasor(f) &lt; 0.5, 
+            phasor(f), 
+            1.0-phasor(f)
+        ) 
+        - 0.25
+    ) 
+    * 4.0;
+
+process = phasor(440) * 0.25;
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+</section></section>
+<section>
+<section id="faust-buffers-delays" class="title-slide slide level1 center">
+<h1>Faust: Buffers &amp; Delays</h1>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-buffers-delays-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Buffers &amp; Delays</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li><em>Ramps</em> are often used as <strong><em>cursors</em></strong> to <em>read</em> or <em>write samples</em> in a <strong><em>buffer</em></strong>. In Faust, <em>buffers</em> are implemented with the <code>rdtable</code> &amp; <code>rwtable</code> primitives.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/tables.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33" data-filename="faust/examples/time/tables.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb33-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb33-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb33-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb33-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
+<span id="cb33-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// We define a maximum length for our buffer:</span></span>
+<span id="cb33-6" class="hljs-ln-code"><a href="" aria-label="6"></a>BUFFER_MAX <span class="op">=</span> <span class="dv">48000</span> <span class="op">*</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb33-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb33-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// r: read position in samples.</span></span>
+<span id="cb33-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// w: write position in samples.</span></span>
+<span id="cb33-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// x: input signal to write.</span></span>
+<span id="cb33-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="fu">buffer</span>(r<span class="op">,</span> w<span class="op">,</span> x) <span class="op">=</span> <span class="fu">rwtable</span>(BUFFER_MAX<span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> w<span class="op">,</span> x<span class="op">,</span> r)<span class="op">;</span></span>
+<span id="cb33-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb33-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// Define our read/write cursors:</span></span>
+<span id="cb33-14" class="hljs-ln-code"><a href="" aria-label="14"></a>record <span class="op">=</span> <span class="fu">counter</span>(<span class="fu">button</span>(<span class="st">"record"</span>)<span class="op">,</span> BUFFER_MAX) </span>
+<span id="cb33-15" class="hljs-ln-code"><a href="" aria-label="15"></a>       <span class="op">:</span> <span class="fu">vbargraph</span>(<span class="st">"vrec[style:numerical]"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> BUFFER_MAX)<span class="op">;</span></span>
+<span id="cb33-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span>
+<span id="cb33-17" class="hljs-ln-code"><a href="" aria-label="17"></a>play <span class="op">=</span> <span class="fu">counter</span>(<span class="fu">button</span>(<span class="st">"play"</span>)<span class="op">,</span> BUFFER_MAX) </span>
+<span id="cb33-18" class="hljs-ln-code"><a href="" aria-label="18"></a>     <span class="op">:</span> <span class="fu">vbargraph</span>(<span class="st">"vplay[style:numerical]"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> BUFFER_MAX)<span class="op">;</span></span>
+<span id="cb33-19" class="hljs-ln-code"><a href="" aria-label="19"></a></span>
+<span id="cb33-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="co">// And we have now a (very) simple looper:</span></span>
+<span id="cb33-21" class="hljs-ln-code"><a href="" aria-label="21"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">buffer</span>(play<span class="op">,</span> record<span class="op">,</span> _)<span class="op">;</span></span>
+<span id="cb33-22" class="hljs-ln-code"><a href="" aria-label="22"></a></span>
+<span id="cb33-23" class="hljs-ln-code"><a href="" aria-label="23"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+counter(i, n) = ((_ + i) % n) ~ _;
+
+// We define a maximum length for our buffer:
+BUFFER_MAX = 48000 * 5;
+
+// r: read position in samples.
+// w: write position in samples.
+// x: input signal to write.
+buffer(r, w, x) = rwtable(BUFFER_MAX, 0.0, w, x, r);
+
+// Define our read/write cursors:
+record = counter(button("record"), BUFFER_MAX) 
+       : vbargraph("vrec[style:numerical]", 0, BUFFER_MAX);
+
+play = counter(button("play"), BUFFER_MAX) 
+     : vbargraph("vplay[style:numerical]", 0, BUFFER_MAX);
+
+// And we have now a (very) simple looper:
+process = buffer(play, record, _);
+
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-buffers-delays-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Buffers &amp; Delays</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><em>Ramps</em> are often used as <strong><em>cursors</em></strong> to <em>read</em> or <em>write samples</em> in a <strong><em>buffer</em></strong>. In Faust, <em>buffers</em> are implemented with the <code>rdtable</code> &amp; <code>rwtable</code> primitives.</li>
+</ul>
+</div>
+<ul>
+<li>To playback a <strong><em>sound file</em></strong>, we also typically use a phasor as a <em>read cursor</em>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/soundfile.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34" data-filename="faust/examples/time/soundfile.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb34-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb34-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb34-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We declare a root directory, </span></span>
+<span id="cb34-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// from which we can retrieve a </span></span>
+<span id="cb34-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// collection of sound files:</span></span>
+<span id="cb34-6" class="hljs-ln-code"><a href="" aria-label="6"></a>declare soundfiles <span class="st">"https://raw.githubusercontent.com/sletz/faust-sampler/main"</span><span class="op">;</span></span>
+<span id="cb34-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb34-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// We declare a soundfile with one output (mono); </span></span>
+<span id="cb34-9" class="hljs-ln-code"><a href="" aria-label="9"></a>violin <span class="op">=</span> <span class="fu">soundfile</span>(<span class="st">"sound[url:{'violon.wav'}]"</span><span class="op">,</span> <span class="dv">1</span>) <span class="op">:</span> (<span class="op">!,!,</span>_)<span class="op">;</span></span>
+<span id="cb34-10" class="hljs-ln-code"><a href="" aria-label="10"></a></span>
+<span id="cb34-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="co">// Play for 5 seconds:</span></span>
+<span id="cb34-12" class="hljs-ln-code"><a href="" aria-label="12"></a>length <span class="op">=</span> ma<span class="op">.</span><span class="at">SR</span> <span class="op">*</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb34-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span>
+<span id="cb34-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb34-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="fu">sampler</span>(s) <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> <span class="fu">counter</span>(s<span class="op">,</span> length) <span class="op">:</span> violin<span class="op">;</span></span>
+<span id="cb34-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span>
+<span id="cb34-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">sampler</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb34-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// We declare a root directory, 
+// from which we can retrieve a 
+// collection of sound files:
+declare soundfiles "https://raw.githubusercontent.com/sletz/faust-sampler/main";
+
+// We declare a soundfile with one output (mono); 
+violin = soundfile("sound[url:{'violon.wav'}]", 1) : (!,!,_);
+
+// Play for 5 seconds:
+length = ma.SR * 5;
+
+counter(i, n) = ((_ + i) % n) ~ _;
+sampler(s) = 0, counter(s, length) : violin;
+
+process = sampler(1);
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-buffers-delays-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Buffers &amp; Delays</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><em>Ramps</em> are often used as <strong><em>cursors</em></strong> to <em>read</em> or <em>write samples</em> in a <strong><em>buffer</em></strong>. In Faust, <em>buffers</em> are implemented with the <code>rdtable</code> &amp; <code>rwtable</code> primitives.</li>
+<li>To playback a <strong><em>sound file</em></strong>, we also typically use a phasor as a <em>read cursor</em>.</li>
+</ul>
+</div>
+<ul>
+<li><strong>Delaying</strong> a signal in Faust can be done using the operator ‘<strong><code>@</code></strong>’. Thus, the expression <em><code>x @ n</code></em> delays a signal ‘x’ by ‘n’ <strong>samples</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/delays.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35" data-filename="faust/examples/time/delays.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb35-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb35-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb35-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Simple sine oscillator at low frequency:</span></span>
+<span id="cb35-4" class="hljs-ln-code"><a href="" aria-label="4"></a>osc <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">110</span>)<span class="op">;</span></span>
+<span id="cb35-5" class="hljs-ln-code"><a href="" aria-label="5"></a></span>
+<span id="cb35-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// We use an ADSR envelope, to make it percussive:</span></span>
+<span id="cb35-7" class="hljs-ln-code"><a href="" aria-label="7"></a>env <span class="op">=</span> <span class="fu">button</span>(<span class="st">"play"</span>) <span class="op">:</span> en<span class="op">.</span><span class="fu">adsr</span>(</span>
+<span id="cb35-8" class="hljs-ln-code"><a href="" aria-label="8"></a>    <span class="fl">0.0125</span><span class="op">,</span> <span class="co">// attack time (s)</span></span>
+<span id="cb35-9" class="hljs-ln-code"><a href="" aria-label="9"></a>    <span class="fl">0.25</span><span class="op">,</span> <span class="co">// decay time (s)</span></span>
+<span id="cb35-10" class="hljs-ln-code"><a href="" aria-label="10"></a>    <span class="fl">0.0</span><span class="op">,</span> <span class="co">// sustain level</span></span>
+<span id="cb35-11" class="hljs-ln-code"><a href="" aria-label="11"></a>    <span class="fl">0.0</span> <span class="co">// release time</span></span>
+<span id="cb35-12" class="hljs-ln-code"><a href="" aria-label="12"></a>)<span class="op">;</span></span>
+<span id="cb35-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span>
+<span id="cb35-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="co">// Define our stereo delay,</span></span>
+<span id="cb35-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="co">// with constant delay times:</span></span>
+<span id="cb35-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="fu">del</span>(x) <span class="op">=</span> </span>
+<span id="cb35-17" class="hljs-ln-code"><a href="" aria-label="17"></a>    x <span class="op">+</span> x @ ba<span class="op">.</span><span class="fu">sec2samp</span>(<span class="fl">0.5</span>)<span class="op">,</span> </span>
+<span id="cb35-18" class="hljs-ln-code"><a href="" aria-label="18"></a>    x <span class="op">+</span> x @ ba<span class="op">.</span><span class="fu">sec2samp</span>(<span class="fl">0.25</span>)<span class="op">;</span></span>
+<span id="cb35-19" class="hljs-ln-code"><a href="" aria-label="19"></a></span>
+<span id="cb35-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="bu">process</span> <span class="op">=</span> osc <span class="op">*</span> env <span class="op">:</span> del<span class="op">;</span></span>
+<span id="cb35-21" class="hljs-ln-code"><a href="" aria-label="21"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// Simple sine oscillator at low frequency:
+osc = os.osci(110);
+
+// We use an ADSR envelope, to make it percussive:
+env = button("play") : en.adsr(
+    0.0125, // attack time (s)
+    0.25, // decay time (s)
+    0.0, // sustain level
+    0.0 // release time
+);
+
+// Define our stereo delay,
+// with constant delay times:
+del(x) = 
+    x + x @ ba.sec2samp(0.5), 
+    x + x @ ba.sec2samp(0.25);
+
+process = osc * env : del;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-buffers-delays-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Buffers &amp; Delays</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><em>Ramps</em> are often used as <strong><em>cursors</em></strong> to <em>read</em> or <em>write samples</em> in a <strong><em>buffer</em></strong>. In Faust, <em>buffers</em> are implemented with the <code>rdtable</code> &amp; <code>rwtable</code> primitives.</li>
+<li>To playback a <strong><em>sound file</em></strong>, we also typically use a phasor as a <em>read cursor</em>.</li>
+<li><strong>Delaying</strong> a signal in Faust can be done using the operator ‘<strong><code>@</code></strong>’. Thus, the expression <em><code>x @ n</code></em> delays a signal ‘x’ by ‘n’ <strong>samples</strong>.</li>
+</ul>
+</div>
+<ul>
+<li><strong><em>Delay times</em></strong> can usually be changed in real time from <strong>GUI</strong>, but it will in this case introduce unwanted ‘<em>clicks</em>’. We also here define a ‘<strong><em>Dry/Wet</em></strong>’ control.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/delays-sliders.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" data-filename="faust/examples/time/delays-sliders.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb36-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb36-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb36-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Simple sine oscillator at low frequency:</span></span>
+<span id="cb36-4" class="hljs-ln-code"><a href="" aria-label="4"></a>osc <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">110</span>)<span class="op">;</span></span>
+<span id="cb36-5" class="hljs-ln-code"><a href="" aria-label="5"></a></span>
+<span id="cb36-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// We use an ADSR envelope, to make it percussive:</span></span>
+<span id="cb36-7" class="hljs-ln-code"><a href="" aria-label="7"></a>env <span class="op">=</span> <span class="fu">button</span>(<span class="st">"play"</span>) <span class="op">:</span> en<span class="op">.</span><span class="fu">adsr</span>(</span>
+<span id="cb36-8" class="hljs-ln-code"><a href="" aria-label="8"></a>    <span class="fl">0.0125</span><span class="op">,</span> <span class="co">// attack time (s)</span></span>
+<span id="cb36-9" class="hljs-ln-code"><a href="" aria-label="9"></a>    <span class="fl">0.25</span><span class="op">,</span> <span class="co">// decay time (s)</span></span>
+<span id="cb36-10" class="hljs-ln-code"><a href="" aria-label="10"></a>    <span class="fl">0.0</span><span class="op">,</span> <span class="co">// sustain level</span></span>
+<span id="cb36-11" class="hljs-ln-code"><a href="" aria-label="11"></a>    <span class="fl">0.0</span> <span class="co">// release time</span></span>
+<span id="cb36-12" class="hljs-ln-code"><a href="" aria-label="12"></a>)<span class="op">;</span></span>
+<span id="cb36-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span>
+<span id="cb36-14" class="hljs-ln-code"><a href="" aria-label="14"></a>del_l <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Delay (left)"</span><span class="op">,</span> <span class="fl">0.25</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="fl">0.1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">sec2samp</span><span class="op">;</span></span>
+<span id="cb36-15" class="hljs-ln-code"><a href="" aria-label="15"></a>del_r <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Delay (right)"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="fl">0.1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">sec2samp</span><span class="op">;</span></span>
+<span id="cb36-16" class="hljs-ln-code"><a href="" aria-label="16"></a>drywet <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Dry/Wet [style:knob]"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb36-17" class="hljs-ln-code"><a href="" aria-label="17"></a></span>
+<span id="cb36-18" class="hljs-ln-code"><a href="" aria-label="18"></a><span class="co">// Define our stereo delay:</span></span>
+<span id="cb36-19" class="hljs-ln-code"><a href="" aria-label="19"></a><span class="fu">del</span>(x) <span class="op">=</span> </span>
+<span id="cb36-20" class="hljs-ln-code"><a href="" aria-label="20"></a>    x <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>drywet) <span class="op">+</span> (x @ del_l) <span class="op">*</span> drywet<span class="op">,</span> </span>
+<span id="cb36-21" class="hljs-ln-code"><a href="" aria-label="21"></a>    x <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>drywet) <span class="op">+</span> (x @ del_r) <span class="op">*</span> drywet<span class="op">;</span></span>
+<span id="cb36-22" class="hljs-ln-code"><a href="" aria-label="22"></a></span>
+<span id="cb36-23" class="hljs-ln-code"><a href="" aria-label="23"></a><span class="bu">process</span> <span class="op">=</span> osc <span class="op">*</span> env <span class="op">:</span> del<span class="op">;</span></span>
+<span id="cb36-24" class="hljs-ln-code"><a href="" aria-label="24"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// Simple sine oscillator at low frequency:
+osc = os.osci(110);
+
+// We use an ADSR envelope, to make it percussive:
+env = button("play") : en.adsr(
+    0.0125, // attack time (s)
+    0.25, // decay time (s)
+    0.0, // sustain level
+    0.0 // release time
+);
+
+del_l = hslider("Delay (left)", 0.25, 0, 5, 0.1) : ba.sec2samp;
+del_r = hslider("Delay (right)", 0.5, 0, 5, 0.1) : ba.sec2samp;
+drywet = hslider("Dry/Wet [style:knob]", 0.5, 0, 1, 0.01);
+
+// Define our stereo delay:
+del(x) = 
+    x * (1-drywet) + (x @ del_l) * drywet, 
+    x * (1-drywet) + (x @ del_r) * drywet;
+
+process = osc * env : del;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-buffers-delays-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Buffers &amp; Delays</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><em>Ramps</em> are often used as <strong><em>cursors</em></strong> to <em>read</em> or <em>write samples</em> in a <strong><em>buffer</em></strong>. In Faust, <em>buffers</em> are implemented with the <code>rdtable</code> &amp; <code>rwtable</code> primitives.</li>
+<li>To playback a <strong><em>sound file</em></strong>, we also typically use a phasor as a <em>read cursor</em>.</li>
+<li><strong>Delaying</strong> a signal in Faust can be done using the operator ‘<strong><code>@</code></strong>’. Thus, the expression <em><code>x @ n</code></em> delays a signal ‘x’ by ‘n’ <strong>samples</strong>.</li>
+<li><strong><em>Delay times</em></strong> can usually be changed in real time from <strong>GUI</strong>, but it will in this case introduce unwanted ‘<em>clicks</em>’. We also here define a ‘<strong><em>Dry/Wet</em></strong>’ control.</li>
+</ul>
+</div>
+<ul>
+<li>Another typical control parameter for delays is the ‘<strong><em>feedback coefficient</em></strong>’, which allows the delay to <em>repeat itself a certain number of times</em> before fading away. This will require to <strong><em>use the recursive operator</em></strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/time/delays-feedback.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-filename="faust/examples/time/delays-feedback.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb37-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb37-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb37-3" class="hljs-ln-code"><a href="" aria-label="3"></a>osc <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
+<span id="cb37-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
+<span id="cb37-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// n: delay length (in samples)</span></span>
+<span id="cb37-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// f: feedback coeff. [0, 1]</span></span>
+<span id="cb37-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// x: input signal to be delayed</span></span>
+<span id="cb37-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="fu">dfb</span>(n<span class="op">,</span> f<span class="op">,</span> x) <span class="op">=</span> (x <span class="op">+</span> (_ <span class="op">*</span> f)) @ n <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb37-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
+<span id="cb37-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// We use an ADSR envelope, to make it percussive:</span></span>
+<span id="cb37-11" class="hljs-ln-code"><a href="" aria-label="11"></a>env <span class="op">=</span> <span class="fu">button</span>(<span class="st">"play"</span>) <span class="op">:</span> en<span class="op">.</span><span class="fu">adsr</span>(</span>
+<span id="cb37-12" class="hljs-ln-code"><a href="" aria-label="12"></a>    <span class="fl">0.0125</span><span class="op">,</span> <span class="co">// attack time (s)</span></span>
+<span id="cb37-13" class="hljs-ln-code"><a href="" aria-label="13"></a>    <span class="fl">0.25</span><span class="op">,</span> <span class="co">// decay time (s)</span></span>
+<span id="cb37-14" class="hljs-ln-code"><a href="" aria-label="14"></a>    <span class="fl">0.0</span><span class="op">,</span> <span class="co">// sustain level</span></span>
+<span id="cb37-15" class="hljs-ln-code"><a href="" aria-label="15"></a>    <span class="fl">0.0</span> <span class="co">// release time</span></span>
+<span id="cb37-16" class="hljs-ln-code"><a href="" aria-label="16"></a>)<span class="op">;</span></span>
+<span id="cb37-17" class="hljs-ln-code"><a href="" aria-label="17"></a></span>
+<span id="cb37-18" class="hljs-ln-code"><a href="" aria-label="18"></a>del_l <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Delay (left)"</span><span class="op">,</span> <span class="fl">0.25</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="fl">0.1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">sec2samp</span><span class="op">;</span></span>
+<span id="cb37-19" class="hljs-ln-code"><a href="" aria-label="19"></a>del_r <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Delay (right)"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="fl">0.1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">sec2samp</span><span class="op">;</span></span>
+<span id="cb37-20" class="hljs-ln-code"><a href="" aria-label="20"></a>fbk_l <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Feedback (left)"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="fl">0.9</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb37-21" class="hljs-ln-code"><a href="" aria-label="21"></a>fbk_r <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Feedback (right)"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="fl">0.9</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb37-22" class="hljs-ln-code"><a href="" aria-label="22"></a>drywet <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Dry/Wet [style:knob]"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb37-23" class="hljs-ln-code"><a href="" aria-label="23"></a></span>
+<span id="cb37-24" class="hljs-ln-code"><a href="" aria-label="24"></a><span class="co">// Define our stereo delay:</span></span>
+<span id="cb37-25" class="hljs-ln-code"><a href="" aria-label="25"></a><span class="fu">del</span>(x) <span class="op">=</span> x <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>drywet) <span class="op">+</span> <span class="fu">dfb</span>(del_l<span class="op">,</span> fbk_l<span class="op">,</span> x) <span class="op">*</span> drywet<span class="op">,</span> </span>
+<span id="cb37-26" class="hljs-ln-code"><a href="" aria-label="26"></a>         x <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>drywet) <span class="op">+</span> <span class="fu">dfb</span>(del_r<span class="op">,</span> fbk_r<span class="op">,</span> x) <span class="op">*</span> drywet<span class="op">;</span></span>
+<span id="cb37-27" class="hljs-ln-code"><a href="" aria-label="27"></a></span>
+<span id="cb37-28" class="hljs-ln-code"><a href="" aria-label="28"></a><span class="bu">process</span> <span class="op">=</span> osc <span class="op">*</span> env <span class="op">:</span> del<span class="op">;</span></span>
+<span id="cb37-29" class="hljs-ln-code"><a href="" aria-label="29"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+osc = os.osci(440);
+
+// n: delay length (in samples)
+// f: feedback coeff. [0, 1]
+// x: input signal to be delayed
+dfb(n, f, x) = (x + (_ * f)) @ n ~ _;
+
+// We use an ADSR envelope, to make it percussive:
+env = button("play") : en.adsr(
+    0.0125, // attack time (s)
+    0.25, // decay time (s)
+    0.0, // sustain level
+    0.0 // release time
+);
+
+del_l = hslider("Delay (left)", 0.25, 0, 5, 0.1) : ba.sec2samp;
+del_r = hslider("Delay (right)", 0.5, 0, 5, 0.1) : ba.sec2samp;
+fbk_l = hslider("Feedback (left)", 0.5, 0, 0.9, 0.01);
+fbk_r = hslider("Feedback (right)", 0.5, 0, 0.9, 0.01);
+drywet = hslider("Dry/Wet [style:knob]", 0.5, 0, 1, 0.01);
+
+// Define our stereo delay:
+del(x) = x * (1-drywet) + dfb(del_l, fbk_l, x) * drywet, 
+         x * (1-drywet) + dfb(del_r, fbk_r, x) * drywet;
+
+process = osc * env : del;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+</section></section>
+<section>
+<section id="faust-advanced-synthesis" class="title-slide slide level1 center">
+<h1>Faust: Advanced Synthesis</h1>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li><em>Waveform or Wavetable synthesis</em> is not the only method that we can use in order to create sound. We can also use <strong><em>additive synthesis</em></strong>, which is a superposition of oscillators running at different frequencies. One really fast way to do this in Faust is to use the <strong><em>par</em></strong> operator, which puts signal expressions <strong><em>in parallel</em></strong> dynamically.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/additive.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38" data-filename="faust/examples/synthesis/additive.dsp" data-code-line-numbers="3-6|3-7|9-10|9-17|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb38-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb38-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb38-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Use the 'par' primitive, which allows to </span></span>
+<span id="cb38-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// programatically put signal expressions </span></span>
+<span id="cb38-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// in parallel.</span></span>
+<span id="cb38-6" class="hljs-ln-code"><a href="" aria-label="6"></a>sine8 <span class="op">=</span> <span class="fu">par</span>(n<span class="op">,</span> <span class="dv">8</span><span class="op">,</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">220</span><span class="op">*</span>(n<span class="op">+</span><span class="dv">1</span>)))<span class="op">;</span></span>
+<span id="cb38-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span> sine8 <span class="op">:&gt;</span> _ <span class="op">*</span> <span class="dv">1</span><span class="op">/</span><span class="dv">16</span> <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb38-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb38-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// OR we could list the frequencies that we want manually:</span></span>
+<span id="cb38-10" class="hljs-ln-code"><a href="" aria-label="10"></a>frequencies <span class="op">=</span> (<span class="dv">220</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">550</span><span class="op">,</span> <span class="dv">551</span><span class="op">,</span> <span class="dv">880</span><span class="op">,</span> <span class="dv">1200</span>)<span class="op">;</span></span>
+<span id="cb38-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb38-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// And connect to a parallel group of sine oscillators:</span></span>
+<span id="cb38-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span> frequencies </span>
+<span id="cb38-14" class="hljs-ln-code"><a href="" aria-label="14"></a>        <span class="op">:</span> <span class="fu">par</span>(i<span class="op">,</span> <span class="dv">6</span><span class="op">,</span> os<span class="op">.</span><span class="at">osci</span>) </span>
+<span id="cb38-15" class="hljs-ln-code"><a href="" aria-label="15"></a>        <span class="op">:&gt;</span> _ </span>
+<span id="cb38-16" class="hljs-ln-code"><a href="" aria-label="16"></a>        <span class="op">:</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">12</span><span class="sc">)</span><span class="ss"> </span></span>
+<span id="cb38-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="ss">        &lt;: _,_;</span></span>
+<span id="cb38-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// Use the 'par' primitive, which allows to 
+// programatically put signal expressions 
+// in parallel.
+sine8 = par(n, 8, os.osci(220*(n+1)));
+process = sine8 :&gt; _ * 1/16 &lt;: _,_;
+
+// OR we could list the frequencies that we want manually:
+frequencies = (220, 440, 550, 551, 880, 1200);
+
+// And connect to a parallel group of sine oscillators:
+process = frequencies 
+        : par(i, 6, os.osci) 
+        :&gt; _ 
+        : /(12) 
+        &lt;: _,_;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><em>Waveform or Wavetable synthesis</em> is not the only method that we can use in order to create sound. We can also use <strong><em>additive synthesis</em></strong>, which is a superposition of oscillators running at different frequencies. One really fast way to do this in Faust is to use the <strong><em>par</em></strong> operator, which puts signal expressions <strong><em>in parallel</em></strong> dynamically.</li>
+</ul>
+</div>
+<ul>
+<li>In most synthesizers, additive synthesis is done by <strong><em>mixing a few oscillators together</em></strong>, with <em>selectable waveforms</em>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/additive-classic.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39" data-filename="faust/examples/synthesis/additive-classic.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb39-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb39-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb39-3" class="hljs-ln-code"><a href="" aria-label="3"></a>declare author <span class="st">"Pierre Cochard"</span></span>
+<span id="cb39-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
+<span id="cb39-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="fu">sine</span>(f) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(f)<span class="op">;</span></span>
+<span id="cb39-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="fu">triangle</span>(f) <span class="op">=</span> os<span class="op">.</span><span class="fu">triangle</span>(f)<span class="op">;</span></span>
+<span id="cb39-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="fu">sawtooth</span>(f) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(f)<span class="op">;</span></span>
+<span id="cb39-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="fu">square</span>(f) <span class="op">=</span> os<span class="op">.</span><span class="fu">square</span>(f)<span class="op">;</span></span>
+<span id="cb39-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
+<span id="cb39-10" class="hljs-ln-code"><a href="" aria-label="10"></a>onoff <span class="op">=</span> <span class="fu">checkbox</span>(<span class="st">"on/off"</span>)<span class="op">;</span></span>
+<span id="cb39-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb39-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="fu">switch_gui</span>(n) <span class="op">=</span> <span class="fu">nentry</span>(</span>
+<span id="cb39-13" class="hljs-ln-code"><a href="" aria-label="13"></a>    <span class="st">"waveform %n[style:menu{</span></span>
+<span id="cb39-14" class="hljs-ln-code"><a href="" aria-label="14"></a>        <span class="st">'Sine'</span><span class="op">:</span><span class="dv">0</span><span class="op">;</span> <span class="st">'Triangle'</span><span class="op">:</span><span class="dv">1</span><span class="op">;</span> </span>
+<span id="cb39-15" class="hljs-ln-code"><a href="" aria-label="15"></a>        <span class="st">'Sawtooth'</span><span class="op">:</span><span class="dv">2</span><span class="op">;</span> <span class="st">'Square'</span><span class="op">:</span><span class="dv">3</span></span>
+<span id="cb39-16" class="hljs-ln-code"><a href="" aria-label="16"></a>    }]<span class="st">",</span></span>
+<span id="cb39-17" class="hljs-ln-code"><a href="" aria-label="17"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">1</span></span>
+<span id="cb39-18" class="hljs-ln-code"><a href="" aria-label="18"></a>)<span class="op">;</span></span>
+<span id="cb39-19" class="hljs-ln-code"><a href="" aria-label="19"></a></span>
+<span id="cb39-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="fu">freq</span>(n) <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Osc. %n frequency"</span><span class="op">,</span> <span class="dv">60</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">127</span><span class="op">,</span> <span class="dv">1</span>) </span>
+<span id="cb39-21" class="hljs-ln-code"><a href="" aria-label="21"></a>        <span class="op">:</span> ba<span class="op">.</span><span class="at">midikey2hz</span><span class="op">;</span></span>
+<span id="cb39-22" class="hljs-ln-code"><a href="" aria-label="22"></a></span>
+<span id="cb39-23" class="hljs-ln-code"><a href="" aria-label="23"></a><span class="fu">gain</span>(n) <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Osc. %n amplitude"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb39-24" class="hljs-ln-code"><a href="" aria-label="24"></a></span>
+<span id="cb39-25" class="hljs-ln-code"><a href="" aria-label="25"></a><span class="fu">voice</span>(n<span class="op">,</span> f) <span class="op">=</span> <span class="fu">sine</span>(f)<span class="op">,</span> <span class="fu">triangle</span>(f)<span class="op">,</span> <span class="fu">sawtooth</span>(f)<span class="op">,</span> <span class="fu">square</span>(f) </span>
+<span id="cb39-26" class="hljs-ln-code"><a href="" aria-label="26"></a>            <span class="op">:</span> ba<span class="op">.</span><span class="fu">selectn</span>(<span class="dv">4</span><span class="op">,</span> <span class="fu">switch_gui</span>(n))<span class="op">;</span></span>
+<span id="cb39-27" class="hljs-ln-code"><a href="" aria-label="27"></a></span>
+<span id="cb39-28" class="hljs-ln-code"><a href="" aria-label="28"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">par</span>(n<span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="fu">voice</span>(n<span class="op">,</span> <span class="fu">freq</span>(n)) <span class="op">*</span> <span class="fu">gain</span>(n)) </span>
+<span id="cb39-29" class="hljs-ln-code"><a href="" aria-label="29"></a>        <span class="op">:&gt;</span> _        <span class="co">// merge</span></span>
+<span id="cb39-30" class="hljs-ln-code"><a href="" aria-label="30"></a>        <span class="op">:</span> <span class="op">*</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)    <span class="co">// div. volume </span></span>
+<span id="cb39-31" class="hljs-ln-code"><a href="" aria-label="31"></a>        <span class="op">&lt;:</span> _<span class="op">,</span>_      <span class="co">// expand to stereo</span></span>
+<span id="cb39-32" class="hljs-ln-code"><a href="" aria-label="32"></a><span class="op">;</span></span>
+<span id="cb39-33" class="hljs-ln-code"><a href="" aria-label="33"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+declare author "Pierre Cochard"
+
+sine(f) = os.osci(f);
+triangle(f) = os.triangle(f);
+sawtooth(f) = os.sawtooth(f);
+square(f) = os.square(f);
+
+onoff = checkbox("on/off");
+
+switch_gui(n) = nentry(
+    "waveform %n[style:menu{
+        'Sine':0; 'Triangle':1; 
+        'Sawtooth':2; 'Square':3
+    }]",
+    0, 0, 3, 1
+);
+
+freq(n) = hslider("Osc. %n frequency", 60, 0, 127, 1) 
+        : ba.midikey2hz;
+
+gain(n) = hslider("Osc. %n amplitude", 0, 0, 1, 0.01);
+
+voice(n, f) = sine(f), triangle(f), sawtooth(f), square(f) 
+            : ba.selectn(4, switch_gui(n));
+
+process = par(n, 3, voice(n, freq(n)) * gain(n)) 
+        :&gt; _        // merge
+        : *(1/3)    // div. volume 
+        &lt;: _,_      // expand to stereo
+;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><em>Waveform or Wavetable synthesis</em> is not the only method that we can use in order to create sound. We can also use <strong><em>additive synthesis</em></strong>, which is a superposition of oscillators running at different frequencies. One really fast way to do this in Faust is to use the <strong><em>par</em></strong> operator, which puts signal expressions <strong><em>in parallel</em></strong> dynamically.</li>
+<li>In most synthesizers, additive synthesis is done by <strong><em>mixing a few oscillators together</em></strong>, with <em>selectable waveforms</em>.</li>
+</ul>
+</div>
+<ul>
+<li>Usually, <strong><em>filtering</em></strong> is applied afterwards, to remove unwanted frequencies (<strong><em>subtractive synthesis</em></strong>).</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/subtractive.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40" data-filename="faust/examples/synthesis/subtractive.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb40-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb40-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb40-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">sine</span>(f) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(f)<span class="op">;</span></span>
+<span id="cb40-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">triangle</span>(f) <span class="op">=</span> os<span class="op">.</span><span class="fu">triangle</span>(f)<span class="op">;</span></span>
+<span id="cb40-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="fu">sawtooth</span>(f) <span class="op">=</span> os<span class="op">.</span><span class="fu">sawtooth</span>(f)<span class="op">;</span></span>
+<span id="cb40-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="fu">square</span>(f) <span class="op">=</span> os<span class="op">.</span><span class="fu">square</span>(f)<span class="op">;</span></span>
+<span id="cb40-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb40-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="fu">switch_gui</span>(n) <span class="op">=</span> <span class="fu">nentry</span>(</span>
+<span id="cb40-9" class="hljs-ln-code"><a href="" aria-label="9"></a>    <span class="st">"waveform %n[style:menu{</span></span>
+<span id="cb40-10" class="hljs-ln-code"><a href="" aria-label="10"></a>        <span class="st">'Sine'</span><span class="op">:</span><span class="dv">0</span><span class="op">;</span> <span class="st">'Triangle'</span><span class="op">:</span><span class="dv">1</span><span class="op">;</span> </span>
+<span id="cb40-11" class="hljs-ln-code"><a href="" aria-label="11"></a>        <span class="st">'Sawtooth'</span><span class="op">:</span><span class="dv">2</span><span class="op">;</span> <span class="st">'Square'</span><span class="op">:</span><span class="dv">3</span></span>
+<span id="cb40-12" class="hljs-ln-code"><a href="" aria-label="12"></a>        }]<span class="st">",</span></span>
+<span id="cb40-13" class="hljs-ln-code"><a href="" aria-label="13"></a>    <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">1</span></span>
+<span id="cb40-14" class="hljs-ln-code"><a href="" aria-label="14"></a>)<span class="op">;</span></span>
+<span id="cb40-15" class="hljs-ln-code"><a href="" aria-label="15"></a></span>
+<span id="cb40-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="fu">freq</span>(n) <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Osc. %n frequency"</span><span class="op">,</span> <span class="dv">60</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">127</span><span class="op">,</span> <span class="dv">1</span>) </span>
+<span id="cb40-17" class="hljs-ln-code"><a href="" aria-label="17"></a>        <span class="op">:</span> ba<span class="op">.</span><span class="at">midikey2hz</span><span class="op">;</span></span>
+<span id="cb40-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span>
+<span id="cb40-19" class="hljs-ln-code"><a href="" aria-label="19"></a><span class="fu">gain</span>(n) <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"Osc. %n amplitude"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb40-20" class="hljs-ln-code"><a href="" aria-label="20"></a></span>
+<span id="cb40-21" class="hljs-ln-code"><a href="" aria-label="21"></a><span class="fu">voice</span>(n<span class="op">,</span> f) <span class="op">=</span> <span class="fu">sine</span>(f)<span class="op">,</span> <span class="fu">triangle</span>(f)<span class="op">,</span> <span class="fu">sawtooth</span>(f)<span class="op">,</span> <span class="fu">square</span>(f) </span>
+<span id="cb40-22" class="hljs-ln-code"><a href="" aria-label="22"></a>        <span class="op">:</span> ba<span class="op">.</span><span class="fu">selectn</span>(<span class="dv">4</span><span class="op">,</span> <span class="fu">switch_gui</span>(n))<span class="op">;</span></span>
+<span id="cb40-23" class="hljs-ln-code"><a href="" aria-label="23"></a></span>
+<span id="cb40-24" class="hljs-ln-code"><a href="" aria-label="24"></a>moog <span class="op">=</span> ve<span class="op">.</span><span class="fu">moog_vcf</span>(</span>
+<span id="cb40-25" class="hljs-ln-code"><a href="" aria-label="25"></a>    <span class="fu">hslider</span>(<span class="st">"moog_vcf:res"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">,</span></span>
+<span id="cb40-26" class="hljs-ln-code"><a href="" aria-label="26"></a>    <span class="fu">hslider</span>(<span class="st">"moog_vcf:freq"</span><span class="op">,</span> <span class="dv">1000</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">4000</span><span class="op">,</span> <span class="dv">1</span>)</span>
+<span id="cb40-27" class="hljs-ln-code"><a href="" aria-label="27"></a>)<span class="op">;</span></span>
+<span id="cb40-28" class="hljs-ln-code"><a href="" aria-label="28"></a></span>
+<span id="cb40-29" class="hljs-ln-code"><a href="" aria-label="29"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">par</span>(n<span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="fu">voice</span>(n<span class="op">,</span> <span class="fu">freq</span>(n)) <span class="op">*</span> <span class="fu">gain</span>(n)) </span>
+<span id="cb40-30" class="hljs-ln-code"><a href="" aria-label="30"></a>        <span class="op">:&gt;</span> _        <span class="co">// merge</span></span>
+<span id="cb40-31" class="hljs-ln-code"><a href="" aria-label="31"></a>        <span class="op">:</span> <span class="op">*</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>)    <span class="co">// div. volume </span></span>
+<span id="cb40-32" class="hljs-ln-code"><a href="" aria-label="32"></a>        <span class="op">:</span> moog</span>
+<span id="cb40-33" class="hljs-ln-code"><a href="" aria-label="33"></a>        <span class="op">&lt;:</span> _<span class="op">,</span>_      <span class="co">// expand to stereo</span></span>
+<span id="cb40-34" class="hljs-ln-code"><a href="" aria-label="34"></a><span class="op">;</span></span>
+<span id="cb40-35" class="hljs-ln-code"><a href="" aria-label="35"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+sine(f) = os.osci(f);
+triangle(f) = os.triangle(f);
+sawtooth(f) = os.sawtooth(f);
+square(f) = os.square(f);
+
+switch_gui(n) = nentry(
+    "waveform %n[style:menu{
+        'Sine':0; 'Triangle':1; 
+        'Sawtooth':2; 'Square':3
+        }]",
+    0, 0, 3, 1
+);
+
+freq(n) = hslider("Osc. %n frequency", 60, 0, 127, 1) 
+        : ba.midikey2hz;
+
+gain(n) = hslider("Osc. %n amplitude", 0, 0, 1, 0.01);
+
+voice(n, f) = sine(f), triangle(f), sawtooth(f), square(f) 
+        : ba.selectn(4, switch_gui(n));
+
+moog = ve.moog_vcf(
+    hslider("moog_vcf:res", 0.5, 0, 1, 0.01),
+    hslider("moog_vcf:freq", 1000, 50, 4000, 1)
+);
+
+process = par(n, 3, voice(n, freq(n)) * gain(n)) 
+        :&gt; _        // merge
+        : *(1/3)    // div. volume 
+        : moog
+        &lt;: _,_      // expand to stereo
+;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><em>Waveform or Wavetable synthesis</em> is not the only method that we can use in order to create sound. We can also use <strong><em>additive synthesis</em></strong>, which is a superposition of oscillators running at different frequencies. One really fast way to do this in Faust is to use the <strong><em>par</em></strong> operator, which puts signal expressions <strong><em>in parallel</em></strong> dynamically.</li>
+<li>In most synthesizers, additive synthesis is done by <strong><em>mixing a few oscillators together</em></strong>, with <em>selectable waveforms</em>.</li>
+<li>Usually, <strong><em>filtering</em></strong> is applied afterwards, to remove unwanted frequencies (<strong><em>subtractive synthesis</em></strong>).</li>
+</ul>
+</div>
+<ul>
+<li><strong>Frequency-modulation</strong> (<strong><em>FM</em></strong>) <strong>synthesis</strong> is another well-known synthesis method, which implies <em>inter-modulated oscillator graphs</em>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/fm.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41" data-filename="faust/examples/synthesis/fm.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb41-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb41-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb41-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We modulate the frequency of an oscillator by another:</span></span>
+<span id="cb41-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">minimal_fm</span>(f<span class="op">,</span>m) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(</span>
+<span id="cb41-5" class="hljs-ln-code"><a href="" aria-label="5"></a>    f <span class="op">+</span> f <span class="op">*</span> os<span class="op">.</span><span class="fu">osci</span>(m)</span>
+<span id="cb41-6" class="hljs-ln-code"><a href="" aria-label="6"></a>)<span class="op">;</span></span>
+<span id="cb41-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb41-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">minimal_fm</span>(<span class="dv">440</span><span class="op">,</span> <span class="dv">20</span>)<span class="op">;</span></span>
+<span id="cb41-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
+<span id="cb41-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// But it's better to use the one in the library:</span></span>
+<span id="cb41-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="bu">process</span> <span class="op">=</span> sy<span class="op">.</span><span class="fu">fm</span>((<span class="dv">440</span><span class="op">,</span> <span class="dv">500</span><span class="op">,</span> <span class="dv">800</span>)<span class="op">,</span> (<span class="dv">500</span><span class="op">,</span> <span class="dv">400</span>)) <span class="op">*</span> <span class="fl">0.25</span> <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
+<span id="cb41-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// We modulate the frequency of an oscillator by another:
+minimal_fm(f,m) = os.osci(
+    f + f * os.osci(m)
+);
+
+process = minimal_fm(440, 20);
+
+// But it's better to use the one in the library:
+process = sy.fm((440, 500, 800), (500, 400)) * 0.25 &lt;: _,_;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-22" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (2/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li><strong><em>Physical model synthesis</em></strong> consists in <strong><em>emulating the physical properties of an instrument</em></strong> in order to reproduce its sound. Different methods exist in order to achieve this: <strong>modal synthesis</strong>, <strong>FDTD</strong>, <strong>digital waveguides</strong>, <em>etc.</em></li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/pm.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42" data-filename="faust/examples/synthesis/pm.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb42-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb42-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb42-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Simple Karplus-Strong:</span></span>
+<span id="cb42-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="bu">process</span> <span class="op">=</span> ba<span class="op">.</span><span class="fu">pulse</span>(<span class="dv">10000</span>) <span class="op">:</span></span>
+<span id="cb42-5" class="hljs-ln-code"><a href="" aria-label="5"></a>        <span class="op">+</span> <span class="op">~</span> transformation<span class="op">;</span></span>
+<span id="cb42-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb42-7" class="hljs-ln-code"><a href="" aria-label="7"></a>transformation <span class="op">=</span> </span>
+<span id="cb42-8" class="hljs-ln-code"><a href="" aria-label="8"></a>    @(<span class="fu">hslider</span>(<span class="st">"delay"</span><span class="op">,</span> <span class="dv">128</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">200</span><span class="op">,</span> <span class="dv">1</span>)) </span>
+<span id="cb42-9" class="hljs-ln-code"><a href="" aria-label="9"></a>    <span class="op">:</span> moyenne </span>
+<span id="cb42-10" class="hljs-ln-code"><a href="" aria-label="10"></a>    <span class="op">:</span> <span class="op">*</span>(<span class="fu">hslider</span>(<span class="st">"gain"</span><span class="op">,</span> <span class="fl">0.98</span><span class="op">,</span> <span class="op">-</span><span class="fl">0.98</span><span class="op">,</span> <span class="fl">0.98</span><span class="op">,</span> <span class="fl">0.01</span>))<span class="op">;</span></span>
+<span id="cb42-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb42-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="fu">moyenne</span>(x) <span class="op">=</span> (x<span class="op">+</span>x<span class="st">')/2;</span></span>
+<span id="cb42-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// Simple Karplus-Strong:
+process = ba.pulse(10000) :
+        + ~ transformation;
+
+transformation = 
+    @(hslider("delay", 128, 0, 200, 1)) 
+    : moyenne 
+    : *(hslider("gain", 0.98, -0.98, 0.98, 0.01));
+
+moyenne(x) = (x+x')/2;
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-22-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (2/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong><em>Physical model synthesis</em></strong> consists in <strong><em>emulating the physical properties of an instrument</em></strong> in order to reproduce its sound. Different methods exist in order to achieve this: <strong>modal synthesis</strong>, <strong>FDTD</strong>, <strong>digital waveguides</strong>, <em>etc.</em></li>
+</ul>
+</div>
+<ul>
+<li>Faust has in its <strong><em>libraries</em></strong> (‘pm’ prefix) a good collection of <strong><em>physically-modeled instruments</em></strong> (<em>flutes</em>, <em>bells</em>, <em>guitars</em>, <em>voice</em>, <em>etc.</em>).</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/pm2.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43" data-filename="faust/examples/synthesis/pm2.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb43-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb43-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="co">// https://faustlibraries.grame.fr/libs/physmodels</span></span>
+<span id="cb43-3" class="hljs-ln-code"><a href="" aria-label="3"></a></span>
+<span id="cb43-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// Guitars:</span></span>
+<span id="cb43-5" class="hljs-ln-code"><a href="" aria-label="5"></a>guitar1 <span class="op">=</span> pm<span class="op">.</span><span class="at">elecGuitar_ui_MIDI</span><span class="op">;</span></span>
+<span id="cb43-6" class="hljs-ln-code"><a href="" aria-label="6"></a>guitar2 <span class="op">=</span> pm<span class="op">.</span><span class="at">nylonGuitar_ui_MIDI</span><span class="op">;</span></span>
+<span id="cb43-7" class="hljs-ln-code"><a href="" aria-label="7"></a>guitar3 <span class="op">=</span> pm<span class="op">.</span><span class="at">guitar_ui_MIDI</span><span class="op">;</span></span>
+<span id="cb43-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb43-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// Orchestral:</span></span>
+<span id="cb43-10" class="hljs-ln-code"><a href="" aria-label="10"></a>violin <span class="op">=</span> pm<span class="op">.</span><span class="at">violin_ui_MIDI</span><span class="op">;</span></span>
+<span id="cb43-11" class="hljs-ln-code"><a href="" aria-label="11"></a>clarinet <span class="op">=</span> pm<span class="op">.</span><span class="at">clarinet_ui_MIDI</span><span class="op">;</span></span>
+<span id="cb43-12" class="hljs-ln-code"><a href="" aria-label="12"></a>brass <span class="op">=</span> pm<span class="op">.</span><span class="at">brass_ui_MIDI</span><span class="op">;</span></span>
+<span id="cb43-13" class="hljs-ln-code"><a href="" aria-label="13"></a>flute <span class="op">=</span> pm<span class="op">.</span><span class="at">flute_ui_MIDI</span></span>
+<span id="cb43-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span>
+<span id="cb43-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="co">// Percussions:</span></span>
+<span id="cb43-16" class="hljs-ln-code"><a href="" aria-label="16"></a>djembe <span class="op">=</span> pm<span class="op">.</span><span class="at">djembe_ui_MIDI</span><span class="op">;</span></span>
+<span id="cb43-17" class="hljs-ln-code"><a href="" aria-label="17"></a>marimba <span class="op">=</span> pm<span class="op">.</span><span class="at">marimba_ui_MIDI</span><span class="op">;</span></span>
+<span id="cb43-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span>
+<span id="cb43-19" class="hljs-ln-code"><a href="" aria-label="19"></a><span class="co">// Bells:</span></span>
+<span id="cb43-20" class="hljs-ln-code"><a href="" aria-label="20"></a>bell1 <span class="op">=</span> pm<span class="op">.</span><span class="at">churchBell_ui</span><span class="op">;</span></span>
+<span id="cb43-21" class="hljs-ln-code"><a href="" aria-label="21"></a>bell2 <span class="op">=</span> pm<span class="op">.</span><span class="at">englishBell_ui</span><span class="op">;</span></span>
+<span id="cb43-22" class="hljs-ln-code"><a href="" aria-label="22"></a>bell3 <span class="op">=</span> pm<span class="op">.</span><span class="at">frenchBell_ui</span><span class="op">;</span></span>
+<span id="cb43-23" class="hljs-ln-code"><a href="" aria-label="23"></a>bell4 <span class="op">=</span> pm<span class="op">.</span><span class="at">germanBell_ui</span><span class="op">;</span></span>
+<span id="cb43-24" class="hljs-ln-code"><a href="" aria-label="24"></a>bell5 <span class="op">=</span> pm<span class="op">.</span><span class="at">russianBell_ui</span><span class="op">;</span></span>
+<span id="cb43-25" class="hljs-ln-code"><a href="" aria-label="25"></a>bell6 <span class="op">=</span> pm<span class="op">.</span><span class="at">standardBell_ui</span><span class="op">;</span></span>
+<span id="cb43-26" class="hljs-ln-code"><a href="" aria-label="26"></a></span>
+<span id="cb43-27" class="hljs-ln-code"><a href="" aria-label="27"></a><span class="co">// Voice:</span></span>
+<span id="cb43-28" class="hljs-ln-code"><a href="" aria-label="28"></a>vocal <span class="op">=</span> pm<span class="op">.</span><span class="at">SFFormantModelBP_ui</span><span class="op">;</span></span>
+<span id="cb43-29" class="hljs-ln-code"><a href="" aria-label="29"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+// https://faustlibraries.grame.fr/libs/physmodels
+
+// Guitars:
+guitar1 = pm.elecGuitar_ui_MIDI;
+guitar2 = pm.nylonGuitar_ui_MIDI;
+guitar3 = pm.guitar_ui_MIDI;
+
+// Orchestral:
+violin = pm.violin_ui_MIDI;
+clarinet = pm.clarinet_ui_MIDI;
+brass = pm.brass_ui_MIDI;
+flute = pm.flute_ui_MIDI
+
+// Percussions:
+djembe = pm.djembe_ui_MIDI;
+marimba = pm.marimba_ui_MIDI;
+
+// Bells:
+bell1 = pm.churchBell_ui;
+bell2 = pm.englishBell_ui;
+bell3 = pm.frenchBell_ui;
+bell4 = pm.germanBell_ui;
+bell5 = pm.russianBell_ui;
+bell6 = pm.standardBell_ui;
+
+// Voice:
+vocal = pm.SFFormantModelBP_ui;
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-22-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (2/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong><em>Physical model synthesis</em></strong> consists in <strong><em>emulating the physical properties of an instrument</em></strong> in order to reproduce its sound. Different methods exist in order to achieve this: <strong>modal synthesis</strong>, <strong>FDTD</strong>, <strong>digital waveguides</strong>, <em>etc.</em></li>
+<li>Faust has in its <strong><em>libraries</em></strong> (‘pm’ prefix) a good collection of <strong><em>physically-modeled instruments</em></strong> (<em>flutes</em>, <em>bells</em>, <em>guitars</em>, <em>voice</em>, <em>etc.</em>).</li>
+</ul>
+</div>
+<ul>
+<li><strong><em>Granular synthesis</em></strong> is a method which uses overlapping ‘<strong><em>grains</em></strong>’ (short fragments of sound, around <strong>1 to 100 milliseconds</strong>) from a <strong><em>buffer</em></strong>, which are going to be played at <em>different speeds</em>, <em>phases</em>, <em>volume</em> and <em>frequency</em>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/synthesis/granular.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44" data-filename="faust/examples/synthesis/granular.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb44-1" class="hljs-ln-code"><a href="" aria-label="1"></a></span>
+<span id="cb44-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+</section></section>
+<section>
+<section id="faust-controls" class="title-slide slide level1 center">
+<h1>Faust: Controls</h1>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-controls-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Controls</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li><strong><em>GUI elements</em></strong> in Faust can be ordered and gathered into horizontal/vertical or tab <em>layouts</em>, using ‘<strong>groups</strong>’ or a special <strong>path syntax</strong> in their names.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/controls/groups.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45" data-filename="faust/examples/controls/groups.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb45-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb45-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb45-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// 'h:' horizontal group</span></span>
+<span id="cb45-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// 'v:' vertical group</span></span>
+<span id="cb45-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// 't:' tab group</span></span>
+<span id="cb45-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// [0]: order of appearance</span></span>
+<span id="cb45-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="fu">osc</span>(n) <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(</span>
+<span id="cb45-8" class="hljs-ln-code"><a href="" aria-label="8"></a>    <span class="fu">hslider</span>(<span class="st">"h:oscillators/v:%n/[0]freq"</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">20000</span><span class="op">,</span> <span class="fl">0.1</span>)</span>
+<span id="cb45-9" class="hljs-ln-code"><a href="" aria-label="9"></a>) <span class="op">*</span> <span class="fu">hslider</span>(<span class="st">"h:oscillators/v:%n/[1]gain"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb45-10" class="hljs-ln-code"><a href="" aria-label="10"></a></span>
+<span id="cb45-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">osc</span>(<span class="dv">0</span>)<span class="op">,</span> <span class="fu">osc</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb45-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// 'h:' horizontal group
+// 'v:' vertical group
+// 't:' tab group
+// [0]: order of appearance
+osc(n) = os.osci(
+    hslider("h:oscillators/v:%n/[0]freq", 440, 20, 20000, 0.1)
+) * hslider("h:oscillators/v:%n/[1]gain", 0, 0, 1, 0.01);
+
+process = osc(0), osc(1);
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-controls-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Controls</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong><em>GUI elements</em></strong> in Faust can be ordered and gathered into horizontal/vertical or tab <em>layouts</em>, using ‘<strong>groups</strong>’ or a special <strong>path syntax</strong> in their names.</li>
+</ul>
+</div>
+<ul>
+<li><strong><em>MIDI support</em></strong> can be added to any Faust program, simply by adding <strong>metadata</strong> on the <strong>GUI elements</strong> that we want to control.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/controls/midi.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46" data-filename="faust/examples/controls/midi.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb46-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb46-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb46-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// https://faustdoc.grame.fr/manual/midi/</span></span>
+<span id="cb46-4" class="hljs-ln-code"><a href="" aria-label="4"></a>declare options <span class="st">"[midi:on]"</span><span class="op">;</span></span>
+<span id="cb46-5" class="hljs-ln-code"><a href="" aria-label="5"></a></span>
+<span id="cb46-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// sliders</span></span>
+<span id="cb46-7" class="hljs-ln-code"><a href="" aria-label="7"></a>oscFreq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"oscFreq [midi:ctrl 79]"</span><span class="op">,</span> <span class="dv">80</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">500</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb46-8" class="hljs-ln-code"><a href="" aria-label="8"></a>lfoFreq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"lfoFreq [midi:ctrl 77]"</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb46-9" class="hljs-ln-code"><a href="" aria-label="9"></a>lfoRange <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"lfoRange [midi:ctrl 78]"</span><span class="op">,</span> <span class="dv">1000</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">5000</span><span class="op">,</span> <span class="fl">0.01</span>) <span class="op">:</span> si<span class="op">.</span><span class="at">smoo</span><span class="op">;</span></span>
+<span id="cb46-10" class="hljs-ln-code"><a href="" aria-label="10"></a>noiseGain <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"noiseGain [midi:ctrl 80]"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>) <span class="op">&lt;:</span> _<span class="op">*</span>_<span class="op">;</span></span>
+<span id="cb46-11" class="hljs-ln-code"><a href="" aria-label="11"></a>masterVol <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"masterVol [midi:ctrl 81]"</span><span class="op">,</span> <span class="fl">0.8</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>) <span class="op">&lt;:</span> _<span class="op">*</span>_<span class="op">;</span></span>
+<span id="cb46-12" class="hljs-ln-code"><a href="" aria-label="12"></a>panning <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"pan [midi:ctrl 49]"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>)  <span class="op">:</span> si<span class="op">.</span><span class="at">smoo</span><span class="op">;</span></span>
+<span id="cb46-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span>
+<span id="cb46-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="co">// buttons</span></span>
+<span id="cb46-15" class="hljs-ln-code"><a href="" aria-label="15"></a>activateNoise <span class="op">=</span> <span class="fu">button</span>(<span class="st">"activateNoise [midi:ctrl 19]"</span>)<span class="op">;</span></span>
+<span id="cb46-16" class="hljs-ln-code"><a href="" aria-label="16"></a>killSwitch <span class="op">=</span> <span class="dv">1</span><span class="op">-</span><span class="fu">button</span>(<span class="st">"killSwitch [midi:ctrl 20]"</span>)<span class="op">;</span></span>
+<span id="cb46-17" class="hljs-ln-code"><a href="" aria-label="17"></a>LFO <span class="op">=</span> os<span class="op">.</span><span class="fu">lf_triangle</span>(lfoFreq) <span class="op">*</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb46-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span>
+<span id="cb46-19" class="hljs-ln-code"><a href="" aria-label="19"></a><span class="bu">process</span> <span class="op">=</span> os<span class="op">.</span><span class="fu">oscrc</span>(<span class="dv">440</span>) <span class="op">*</span> <span class="fl">0.25</span> </span>
+<span id="cb46-20" class="hljs-ln-code"><a href="" aria-label="20"></a>        <span class="op">*</span> killSwitch </span>
+<span id="cb46-21" class="hljs-ln-code"><a href="" aria-label="21"></a>        <span class="op">*</span> os<span class="op">.</span><span class="fu">sawtooth</span>(oscFreq) </span>
+<span id="cb46-22" class="hljs-ln-code"><a href="" aria-label="22"></a>        <span class="op">+</span> no<span class="op">.</span><span class="at">noise</span> <span class="op">*</span> noiseGain <span class="op">*</span> activateNoise </span>
+<span id="cb46-23" class="hljs-ln-code"><a href="" aria-label="23"></a>        <span class="op">:</span> fi<span class="op">.</span><span class="fu">resonlp</span>(LFO <span class="op">*</span> lfoRange <span class="op">+</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">1</span>)</span>
+<span id="cb46-24" class="hljs-ln-code"><a href="" aria-label="24"></a>        <span class="op">*</span> masterVol </span>
+<span id="cb46-25" class="hljs-ln-code"><a href="" aria-label="25"></a>        <span class="op">&lt;:</span> _ <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>panning)<span class="op">,</span> _ <span class="op">*</span> panning<span class="op">;</span></span>
+<span id="cb46-26" class="hljs-ln-code"><a href="" aria-label="26"></a></span>
+<span id="cb46-27" class="hljs-ln-code"><a href="" aria-label="27"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// https://faustdoc.grame.fr/manual/midi/
+declare options "[midi:on]";
+
+// sliders
+oscFreq = hslider("oscFreq [midi:ctrl 79]", 80, 50, 500, 0.01);
+lfoFreq = hslider("lfoFreq [midi:ctrl 77]", 1, 0.01, 8, 0.01);
+lfoRange = hslider("lfoRange [midi:ctrl 78]", 1000, 10, 5000, 0.01) : si.smoo;
+noiseGain = hslider("noiseGain [midi:ctrl 80]", 0, 0, 1, 0.01) &lt;: _*_;
+masterVol = hslider("masterVol [midi:ctrl 81]", 0.8, 0, 1, 0.01) &lt;: _*_;
+panning = hslider("pan [midi:ctrl 49]", 0.5, 0, 1, 0.01)  : si.smoo;
+
+// buttons
+activateNoise = button("activateNoise [midi:ctrl 19]");
+killSwitch = 1-button("killSwitch [midi:ctrl 20]");
+LFO = os.lf_triangle(lfoFreq) * 0.5 + 0.5;
+
+process = os.oscrc(440) * 0.25 
+        * killSwitch 
+        * os.sawtooth(oscFreq) 
+        + no.noise * noiseGain * activateNoise 
+        : fi.resonlp(LFO * lfoRange + 50, 5, 1)
+        * masterVol 
+        &lt;: _ * (1-panning), _ * panning;
+
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-controls-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Controls</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong><em>GUI elements</em></strong> in Faust can be ordered and gathered into horizontal/vertical or tab <em>layouts</em>, using ‘<strong>groups</strong>’ or a special <strong>path syntax</strong> in their names.</li>
+<li><strong><em>MIDI support</em></strong> can be added to any Faust program, simply by adding <strong>metadata</strong> on the <strong>GUI elements</strong> that we want to control.</li>
+</ul>
+</div>
+<ul>
+<li><strong><em>Open Sound Control</em></strong> (<strong><em>OSC</em></strong>) support follows the same <em>metadata</em> logic. <strong><em>OSC</em></strong> is a protocol for <strong><em>exchanging control data</em></strong> between <em>multimedia devices</em>, such as <em>synthesizers</em>, <em>DAWs</em>, <em>audio programming languages</em>, etc.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/controls/osc.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47" data-filename="faust/examples/controls/osc.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb47-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb47-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb47-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// https://faustdoc.grame.fr/manual/osc/</span></span>
+<span id="cb47-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// listening port: 5510</span></span>
+<span id="cb47-5" class="hljs-ln-code"><a href="" aria-label="5"></a>declare options <span class="st">"[osc:on]"</span><span class="op">;</span></span>
+<span id="cb47-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb47-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// sliders</span></span>
+<span id="cb47-8" class="hljs-ln-code"><a href="" aria-label="8"></a>oscFreq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"oscFreq [osc:/oscillator/freq]"</span><span class="op">,</span> <span class="dv">80</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">500</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb47-9" class="hljs-ln-code"><a href="" aria-label="9"></a>lfoFreq <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"lfoFreq [osc:/lfo/freq]"</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="fl">0.01</span>)<span class="op">;</span></span>
+<span id="cb47-10" class="hljs-ln-code"><a href="" aria-label="10"></a>lfoRange <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"lfoRange [osc:/lfo/range]"</span><span class="op">,</span> <span class="dv">1000</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">5000</span><span class="op">,</span> <span class="fl">0.01</span>) <span class="op">:</span> si<span class="op">.</span><span class="at">smoo</span><span class="op">;</span></span>
+<span id="cb47-11" class="hljs-ln-code"><a href="" aria-label="11"></a>noiseGain <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"noiseGain [osc:/noise/gain]"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>) <span class="op">&lt;:</span> _<span class="op">*</span>_<span class="op">;</span></span>
+<span id="cb47-12" class="hljs-ln-code"><a href="" aria-label="12"></a>masterVol <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"masterVol [osc:/master/volume]"</span><span class="op">,</span> <span class="fl">0.8</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>) <span class="op">&lt;:</span> _<span class="op">*</span>_<span class="op">;</span></span>
+<span id="cb47-13" class="hljs-ln-code"><a href="" aria-label="13"></a>panning <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"pan [osc:/master/panning]"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.01</span>)  <span class="op">:</span> si<span class="op">.</span><span class="at">smoo</span><span class="op">;</span></span>
+<span id="cb47-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span>
+<span id="cb47-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="co">// buttons</span></span>
+<span id="cb47-16" class="hljs-ln-code"><a href="" aria-label="16"></a>activateNoise <span class="op">=</span> <span class="fu">button</span>(<span class="st">"activateNoise [osc:/noise/enabled]"</span>)<span class="op">;</span></span>
+<span id="cb47-17" class="hljs-ln-code"><a href="" aria-label="17"></a>killSwitch <span class="op">=</span> <span class="dv">1</span><span class="op">-</span><span class="fu">button</span>(<span class="st">"killSwitch [osc:/master/kill]"</span>)<span class="op">;</span></span>
+<span id="cb47-18" class="hljs-ln-code"><a href="" aria-label="18"></a>LFO <span class="op">=</span> os<span class="op">.</span><span class="fu">lf_triangle</span>(lfoFreq) <span class="op">*</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb47-19" class="hljs-ln-code"><a href="" aria-label="19"></a></span>
+<span id="cb47-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="bu">process</span> <span class="op">=</span> os<span class="op">.</span><span class="fu">oscrc</span>(<span class="dv">440</span>) <span class="op">*</span> <span class="fl">0.25</span> </span>
+<span id="cb47-21" class="hljs-ln-code"><a href="" aria-label="21"></a>        <span class="op">*</span> killSwitch </span>
+<span id="cb47-22" class="hljs-ln-code"><a href="" aria-label="22"></a>        <span class="op">*</span> os<span class="op">.</span><span class="fu">sawtooth</span>(oscFreq) </span>
+<span id="cb47-23" class="hljs-ln-code"><a href="" aria-label="23"></a>        <span class="op">+</span> no<span class="op">.</span><span class="at">noise</span> <span class="op">*</span> noiseGain <span class="op">*</span> activateNoise </span>
+<span id="cb47-24" class="hljs-ln-code"><a href="" aria-label="24"></a>        <span class="op">:</span> fi<span class="op">.</span><span class="fu">resonlp</span>(LFO <span class="op">*</span> lfoRange <span class="op">+</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">1</span>)</span>
+<span id="cb47-25" class="hljs-ln-code"><a href="" aria-label="25"></a>        <span class="op">*</span> masterVol </span>
+<span id="cb47-26" class="hljs-ln-code"><a href="" aria-label="26"></a>        <span class="op">&lt;:</span> _ <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>panning)<span class="op">,</span> _ <span class="op">*</span> panning<span class="op">;</span></span>
+<span id="cb47-27" class="hljs-ln-code"><a href="" aria-label="27"></a></span>
+<span id="cb47-28" class="hljs-ln-code"><a href="" aria-label="28"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// https://faustdoc.grame.fr/manual/osc/
+// listening port: 5510
+declare options "[osc:on]";
+
+// sliders
+oscFreq = hslider("oscFreq [osc:/oscillator/freq]", 80, 50, 500, 0.01);
+lfoFreq = hslider("lfoFreq [osc:/lfo/freq]", 1, 0.01, 8, 0.01);
+lfoRange = hslider("lfoRange [osc:/lfo/range]", 1000, 10, 5000, 0.01) : si.smoo;
+noiseGain = hslider("noiseGain [osc:/noise/gain]", 0, 0, 1, 0.01) &lt;: _*_;
+masterVol = hslider("masterVol [osc:/master/volume]", 0.8, 0, 1, 0.01) &lt;: _*_;
+panning = hslider("pan [osc:/master/panning]", 0.5, 0, 1, 0.01)  : si.smoo;
+
+// buttons
+activateNoise = button("activateNoise [osc:/noise/enabled]");
+killSwitch = 1-button("killSwitch [osc:/master/kill]");
+LFO = os.lf_triangle(lfoFreq) * 0.5 + 0.5;
+
+process = os.oscrc(440) * 0.25 
+        * killSwitch 
+        * os.sawtooth(oscFreq) 
+        + no.noise * noiseGain * activateNoise 
+        : fi.resonlp(LFO * lfoRange + 50, 5, 1)
+        * masterVol 
+        &lt;: _ * (1-panning), _ * panning;
+
+
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-controls-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Controls</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 80%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong><em>GUI elements</em></strong> in Faust can be ordered and gathered into horizontal/vertical or tab <em>layouts</em>, using ‘<strong>groups</strong>’ or a special <strong>path syntax</strong> in their names.</li>
+<li><strong><em>MIDI support</em></strong> can be added to any Faust program, simply by adding <strong>metadata</strong> on the <strong>GUI elements</strong> that we want to control.</li>
+<li><strong><em>Open Sound Control</em></strong> (<strong><em>OSC</em></strong>) support follows the same <em>metadata</em> logic. <strong><em>OSC</em></strong> is a protocol for <strong><em>exchanging control data</em></strong> between <em>multimedia devices</em>, such as <em>synthesizers</em>, <em>DAWs</em>, <em>audio programming languages</em>, etc.</li>
+</ul>
+</div>
+<ul>
+<li>Finally <strong><em>HTTP control</em></strong> can be enabled in the same way, which allows <em>remote-control of a Faust program</em> within a <strong>browser interface</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/examples/controls/http.dsp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48" data-filename="faust/examples/controls/http.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb48-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb48-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb48-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// https://faustdoc.grame.fr/manual/http/</span></span>
+<span id="cb48-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// listening port: 5510</span></span>
+<span id="cb48-5" class="hljs-ln-code"><a href="" aria-label="5"></a>declare options <span class="st">"[http:on]"</span><span class="op">;</span></span>
+<span id="cb48-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="faust-example">
+
+<details>
+<summary><strong>run</strong></summary>
+
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+// https://faustdoc.grame.fr/manual/http/
+// listening port: 5510
+declare options "[http:on]";
+-->
+</faust-editor>
+
+</div>
+</details>
+
+</div>
+
+</div></div>
 
 </section></section>
     </div>

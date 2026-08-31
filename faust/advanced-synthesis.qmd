@@ -156,4 +156,4 @@
 ```
 {{< faust faust/examples/synthesis/granular.dsp >}}
 :::
-:
+::::

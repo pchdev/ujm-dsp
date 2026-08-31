@@ -182,3 +182,15 @@ ANIMATIONS
 
 {{< include faust/time.qmd >}}
 
+# Faust: Buffers & Delays
+
+{{< include faust/buffers-delays.qmd >}}
+
+# Faust: Advanced Synthesis
+
+{{< include faust/advanced-synthesis.qmd >}}
+
+# Faust: Controls
+
+{{< include faust/control.qmd >}}
+

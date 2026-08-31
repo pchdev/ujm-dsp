@@ -1,0 +1,91 @@
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Controls {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+:::
+  - ***GUI elements*** in Faust can be ordered and gathered into horizontal/vertical or tab *layouts*, using '**groups**' or a special **path syntax** in their names. 
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/controls/groups.dsp"}
+{{< include /faust/examples/controls/groups.dsp >}}
+```
+{{< faust faust/examples/controls/groups.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Controls {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - ***GUI elements*** in Faust can be ordered and gathered into horizontal/vertical or tab *layouts*, using '**groups**' or a special **path syntax** in their names. 
+:::
+
+  - ***MIDI support*** can be added to any Faust program, simply by adding **metadata** on the **GUI elements** that we want to control. 
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/controls/midi.dsp"}
+{{< include /faust/examples/controls/midi.dsp >}}
+```
+{{< faust faust/examples/controls/midi.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Controls {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - ***GUI elements*** in Faust can be ordered and gathered into horizontal/vertical or tab *layouts*, using '**groups**' or a special **path syntax** in their names. 
+  - ***MIDI support*** can be added to any Faust program, simply by adding **metadata** on the **GUI elements** that we want to control. 
+:::
+  - ***Open Sound Control*** (***OSC***) support follows the same *metadata* logic. ***OSC*** is a protocol for ***exchanging control data*** between *multimedia devices*, such as *synthesizers*, *DAWs*, *audio programming languages*, etc.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/controls/osc.dsp"}
+{{< include /faust/examples/controls/osc.dsp >}}
+```
+{{< faust faust/examples/controls/osc.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Controls {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - ***GUI elements*** in Faust can be ordered and gathered into horizontal/vertical or tab *layouts*, using '**groups**' or a special **path syntax** in their names. 
+  - ***MIDI support*** can be added to any Faust program, simply by adding **metadata** on the **GUI elements** that we want to control. 
+  - ***Open Sound Control*** (***OSC***) support follows the same *metadata* logic. ***OSC*** is a protocol for ***exchanging control data*** between *multimedia devices*, such as *synthesizers*, *DAWs*, *audio programming languages*, etc.
+:::
+  - Finally ***HTTP control*** can be enabled in the same way, which allows *remote-control of a Faust program* within a **browser interface**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/controls/http.dsp"}
+{{< include /faust/examples/controls/http.dsp >}}
+```
+{{< faust faust/examples/controls/http.dsp >}}
+:::
+::::
+

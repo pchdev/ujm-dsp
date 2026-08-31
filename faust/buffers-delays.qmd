@@ -1,0 +1,109 @@
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Buffers & Delays {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+:::
+  - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/tables.dsp"}
+{{< include /faust/examples/time/tables.dsp >}}
+```
+{{< faust faust/examples/time/tables.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Buffers & Delays {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
+:::
+  - To playback a ***sound file***, we also typically use a phasor as a *read cursor*. 
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/soundfile.dsp"}
+{{< include /faust/examples/time/soundfile.dsp >}}
+```
+{{< faust faust/examples/time/soundfile.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Buffers & Delays {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
+  - To playback a ***sound file***, we also typically use a phasor as a *read cursor*. 
+:::
+  - **Delaying** a signal in Faust can be done using the operator '**`@`**'. Thus, the expression *`x @ n`* delays a signal 'x' by 'n' **samples**.
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/delays.dsp"}
+{{< include /faust/examples/time/delays.dsp >}}
+```
+{{< faust faust/examples/time/delays.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Buffers & Delays {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
+  - To playback a ***sound file***, we also typically use a phasor as a *read cursor*. 
+  - **Delaying** a signal in Faust can be done using the operator '**`@`**'. Thus, the expression *`x @ n`* delays a signal 'x' by 'n' **samples**.
+:::
+  - ***Delay times*** can usually be changed in real time from **GUI**, but it will in this case introduce unwanted '*clicks*'. We also here define a '***Dry/Wet***' control.
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/delays-sliders.dsp"}
+{{< include /faust/examples/time/delays-sliders.dsp >}}
+```
+{{< faust faust/examples/time/delays-sliders.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Buffers & Delays {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
+  - To playback a ***sound file***, we also typically use a phasor as a *read cursor*. 
+  - **Delaying** a signal in Faust can be done using the operator '**`@`**'. Thus, the expression *`x @ n`* delays a signal 'x' by 'n' **samples**.
+  - ***Delay times*** can usually be changed in real time from **GUI**, but it will in this case introduce unwanted '*clicks*'. We also here define a '***Dry/Wet***' control.
+:::
+  - Another typical control parameter for delays is the '***feedback coefficient***', which allows the delay to *repeat itself a certain number of times* before fading away. This will require to ***use the recursive operator***.
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/delays-feedback.dsp"}
+{{< include /faust/examples/time/delays-feedback.dsp >}}
+```
+{{< faust faust/examples/time/delays-feedback.dsp >}}
+:::
+::::

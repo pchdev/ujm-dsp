@@ -85,3 +85,66 @@
 :::
 ::::
 
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Time (2/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+:::
+  - A counter can be used as a base for many many things. With it, we can for instance build a ***ramp signal*** that *goes from 0 to 1 repeatedly at a certain rate*.
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/phasor.dsp"}
+{{< include /faust/examples/time/phasor.dsp >}}
+```
+{{< faust faust/examples/time/phasor.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Time (2/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - A counter can be used as a base for many many things. With it, we can for instance build a ***ramp signal*** that *goes from 0 to 1 repeatedly at a certain rate*.
+:::
+  - Notice anything? A *ramp* is very much like a ***sawtooth oscillator***, only with a different range (0 to 1 instead of -1 to 1).
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/phasor.dsp"}
+{{< include /faust/examples/time/phasor.dsp >}}
+```
+{{< faust faust/examples/time/phasor.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Time (2/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 80%;"}
+::: {style="opacity: 0.5"}
+  - A counter can be used as a base for many many things. With it, we can for instance build a ***ramp signal*** that *goes from 0 to 1 repeatedly at a certain rate*.
+  - Notice anything? A *ramp* is very much like a ***sawtooth oscillator***, only with a different range (0 to 1 instead of -1 to 1).
+:::
+  - With a *ramp* (or *phasor*), we can pretty much already build ***all of the simple waveform oscillators***, with a few operations...
+:::
+:::
+::: {.column width="44%"}
+```{.js code-line-numbers="|" filename="faust/examples/time/waveforms.dsp"}
+{{< include /faust/examples/time/waveforms.dsp >}}
+```
+{{< faust faust/examples/time/waveforms.dsp >}}
+:::
+::::
+

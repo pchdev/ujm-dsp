@@ -11,6 +11,3 @@ process = counter(0.00195, 1.0);
 frequency = 440/ma.SR;
 
 process = counter(frequency, 1.0);
-
-
-

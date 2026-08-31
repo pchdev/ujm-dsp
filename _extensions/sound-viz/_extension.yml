@@ -1,0 +1,5 @@
+title: Sound Visualizations
+
+contributes:
+  shortcodes:
+    - sound-viz.lua

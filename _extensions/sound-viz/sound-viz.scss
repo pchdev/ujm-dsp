@@ -1,0 +1,51 @@
+.ripple {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  --ripple-background: var(--r-background-color);
+  --ripple-foreground: var(--r-main-color);
+}
+
+.ripple svg {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  background: var(--ripple-background);
+}
+
+.ripple-source {
+  fill: var(--ripple-foreground);
+}
+
+.ripple-wave {
+  fill: none;
+  stroke: var(--ripple-foreground);
+  stroke-width: 2;
+}
+
+.ripple-controls {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  margin-top: 1rem;
+
+  font-size: 0.55em;
+}
+
+.ripple-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ripple-controls input[type="range"] {
+  width: 120px;
+}
+
+.ripple-controls output {
+  min-width: 3em;
+}
+

@@ -1,0 +1,73 @@
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties)
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+- Propagation is caused by the **oscillation** (*vibration*) of the medium's particles, around their equilibrium positions.
+- Sound has the following properties:
+  - **Speed**: ~343m/s in air
+  - **Amplitude**: measured in Pascals (Pa)
+  - **Period**: time between two oscillations
+  - **Wavelength**: distance between two oscillations
+  - **Frequency**: cycles per second, in Hertz (Hz, kHz, MHz)
+  - **Spectrum** (or timbre)
+:::
+:::
+:::
+::: {.column width="44%"}
+
+{{< ripple amplitude=0.8 frequency=2 >}}
+
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound perception 
+<!-- ----------------------------------------------------------------------- -->
+
+<br>
+
+- Our perception of sound is made from the conversion of the **vibrations** reaching our **eardrums** to a **signal of nerve impulses**, transmitted and interpreted by the brain.
+- Human ears can typically identify sounds ranging from **20 Hz to 20 kHz**.
+- Other animal ranges:
+  - **Bat**: 2 kHz to 110 kHz,
+  - **Porpoise**: 75 Hz to 150 kHz,
+  - **Cat**: 45 Hz to 64 kHz,
+  - **Dog**: 67 Hz to 45 kHz,
+  - **Chicken**: 125 Hz to 2 kHz
+
+<!-- ----------------------------------------------------------------------- -->
+## Signal
+<!-- ----------------------------------------------------------------------- -->
+
+- A signal describes the **evolution** of a certain type of *data* **over time**, like the vibration of an entity: the **membrane of a microphone**.
+- Just like sound waves turning into nerve impulses, the analyzed data usually needs to be first **converted to another physical unit**, or domain (transduction), in order to adapt to measurement/processing tools.
+- The vibration of a microphone's membrane is, for instance, usually converted to **continuous electrical current** before it can be processed and/or analyzed. In this case, the signal is said to be ***analog***.
+
+<!-- ----------------------------------------------------------------------- -->
+## Signal
+<!-- ----------------------------------------------------------------------- -->
+
+- With an **oscilloscope**, we can measure the **amplitude of a signal** at a given point in time (***time-domain***), through the visualisation of its ***waveform***.
+- An analog signal can already be processed as it is with **analog effects**: *tape delay*, *distortion*, *chorus*, *reverberation *(spring, plate), etc.
+- On the other hand, it is difficult to extract precise information about **frequency and spectrum**. For this purpose, it's far more efficient to switch to the ***frequency domain***, which requires the analog signal to be **turned into a digital signal**...
+
+<!-- ----------------------------------------------------------------------- -->
+## Digital Signal
+<!-- ----------------------------------------------------------------------- -->
+
+- To *digitize* a continuous signal implies ***discretizing it***. This is made possible by an **Analog-to-Digital Conversion** (**ADC**) process, which implies two key elements: ***sampling*** and ***quantization***.
+- **Sampling** means taking a sample of a signal at a certain frequency/rate (***sample rate***).
+  - **Audio CD**: 44.1 kHz
+  - **Pro Audio**: 48/96 kHz
+  - **MP3 (compressed)**: 320/256/192/128/96/64 kbps
+- Because of ***aliasing*** the sampling rate must be ***at least two times superior to the highest frequency*** we want to represent (**Nyquist-Shannon**)

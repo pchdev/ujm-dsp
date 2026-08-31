@@ -102,6 +102,7 @@
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-ce58913f3ff54aa3c2a7adab251cf640.css">
+  <link rel="stylesheet" href="_extensions/sound-viz/sound-viz.scss">
   <link href="slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -195,6 +196,7 @@
   </style>
   <script type="module" src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.6.1/dist/faust-web-component.js">
   </script>
+  <script src="_extensions/sound-viz/sound-viz.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -277,12 +279,18 @@ Pierre Cochard
 <section>
 <section id="sound-signal" class="title-slide slide level1 center">
 <h1>Sound &amp; Signal ………………………………</h1>
-
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
+<!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="sound-physical-properties" class="slide level2">
 <h2>Sound (physical properties)</h2>
+<!-- ----------------------------------------------------------------------- -->
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column add-space" style="width:50%;">
 <div class="content" style="padding-left: -50px;">
 <div style="font-size: 90%;">
 <ul>
@@ -300,12 +308,16 @@ Pierre Cochard
 </ul>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
-<p>ANIMATIONS</p>
+</div><div class="column" style="width:44%;">
+<div class="ripple" id="ripple-636932" data-amplitude="0.8" data-frequency="2">
+</div>
+
 </div></div>
+<!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="sound-perception" class="slide level2">
 <h2>Sound perception</h2>
+<!-- ----------------------------------------------------------------------- -->
 <p><br></p>
 <ul>
 <li>Our perception of sound is made from the conversion of the <strong>vibrations</strong> reaching our <strong>eardrums</strong> to a <strong>signal of nerve impulses</strong>, transmitted and interpreted by the brain.</li>
@@ -319,25 +331,31 @@ Pierre Cochard
 <li><strong>Chicken</strong>: 125 Hz to 2 kHz</li>
 </ul></li>
 </ul>
+<!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="signal" class="slide level2">
 <h2>Signal</h2>
+<!-- ----------------------------------------------------------------------- -->
 <ul>
 <li>A signal describes the <strong>evolution</strong> of a certain type of <em>data</em> <strong>over time</strong>, like the vibration of an entity: the <strong>membrane of a microphone</strong>.</li>
 <li>Just like sound waves turning into nerve impulses, the analyzed data usually needs to be first <strong>converted to another physical unit</strong>, or domain (transduction), in order to adapt to measurement/processing tools.</li>
 <li>The vibration of a microphone’s membrane is, for instance, usually converted to <strong>continuous electrical current</strong> before it can be processed and/or analyzed. In this case, the signal is said to be <strong><em>analog</em></strong>.</li>
 </ul>
+<!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="signal-1" class="slide level2">
 <h2>Signal</h2>
+<!-- ----------------------------------------------------------------------- -->
 <ul>
 <li>With an <strong>oscilloscope</strong>, we can measure the <strong>amplitude of a signal</strong> at a given point in time (<strong><em>time-domain</em></strong>), through the visualisation of its <strong><em>waveform</em></strong>.</li>
 <li>An analog signal can already be processed as it is with <strong>analog effects</strong>: <em>tape delay</em>, <em>distortion</em>, <em>chorus</em>, <em>reverberation </em>(spring, plate), etc.</li>
 <li>On the other hand, it is difficult to extract precise information about <strong>frequency and spectrum</strong>. For this purpose, it’s far more efficient to switch to the <strong><em>frequency domain</em></strong>, which requires the analog signal to be <strong>turned into a digital signal</strong>…</li>
 </ul>
+<!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="digital-signal" class="slide level2">
 <h2>Digital Signal</h2>
+<!-- ----------------------------------------------------------------------- -->
 <ul>
 <li>To <em>digitize</em> a continuous signal implies <strong><em>discretizing it</em></strong>. This is made possible by an <strong>Analog-to-Digital Conversion</strong> (<strong>ADC</strong>) process, which implies two key elements: <strong><em>sampling</em></strong> and <strong><em>quantization</em></strong>.</li>
 <li><strong>Sampling</strong> means taking a sample of a signal at a certain frequency/rate (<strong><em>sample rate</em></strong>).

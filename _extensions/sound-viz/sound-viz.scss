@@ -69,7 +69,6 @@
 
 .particles {
   width: 125%;
-  height: 125%;
   max-width: 600px;
   margin: 0 auto;
 
@@ -91,14 +90,10 @@
 .particles-controls {
   display: flex;
   flex-wrap: wrap;
-
   justify-content: center;
-
   column-gap: 1.5rem;
   row-gap: 0.2rem;
-
   margin-top: 0.75rem;
-
   font-size: 0.5em;
 }
 

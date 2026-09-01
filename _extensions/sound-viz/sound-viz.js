@@ -447,9 +447,9 @@ class Particles {
 
         this.particles = [];
 
-        this.startTime =
-            performance.now();
-
+        this.simulationTime = 0;
+        this.lastTime = performance.now();
+        this.running = true;
 
         this.createSVG();
         this.createControls();
@@ -529,17 +529,22 @@ class Particles {
 
 
     createControls() {
-
         this.controls =
             document.createElement(
                 "div"
             );
-
         this.controls.className =
             "particles-controls";
 
-
         this.controls.innerHTML = `
+            <button class="particles-play">
+                Pause
+            </button>
+
+            <button class="particles-step">
+                Step
+            </button>
+
             <label>
                 Amplitude
                 <input
@@ -579,7 +584,6 @@ class Particles {
                 </output>
             </label>
         `;
-
 
         this.element.appendChild(
             this.controls
@@ -654,6 +658,51 @@ class Particles {
                         this.speed;
                 }
             );
+    this.playButton = this.controls.querySelector(
+        ".particles-play"
+    );
+    this.stepButton = this.controls.querySelector(
+        ".particles-step"
+    );
+    this.running = true;
+
+    this.playButton.addEventListener(
+        "click",
+        () => {
+
+            this.running = !this.running;
+
+            this.playButton.textContent =
+                this.running
+                    ? "Pause"
+                    : "Play";
+
+            if (this.running) {
+                this.lastTime = performance.now();
+
+                requestAnimationFrame(
+                    time => this.tick(time)
+                );
+            }
+        }
+    );
+    this.stepButton.addEventListener(
+    "click",
+    () => {
+
+        if (this.running) {
+            return;
+        }
+
+        const step = 1000 / 30;
+
+        this.simulationTime += step;
+
+        this.update(
+            this.simulationTime
+        );
+    }
+);
     }
 
 
@@ -663,9 +712,7 @@ class Particles {
          * Time in seconds.
          */
 
-        const t =
-            (time - this.startTime) / 1000;
-
+        const t = time / 1000;
 
         /*
          * Angular frequency:
@@ -732,12 +779,26 @@ class Particles {
     }
 
 
-    tick(time) {
+tick(time) {
 
-        this.update(time);
-
-        requestAnimationFrame(
-            t => this.tick(t)
-        );
+    if (!this.running) {
+        return;
     }
+
+    const dt =
+        time - this.lastTime;
+
+    this.lastTime = time;
+
+    this.simulationTime += dt;
+
+    this.update(
+        this.simulationTime
+    );
+
+    requestAnimationFrame(
+        t => this.tick(t)
+    );
 }
+}
+

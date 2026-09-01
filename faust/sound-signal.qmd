@@ -60,7 +60,7 @@
 :::
 ::: {.column width="44%"}
 
-{{< ripple amplitude=0.9 frequency=1.6 >}}
+{{< ripple amplitude=0.9 frequency=0.8 speed=80 >}}
 
 :::
 ::::
@@ -84,7 +84,31 @@
 :::
 ::: {.column width="44%"}
 
-{{< ripple amplitude=0.8 frequency=1.2 >}}
+{{< ripple amplitude=0.25 frequency=0.8 speed=80 >}}
+
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+- **Propagation** is caused by the **oscillation** (*vibration*) of the medium's **particles**, around their *equilibrium* positions.
+:::
+- Sound has the following properties:
+  - **Speed**: ~343m/s in air
+  - **Amplitude**: measured in Pascals (Pa)
+:::
+:::
+:::
+::: {.column width="44%"}
+
+{{< particles amplitude=2 frequency=0.4 speed=80 >}}
 
 :::
 ::::
@@ -110,7 +134,7 @@
 :::
 ::: {.column width="44%"}
 
-{{< ripple amplitude=0.8 frequency=1.2 >}}
+{{< ripple amplitude=0.75 frequency=0.8 speed=80 >}}
 
 :::
 ::::
@@ -137,7 +161,7 @@
 :::
 ::: {.column width="44%"}
 
-{{< ripple amplitude=0.8 frequency=1.2 >}}
+{{< ripple amplitude=0.75 frequency=0.8 speed=80 >}}
 
 :::
 ::::

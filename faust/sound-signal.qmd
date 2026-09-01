@@ -17,7 +17,7 @@
 :::
 ::: {.column width="44%"}
 
-{{< ripple amplitude=0.8 frequency=1.2 >}}
+{{< ripple amplitude=0.8 frequency=0.8 speed=80 >}}
 :::
 ::::
 
@@ -60,7 +60,7 @@
 :::
 ::: {.column width="44%"}
 
-{{< ripple amplitude=0.8 frequency=1.2 >}}
+{{< ripple amplitude=0.9 frequency=1.6 >}}
 
 :::
 ::::

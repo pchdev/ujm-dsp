@@ -66,3 +66,57 @@
   font-family: monospace;
   font-size: 0.55em;
 }
+
+.particles {
+  width: 125%;
+  height: 125%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  --particles-background: #fdf6e3;
+  --particles-foreground: #586e75;
+}
+
+.particles svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--particles-background);
+}
+
+.particle {
+  fill: var(--particles-foreground);
+}
+
+.particles-controls {
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  column-gap: 1.5rem;
+  row-gap: 0.2rem;
+
+  margin-top: 0.75rem;
+
+  font-size: 0.5em;
+}
+
+.particles-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.particles-controls label:last-child {
+  flex-basis: 100%;
+  justify-content: center;
+}
+
+.particles-controls input[type="range"] {
+  width: 100px;
+}
+
+.particles-controls output {
+  min-width: 2.5em;
+}

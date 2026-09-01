@@ -3,8 +3,8 @@
   max-width: 600px;
   margin: 0 auto;
 
-  --ripple-background: var(--r-background-color);
-  --ripple-foreground: var(--r-main-color);
+  --ripple-background: #fdf6e3;
+  --ripple-foreground: #586e75;
 }
 
 .ripple svg {
@@ -19,33 +19,50 @@
   fill: var(--ripple-foreground);
 }
 
-.ripple-wave {
+.ripple-compression,
+.ripple-rarefaction {
   fill: none;
   stroke: var(--ripple-foreground);
   stroke-width: 2;
 }
 
+.ripple-rarefaction {
+  stroke-dasharray: 5 5;
+}
+
 .ripple-controls {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.5em;
+}
 
-  margin-top: 1rem;
-
-  font-size: 0.55em;
+.ripple-controls label:last-child {
+  flex-basis: 100%;
+  justify-content: center;
 }
 
 .ripple-controls label {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .ripple-controls input[type="range"] {
-  width: 120px;
+  width: 100px;
 }
 
 .ripple-controls output {
-  min-width: 3em;
+  min-width: 2.5em;
 }
 
+.ripple-info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 0.4rem;
+  font-family: monospace;
+  font-size: 0.55em;
+}

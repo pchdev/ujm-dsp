@@ -31,3 +31,18 @@ function particles(args, kwargs, meta)
 </div>
 ]], id, amplitude, frequency, speed))
 end
+
+function waveform(args, kwargs, meta)
+  local amplitude = kwargs["amplitude"] or "25"
+  local waveform = kwargs["waveform"] or "sine"
+  local id = "waveform-" .. tostring(math.random(100000, 999999))
+  return pandoc.RawBlock("html", string.format([[
+<div
+  class="waveform"
+  id="%s"
+  data-amplitude="%s"
+  data-waveform="%s">
+</div>
+]], id, amplitude, waveform))
+
+end

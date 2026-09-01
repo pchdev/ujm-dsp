@@ -38,7 +38,6 @@ class Ripple {
             "xMidYMid meet"
         );
         this.element.appendChild(this.svg);
-
         // Source
         this.source = document.createElementNS(
             NS, "circle"
@@ -188,7 +187,6 @@ class Ripple {
          * Emit alternating pressure
          * regions every half-period.
          */
-
         if (time - this.lastEmission >= halfPeriod) {
             this.emit(time);
             this.lastEmission = time;
@@ -226,36 +224,6 @@ class Ripple {
         this.update(time);
         requestAnimationFrame((t) => this.tick(t));
     }
-}
-
-function initRipples() {
-    document
-        .querySelectorAll(".ripple")
-        .forEach(element => {
-            if (element.dataset.initialized) {
-                return;
-            }
-            element.dataset.initialized = "true";
-            new Ripple(element);
-        });
-    document
-        .querySelectorAll(".particles")
-        .forEach(element => {
-            if (element.dataset.initialized) {
-                return;
-            }
-            element.dataset.initialized = "true";
-            new Particles(element);
-        });
-}
-
-if (document.readyState === "loading") {
-    document.addEventListener(
-        "DOMContentLoaded",
-        initRipples
-    );
-} else {
-    initRipples();
 }
 
 class Particles {
@@ -473,13 +441,297 @@ class Particles {
         if (!this.running) {
             return;
         }
+        const dt = time - this.lastTime;
+        this.lastTime = time;
+        this.simulationTime += dt;
+        this.update(this.simulationTime);
+        requestAnimationFrame(
+            t => this.tick(t)
+        );
+    }
+}
 
-    const dt = time - this.lastTime;
-    this.lastTime = time;
-    this.simulationTime += dt;
-    this.update(this.simulationTime);
-    requestAnimationFrame(
-        t => this.tick(t)
-    );}
+class Waveform {
+    constructor(element) {
+        this.element = element;
+        this.amplitude = parseFloat(
+            element.dataset.amplitude ?? "25"
+        );
+        this.waveform = element.dataset.waveform ?? "sine";
+        this.running = true;
+        this.phase = 0;
+        this.sampleRate = 100;
+        this.bufferSize = 400;
+
+        this.samples = new Float32Array(this.bufferSize);
+        this.writeIndex = 0;
+        this.lastTime = performance.now();
+        this.simulationTime = 0;
+
+        this.createSVG();
+        this.createControls();
+        this.fillBuffer();
+
+        requestAnimationFrame(
+            time => this.tick(time)
+        );
+    }
+
+    createSVG() {
+        const NS = "http://www.w3.org/2000/svg";
+        this.svg = document.createElementNS(NS, "svg");
+        this.svg.setAttribute(
+            "viewBox", "0 0 400 300"
+        );
+        this.element.appendChild(this.svg);
+        /*
+         * Grid / reference lines.
+         */
+        for (const y of [50, 150, 250]) {
+            const line = document.createElementNS(NS, "line");
+            line.setAttribute("x1", 10);
+            line.setAttribute("x2", 390);
+            line.setAttribute("y1", y);
+            line.setAttribute("y2", y);
+
+            line.classList.add(
+                y === 150
+                    ? "waveform-zero"
+                    : "waveform-grid"
+            );
+            this.svg.appendChild(line);
+        }
+        /*
+         * The waveform itself.
+         */
+        this.path = document.createElementNS(NS, "path");
+        this.path.classList.add("waveform-line");
+        this.svg.appendChild(this.path);
+        /*
+         * Voltage labels.
+         */
+        this.labels = document.createElementNS(NS, "g");
+        this.labels.classList.add("waveform-labels");
+        this.svg.appendChild(this.labels);
+
+        this.addLabel(385, 48, "+1 V");
+        this.addLabel(385, 153, "0 V");
+        this.addLabel(385, 258, "-1 V");
+    }
+
+    addLabel(x, y, text) {
+        const NS = "http://www.w3.org/2000/svg";
+        const label = document.createElementNS(NS, "text");
+        label.setAttribute("x", x);
+        label.setAttribute("y", y);
+        label.setAttribute("text-anchor", "end");
+        label.textContent = text;
+        this.labels.appendChild(label);
+    }
+
+    createControls() {
+        this.controls = document.createElement("div");
+        this.controls.className = "waveform-controls";
+        this.controls.innerHTML = `
+            <button
+                class="waveform-play">
+                Pause
+            </button>
+
+            <button
+                class="waveform-step">
+                Step
+            </button>
+
+            <label>
+                Amplitude
+                <input
+                    type="range"
+                    min="0"
+                    max="50"
+                    step="1"
+                    value="${this.amplitude}">
+                <output>
+                    ${this.amplitude}
+                </output>
+            </label>
+
+            <label>
+                Waveform
+                <select class="waveform-select">
+                    <option value="sine">Sine</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="square">Square</option>
+                    <option value="saw">Saw</option>
+                    <option value="noise">Noise</option>
+                </select>
+            </label>
+        `;
+        this.element.appendChild(this.controls);
+        this.playButton = this.controls.querySelector(
+            ".waveform-play"
+        );
+        this.stepButton = this.controls.querySelector(
+            ".waveform-step"
+        );
+        this.amplitudeInput = this.controls.querySelector(
+            "input"
+        );
+        this.waveformSelect = this.controls.querySelector(
+            ".waveform-select"
+        );
+        this.waveformSelect.value = this.waveform;
+        this.playButton.addEventListener("click", () => {
+            this.running = !this.running;
+            this.playButton.textContent = this.running
+                ? "Pause"
+                : "Play";
+            if (this.running) {
+                this.lastTime = performance.now();
+                requestAnimationFrame(
+                    time => this.tick(time)
+                );
+            }
+        });
+        this.stepButton.addEventListener("click", () => {
+            if (this.running) {
+                return;
+            }
+            this.addSample();
+            this.draw();
+        });
+        this.amplitudeInput.addEventListener("input", () => {
+            this.amplitude = parseFloat(
+                this.amplitudeInput.value
+            );
+            this.amplitudeInput
+                .nextElementSibling
+                .value = this.amplitude;
+            }
+        );
+        this.waveformSelect.addEventListener("change", () => {
+            this.waveform = this.waveformSelect.value;
+            }
+        );
+    }
+
+    sample(phase) {
+        switch (this.waveform) {
+            case "sine":
+                return Math.sin(
+                    phase * Math.PI * 2
+                );
+            case "triangle": {
+                const t = phase <= 0.5
+                    ? phase
+                    : 1 - phase;
+                return (t - 0.25) * 4;
+            }
+            case "square":
+                return phase <= 0.5 ? -1 : 1;
+            case "saw":
+                return phase * 2 - 1;
+            case "noise":
+                return Math.random() * 2 - 1;
+            default:
+                return 0;
+        }
+    }
+
+    addSample() {
+        const value = this.sample(this.phase);
+        this.samples[this.writeIndex] = value;
+        this.writeIndex = (this.writeIndex + 1) % this.bufferSize;
+        /*
+         * One sample advances the phase.
+         *
+         * The frequency here is deliberately
+         * slow enough to make the waveform
+         * easy to see.
+         */
+        const frequency = 1;
+        this.phase += frequency / this.sampleRate;
+        if (this.phase >= 1) {
+            this.phase -= 1;
+        }
+    }
+
+    fillBuffer() {
+        for (let i = 0; i < this.bufferSize; i++) {
+            this.addSample();
+        }
+    }
+
+    draw() {
+        const points = [];
+        for (let i = 0; i < this.bufferSize; i++) {
+            const index = (this.writeIndex + i) % this.bufferSize;
+            const value = this.samples[index];
+            const x = 10 + i * (380 / (this.bufferSize - 1));
+            const y = 150 - value * this.amplitude * 2;
+            points.push(`${x},${y}`);
+        }
+        this.path.setAttribute(
+            "d", "M " + points.join(" L ")
+        );
+    }
+
+    tick(time) {
+        if (!this.running) {
+            return;
+        }
+        const dt = time - this.lastTime;
+        this.lastTime = time;
+
+        /*
+         * Generate approximately one
+         * sample per frame for now.
+         */
+        this.addSample();
+        this.draw();
+        requestAnimationFrame(
+            t => this.tick(t)
+        );
+    }
+}
+
+function initSoundViz() {
+    document
+        .querySelectorAll(".ripple")
+        .forEach(element => {
+            if (element.dataset.initialized) {
+                return;
+            }
+            element.dataset.initialized = "true";
+            new Ripple(element);
+        });
+    document
+        .querySelectorAll(".particles")
+        .forEach(element => {
+            if (element.dataset.initialized) {
+                return;
+            }
+            element.dataset.initialized = "true";
+            new Particles(element);
+        });
+    document
+        .querySelectorAll(".waveform")
+        .forEach(element => {
+            if (element.dataset.initialized) {
+                return;
+            }
+            element.dataset.initialized = "true";
+            new Waveform(element);
+        }
+    );
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener(
+        "DOMContentLoaded",
+        initSoundViz
+    );
+} else {
+    initSoundViz();
 }
 

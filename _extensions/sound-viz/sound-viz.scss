@@ -115,3 +115,79 @@
 .particles-controls output {
   min-width: 2.5em;
 }
+
+.waveform {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  --waveform-background: #fdf6e3;
+  --waveform-foreground: #586e75;
+}
+
+.waveform svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--waveform-background);
+}
+
+.waveform-grid {
+  stroke: var(--waveform-foreground);
+  stroke-width: 1;
+  opacity: 0.15;
+}
+
+.waveform-zero {
+  stroke: var(--waveform-foreground);
+  stroke-width: 1.5;
+  opacity: 0.5;
+}
+
+.waveform-line {
+  fill: none;
+  stroke: var(--waveform-foreground);
+  stroke-width: 2;
+}
+
+.waveform-labels {
+  fill: var(--waveform-foreground);
+  font-family: monospace;
+  font-size: 10px;
+}
+
+.waveform-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 1.2rem;
+  row-gap: 0.3rem;
+  margin-top: 0rem;
+  font-size: 0.5em;
+}
+
+.waveform-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.waveform-controls input[type="range"] {
+  width: 100px;
+}
+
+.waveform-controls output {
+  min-width: 2.5em;
+}
+
+.waveform-controls button,
+.waveform-controls select {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.15em 0.6em;
+  border: 1px solid
+    var(--waveform-foreground);
+  background:
+    var(--waveform-background);
+  color:
+    var(--waveform-foreground);
+}

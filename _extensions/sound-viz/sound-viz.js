@@ -458,19 +458,15 @@ class Waveform {
             element.dataset.amplitude ?? "25"
         );
         this.waveform = element.dataset.waveform ?? "sine";
+        this.frequency = 1;
+        this.sampleRate = 20;
         this.running = true;
-        this.phase = 0;
-        this.sampleRate = 100;
-        this.bufferSize = 400;
-
-        this.samples = new Float32Array(this.bufferSize);
-        this.writeIndex = 0;
-        this.lastTime = performance.now();
         this.simulationTime = 0;
+        this.lastTime = performance.now();
 
         this.createSVG();
         this.createControls();
-        this.fillBuffer();
+        this.draw();
 
         requestAnimationFrame(
             time => this.tick(time)
@@ -484,6 +480,7 @@ class Waveform {
             "viewBox", "0 0 400 300"
         );
         this.element.appendChild(this.svg);
+
         /*
          * Grid / reference lines.
          */
@@ -493,7 +490,6 @@ class Waveform {
             line.setAttribute("x2", 390);
             line.setAttribute("y1", y);
             line.setAttribute("y2", y);
-
             line.classList.add(
                 y === 150
                     ? "waveform-zero"
@@ -501,12 +497,21 @@ class Waveform {
             );
             this.svg.appendChild(line);
         }
+
         /*
-         * The waveform itself.
+         * Continuous waveform.
          */
         this.path = document.createElementNS(NS, "path");
         this.path.classList.add("waveform-line");
         this.svg.appendChild(this.path);
+
+        /*
+         * Sample points.
+         */
+        this.sampleGroup = document.createElementNS(NS, "g");
+        this.sampleGroup.classList.add("waveform-samples");
+        this.svg.appendChild(this.sampleGroup);
+
         /*
          * Voltage labels.
          */
@@ -522,6 +527,7 @@ class Waveform {
     addLabel(x, y, text) {
         const NS = "http://www.w3.org/2000/svg";
         const label = document.createElementNS(NS, "text");
+
         label.setAttribute("x", x);
         label.setAttribute("y", y);
         label.setAttribute("text-anchor", "end");
@@ -533,15 +539,15 @@ class Waveform {
         this.controls = document.createElement("div");
         this.controls.className = "waveform-controls";
         this.controls.innerHTML = `
-            <button
-                class="waveform-play">
-                Pause
-            </button>
+            <div class="waveform-buttons">
+                <button class="waveform-play">
+                    Pause
+                </button>
 
-            <button
-                class="waveform-step">
-                Step
-            </button>
+                <button class="waveform-step">
+                    Step
+                </button>
+            </div>
 
             <label>
                 Amplitude
@@ -557,6 +563,34 @@ class Waveform {
             </label>
 
             <label>
+                Frequency
+                <input
+                    type="range"
+                    class="waveform-frequency"
+                    min="0.5"
+                    max="5"
+                    step="0.5"
+                    value="${this.frequency}">
+                <output>
+                    ${this.frequency} Hz
+                </output>
+            </label>
+
+            <label>
+                Sample rate
+                <input
+                    type="range"
+                    class="waveform-sample-rate"
+                    min="5"
+                    max="50"
+                    step="1"
+                    value="${this.sampleRate}">
+                <output>
+                    ${this.sampleRate} Hz
+                </output>
+            </label>
+
+            <label>
                 Waveform
                 <select class="waveform-select">
                     <option value="sine">Sine</option>
@@ -566,8 +600,17 @@ class Waveform {
                     <option value="noise">Noise</option>
                 </select>
             </label>
+
+            <label class="waveform-samples-toggle">
+                <input
+                    type="checkbox"
+                    class="waveform-show-samples">
+                Show samples
+            </label>
         `;
+
         this.element.appendChild(this.controls);
+
         this.playButton = this.controls.querySelector(
             ".waveform-play"
         );
@@ -577,27 +620,34 @@ class Waveform {
         this.amplitudeInput = this.controls.querySelector(
             "input"
         );
+        this.frequencyInput = this.controls.querySelector(
+            ".waveform-frequency"
+        );
+        this.sampleRateInput = this.controls.querySelector(
+            ".waveform-sample-rate"
+        );
         this.waveformSelect = this.controls.querySelector(
             ".waveform-select"
         );
+        this.showSamples = this.controls.querySelector(
+            ".waveform-show-samples"
+        );
         this.waveformSelect.value = this.waveform;
+
         this.playButton.addEventListener("click", () => {
-            this.running = !this.running;
-            this.playButton.textContent = this.running
-                ? "Pause"
-                : "Play";
-            if (this.running) {
+                this.running = !this.running;
+                this.playButton.textContent = this.running
+                    ? "Pause"
+                    : "Play";
                 this.lastTime = performance.now();
-                requestAnimationFrame(
-                    time => this.tick(time)
-                );
             }
-        });
+        );
+
         this.stepButton.addEventListener("click", () => {
             if (this.running) {
                 return;
             }
-            this.addSample();
+            this.simulationTime += 1 / this.sampleRate;
             this.draw();
         });
         this.amplitudeInput.addEventListener("input", () => {
@@ -607,88 +657,166 @@ class Waveform {
             this.amplitudeInput
                 .nextElementSibling
                 .value = this.amplitude;
+                this.draw();
+            }
+        );
+        this.frequencyInput.addEventListener("input", () => {
+            this.frequency = parseFloat(
+                this.frequencyInput.value
+            );
+            this.frequencyInput
+                .nextElementSibling
+                .value = `${this.frequency} Hz`;
+                this.draw();
+            }
+        );
+        this.sampleRateInput.addEventListener("input", () => {
+            this.sampleRate = parseFloat(
+                this.sampleRateInput.value
+            );
+            this.sampleRateInput
+                .nextElementSibling
+                .value = `${this.sampleRate} Hz`;
+                this.draw();
             }
         );
         this.waveformSelect.addEventListener("change", () => {
             this.waveform = this.waveformSelect.value;
-            }
-        );
+            this.draw();
+        });
+        this.showSamples.addEventListener("change", () => this.draw());
     }
 
+    /*
+     * Normalized waveform.
+     *
+     * phase is in [0, 1).
+     */
     sample(phase) {
         switch (this.waveform) {
+
             case "sine":
                 return Math.sin(
                     phase * Math.PI * 2
                 );
+
             case "triangle": {
-                const t = phase <= 0.5
-                    ? phase
-                    : 1 - phase;
+                const t = phase <= 0.5 ? phase : 1 - phase;
                 return (t - 0.25) * 4;
             }
+
             case "square":
-                return phase <= 0.5 ? -1 : 1;
+                return phase < 0.5 ? -1 : 1;
+
             case "saw":
                 return phase * 2 - 1;
+
             case "noise":
                 return Math.random() * 2 - 1;
+
             default:
                 return 0;
         }
     }
 
-    addSample() {
-        const value = this.sample(this.phase);
-        this.samples[this.writeIndex] = value;
-        this.writeIndex = (this.writeIndex + 1) % this.bufferSize;
-        /*
-         * One sample advances the phase.
-         *
-         * The frequency here is deliberately
-         * slow enough to make the waveform
-         * easy to see.
-         */
-        const frequency = 1;
-        this.phase += frequency / this.sampleRate;
-        if (this.phase >= 1) {
-            this.phase -= 1;
-        }
+    /*
+     * Continuous-time signal.
+     *
+     * t is measured in seconds.
+     */
+    continuousSignal(t) {
+        const phase = (this.frequency * t) % 1;
+        return this.sample(phase);
     }
 
-    fillBuffer() {
-        for (let i = 0; i < this.bufferSize; i++) {
-            this.addSample();
-        }
-    }
-
+    /*
+     * Draw the continuous-looking signal.
+     */
     draw() {
         const points = [];
-        for (let i = 0; i < this.bufferSize; i++) {
-            const index = (this.writeIndex + i) % this.bufferSize;
-            const value = this.samples[index];
-            const x = 10 + i * (380 / (this.bufferSize - 1));
+        /*
+         * High visual resolution.
+         *
+         * This is NOT the sample rate.
+         * It is simply the resolution used
+         * to draw the curve.
+         */
+        const resolution = 400;
+        /*
+         * Show 2 seconds of signal.
+         */
+        const duration = 2;
+
+        for (let i = 0; i < resolution; i++) {
+            const x = 10 + i * (380 / (resolution - 1));
+            const t = this.simulationTime
+                    - duration
+                    + (i / (resolution - 1))
+                    * duration;
+
+            const value = this.continuousSignal(t);
             const y = 150 - value * this.amplitude * 2;
             points.push(`${x},${y}`);
         }
-        this.path.setAttribute(
-            "d", "M " + points.join(" L ")
-        );
+        this.path.setAttribute("d", "M " + points.join(" L "));
+        /*
+         * Draw discrete samples.
+         */
+        this.sampleGroup.replaceChildren();
+        if (!this.showSamples.checked) {
+            return;
+        }
+        const NS = "http://www.w3.org/2000/svg";
+
+        /*
+         * Actual sampling interval:
+         *
+         *       1
+         * Ts = -----
+         *       Fs
+         */
+        const samplePeriod = 1 / this.sampleRate;
+        /*
+         * Find the sample instants that fall
+         * inside the visible 2-second window.
+         */
+        const startTime = this.simulationTime - duration;
+        const endTime = this.simulationTime;
+
+        const firstSample = Math.ceil(
+                startTime / samplePeriod
+            ) * samplePeriod;
+
+        for (let t = firstSample; t <= endTime; t += samplePeriod) {
+            /*
+             * Position within the visible
+             * time window.
+             */
+            const position = (t - startTime) / duration;
+            if (position < 0 || position > 1) {
+                continue;
+            }
+            const value = this.continuousSignal(t);
+            const x = 10 + position * 380;
+            const y = 150 - value * this.amplitude * 2;
+
+            const circle = document.createElementNS(NS, "circle");
+            circle.setAttribute("cx", x);
+            circle.setAttribute("cy", y);
+            circle.setAttribute("r", 4);
+            circle.classList.add("waveform-sample");
+            this.sampleGroup.appendChild(circle);
+        }
     }
 
     tick(time) {
-        if (!this.running) {
-            return;
-        }
-        const dt = time - this.lastTime;
+        const dt = (time - this.lastTime) / 1000;
         this.lastTime = time;
 
-        /*
-         * Generate approximately one
-         * sample per frame for now.
-         */
-        this.addSample();
-        this.draw();
+        if (this.running) {
+            this.simulationTime += dt;
+            this.draw();
+        }
         requestAnimationFrame(
             t => this.tick(t)
         );

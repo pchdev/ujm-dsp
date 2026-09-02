@@ -17,6 +17,23 @@
 :::
 ::: {.column width="44%"}
 
+<!-- {{< ripple amplitude=0.8 frequency=0.8 speed=80 >}} -->
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+:::
+:::
+:::
+::: {.column width="44%"}
+
 {{< ripple amplitude=0.8 frequency=0.8 speed=80 >}}
 :::
 ::::
@@ -167,7 +184,7 @@
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Sound perception 
+## Sound perception {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 ::: {.incremental}
@@ -196,7 +213,7 @@
 :::
 
 <!-- ----------------------------------------------------------------------- -->
-## Signal
+## Signal {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 ::: {.incremental}
@@ -206,7 +223,29 @@
 :::
 
 <!-- ----------------------------------------------------------------------- -->
-## Signal
+## Signal {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- With an **oscilloscope**, we can measure the **amplitude of a signal** at a given fixed point in time (***time-domain***), through the visualisation of its ***waveform***.
+<!-- - An analog signal can already be processed as it is with **analog effects**: *tape delay*, *distortion*, *chorus*, *reverberation *(spring, plate), etc. -->
+<!-- - On the other hand, it is difficult to extract precise information about **frequency and spectrum**. For this purpose, it's far more efficient to switch to the ***frequency domain***, which requires the analog signal to be **turned into a digital signal**... -->
+:::
+:::
+:::
+
+::: {.column width="44%"}
+<!-- {{< waveform amplitude=25 waveform=sine >}} -->
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Signal {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
@@ -228,7 +267,7 @@
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Signal
+## Signal {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}
@@ -239,7 +278,6 @@
 - With an **oscilloscope**, we can measure the **amplitude of a signal** at a given fixed point in time (***time-domain***), through the visualisation of its ***waveform***.
 :::
 - An analog signal can already be processed as it is with **analog effects**: *tape delay*, *distortion*, *chorus*, *reverberation *(spring, plate), etc.
-<!-- - On the other hand, it is difficult to extract precise information about **frequency and spectrum**. For this purpose, it's far more efficient to switch to the ***frequency domain***, which requires the analog signal to be **turned into a digital signal**... -->
 :::
 :::
 :::
@@ -250,7 +288,7 @@
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Signal
+## Signal {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns}

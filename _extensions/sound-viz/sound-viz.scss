@@ -157,26 +157,45 @@
 
 .waveform-controls {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  column-gap: 1.2rem;
-  row-gap: 0.3rem;
+  flex-direction: column;
+  align-items: center;
+  /* row-gap: 0.3rem; */
   margin-top: 0rem;
   font-size: 0.5em;
-}
-
-.waveform-controls label {
-  display: flex;
-  align-items: center;
   gap: 0.4rem;
 }
 
+.waveform-controls > label {
+  display: grid;
+  grid-template-columns: 90px 180px 60px;
+  align-items: center;
+  column-gap: 0.75rem;
+  width: 340px;
+}
+
 .waveform-controls input[type="range"] {
-  width: 100px;
+  width: 180x;
+}
+
+.waveform-controls > label > output {
+    width: 60px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
 }
 
 .waveform-controls output {
   min-width: 2.5em;
+}
+
+.waveform-samples-toggle {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.waveform-controls button {
+    margin: 0 0.25rem;
 }
 
 .waveform-controls button,
@@ -190,4 +209,15 @@
     var(--waveform-background);
   color:
     var(--waveform-foreground);
+}
+
+.waveform-samples {
+    pointer-events: none;
+}
+
+.waveform-sample {
+  fill: var(--waveform-background);
+  /* stroke: var(--waveform-foreground); */
+  stroke: DarkRed;
+  stroke-width: 2;
 }

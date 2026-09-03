@@ -118,6 +118,10 @@ I'm mainly a **software engineer**, a bit specialized in **audio** and **compila
 
 [https://faustplayground.grame.fr/](https://faustplayground.grame.fr/)
 
+```{=html}
+<iframe width="1080" height="500" src="https://faustplayground.grame.fr/" title="Webpage example"></iframe>
+```
+
 # Faust: Basics
 
 {{< include faust/basics.qmd >}}

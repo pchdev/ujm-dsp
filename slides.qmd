@@ -90,28 +90,21 @@ I'm mainly a **software engineer**, a bit specialized in **audio** and **compila
 
 ## Faust
 
+::: {.incremental style="font-size: 90%;"}
 - **FAUST** is a programming language specifically made for audio DSP and synthesis. It was created by **Yann Orlarey**, **Dominique Fober** & **Stéphane Letz** at **GRAME** in 2002.
 
-:::: {.columns}
-::: {.column width="50%"}
-::: {style="font-size: 80%;"}
-  - Functional paradigm,
-  - Declarative, math-like syntax
-  - Produces optimized code for many architectures
-  - Not recommended (yet) for multi-rate (FFT)
+  - **Functional** paradigm,
+  - Declarative, ***math-like*** syntax
+  - Produces **optimized code** for many architectures
+  - Not recommended (yet) for multi-rate (**FFT**)
+  - **Plugins**: VST, CLAP, AudioUnit
+  - **Software**: **JUCE**, VCV Rack, Max, Pd, SuperCollider, Csound, ...
+  - **OS**: Linux, macOS, Windows, Android, iOS,
+  - **Embedded**: Bela, Teensy, Daisy, ESP32, FPGA...
+  - **Code**: **C/C++**, Rust, WASM, Java...
+- **Tutorials** & **documentation** available at [https://faust.grame.fr](https://faust.grame.fr)
+- Dedicated online **IDE**: [https:://faustide.grame.fr](https:://faustide.grame.fr)
 :::
-:::
-::: {.column width="50%"}
-::: {style="font-size: 80%;"}
-  - Plugins: VST, CLAP, AudioUnit
-  - Software: JUCE, Max, Pd, SuperCollider, Csound
-  - OS: Linux, macOS, Windows, Android, iOS,
-  - Embedded: Bela, Teensy, Daisy, ESP32, FPGA...
-  - Code: C/C++, Rust, WASM, Java...
-:::
-:::
-- Tutorials & documentation available at https://faust.grame.fr
-- Dedicated online IDE: https:://faustide.grame.fr
 ::::
 
 # Faust: Playground 

@@ -17,11 +17,7 @@ local function debug_arg(name, value)
     )
 end
 
--- debug_arg("waveform", kwargs.waveform)
--- debug_arg("sample-rate", kwargs["sample-rate"])
-
 function ripple(args, kwargs, meta)
-  -- debug_arg("amplitude", kwargs["amplitude"])
   local amplitude = default(kwargs["amplitude"], "0.75")
   local frequency = default(kwargs["frequency"], "1")
   local speed = default(kwargs["speed"], "100")
@@ -70,5 +66,4 @@ function waveform(args, kwargs, meta)
   data-waveform="%s">
 </div>
 ]], id, amplitude, frequency, rate, waveform))
-
 end

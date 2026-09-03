@@ -1,6 +1,6 @@
 import("stdfaust.lib");
 
-declare author "Pierre Cochard"
+declare author "Pierre Cochard";
 
 sine(f) = os.osci(f);
 triangle(f) = os.triangle(f);

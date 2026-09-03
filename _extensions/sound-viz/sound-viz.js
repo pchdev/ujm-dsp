@@ -502,23 +502,27 @@ class Waveform {
             this.svg.appendChild(line);
         }
 
-        /*
-         * Continuous waveform.
-         */
+        // Time axis:
+        this.timeAxis = document.createElementNS(NS, "g");
+        this.timeAxis.classList.add("waveform-time-axis");
+        this.svg.appendChild(this.timeAxis);
+
+        // Continuous waveform.
         this.path = document.createElementNS(NS, "path");
         this.path.classList.add("waveform-line");
         this.svg.appendChild(this.path);
 
-        /*
-         * Sample points.
-         */
+        // Interpolation line:
+        this.interpolationPath = document.createElementNS(NS, "path");
+        this.interpolationPath.classList.add("waveform-interpolation");
+        this.svg.appendChild(this.interpolationPath);
+
+        // Sample points.
         this.sampleGroup = document.createElementNS(NS, "g");
         this.sampleGroup.classList.add("waveform-samples");
         this.svg.appendChild(this.sampleGroup);
 
-        /*
-         * Voltage labels.
-         */
+        // Voltage labels.
         this.labels = document.createElementNS(NS, "g");
         this.labels.classList.add("waveform-labels");
         this.svg.appendChild(this.labels);
@@ -526,6 +530,45 @@ class Waveform {
         this.addLabel(385, 48, "+1 V");
         this.addLabel(385, 153, "0 V");
         this.addLabel(385, 258, "-1 V");
+        this.createTimeAxis();
+
+    }
+
+    createTimeAxis() {
+        const NS = "http://www.w3.org/2000/svg";
+
+        // Vertical line at 1 second:
+        const middle = document.createElementNS(NS, "line");
+        middle.setAttribute("x1", 200);
+        middle.setAttribute("x2", 200);
+        middle.setAttribute("y1", 15);
+        middle.setAttribute("y2", 275);
+
+        middle.classList.add("waveform-time-marker");
+        this.timeAxis.appendChild(middle);
+
+        // Labels.
+        const labels = [
+            [10, "0 s"],
+            [200, "1 s"],
+            [390, "2 s"]
+        ];
+        for (const [x, text] of labels) {
+            const label = document.createElementNS(
+                NS, "text"
+            );
+            label.setAttribute("x", x);
+            label.setAttribute("y", 292);
+            label.setAttribute("text-anchor",
+                x === 10
+                    ? "start"
+                    : x === 390
+                        ? "end"
+                        : "middle"
+            );
+            label.textContent = text;
+            this.timeAxis.appendChild(label);
+        }
     }
 
     addLabel(x, y, text) {
@@ -537,6 +580,87 @@ class Waveform {
         label.setAttribute("text-anchor", "end");
         label.textContent = text;
         this.labels.appendChild(label);
+    }
+
+    showSampleInfo(point, circle) {
+        /*
+        * Remove an existing info box.
+        */
+        if (this.sampleInfo) {
+            this.sampleInfo.remove();
+        }
+
+        const NS = "http://www.w3.org/2000/svg";
+        this.sampleInfo = document.createElementNS(NS, "g");
+        this.sampleInfo.classList.add("waveform-sample-info");
+
+        /*
+        * Keep the box inside the SVG.
+        */
+        const boxWidth = 105;
+        const boxHeight = 55;
+
+        let x = point.x + 8;
+        let y = point.y - boxHeight - 8;
+
+        if (x + boxWidth > 395) {
+            x = point.x - boxWidth - 8;
+        }
+        if (y < 5) {
+            y = point.y + 8;
+        }
+
+        /*
+        * Background.
+        */
+        const rect = document.createElementNS(NS, "rect");
+        rect.setAttribute("x", x);
+        rect.setAttribute("y", y);
+        rect.setAttribute("width", boxWidth);
+        rect.setAttribute("height", boxHeight);
+        rect.setAttribute("rx", 4);
+        rect.classList.add("waveform-sample-info-box");
+        this.sampleInfo.appendChild(rect);
+
+        /*
+        * Text.
+        */
+        const text = document.createElementNS(NS, "text");
+        text.setAttribute("x", x + 8);
+        text.setAttribute("y", y + 17);
+        text.classList.add("waveform-sample-info-text");
+
+        const timeLine = document.createElementNS(NS, "tspan");
+        timeLine.setAttribute("x", x + 8);
+        timeLine.textContent = `t = ${point.time.toFixed(3)} s`;
+        text.appendChild(timeLine);
+
+        const valueLine = document.createElementNS(NS, "tspan");
+        valueLine.setAttribute("x", x + 8);
+        valueLine.setAttribute("dy", 18);
+        valueLine.textContent = `x = ${point.value.toFixed(4)}`;
+        text.appendChild(valueLine);
+        this.sampleInfo.appendChild(text);
+        this.svg.appendChild(this.sampleInfo);
+
+        /*
+        * Clicking the SVG elsewhere closes it.
+        */
+        const closeInfo = event => {
+            if (
+                event.target !== circle &&
+                !this.sampleInfo.contains(
+                    event.target
+                )
+            ) {
+                this.sampleInfo.remove();
+                this.sampleInfo = null;
+                this.svg.removeEventListener(
+                    "click", closeInfo
+                );
+            }
+        };
+        this.svg.addEventListener("click", closeInfo);
     }
 
     createControls() {
@@ -611,6 +735,13 @@ class Waveform {
                     class="waveform-show-samples">
                 Show samples
             </label>
+
+            <label class="waveform-interpolation-toggle">
+                <input
+                    type="checkbox"
+                    class="waveform-show-interpolation">
+                Linear interpolation
+            </label>
         `;
 
         this.element.appendChild(this.controls);
@@ -636,6 +767,9 @@ class Waveform {
         this.showSamples = this.controls.querySelector(
             ".waveform-show-samples"
         );
+        this.showInterpolation = this.controls.querySelector(
+            ".waveform-show-interpolation"
+        );
         this.waveformSelect.value = this.waveform;
 
         this.playButton.addEventListener("click", () => {
@@ -646,7 +780,6 @@ class Waveform {
                 this.lastTime = performance.now();
             }
         );
-
         this.stepButton.addEventListener("click", () => {
             if (this.running) {
                 return;
@@ -689,6 +822,9 @@ class Waveform {
             this.draw();
         });
         this.showSamples.addEventListener("change", () => this.draw());
+        this.showInterpolation.addEventListener(
+            "change", () => this.draw()
+        );
     }
 
     /*
@@ -767,49 +903,65 @@ class Waveform {
          * Draw discrete samples.
          */
         this.sampleGroup.replaceChildren();
-        if (!this.showSamples.checked) {
-            return;
-        }
-        const NS = "http://www.w3.org/2000/svg";
 
-        /*
-         * Actual sampling interval:
-         *
-         *       1
-         * Ts = -----
-         *       Fs
-         */
-        const samplePeriod = 1 / this.sampleRate;
-        /*
-         * Find the sample instants that fall
-         * inside the visible 2-second window.
-         */
-        const startTime = this.simulationTime - duration;
-        const endTime = this.simulationTime;
+        if (this.showSamples.checked) {
+            const samples = [];
+            const NS = "http://www.w3.org/2000/svg";
 
-        const firstSample = Math.ceil(
-                startTime / samplePeriod
-            ) * samplePeriod;
-
-        for (let t = firstSample; t <= endTime; t += samplePeriod) {
             /*
-             * Position within the visible
-             * time window.
-             */
-            const position = (t - startTime) / duration;
-            if (position < 0 || position > 1) {
-                continue;
-            }
-            const value = this.continuousSignal(t);
-            const x = 10 + position * 380;
-            const y = 150 - value * this.amplitude * 2;
+            * Actual sampling interval:
+            *
+            *       1
+            * Ts = -----
+            *       Fs
+            */
+            const samplePeriod = 1 / this.sampleRate;
+            /*
+            * Find the sample instants that fall
+            * inside the visible 2-second window.
+            */
+            const startTime = this.simulationTime - duration;
+            const endTime = this.simulationTime;
 
-            const circle = document.createElementNS(NS, "circle");
-            circle.setAttribute("cx", x);
-            circle.setAttribute("cy", y);
-            circle.setAttribute("r", 4);
-            circle.classList.add("waveform-sample");
-            this.sampleGroup.appendChild(circle);
+            const firstSample = Math.ceil(
+                    startTime / samplePeriod
+                ) * samplePeriod;
+
+            for (let t = firstSample; t <= endTime; t += samplePeriod) {
+                /*
+                * Position within the visible
+                * time window.
+                */
+                const position = (t - startTime) / duration;
+                if (position < 0 || position > 1) {
+                    continue;
+                }
+                const value = this.continuousSignal(t);
+                const x = 10 + position * 380;
+                const y = 150 - value * this.amplitude * 2;
+                samples.push({
+                    time: t,
+                    value: value,
+                    x: x,
+                    y: y
+                });
+                const circle = document.createElementNS(NS, "circle");
+                circle.setAttribute("cx", x);
+                circle.setAttribute("cy", y);
+                circle.setAttribute("r", 4);
+                circle.classList.add("waveform-sample");
+                this.sampleGroup.appendChild(circle);
+            }
+            // Linear interpolation between samples:
+            this.interpolationPath.setAttribute("d", "");
+            if (this.showInterpolation.checked && samples.length > 1) {
+                const ipoints = samples.map(
+                    point => `${point.x},${point.y}`
+                );
+                this.interpolationPath.setAttribute(
+                    "d", "M " + ipoints.join(" L ")
+                );
+            }
         }
     }
 

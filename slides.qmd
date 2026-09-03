@@ -105,7 +105,6 @@ I'm mainly a **software engineer**, a bit specialized in **audio** and **compila
 - **Tutorials** & **documentation** available at [https://faust.grame.fr](https://faust.grame.fr)
 - Dedicated online **IDE**: [https:://faustide.grame.fr](https:://faustide.grame.fr)
 :::
-::::
 
 # Faust: Playground 
 

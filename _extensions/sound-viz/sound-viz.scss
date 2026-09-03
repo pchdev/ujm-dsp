@@ -193,6 +193,13 @@
     gap: 0.5rem;
 }
 
+.waveform-interpolation-toggle {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .waveform-controls button {
     margin: 0 0.25rem;
 }
@@ -219,4 +226,46 @@
   /* stroke: var(--waveform-foreground); */
   stroke: DarkRed;
   stroke-width: 2;
+}
+
+.waveform-time-axis text {
+    fill: var(--waveform-foreground);
+    font-size: 12px;
+}
+
+.waveform-time-marker {
+    stroke: var(--waveform-foreground);
+    stroke-width: 1;
+    stroke-dasharray: 3 4;
+    opacity: 0.4;
+}
+
+.waveform-interpolation {
+    fill: none;
+    stroke: red;
+    stroke-width: 1.5;
+    stroke-dasharray: 5 4;
+    pointer-events: none;
+}
+
+.waveform-sample {
+    fill: var(--waveform-background);
+    stroke: var(--waveform-foreground);
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+.waveform-sample:hover {
+    stroke-width: 3;
+}
+
+.waveform-sample-info-box {
+    fill: var(--waveform-background);
+    stroke: var(--waveform-foreground);
+    stroke-width: 1;
+}
+
+.waveform-sample-info-text {
+    fill: var(--waveform-foreground);
+    font-size: 11px;
 }

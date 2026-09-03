@@ -457,9 +457,13 @@ class Waveform {
         this.amplitude = parseFloat(
             element.dataset.amplitude ?? "25"
         );
+        this.frequency = parseFloat(
+            element.dataset.frequency ?? "1.0"
+        );
         this.waveform = element.dataset.waveform ?? "sine";
-        this.frequency = 1;
-        this.sampleRate = 20;
+        this.sampleRate = parseFloat(
+            element.dataset.srate ?? "5.0"  
+        );
         this.running = true;
         this.simulationTime = 0;
         this.lastTime = performance.now();

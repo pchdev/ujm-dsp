@@ -233,14 +233,11 @@
 ::: {style="opacity: 0.5"}
 :::
 - With an **oscilloscope**, we can measure the **amplitude of a signal** at a given fixed point in time (***time-domain***), through the visualisation of its ***waveform***.
-<!-- - An analog signal can already be processed as it is with **analog effects**: *tape delay*, *distortion*, *chorus*, *reverberation *(spring, plate), etc. -->
-<!-- - On the other hand, it is difficult to extract precise information about **frequency and spectrum**. For this purpose, it's far more efficient to switch to the ***frequency domain***, which requires the analog signal to be **turned into a digital signal**... -->
 :::
 :::
 :::
 
 ::: {.column width="44%"}
-<!-- {{< waveform amplitude=25 waveform=sine >}} -->
 :::
 ::::
 
@@ -255,8 +252,6 @@
 ::: {style="opacity: 0.5"}
 :::
 - With an **oscilloscope**, we can measure the **amplitude of a signal** at a given fixed point in time (***time-domain***), through the visualisation of its ***waveform***.
-<!-- - An analog signal can already be processed as it is with **analog effects**: *tape delay*, *distortion*, *chorus*, *reverberation *(spring, plate), etc. -->
-<!-- - On the other hand, it is difficult to extract precise information about **frequency and spectrum**. For this purpose, it's far more efficient to switch to the ***frequency domain***, which requires the analog signal to be **turned into a digital signal**... -->
 :::
 :::
 :::
@@ -310,12 +305,192 @@
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Digital Signal
+## Digital Signal {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
 - To *digitize* a continuous signal implies ***discretizing it***. This is made possible by an **Analog-to-Digital Conversion** (**ADC**) process, which implies two key elements: ***sampling*** and ***quantization***.
+:::
+:::
+:::
+
+::: {.column width="44%"}
+{{< waveform amplitude=25 waveform=sine >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Digital Signal {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- To *digitize* a continuous signal implies ***discretizing it***. This is made possible by an **Analog-to-Digital Conversion** (**ADC**) process, which implies two key elements: ***sampling*** and ***quantization***.
+:::
+- **Sampling** means taking a sample of a signal at a certain frequency/rate (***sample rate***).
+:::
+:::
+:::
+
+::: {.column width="44%"}
+{{< waveform amplitude=25 waveform=sine >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Digital Signal {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- To *digitize* a continuous signal implies ***discretizing it***. This is made possible by an **Analog-to-Digital Conversion** (**ADC**) process, which implies two key elements: ***sampling*** and ***quantization***.
+:::
+- **Sampling** means taking a sample of a signal at a certain frequency/rate (***sample rate***).
+  - **Audio CD**: 44.1 kHz
+  - **Pro Audio**: 48/96 kHz
+  - **MP3 (compressed)**: 320/256/192/128/96/64 kbps
+<!-- - Because of ***aliasing*** the sampling rate must be ***at least two times superior to the highest frequency*** we want to represent (**Nyquist-Shannon**) -->
+:::
+:::
+:::
+
+::: {.column width="44%"}
+{{< waveform amplitude=25 waveform=sine >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Digital Signal {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- To *digitize* a continuous signal implies ***discretizing it***. This is made possible by an **Analog-to-Digital Conversion** (**ADC**) process, which implies two key elements: ***sampling*** and ***quantization***.
+:::
 - **Sampling** means taking a sample of a signal at a certain frequency/rate (***sample rate***).
   - **Audio CD**: 44.1 kHz
   - **Pro Audio**: 48/96 kHz
   - **MP3 (compressed)**: 320/256/192/128/96/64 kbps
 - Because of ***aliasing*** the sampling rate must be ***at least two times superior to the highest frequency*** we want to represent (**Nyquist-Shannon**)
+:::
+:::
+:::
+
+::: {.column width="44%"}
+{{< waveform amplitude=25 waveform=sine >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Digital Signal {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+  - Once we take a sample of a signal at a given time, we need to determine the ***scale of its value***, this is called ***quantization***. Increasing the scale implies reducing the ***quantization noise*** (*quality vs. storage tradeoff*).    
+:::
+:::
+:::
+
+::: {.column width="44%"}
+{{< waveform amplitude=25 waveform=sine >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Digital Signal {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+  - Once we take a sample of a signal at a given time, we need to determine the ***scale of its value***, this is called ***quantization***. Increasing the scale implies reducing the ***quantization noise*** (*quality vs. storage tradeoff*).    
+:::
+::: {style="font-size: 95%;"}
+  - **Audio CD**: 16-bits (65,536 values, 98 dB SNR)
+  - **Pro Audio**: 24-bits (~16,7 mil., 146 dB SNR)
+  - ***DSP***: 32/64-bits float (~4,3 bil., 194 dB SNR)
+:::
+:::
+:::
+:::
+
+::: {.column width="44%"}
+{{< waveform amplitude=25 waveform=sine >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Digital Signal {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+  - Once we take a sample of a signal at a given time, we need to determine the ***scale of its value***, this is called ***quantization***. Increasing the scale implies reducing the ***quantization noise*** (*quality vs. storage tradeoff*).    
+:::
+::: {style="opacity: 0.5; font-size: 95%"}
+  - **Audio CD**: 16-bits (65,536 values, 98 dB SNR)
+  - **Pro Audio**: 24-bits (~16,7 mil., 146 dB SNR)
+  - ***DSP***: 32/64-bits float (~4,3 bil., 194 dB SNR)
+:::
+  - For **DSP**, it is easier to make computations in ***floating-point*** (decimal), and *normalize* the signal between *-1.0* and *1.0*.
+:::
+:::
+:::
+
+::: {.column width="44%"}
+{{< waveform amplitude=25 waveform=sine >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Digital Signal {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+  - Once we take a sample of a signal at a given time, we need to determine the ***scale of its value***, this is called ***quantization***. Increasing the scale implies reducing the ***quantization noise*** (*quality vs. storage tradeoff*).    
+:::
+::: {style="opacity: 0.5; font-size: 95%"}
+  - **Audio CD**: 16-bits (65,536 values, 98 dB SNR)
+  - **Pro Audio**: 24-bits (~16,7 mil., 146 dB SNR)
+  - ***DSP***: 32/64-bits float (~4,3 bil., 194 dB SNR)
+:::
+::: {style="opacity: 0.5"}
+  - For **DSP**, it is easier to make computations in ***floating-point*** (decimal), and *normalize* the signal between *-1.0* and *1.0*.
+:::
+  - Finally, sending a digital signal to ***audio speakers*** involves the inverse process of an **ADC**: *Digital-to-Analog Conversion* (**DAC**).    
+:::
+:::
+:::
+
+::: {.column width="44%"}
+{{< waveform amplitude=25 waveform=sine >}}
+:::
+::::

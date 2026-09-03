@@ -114,6 +114,10 @@ I'm mainly a **software engineer**, a bit specialized in **audio** and **compila
 - Dedicated online IDE: https:://faustide.grame.fr
 ::::
 
+# Faust: Playground 
+
+[https://faustplayground.grame.fr/](https://faustplayground.grame.fr/)
+
 # Faust: Basics
 
 {{< include faust/basics.qmd >}}

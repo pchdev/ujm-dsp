@@ -188,14 +188,14 @@
 
 .waveform-samples-toggle {
     display: flex !important;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     gap: 0.5rem;
 }
 
 .waveform-interpolation-toggle {
     display: flex !important;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     gap: 0.5rem;
 }
@@ -279,4 +279,30 @@
 .waveform-sample-info-text {
     fill: var(--waveform-foreground);
     font-size: 11px;
+}
+
+.waveform-quantization-error {
+    stroke: var(--waveform-foreground);
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+    opacity: 0.5;
+}
+
+.waveform-quantized-sample {
+    fill: var(--waveform-background);
+    stroke: red;
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+.waveform-quantized-sample:hover,
+.waveform-sample-active {
+    stroke-width: 3;
+}
+
+.waveform-quantization-toggle {
+    display: flex !important;
+    justify-content: left;
+    align-items: center;
+    gap: 0.5rem;
 }

@@ -331,6 +331,7 @@ class Particles {
                     ${this.speed}
                 </output>
             </label>
+
         `;
         this.element.appendChild(this.controls);
         const inputs = this.controls.querySelectorAll("input");
@@ -392,8 +393,7 @@ class Particles {
             const step = 1000 / 30;
             this.simulationTime += step;
             this.update(this.simulationTime);
-        }
-    );
+        });
     }
 
     update(time) {
@@ -522,6 +522,11 @@ class Waveform {
         this.sampleGroup.classList.add("waveform-samples");
         this.svg.appendChild(this.sampleGroup);
 
+        // Quantization:
+        this.quantizationGroup = document.createElementNS(NS, "g");
+        this.quantizationGroup.classList.add("waveform-quantization");
+        this.svg.appendChild(this.quantizationGroup);
+
         // Voltage labels.
         this.labels = document.createElementNS(NS, "g");
         this.labels.classList.add("waveform-labels");
@@ -582,85 +587,60 @@ class Waveform {
         this.labels.appendChild(label);
     }
 
-    showSampleInfo(point, circle) {
-        /*
-        * Remove an existing info box.
-        */
-        if (this.sampleInfo) {
-            this.sampleInfo.remove();
-        }
+    quantize(value, bits) {
+        const max = Math.pow(2, bits-1) -1;
+        return Math.round(value * max) / max;
+    }
 
+    showSampleInfo(point) {
+        this.hideSampleInfo();
         const NS = "http://www.w3.org/2000/svg";
-        this.sampleInfo = document.createElementNS(NS, "g");
-        this.sampleInfo.classList.add("waveform-sample-info");
-
-        /*
-        * Keep the box inside the SVG.
-        */
-        const boxWidth = 105;
-        const boxHeight = 55;
-
-        let x = point.x + 8;
-        let y = point.y - boxHeight - 8;
-
-        if (x + boxWidth > 395) {
-            x = point.x - boxWidth - 8;
+        const group = document.createElementNS(NS, "g");
+        group.classList.add("waveform-sample-info");
+        const hasQuantization = point.qvalue !== undefined;
+        const boxWidth = 125;
+        const boxHeight = hasQuantization ? 66 : 38;
+        let boxX = point.x + 8;
+        let boxY = point.y - boxHeight - 8;
+        if (boxX + boxWidth > 395) {
+            boxX = point.x - boxWidth - 8;
         }
-        if (y < 5) {
-            y = point.y + 8;
+        if (boxY < 5) {
+            boxY = point.y + 8;
         }
+        const box = document.createElementNS(NS, "rect");
+        box.setAttribute("x", boxX);
+        box.setAttribute("y", boxY);
+        box.setAttribute("width", boxWidth);
+        box.setAttribute("height", boxHeight);
+        box.setAttribute("rx", 4);
+        box.classList.add("waveform-sample-info-box");
+        group.appendChild(box);
 
-        /*
-        * Background.
-        */
-        const rect = document.createElementNS(NS, "rect");
-        rect.setAttribute("x", x);
-        rect.setAttribute("y", y);
-        rect.setAttribute("width", boxWidth);
-        rect.setAttribute("height", boxHeight);
-        rect.setAttribute("rx", 4);
-        rect.classList.add("waveform-sample-info-box");
-        this.sampleInfo.appendChild(rect);
-
-        /*
-        * Text.
-        */
-        const text = document.createElementNS(NS, "text");
-        text.setAttribute("x", x + 8);
-        text.setAttribute("y", y + 17);
-        text.classList.add("waveform-sample-info-text");
-
-        const timeLine = document.createElementNS(NS, "tspan");
-        timeLine.setAttribute("x", x + 8);
-        timeLine.textContent = `t = ${point.time.toFixed(3)} s`;
-        text.appendChild(timeLine);
-
-        const valueLine = document.createElementNS(NS, "tspan");
-        valueLine.setAttribute("x", x + 8);
-        valueLine.setAttribute("dy", 18);
-        valueLine.textContent = `x = ${point.value.toFixed(4)}`;
-        text.appendChild(valueLine);
-        this.sampleInfo.appendChild(text);
-        this.svg.appendChild(this.sampleInfo);
-
-        /*
-        * Clicking the SVG elsewhere closes it.
-        */
-        const closeInfo = event => {
-            if (
-                event.target !== circle &&
-                !this.sampleInfo.contains(
-                    event.target
-                )
-            ) {
-                this.sampleInfo.remove();
-                this.sampleInfo = null;
-                this.svg.removeEventListener(
-                    "click", closeInfo
-                );
-            }
-        };
-        this.svg.addEventListener("click", closeInfo);
+        const lines = [
+            `t: ${point.time.toFixed(3)}s`,
+            `x: ${point.value.toFixed(3)}`
+        ];
+        if (hasQuantization) {
+            lines.push(
+                `${point.bits}-bit: ` +
+                `${point.qvalue.toFixed(3)}`
+            );
+            lines.push(
+                `error: ` +
+                `${(point.qvalue - point.value).toFixed(4)}`
+            );
+        }
+        lines.forEach((text, index) => {
+            const textElement = document.createElementNS(NS, "text");
+            textElement.classList.add("waveform-sample-info-text");
+            textElement.setAttribute("x", boxX + 6);
+            textElement.setAttribute("y", boxY + 15 + index * 14);
+            textElement.textContent = text;
+            group.appendChild(textElement);
+        });
+        this.svg.appendChild(group);
+        this.sampleInfo = group;
     }
 
     hideSampleInfo() {
@@ -736,6 +716,15 @@ class Waveform {
                 </select>
             </label>
 
+            <label>
+                Bit Depth
+                <select class="waveform-bit-depth">
+                    <option value="8">8 bits</option>
+                    <option value="16" selected>16 bits</option>
+                    <option value="24">24 bits</option>
+                </select>
+            </label>
+
             <label class="waveform-samples-toggle">
                 <input
                     type="checkbox"
@@ -748,6 +737,13 @@ class Waveform {
                     type="checkbox"
                     class="waveform-show-interpolation">
                 Linear interpolation
+            </label>
+
+            <label class="waveform-quantization-toggle">
+                <input
+                    type="checkbox"
+                    class="waveform-show-quantization">
+                Quantization
             </label>
         `;
 
@@ -776,6 +772,12 @@ class Waveform {
         );
         this.showInterpolation = this.controls.querySelector(
             ".waveform-show-interpolation"
+        );
+        this.showQuantization = this.controls.querySelector(
+            ".waveform-show-quantization"
+        );
+        this.bitDepthSelect = this.controls.querySelector(
+            ".waveform-bit-depth"
         );
         this.waveformSelect.value = this.waveform;
 
@@ -832,6 +834,12 @@ class Waveform {
         this.showInterpolation.addEventListener(
             "change", () => this.draw()
         );
+        this.showQuantization.addEventListener("change", () => {
+            this.draw();
+        });
+        this.bitDepthSelect.addEventListener("change", () => {
+            this.draw();
+        });
     }
 
     /*
@@ -957,17 +965,6 @@ class Waveform {
                 circle.setAttribute("cy", y);
                 circle.setAttribute("r", 4);
                 circle.classList.add("waveform-sample");
-                circle.addEventListener("mouseenter", () => {
-                   this.showSampleInfo({
-                       time: t,
-                       value: value,
-                       x: x,
-                       y: y
-                   }, circle);
-                });
-                circle.addEventListener("mouseleave", () => {
-                    this.hideSampleInfo();
-                });
                 this.sampleGroup.appendChild(circle);
             }
             // Linear interpolation between samples:
@@ -979,6 +976,41 @@ class Waveform {
                 this.interpolationPath.setAttribute(
                     "d", "M " + ipoints.join(" L ")
                 );
+            }
+            this.quantizationGroup.replaceChildren();
+            if (this.showQuantization.checked) {
+                const bits = parseInt(this.bitDepthSelect.value, 10);
+                for (const point of samples) {
+                     const qvalue = this.quantize(point.value, bits);
+                     const qy = 150 - qvalue * this.amplitude * 2;
+                     // Error line:
+                     const eline = document.createElementNS(NS, "line");
+                     eline.setAttribute("x1", point.x);
+                     eline.setAttribute("y1", point.y);
+                     eline.setAttribute("x2", point.x);
+                     eline.setAttribute("y2", qy);
+                     eline.classList.add("waveform-quantization-error");
+                     this.quantizationGroup.appendChild(eline);
+                     const circle = document.createElementNS(NS, "circle");
+                     circle.setAttribute("cx", point.x);
+                     circle.setAttribute("cy", point.y);
+                     circle.setAttribute("r", 4);
+                     circle.classList.add("waveform-quantized-sample");
+                     circle.addEventListener("mouseenter", () => {
+                         circle.classList.add("waveform-sample-active");
+                         this.showSampleInfo({
+                             ...point,
+                             qvalue,
+                             qy,
+                             bits
+                         });
+                     });
+                     circle.addEventListener("mouseleave", () => {
+                         circle.classList.remove("waveform-sample-active");
+                         this.hideSampleInfo();
+                     });
+                     this.quantizationGroup.appendChild(circle);
+                }
             }
         }
     }

@@ -84,7 +84,9 @@ I'm mainly a **software engineer**, a bit specialized in **audio** and **compila
 
 # Sound & Signal ....................................
 
-{{< include faust/sound-signal.qmd >}}
+{{< include faust/sound.qmd >}}
+{{< include faust/signal.qmd >}}
+{{< include faust/digital.qmd >}}
 
 # Faust (Functional Audio Stream)
 

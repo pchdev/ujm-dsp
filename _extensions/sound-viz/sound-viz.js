@@ -663,6 +663,13 @@ class Waveform {
         this.svg.addEventListener("click", closeInfo);
     }
 
+    hideSampleInfo() {
+        if (this.sampleInfo) {
+            this.sampleInfo.remove();
+            this.sampleInfo = null;
+        }
+    }
+
     createControls() {
         this.controls = document.createElement("div");
         this.controls.className = "waveform-controls";
@@ -696,7 +703,7 @@ class Waveform {
                     type="range"
                     class="waveform-frequency"
                     min="0.5"
-                    max="5"
+                    max="12"
                     step="0.5"
                     value="${this.frequency}">
                 <output>
@@ -950,6 +957,17 @@ class Waveform {
                 circle.setAttribute("cy", y);
                 circle.setAttribute("r", 4);
                 circle.classList.add("waveform-sample");
+                circle.addEventListener("mouseenter", () => {
+                   this.showSampleInfo({
+                       time: t,
+                       value: value,
+                       x: x,
+                       y: y
+                   }, circle);
+                });
+                circle.addEventListener("mouseleave", () => {
+                    this.hideSampleInfo();
+                });
                 this.sampleGroup.appendChild(circle);
             }
             // Linear interpolation between samples:

@@ -1,0 +1,214 @@
+<style>
+.add-space{
+  padding-right: 5%;
+}
+</style>
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties)
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+:::
+:::
+:::
+::: {.column width="44%"}
+
+<!-- {{< ripple amplitude=0.8 frequency=0.8 speed=80 >}} -->
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+:::
+:::
+:::
+::: {.column width="44%"}
+
+{{< ripple amplitude=0.8 frequency=0.8 speed=80 >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+:::
+- **Propagation** is caused by the **oscillation** (*vibration*) of the medium's **particles**, around their *equilibrium* positions.
+:::
+:::
+:::
+::: {.column width="44%"}
+
+{{< particles amplitude=20 frequency=0.4 speed=80 >}}
+
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+- **Propagation** is caused by the **oscillation** (*vibration*) of the medium's **particles**, around their *equilibrium* positions.
+:::
+- Sound has the following properties:
+  - **Speed**: ~343m/s in air
+:::
+:::
+:::
+::: {.column width="44%"}
+
+{{< ripple amplitude=0.9 frequency=0.8 speed=80 >}}
+
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+- **Propagation** is caused by the **oscillation** (*vibration*) of the medium's **particles**, around their *equilibrium* positions.
+:::
+- Sound has the following properties:
+  - **Speed**: ~343m/s in air
+  - **Amplitude**: measured in Pascals (Pa)
+:::
+:::
+:::
+::: {.column width="44%"}
+
+{{< ripple amplitude=0.25 frequency=0.8 speed=80 >}}
+
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+- **Propagation** is caused by the **oscillation** (*vibration*) of the medium's **particles**, around their *equilibrium* positions.
+:::
+- Sound has the following properties:
+  - **Speed**: ~343m/s in air
+  - **Amplitude**: measured in Pascals (Pa)
+:::
+:::
+:::
+::: {.column width="44%"}
+
+{{< particles amplitude=2 frequency=0.4 speed=80 >}}
+
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+- **Propagation** is caused by the **oscillation** (*vibration*) of the medium's **particles**, around their *equilibrium* positions.
+:::
+- Sound has the following properties:
+  - **Speed**: ~343m/s in air
+  - **Amplitude**: measured in Pascals (Pa)
+  - **Period**: time between two oscillations
+  - **Wavelength**: distance between two oscillations
+:::
+:::
+:::
+::: {.column width="44%"}
+
+{{< ripple amplitude=0.75 frequency=0.8 speed=80 >}}
+
+:::
+::::
+<!-- ----------------------------------------------------------------------- -->
+## Sound (physical properties) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Sound is a **pressure wave**, that propagates through a **medium** (gas, liquid, or solid).
+- **Propagation** is caused by the **oscillation** (*vibration*) of the medium's **particles**, around their *equilibrium* positions.
+:::
+- Sound has the following properties:
+  - **Speed**: ~343m/s in air
+  - **Amplitude**: measured in Pascals (Pa)
+  - **Period**: time between two oscillations
+  - **Wavelength**: distance between two oscillations
+  - **Frequency**: cycles per second, in Hertz (Hz, kHz, MHz)
+  - **Spectrum** (or timbre)
+:::
+:::
+:::
+::: {.column width="44%"}
+
+{{< ripple >}}
+
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Sound perception {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+::: {.incremental}
+- Our perception of sound is made from the conversion of the **vibrations** reaching our **eardrums** to a **signal of nerve impulses**, transmitted and interpreted by the brain.
+- **Human ears** can typically identify sounds ranging from **20 Hz to 20 kHz**.
+- Other animal hearing ranges (a little *quizzzzzz*):
+
+:::: {.columns}
+::: {.column}
+- **Bat**:
+  - 2 kHz to 110 kHz,
+- **Porpoise**:
+  - 75 Hz to 150 kHz,
+- **Cat**:
+  - 45 Hz to 64 kHz,
+:::
+:::{.column}
+  - **Elephant**:
+    - 5 Hz to 12 kHz
+  - **Chicken**:
+    - 125 Hz to 2 kHz,
+  - **Owl**:
+    - 100 Hz to 18 kHz,
+:::
+::::
+:::
+

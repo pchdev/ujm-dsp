@@ -10,7 +10,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
 :::
 :::
@@ -29,7 +29,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
 :::
@@ -51,7 +51,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
 - The ***split operator*** '**`<:`**' and ***cable operator*** can also be used to connect a signal to **multiple targets**.
@@ -74,7 +74,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
 - The ***split operator*** '**`<:`**' and ***cable operator*** can also be used to connect a signal to **multiple targets**.
@@ -98,7 +98,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 - In Faust, **connecting DSP functions** can be done using the ***sequential operator*** '**`:`**'.
 - The ***split operator*** '**`<:`**' and ***cable operator*** can also be used to connect a signal to **multiple targets**.

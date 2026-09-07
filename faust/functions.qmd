@@ -10,7 +10,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 88%;"}
   -  ***Functions*** in programming languages usually consist in pieces of code containing a ***series of instructions to execute***. They can be called *once or multiple times*, *with or without variable parameters*, and can *return values*. 
 :::
 :::
@@ -25,7 +25,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 88%;"}
 ::: {style="opacity: 0.5"}
   -  ***Functions*** in programming languages usually consist in pieces of code containing a ***series of instructions to execute***. They can be called *once or multiple times*, *with or without variable parameters*, and can *return values*. 
 :::
@@ -47,7 +47,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 88%;"}
 ::: {style="opacity: 0.5"}
   -  ***Functions*** in programming languages usually consist in pieces of code containing a ***series of instructions to execute***. They can be called *once or multiple times*, *with or without variable parameters*, and can *return values*. 
   - ***Function definitions*** in Faust have the syntax *function(parameter1, parameter2, ...) = expression;*".
@@ -71,7 +71,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 88%;"}
 ::: {style="opacity: 0.5"}
   -  ***Functions*** in programming languages usually consist in pieces of code containing a ***series of instructions to execute***. They can be called *once or multiple times*, *with or without variable parameters*, and can *return values*. 
   - ***Function definitions*** in Faust have the syntax *function(parameter1, parameter2, ...) = expression;*".
@@ -96,7 +96,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 :::
   - In Faust, everything is a ***function of time***. When a function is called in a Faust program, it will be called ***for each computation of a sample***, *e.g. 44100 times per second*.
@@ -117,7 +117,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
   - In Faust, everything is a ***function of time***. When a function is called in a Faust program, it will be called ***for each computation of a sample***, *e.g. 44100 times per second*.
 :::
@@ -139,7 +139,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
   - In Faust, everything is a ***function of time***. When a function is called in a Faust program, it will be called ***for each computation of a sample***, *e.g. 44100 times per second*.
   - In the end, all functions produces a numerical value (integer or floating point).  Therefore, anything can be passed as a ***function argument***...

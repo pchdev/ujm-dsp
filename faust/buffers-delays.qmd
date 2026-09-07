@@ -4,7 +4,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
 :::
   - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
@@ -24,7 +24,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
   - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
 :::
@@ -45,7 +45,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
   - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
   - To playback a ***sound file***, we also typically use a phasor as a *read cursor*. 
@@ -67,7 +67,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
   - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
   - To playback a ***sound file***, we also typically use a phasor as a *read cursor*. 
@@ -90,7 +90,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
   - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
   - To playback a ***sound file***, we also typically use a phasor as a *read cursor*. 

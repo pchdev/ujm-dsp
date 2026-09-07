@@ -4,7 +4,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 88%;"}
 ::: {style="opacity: 0.5"}
 :::
   - *Waveform or Wavetable synthesis* is not the only method that we can use in order to create sound. We can also use ***additive synthesis***, which is a superposition of oscillators running at different frequencies. One really fast way to do this in Faust is to use the ***par*** operator, which puts signal expressions ***in parallel*** dynamically.
@@ -25,7 +25,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 88%;"}
 ::: {style="opacity: 0.5"}
   - *Waveform or Wavetable synthesis* is not the only method that we can use in order to create sound. We can also use ***additive synthesis***, which is a superposition of oscillators running at different frequencies. One really fast way to do this in Faust is to use the ***par*** operator, which puts signal expressions ***in parallel*** dynamically.
 :::
@@ -47,7 +47,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 88%;"}
 ::: {style="opacity: 0.5"}
   - *Waveform or Wavetable synthesis* is not the only method that we can use in order to create sound. We can also use ***additive synthesis***, which is a superposition of oscillators running at different frequencies. One really fast way to do this in Faust is to use the ***par*** operator, which puts signal expressions ***in parallel*** dynamically.
   - In most synthesizers, additive synthesis is done by ***mixing a few oscillators together***, with *selectable waveforms*. 
@@ -70,7 +70,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 88%;"}
 ::: {style="opacity: 0.5"}
   - *Waveform or Wavetable synthesis* is not the only method that we can use in order to create sound. We can also use ***additive synthesis***, which is a superposition of oscillators running at different frequencies. One really fast way to do this in Faust is to use the ***par*** operator, which puts signal expressions ***in parallel*** dynamically.
   - In most synthesizers, additive synthesis is done by ***mixing a few oscillators together***, with *selectable waveforms*. 
@@ -95,7 +95,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 :::
   - ***Physical model synthesis*** consists in ***emulating the physical properties
@@ -119,7 +119,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
   - ***Physical model synthesis*** consists in ***emulating the physical properties of an instrument*** in order to reproduce its sound. Different methods exist in order to achieve this: **modal synthesis**, **FDTD**, **digital waveguides**, *etc.* 
 :::
@@ -141,7 +141,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
   - ***Physical model synthesis*** consists in ***emulating the physical properties of an instrument*** in order to reproduce its sound. Different methods exist in order to achieve this: **modal synthesis**, **FDTD**, **digital waveguides**, *etc.* 
   - Faust has in its ***libraries*** ('pm' prefix) a good collection  of ***physically-modeled instruments*** (*flutes*, *bells*, *guitars*, *voice*, *etc.*). 

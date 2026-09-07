@@ -4,7 +4,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 :::
   - ***GUI elements*** in Faust can be ordered and gathered into horizontal/vertical or tab *layouts*, using '**groups**' or a special **path syntax** in their names. 
@@ -25,7 +25,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
   - ***GUI elements*** in Faust can be ordered and gathered into horizontal/vertical or tab *layouts*, using '**groups**' or a special **path syntax** in their names. 
 :::
@@ -48,7 +48,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
   - ***GUI elements*** in Faust can be ordered and gathered into horizontal/vertical or tab *layouts*, using '**groups**' or a special **path syntax** in their names. 
   - ***MIDI support*** can be added to any Faust program, simply by adding **metadata** on the **GUI elements** that we want to control. 
@@ -71,7 +71,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
   - ***GUI elements*** in Faust can be ordered and gathered into horizontal/vertical or tab *layouts*, using '**groups**' or a special **path syntax** in their names. 
   - ***MIDI support*** can be added to any Faust program, simply by adding **metadata** on the **GUI elements** that we want to control. 

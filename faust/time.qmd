@@ -5,7 +5,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 93%;"}
 ::: {style="opacity: 0.5"}
 :::
   - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
@@ -25,7 +25,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 93%;"}
 ::: {style="opacity: 0.5"}
   - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
 :::
@@ -46,7 +46,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 93%;"}
 ::: {style="opacity: 0.5"}
   - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
   - The recursive operator is typically used to implement **counters**, and/or ***to represent time***. With it, we can count for instance *up to 44100 or 48000 samples* to ***represent one second of audio time***.
@@ -68,7 +68,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 93%;"}
 ::: {style="opacity: 0.5"}
   - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
   - The recursive operator is typically used to implement **counters**, and/or ***to represent time***. With it, we can count for instance *up to 44100 or 48000 samples* to ***represent one second of audio time***.
@@ -91,7 +91,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 100%;"}
 ::: {style="opacity: 0.5"}
 :::
   - A counter can be used as a base for many many things. With it, we can for instance build a ***ramp signal*** that *goes from 0 to 1 repeatedly at a certain rate*.
@@ -111,7 +111,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 100%;"}
 ::: {style="opacity: 0.5"}
   - A counter can be used as a base for many many things. With it, we can for instance build a ***ramp signal*** that *goes from 0 to 1 repeatedly at a certain rate*.
 :::
@@ -132,7 +132,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 100%;"}
 ::: {style="opacity: 0.5"}
   - A counter can be used as a base for many many things. With it, we can for instance build a ***ramp signal*** that *goes from 0 to 1 repeatedly at a certain rate*.
   - Notice anything? A *ramp* is very much like a ***sawtooth oscillator***, only with a different range (0 to 1 instead of -1 to 1).

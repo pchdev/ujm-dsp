@@ -10,7 +10,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 :::
   - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
@@ -31,7 +31,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
   - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
 :::
@@ -53,7 +53,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
   - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
   - When a Faust program starts to be a little more complex, its always good practice to ***refactor code*** by using ***custom functions*** with variable **parameters**.
@@ -76,7 +76,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
   - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
   - When a Faust program starts to be a little more complex, its always good practice to ***refactor code*** by using ***custom functions*** with variable **parameters**.
@@ -101,7 +101,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
   - Faust has a in its libraries a good collection of '*basic*' **oscillators**, with different ***waveforms***: *sine*, *triangle*, *sawtooth*, *square*, *etc.* 
   - When a Faust program starts to be a little more complex, its always good practice to ***refactor code*** by using ***custom functions*** with variable **parameters**.

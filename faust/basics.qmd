@@ -10,7 +10,7 @@
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 80%;"}
+::: {style="font-size: 90%;"}
 - Basic program: `import` and `process` statements.
 :::
 :::
@@ -29,7 +29,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 85%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
 :::
@@ -51,7 +51,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 85%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
 - Use a **Sinewave Oscillator** from the library.
@@ -74,7 +74,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 85%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
 - Use a **Sinewave Oscillator** from the library.
@@ -98,7 +98,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 85%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
 - Use a **Sinewave Oscillator** from the library.
@@ -124,7 +124,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 85%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
 - Use a **Sinewave Oscillator** from the library.
@@ -150,7 +150,7 @@
 
 :::: {.columns}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 85%;"}
+::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 - Basic program: `import` and `process` statements.
 - Use a **Sinewave Oscillator** from the library.

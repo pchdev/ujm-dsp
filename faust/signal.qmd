@@ -23,7 +23,7 @@
 :::: {.columns}
 ::: {.column width="50%" .add-space}
 ::: {.content style="padding-left: -50px;"}
-::: {style="font-size: 90%;"}
+::: {style="font-size: 97%;"}
 ::: {style="opacity: 0.5"}
 :::
 - With an **oscilloscope**, we can measure the **amplitude of a signal** at a given fixed point in time (***time-domain***), through the visualisation of its ***waveform***.
@@ -42,7 +42,7 @@
 :::: {.columns}
 ::: {.column width="50%" .add-space}
 ::: {.content style="padding-left: -50px;"}
-::: {style="font-size: 90%;"}
+::: {style="font-size: 97%;"}
 ::: {style="opacity: 0.5"}
 :::
 - With an **oscilloscope**, we can measure the **amplitude of a signal** at a given fixed point in time (***time-domain***), through the visualisation of its ***waveform***.
@@ -62,7 +62,7 @@
 :::: {.columns}
 ::: {.column width="50%" .add-space}
 ::: {.content style="padding-left: -50px;"}
-::: {style="font-size: 90%;"}
+::: {style="font-size: 97%;"}
 ::: {style="opacity: 0.5"}
 - With an **oscilloscope**, we can measure the **amplitude of a signal** at a given fixed point in time (***time-domain***), through the visualisation of its ***waveform***.
 :::
@@ -83,7 +83,7 @@
 :::: {.columns}
 ::: {.column width="50%" .add-space}
 ::: {.content style="padding-left: -50px;"}
-::: {style="font-size: 90%;"}
+::: {style="font-size: 97%;"}
 ::: {style="opacity: 0.5"}
 - With an **oscilloscope**, we can measure the **amplitude of a signal** at a given fixed point in time (***time-domain***), through the visualisation of its ***waveform***.
 - An analog signal can already be processed as it is with **analog effects**: *tape delay*, *distortion*, *chorus*, *reverberation *(spring, plate), etc.

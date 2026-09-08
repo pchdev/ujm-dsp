@@ -116,7 +116,7 @@
   min-width: 2.5em;
 }
 
-.waveform {
+.waveform-widget {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
@@ -124,7 +124,7 @@
   --waveform-foreground: #586e75;
 }
 
-.waveform svg {
+.waveform-widget svg {
   display: block;
   width: 100%;
   height: auto;
@@ -305,4 +305,11 @@
     justify-content: left;
     align-items: center;
     gap: 0.5rem;
+}
+.waveform-placeholder {
+    width: 100%;
+}
+
+.waveform-widget {
+    width: 100%;
 }

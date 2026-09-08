@@ -17,7 +17,6 @@
 :::
 ::: {.column width="44%"}
 
-<!-- {{< ripple amplitude=0.8 frequency=0.8 speed=80 >}} -->
 :::
 ::::
 
@@ -34,7 +33,7 @@
 :::
 ::: {.column width="44%"}
 
-{{< ripple amplitude=0.8 frequency=0.8 speed=80 >}}
+{{< ripple amplitude=0.8 frequency=0.8 speed=80 id="ripple-main">}}
 :::
 ::::
 
@@ -77,7 +76,7 @@
 :::
 ::: {.column width="44%"}
 
-{{< ripple amplitude=0.9 frequency=0.8 speed=80 >}}
+{{< ripple amplitude=0.8 frequency=0.8 speed=80 id="ripple-main">}}
 
 :::
 ::::
@@ -101,7 +100,7 @@
 :::
 ::: {.column width="44%"}
 
-{{< ripple amplitude=0.25 frequency=0.8 speed=80 >}}
+{{< ripple id="ripple-main" >}}
 
 :::
 ::::

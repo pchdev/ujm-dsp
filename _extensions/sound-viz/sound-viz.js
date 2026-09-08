@@ -451,19 +451,48 @@ class Particles {
     }
 }
 
+const waveformInstances = new Map();
+
+function getWaveformInstance(placeholder) {
+    const id = placeholder.dataset.waveformId;
+    if (!waveformInstances.has(id)) {
+        const waveform = new Waveform(placeholder);
+        waveformInstances.set(id, waveform);
+    }
+    return waveformInstances.get(id);
+}
+
+function updatePersistentWaveforms(slide) {
+    console.log("[sound-viz] updating waveforms", slide);
+    for (const waveform of waveformInstances.values()) {
+        waveform.visible = false;
+    }
+    const placeholders = slide.querySelectorAll(
+        ".waveform-placeholder"
+    );
+    for (const placeholder of placeholders) {
+        const waveform = getWaveformInstance(placeholder);
+        waveform.visible = true;
+        placeholder.replaceChildren(waveform.element);
+    }
+}
+
 class Waveform {
-    constructor(element) {
-        this.element = element;
+    constructor(placeholder) {
+        this.placeholder = placeholder;
+        this.element = document.createElement("div");
+        this.element.className = "waveform-widget";
         this.amplitude = parseFloat(
-            element.dataset.amplitude ?? "25"
+            placeholder.dataset.amplitude ?? "25"
         );
         this.frequency = parseFloat(
-            element.dataset.frequency ?? "1.0"
+            placeholder.dataset.frequency ?? "1.0"
         );
-        this.waveform = element.dataset.waveform ?? "sine";
+        this.waveform = placeholder.dataset.waveform ?? "sine";
         this.sampleRate = parseFloat(
-            element.dataset.srate ?? "5.0"  
+            placeholder.dataset.srate ?? "5.0"  
         );
+        this.visible = true;
         this.running = true;
         this.simulationTime = 0;
         this.lastTime = performance.now();
@@ -993,7 +1022,7 @@ class Waveform {
                      this.quantizationGroup.appendChild(eline);
                      const circle = document.createElementNS(NS, "circle");
                      circle.setAttribute("cx", point.x);
-                     circle.setAttribute("cy", point.y);
+                     circle.setAttribute("cy", qy);
                      circle.setAttribute("r", 4);
                      circle.classList.add("waveform-quantized-sample");
                      circle.addEventListener("mouseenter", () => {
@@ -1019,7 +1048,7 @@ class Waveform {
         const dt = (time - this.lastTime) / 1000;
         this.lastTime = time;
 
-        if (this.running) {
+        if (this.running && this.visible) {
             this.simulationTime += dt;
             this.draw();
         }
@@ -1048,16 +1077,36 @@ function initSoundViz() {
             element.dataset.initialized = "true";
             new Particles(element);
         });
-    document
-        .querySelectorAll(".waveform")
-        .forEach(element => {
-            if (element.dataset.initialized) {
-                return;
-            }
-            element.dataset.initialized = "true";
-            new Waveform(element);
-        }
+}
+
+function initPersistentWaveforms() {
+    console.log("[sound-viz] initPersistentWaveforms");
+
+    if (!window.Reveal) {
+        console.error("[sound-viz] Reveal not available");
+        return;
+    }
+
+    console.log("[sound-viz] registering Reveal handlers");
+
+    Reveal.on("ready", event => {
+        console.log("[sound-viz] Reveal ready");
+        updatePersistentWaveforms(event.currentSlide);
+    });
+
+    Reveal.on("slidechanged", event => {
+        console.log("[sound-viz] slidechanged");
+        updatePersistentWaveforms(event.currentSlide);
+    });
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener(
+        "DOMContentLoaded",
+        initPersistentWaveforms
     );
+} else {
+    initPersistentWaveforms();
 }
 
 if (document.readyState === "loading") {

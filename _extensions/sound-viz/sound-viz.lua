@@ -55,15 +55,14 @@ function waveform(args, kwargs, meta)
   local frequency = default(kwargs["frequency"], "1")
   local waveform = default(kwargs["waveform"], "sine")
   local rate = default(kwargs["srate"], "5")
-  local id = "waveform-" .. tostring(math.random(100000, 999999))
+  local id = default(kwargs["id"], "default")
   return pandoc.RawBlock("html", string.format([[
-<div
-  class="waveform"
-  id="%s"
-  data-amplitude="%s"
-  data-frequency="%s"
-  data-srate="%s"
-  data-waveform="%s">
-</div>
-]], id, amplitude, frequency, rate, waveform))
+    <div class="waveform-placeholder"
+      data-waveform-id="%s"
+      data-amplitude="%s"
+      data-frequency="%s"
+      data-srate="%s"
+      data-waveform="%s"
+    </div>
+  ]], id, amplitude, frequency, rate, waveform))
 end

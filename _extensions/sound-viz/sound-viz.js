@@ -1354,7 +1354,11 @@ class Harmonics {
                 values.push(this.componentValue(t, n));
             }
             const path = this.createPath(values);
-            path.setAttribute("class", "harmonics-component");
+            path.setAttribute("class",
+                n === this.numHarmonics
+                    ? "harmonics-component-last"
+                    : "harmonics-component"
+            );
             group.appendChild(path);
         }
         this.svg.appendChild(group);

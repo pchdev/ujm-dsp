@@ -325,7 +325,7 @@
 
 .harmonics-svg {
   display: block;
-  width: 100%;
+  width: 120%;
   height: auto;
   background: var(--harmonics-background);
 }
@@ -398,4 +398,10 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.harmonics-component-last {
+    stroke: red;
+    fill: none;
+    opacity: 1;
 }

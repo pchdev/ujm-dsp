@@ -88,8 +88,8 @@ format:
 
 {{< include faust/sound.qmd >}}
 {{< include faust/signal.qmd >}}
-{{< include faust/digital.qmd >}}
 {{< include faust/spectrum.qmd >}}
+{{< include faust/digital.qmd >}}
 
 # Faust (Functional Audio Stream)
 

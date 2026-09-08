@@ -74,7 +74,7 @@
 - A **sawtooth wave**, for instance, is composed of a **fundamental frequency** and a certain number of **harmonics**, which are ***multiples of the fundamental***.
 - The "*waveform*" representation (**time-domain**) doesn't really help us when analyzing complex, **aperiodic** sounds.
 :::
-- While it's possible to analyze the spectral contents of an analog signal with filter banks, the resulting precision is rather low, and unpractical to use.
+- While it's possible to analyze the *spectral contents* of an **analog** signal with **filter banks**, the resulting precision is rather *low*, and unpractical to use.
 :::
 :::
 :::
@@ -98,13 +98,15 @@
 - The "*waveform*" representation (**time-domain**) doesn't really help us when analyzing complex, **aperiodic** sounds.
 - While it's possible to analyze the spectral contents of an analog signal with filter banks, the resulting precision is rather low, and unpractical to use.
 :::
-- Frequency domain on other hand allows us to decompose much more precisely a given sound into its frequential components, with a technique called Fast-Fourier-Transform (FFT).
+- **Frequency domain** on other hand allows us to decompose much more precisely a given sound into its *frequential components*, with a technique called ***Fast-Fourier-Transform*** (**FFT**).
 :::
 :::
 :::
 
 ::: {.column width="44%"}
-{{< waveform amplitude=25 waveform=sine frequency=1.0 >}}
+::: {style="font-size: 135%;"}
+{{< faust faust/examples/spectrum-1.dsp deploy=true >}}
+:::
 :::
 ::::
 

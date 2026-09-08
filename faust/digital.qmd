@@ -2,21 +2,7 @@
 ## Digital Signal {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
-:::: {.columns}
-::: {.column width="50%" .add-space}
-::: {.content style="padding-left: -50px;"}
-::: {style="font-size: 90%;"}
-::: {style="opacity: 0.5"}
-:::
 - To *digitize* a continuous signal implies ***discretizing it***. This is made possible by an **Analog-to-Digital Conversion** (**ADC**) process, which implies two key elements: ***sampling*** and ***quantization***.
-:::
-:::
-:::
-
-::: {.column width="44%"}
-{{< waveform amplitude=25 waveform=sine >}}
-:::
-::::
 
 <!-- ----------------------------------------------------------------------- -->
 ## Digital Signal {auto-animate=true}
@@ -73,11 +59,11 @@
 ::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 - To *digitize* a continuous signal implies ***discretizing it***. This is made possible by an **Analog-to-Digital Conversion** (**ADC**) process, which implies two key elements: ***sampling*** and ***quantization***.
-:::
 - **Sampling** means taking a sample of a signal at a certain frequency/rate (***sample rate***).
   - **Audio CD**: 44.1 kHz
   - **Pro Audio**: 48/96 kHz
   - **MP3 (compressed)**: 320/256/192/128/96/64 kbps
+:::
 - Because of ***aliasing*** the sampling rate must be ***at least two times superior to the highest frequency*** we want to represent (**Nyquist-Shannon**)
 :::
 :::

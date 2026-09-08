@@ -5,8 +5,17 @@ local function escape_html(s)
   return s
 end
 
+local function default(value, fallback)
+    if type(value) == "table" then
+        return fallback
+    end
+    return value
+end
+
 function faust(args, kwargs, meta)
   local file = pandoc.utils.stringify(args[1])
+  local deploy = default(kwargs["deploy"], "false")
+  local type = default(kwargs["type"], "faust-editor")
   local source = io.open(file, "r")
 
   if not source then
@@ -17,7 +26,23 @@ function faust(args, kwargs, meta)
   source:close()
   local filename = file:match("([^/]+)$")
   local escaped = escape_html(code)
-  local html = string.format([[
+  local html
+  if deploy == "true" then
+      html = string.format([[
+<div class="faust-example">
+<div style="font-size: 40%%;">
+
+<%s>
+<!--
+%s
+-->
+</%s>
+
+</div>
+</div>
+]], type, escaped, type)
+  else
+    html = string.format([[
 <div class="faust-example">
 
 <details>
@@ -25,17 +50,17 @@ function faust(args, kwargs, meta)
 
 <div style="font-size: 40%%;">
 
-<faust-editor>
+<%s>
 <!--
 %s
 -->
-</faust-editor>
+</%s>
 
 </div>
 </details>
 
 </div>
-]], escaped)
-
+]], type, escaped, type)
+  end
   return pandoc.RawBlock("html", html)
 end

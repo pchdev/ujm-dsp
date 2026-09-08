@@ -95,7 +95,7 @@ format:
 
 ## Faust
 
-::: {.incremental style="font-size: 90%;"}
+::: {.incremental style="font-size: 95%;"}
 - **FAUST** is a programming language specifically made for audio DSP and synthesis. It was created by **Yann Orlarey**, **Dominique Fober** & **Stéphane Letz** at **GRAME** in 2002.
 
   - **Functional** paradigm,

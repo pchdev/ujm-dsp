@@ -1,0 +1,22 @@
+<!-- ----------------------------------------------------------------------- -->
+## Sound spectrum
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- Coucou
+:::
+:::
+:::
+
+::: {.column width="44%"}
+{{< harmonics id="fourier-demo" waveform="sawtooth" >}}
+:::
+::::
+
+
+<!-- {{< faust faust/examples/spectrum-1.dsp >}} -->

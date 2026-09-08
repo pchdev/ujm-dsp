@@ -738,6 +738,7 @@ class Waveform {
                 Waveform
                 <select class="waveform-select">
                     <option value="sine">Sine</option>
+                    <option value="sine2">SinCos</option>
                     <option value="triangle">Triangle</option>
                     <option value="square">Square</option>
                     <option value="saw">Saw</option>
@@ -878,11 +879,14 @@ class Waveform {
      */
     sample(phase) {
         switch (this.waveform) {
-
             case "sine":
                 return Math.sin(
                     phase * Math.PI * 2
                 );
+
+            case "sine2":
+                return Math.sin(phase * Math.PI * 2)
+                     + Math.cos((phase + 0.05) * Math.PI * 2)
 
             case "triangle": {
                 const t = phase <= 0.5 ? phase : 1 - phase;
@@ -1058,6 +1062,368 @@ class Waveform {
     }
 }
 
+function initPersistentWaveforms() {
+    console.log("[sound-viz] initPersistentWaveforms");
+
+    if (!window.Reveal) {
+        console.error("[sound-viz] Reveal not available");
+        return;
+    }
+    console.log("[sound-viz] registering Reveal handlers");
+
+    Reveal.on("ready", event => {
+        console.log("[sound-viz] Reveal ready");
+        updatePersistentWaveforms(event.currentSlide);
+    });
+
+    Reveal.on("slidechanged", event => {
+        console.log("[sound-viz] slidechanged");
+        updatePersistentWaveforms(event.currentSlide);
+    });
+}
+
+// ----------------------------------------------------------------------------
+// Harmonics
+// ----------------------------------------------------------------------------
+
+const harmonicsInstances = new Map();
+
+function getHarmonicsInstance(placeholder) {
+    const id = placeholder.dataset.harmonicsId;
+
+    if (!harmonicsInstances.has(id)) {
+        const harmonics = new Harmonics(placeholder);
+        harmonicsInstances.set(id, harmonics);
+    }
+    return harmonicsInstances.get(id);
+}
+
+function updatePersistentHarmonics(slide) {
+    for (const harmonics of harmonicsInstances.values()) {
+        harmonics.element.remove();
+    }
+    const placeholders = slide.querySelectorAll(".harmonics-placeholder");
+    for (const placeholder of placeholders) {
+        const harmonics = getHarmonicsInstance(placeholder);
+        placeholder.replaceChildren(harmonics.element);
+    }
+}
+
+class Harmonics {
+    constructor(placeholder) {
+        this.placeholder = placeholder;
+        this.element = document.createElement("div");
+        this.element.className = "harmonics-widget";
+        this.waveform = placeholder.dataset.waveform ?? "sawtooth";
+        this.numHarmonics = parseInt(placeholder.dataset.harmonics ?? "1", 10);
+
+        this.width = 700;
+        this.height = 300;
+        this.margin = {
+            left: 45,
+            right: 20,
+            top: 20,
+            bottom: 40
+        };
+        this.createUI();
+        this.draw();
+    }
+
+    createUI() {
+        this.svg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg"
+        );
+        this.svg.setAttribute("viewBox",
+            `0 0 ${this.width} ${this.height}`
+        );
+
+        this.svg.setAttribute("class", "harmonics-svg");
+        this.element.appendChild(this.svg);
+
+        this.controls = document.createElement("div");
+        this.controls.className = "harmonics-controls";
+
+        const label = document.createElement("label");
+        label.className = "harmonics-slider-row";
+
+        const text = document.createElement("span");
+        text.textContent = "Harmonics";
+
+        this.slider = document.createElement("input");
+        this.slider.type = "range";
+        this.slider.min = "1";
+        this.slider.max = "25";
+        this.slider.step = "1";
+        this.slider.value = this.numHarmonics;
+
+        this.output = document.createElement("output");
+        this.output.value = this.numHarmonics;
+
+        this.slider.addEventListener("input", () => {
+            this.numHarmonics = parseInt(this.slider.value, 10);
+            this.output.value = this.numHarmonics;
+            this.draw();
+            }
+        );
+
+        label.appendChild(text);
+        label.appendChild(this.slider);
+        label.appendChild(this.output);
+
+        this.controls.appendChild(label);
+
+        const waveformLabel = document.createElement("label");
+       waveformLabel.className = "harmonics-select-row";
+
+        const waveformText = document.createElement("span");
+        waveformText.textContent = "Waveform";
+
+        this.waveformSelect = document.createElement("select");
+
+        const saw = document.createElement("option");
+        saw.value = "sawtooth";
+        saw.textContent = "Sawtooth";
+
+        const triangle = document.createElement("option");
+        triangle.value = "triangle";
+        triangle.textContent = "Triangle";
+
+        this.waveformSelect.appendChild(saw);
+        this.waveformSelect.appendChild(triangle);
+
+        this.waveformSelect.value = this.waveform;
+
+        this.waveformSelect.addEventListener("change", () => {
+            this.waveform = this.waveformSelect.value;
+            this.draw();
+        });
+
+        waveformLabel.appendChild(waveformText);
+        waveformLabel.appendChild(this.waveformSelect);
+        this.controls.appendChild(waveformLabel);
+
+        const componentsLabel = document.createElement("label");
+        componentsLabel.className = "harmonics-checkbox-row";
+
+        this.componentsCheckbox = document.createElement("input");
+        this.componentsCheckbox.type = "checkbox";
+
+        const componentsText = document.createElement("span");
+        componentsText.textContent = "Show components";
+
+        this.componentsCheckbox.addEventListener("change", () => this.draw());
+
+        componentsLabel.appendChild(this.componentsCheckbox);
+        componentsLabel.appendChild(componentsText);
+        this.controls.appendChild(componentsLabel);
+        this.element.appendChild(this.controls);
+    }
+
+    createSVGElement(name) {
+        return document.createElementNS("http://www.w3.org/2000/svg", name);
+    }
+
+    clearSVG() {
+        while (this.svg.firstChild) {
+            this.svg.removeChild(this.svg.firstChild);
+        }
+    }
+
+    harmonicAmplitude(n) {
+        if (this.waveform === "sawtooth") {
+            return 1 / n;
+        }
+
+        // Triangle:
+        // odd harmonics only,
+        // amplitude falls as 1/n²
+        if (n % 2 === 0) {
+            return 0;
+        }
+
+        return 1 / (n * n);
+    }
+
+    harmonicPhase(n) {
+        if (this.waveform === "sawtooth") {
+            return 0;
+        }
+        // Triangle alternating phase/sign.
+        return n % 4 === 1 ? 0 : Math.PI;
+    }
+
+    componentValue(t, n) {
+        const amplitude = this.harmonicAmplitude(n);
+
+        if (amplitude === 0) {
+            return 0;
+        }
+
+        return amplitude * Math.sin(
+            2 * Math.PI * n * t + this.harmonicPhase(n)
+        );
+    }
+
+    signalValue(t) {
+        let value = 0;
+        for (let n = 1; n <= this.numHarmonics; n++) {
+            value += this.componentValue(t, n);
+        }
+        // Normalize so that increasing N
+        // doesn't simply increase the scale.
+        let normalization = 0;
+
+        for (let n = 1; n <= this.numHarmonics; n++) {
+            normalization += this.harmonicAmplitude(n);
+        }
+        if (normalization === 0) {
+            return 0;
+        }
+        return value / normalization;
+    }
+
+    x(t) {
+        return this.margin.left + t * (
+            this.width -
+            this.margin.left -
+            this.margin.right
+        );
+    }
+
+    y(value) {
+        const center = this.margin.top + (
+            this.height -
+            this.margin.top -
+            this.margin.bottom
+        ) / 2;
+
+        const scale = (
+            this.height -
+            this.margin.top -
+            this.margin.bottom
+        ) * 0.4;
+
+        return center -
+            value * scale;
+    }
+
+    createPath(values) {
+        const path = this.createSVGElement("path");
+        let d = "";
+
+        values.forEach((value, i) => {
+            const t = i / (values.length - 1);
+            const x = this.x(t);
+            const y = this.y(value);
+
+            d += i === 0
+              ? `M ${x} ${y}`
+              : ` L ${x} ${y}`;
+        });
+        path.setAttribute("d", d);
+        return path;
+    }
+
+    drawGrid() {
+        const group = this.createSVGElement("g");
+        group.setAttribute("class", "harmonics-grid");
+
+        const centerY = this.y(0);
+        const line = this.createSVGElement("line");
+        line.setAttribute("x1", this.margin.left);
+        line.setAttribute("x2", this.width - this.margin.right);
+        line.setAttribute("y1", centerY);
+        line.setAttribute("y2", centerY);
+        group.appendChild(line);
+        this.svg.appendChild(group);
+    }
+
+    drawComponents() {
+        if (!this.componentsCheckbox.checked) {
+            return;
+        }
+        const group = this.createSVGElement("g");
+        group.setAttribute("class", "harmonics-components");
+
+        const points = 500;
+        for (let n = 1; n <= this.numHarmonics; n++) {
+            const values = [];
+            for (let i = 0; i < points; i++) {
+                const t = i / (points - 1);
+                values.push(this.componentValue(t, n));
+            }
+            const path = this.createPath(values);
+            path.setAttribute("class", "harmonics-component");
+            group.appendChild(path);
+        }
+        this.svg.appendChild(group);
+    }
+
+    drawResult() {
+        const values = [];
+        const points = 500;
+
+        for (let i = 0; i < points; i++) {
+            const t = i / (points - 1);
+            values.push(this.signalValue(t));
+        }
+        const path = this.createPath(values);
+        path.setAttribute("class", "harmonics-result");
+        this.svg.appendChild(path);
+    }
+
+    drawLabels() {
+        const group = this.createSVGElement("g");
+        group.setAttribute("class", "harmonics-labels");
+
+        const title = this.createSVGElement("text");
+        title.setAttribute("x", this.margin.left);
+        title.setAttribute("y", 16);
+
+        title.textContent =
+            `${this.waveform} — ` +
+            `${this.numHarmonics} ` +
+            `${this.numHarmonics === 1
+                ? "harmonic"
+                : "harmonics"}`;
+
+        group.appendChild(title);
+
+        const zero = this.createSVGElement("text");
+        zero.setAttribute("x", this.margin.left - 8);
+        zero.setAttribute("y", this.y(0) + 4);
+        zero.setAttribute("text-anchor", "end");
+        zero.textContent = "0";
+        group.appendChild(zero);
+        this.svg.appendChild(group);
+    }
+
+    draw() {
+        this.clearSVG();
+        this.drawGrid();
+        this.drawComponents();
+        this.drawResult();
+        this.drawLabels();
+    }
+}
+
+function initPersistentHarmonics() {
+    console.log("[sound-viz] initPersistentWaveforms");
+
+    if (!window.Reveal) {
+        console.error("[sound-viz] Reveal not available");
+        return;
+    }
+    console.log("[sound-viz] registering Reveal handlers");
+    Reveal.on("ready", event => {
+        updatePersistentHarmonics(event.currentSlide);
+    });
+    Reveal.on("slidechanged", event => {
+        updatePersistentHarmonics(event.currentSlide);
+    });
+}
+
 function initSoundViz() {
     document
         .querySelectorAll(".ripple")
@@ -1079,27 +1445,6 @@ function initSoundViz() {
         });
 }
 
-function initPersistentWaveforms() {
-    console.log("[sound-viz] initPersistentWaveforms");
-
-    if (!window.Reveal) {
-        console.error("[sound-viz] Reveal not available");
-        return;
-    }
-
-    console.log("[sound-viz] registering Reveal handlers");
-
-    Reveal.on("ready", event => {
-        console.log("[sound-viz] Reveal ready");
-        updatePersistentWaveforms(event.currentSlide);
-    });
-
-    Reveal.on("slidechanged", event => {
-        console.log("[sound-viz] slidechanged");
-        updatePersistentWaveforms(event.currentSlide);
-    });
-}
-
 if (document.readyState === "loading") {
     document.addEventListener(
         "DOMContentLoaded",
@@ -1107,6 +1452,15 @@ if (document.readyState === "loading") {
     );
 } else {
     initPersistentWaveforms();
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener(
+        "DOMContentLoaded",
+        initPersistentHarmonics
+    );
+} else {
+    initPersistentHarmonics();
 }
 
 if (document.readyState === "loading") {

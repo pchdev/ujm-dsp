@@ -313,3 +313,89 @@
 .waveform-widget {
     width: 100%;
 }
+
+.harmonics-widget {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+
+  --harmonics-background: #fdf6e3;
+  --harmonics-foreground: #586e75;
+}
+
+.harmonics-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--harmonics-background);
+}
+
+.harmonics-grid line {
+  stroke: var(--harmonics-foreground);
+  stroke-width: 1;
+  opacity: 0.25;
+}
+
+.harmonics-component {
+  fill: none;
+  stroke: var(--harmonics-foreground);
+  stroke-width: 1;
+  opacity: 0.2;
+}
+
+.harmonics-result {
+  fill: none;
+  stroke: var(--harmonics-foreground);
+  stroke-width: 2.5;
+}
+
+.harmonics-labels {
+  fill: var(--harmonics-foreground);
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.harmonics-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  font-size: 0.6em;
+}
+
+.harmonics-slider-row {
+  display: grid;
+  grid-template-columns: 90px 180px 40px;
+  align-items: center;
+  column-gap: 0.75rem;
+  width: 330px;
+}
+
+.harmonics-slider-row input[type="range"] {
+  width: 180px;
+}
+
+.harmonics-slider-row output {
+  width: 40px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.harmonics-select-row {
+  display: grid;
+  grid-template-columns: 90px 180px;
+  align-items: center;
+  column-gap: 0.75rem;
+  width: 330px;
+}
+
+.harmonics-select-row select {
+  width: 180px;
+}
+
+.harmonics-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

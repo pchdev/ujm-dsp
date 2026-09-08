@@ -66,3 +66,17 @@ function waveform(args, kwargs, meta)
     </div>
   ]], id, amplitude, frequency, rate, waveform))
 end
+
+function harmonics(args, kwargs, meta)
+  local waveform = default(kwargs["waveform"], "sawtooth")
+  local harmonics = default(kwargs["harmonics"], "1")
+  local id = default(kwargs["id"], "default")
+
+  return pandoc.RawBlock("html", string.format([[
+    <div class="harmonics-placeholder"
+      data-harmonics-id="%s"
+      data-waveform="%s"
+      data-harmonics="%s"
+    ></div>
+  ]], id, waveform, harmonics))
+end

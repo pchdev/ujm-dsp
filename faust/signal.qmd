@@ -2,10 +2,12 @@
 ## Signal {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
+::: {style="font-size: 110%;"}
 ::: {.incremental}
 - A signal describes the **evolution** of a certain type of *data* **over time**, like the vibration of an entity: the **membrane of a microphone**.
 - Just like sound waves turning into nerve impulses, the analyzed data usually needs to be first **converted to another physical unit**, or domain (***transduction***), in order to adapt to measurement/processing tools.
 - The vibration of a microphone's membrane is, for instance, usually converted to **continuous electrical current** before it can be processed and/or analyzed. In this case, the signal is said to be ***analog***.
+:::
 :::
 
 <!-- ----------------------------------------------------------------------- -->

@@ -11,6 +11,7 @@ format:
     css:
       - _extensions/sound-viz/sound-viz.scss
     transition: fade
+    chalkboard: true
     margin: 0.1
     include-in-header:
           text: |
@@ -24,16 +25,17 @@ format:
 
 # Hello!
 
-My name is **Pierre**, nice to meet you all!
+:::{.incremental}
+- My name is **Pierre**, nice to meet you all!
 
- I'm currently working as a research engineer in Inria/INSA team **Emeraude**, working among other things on a PhD Thesis intitled *Compilation and Optimization methods for Digital Audio Signal Processing and Synthesis on hardware architectures*.
+ - I'm currently working as a research engineer in Inria/INSA team **Emeraude**, working among other things on a PhD Thesis intitled *Compilation and Optimization methods for Digital Audio Signal Processing and Synthesis on hardware architectures*.
 
-I'm mainly a **software engineer**, a bit specialized in **audio** and **compilation**, I'm involved in the development/maintenance of tools such as:
-
-- **Syfala** (Faust-to-FPGA compilation toolchain)
-- **FloPoCo/HAriCo** (Hardware Arithmetic Core Generator)
-- **Emeraude-MLIR** (Compilation framework)
-- **Faust** (but not really...)
+- I'm mainly a **software engineer**, a bit specialized in **audio** and **compilation**, I'm involved in the development/maintenance of tools such as:
+  - **Syfala** (Faust-to-FPGA compilation toolchain)
+  - **FloPoCo/HAriCo** (Hardware Arithmetic Core Generator)
+  - **Emeraude-MLIR** (Compilation framework)
+  - **Faust** (but not really...)
+:::
 
 ## Learning audio DSP & synthesis stuff
 
@@ -46,8 +48,8 @@ I'm mainly a **software engineer**, a bit specialized in **audio** and **compila
 :::: {.columns}
 ::: {.column width="50%"}
 ### **October**
-::: {style="font-size: 80%;"}
-- Tuesday **20th** 14h-18h (4 hours)
+::: {style="font-size: 85%;"}
+- Tuesday **20th** 14h-18h (**4 hours**)
 :::
 
 ::: {style="font-size: 20%;"}
@@ -55,8 +57,8 @@ I'm mainly a **software engineer**, a bit specialized in **audio** and **compila
 :::
 
 ### **November**
-::: {style="font-size: 80%;"}
-- Tuesday **3rd**: 9h-12h (3 hours)
+::: {style="font-size: 85%;"}
+- Tuesday **3rd**: 9h-12h (**3 hours**)
 - Thursday **5th**: 13h-16h 
 - Tuesday **10th**: 9h-12h 
 - Thursday **12th**: 13h-16h 
@@ -69,7 +71,7 @@ I'm mainly a **software engineer**, a bit specialized in **audio** and **compila
 
 ::: {.column width="50%"}
 ### **December**
-::: {style="font-size: 80%;"}
+::: {style="font-size: 85%;"}
 - Tuesday **1st**: 9h-12h
 - Thursday **3rd**: 13h-16h
 :::
@@ -87,6 +89,7 @@ I'm mainly a **software engineer**, a bit specialized in **audio** and **compila
 {{< include faust/sound.qmd >}}
 {{< include faust/signal.qmd >}}
 {{< include faust/digital.qmd >}}
+{{< include faust/spectrum.qmd >}}
 
 # Faust (Functional Audio Stream)
 

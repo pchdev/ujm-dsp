@@ -14,7 +14,9 @@
 :::
 
 ::: {.column width="44%"}
+::: {.content style="padding-left: 15%;"}
 {{< waveform amplitude=25 waveform=sine frequency=1.0 >}}
+:::
 :::
 ::::
 
@@ -57,7 +59,9 @@
 :::
 
 ::: {.column width="44%"}
+::: {.content style="padding-left: 15%;"}
 {{< waveform amplitude=25 waveform=sine frequency=1.0 >}}
+:::
 :::
 ::::
 
@@ -80,7 +84,9 @@
 :::
 
 ::: {.column width="44%"}
+::: {.content style="padding-left: 15%;"}
 {{< waveform amplitude=25 waveform=sine frequency=1.0 >}}
+:::
 :::
 ::::
 
@@ -105,9 +111,11 @@
 
 ::: {.column width="44%"}
 ::: {style="font-size: 135%;"}
+::: {.content style="padding-left: 15%;"}
 {{< faust faust/examples/spectrum-1.dsp deploy=true >}}
 :::
 :::
+:::
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
@@ -131,7 +139,9 @@
 
 ::: {.column width="44%"}
 ::: {style="font-size: 135%;"}
+::: {.content style="padding-left: 15%;"}
 {{< faust faust/examples/spectrum-2.dsp deploy=true >}}
+:::
 :::
 :::
 ::::

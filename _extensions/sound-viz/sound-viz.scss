@@ -1,6 +1,7 @@
 .ripple {
   width: 100%;
   max-width: 600px;
+  padding-left: 15%;
   margin: 0 auto;
 
   --ripple-background: #fdf6e3;
@@ -9,7 +10,7 @@
 
 .ripple svg {
   display: block;
-  width: 100%;
+  width: 90%;
   height: auto;
 
   background: var(--ripple-background);
@@ -117,7 +118,7 @@
 }
 
 .waveform-widget {
-  width: 100%;
+  width: 110%;
   max-width: 600px;
   margin: 0 auto;
   --waveform-background: #fdf6e3;
@@ -126,7 +127,7 @@
 
 .waveform-widget svg {
   display: block;
-  width: 100%;
+  width: 115%;
   height: auto;
   background: var(--waveform-background);
 }

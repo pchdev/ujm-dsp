@@ -31,7 +31,7 @@
 :::
 :::
 :::
-::: {.column width="44%"}
+::: {.column width="45%"}
 
 {{< ripple amplitude=0.8 frequency=0.8 speed=80 id="ripple-main">}}
 :::
@@ -170,7 +170,8 @@
   - **Amplitude**: measured in Pascals (Pa)
   - **Period**: time between two oscillations
   - **Wavelength**: distance between two oscillations
-  - **Frequency**: cycles per second, in Hertz (Hz, kHz, MHz)
+  - **Frequency**: cycles per second
+    - in Hertz (Hz, kHz, MHz)
   - **Spectrum** (or timbre)
 :::
 :::

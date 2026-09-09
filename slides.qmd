@@ -7,10 +7,12 @@ preview:
   watch-inputs: true
 format:
   revealjs:
-    width: 1280
-    height: 720
+    # width: 1280
+    # height: 720
     margin: 0.055
-    scrollable: true
+    min-scale: 0.3
+    max-scale: 1.5
+    scrollable: false
     theme: [solarized, custom.scss]
     css:
       - _extensions/sound-viz/sound-viz.scss

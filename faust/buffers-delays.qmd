@@ -11,7 +11,7 @@
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/tables.dsp"}
+```{.js code-line-numbers="3|5-6|8-11|14-15|17-18|" filename="faust/examples/time/tables.dsp"}
 {{< include /faust/examples/time/tables.dsp >}}
 ```
 {{< faust faust/examples/time/tables.dsp >}}
@@ -32,7 +32,7 @@
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/soundfile.dsp"}
+```{.js code-line-numbers="3-6|8-9|8-12|8-15|" filename="faust/examples/time/soundfile.dsp"}
 {{< include /faust/examples/time/soundfile.dsp >}}
 ```
 {{< faust faust/examples/time/soundfile.dsp >}}
@@ -50,11 +50,11 @@
   - *Ramps* are often used as ***cursors*** to *read* or *write samples* in a ***buffer***. In Faust, *buffers* are implemented with the `rdtable` & `rwtable` primitives.
   - To playback a ***sound file***, we also typically use a phasor as a *read cursor*. 
 :::
-  - **Delaying** a signal in Faust can be done using the operator '**`@`**'. Thus, the expression *`x @ n`* delays a signal 'x' by 'n' **samples**.
+  - **Delaying** a signal in Faust can be done using the operator '**`@`**'. Thus, the expression *`x @ n`* delays a signal '`x`' by '`n`' **samples**.
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/delays.dsp"}
+```{.js code-line-numbers="3-4|6-12|14-18|" filename="faust/examples/time/delays.dsp"}
 {{< include /faust/examples/time/delays.dsp >}}
 ```
 {{< faust faust/examples/time/delays.dsp >}}
@@ -77,7 +77,7 @@
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/delays-sliders.dsp"}
+```{.js code-line-numbers="1-12|14-16|14-21|" filename="faust/examples/time/delays-sliders.dsp"}
 {{< include /faust/examples/time/delays-sliders.dsp >}}
 ```
 {{< faust faust/examples/time/delays-sliders.dsp >}}
@@ -101,7 +101,7 @@
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/delays-feedback.dsp"}
+```{.js code-line-numbers="20-21|24-26|" filename="faust/examples/time/delays-feedback.dsp"}
 {{< include /faust/examples/time/delays-feedback.dsp >}}
 ```
 {{< faust faust/examples/time/delays-feedback.dsp >}}

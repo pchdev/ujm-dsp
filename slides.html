@@ -101,7 +101,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-1ca05dba87934f9afad9b9b77c39e436.css">
+  <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto-f8c88eea895719c07adafef448268f19.css">
   <link rel="stylesheet" href="_extensions/sound-viz/sound-viz.scss">
   <link href="slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -120,6 +120,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -320,7 +321,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-135756" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-621763" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -344,7 +345,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-394575" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-504304" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -372,7 +373,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-289784" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-892587" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -401,7 +402,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-370815" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-531205" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -430,7 +431,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-895048" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-516683" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -461,7 +462,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-882874" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-622140" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -494,7 +495,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-818780" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-739578" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -788,6 +789,47 @@ process = os.sawtooth(440);
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
+<section id="signal-spectrum-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Signal: Spectrum</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns">
+<div class="column add-space" style="width:50%;">
+<div class="content" style="padding-left: -50px;">
+<div style="font-size: 85%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Any sound can be decomposed into a <strong><em>sum of sine waves</em></strong>.</li>
+<li>A <strong>sawtooth wave</strong>, for instance, is composed of a <strong>fundamental frequency</strong> and a certain number of <strong>harmonics</strong>, which are <strong><em>multiples of the fundamental</em></strong>.</li>
+<li>The “<em>waveform</em>” representation (<strong>time-domain</strong>) doesn’t really help us when analyzing complex, <strong>aperiodic</strong> sounds.</li>
+<li>While it’s possible to analyze the spectral contents of an analog signal with filter banks, the resulting precision is rather low, and unpractical to use.</li>
+</ul>
+</div>
+<ul>
+<li><strong>Frequency domain</strong> on other hand allows us to decompose much more precisely a given sound into its <em>frequential components</em>, with a technique called <strong><em>Fast-Fourier-Transform</em></strong> (<strong>FFT</strong>).</li>
+</ul>
+</div>
+</div>
+</div><div class="column" style="width:44%;">
+<div style="font-size: 135%;">
+<div class="faust-example">
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+process = no.noise;
+
+-->
+</faust-editor>
+
+</div>
+</div>
+
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
 <section id="digital-signal" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Digital Signal</h2>
 <!-- ----------------------------------------------------------------------- -->
@@ -866,7 +908,7 @@ process = os.sawtooth(440);
 </ul>
 </div>
 <ul>
-<li>Because of <strong><em>aliasing</em></strong> the sampling rate must be <strong><em>at least two times superior to the highest frequency</em></strong> we want to represent (<strong>Nyquist-Shannon</strong>)</li>
+<li>Because of <strong><em>aliasing</em></strong>, the sampling rate must be <strong><em>at least two times superior to the highest frequency</em></strong> we want to represent (<strong>Nyquist-Shannon</strong>)</li>
 </ul>
 </div>
 </div>
@@ -2812,7 +2854,7 @@ process = (_ + 1) ~ _;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/counter_samples.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27" data-filename="faust/examples/time/counter_samples.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb27-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27" data-filename="faust/examples/time/counter_samples.dsp" data-code-line-numbers="3-9|11-13|15-17|15-19"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb27-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb27-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb27-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We could use our previous definition </span></span>
 <span id="cb27-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// of the counter, and wrap it around the </span></span>
@@ -2893,7 +2935,7 @@ process = counter(ma.SR);
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/monitoring_values.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-filename="faust/examples/time/monitoring_values.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb28-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" data-filename="faust/examples/time/monitoring_values.dsp" data-code-line-numbers="3-4|3-5|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb28-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb28-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb28-3" class="hljs-ln-code"><a href="" aria-label="3"></a>SR <span class="op">=</span> <span class="dv">48000</span><span class="op">;</span></span>
 <span id="cb28-4" class="hljs-ln-code"><a href="" aria-label="4"></a>gui <span class="op">=</span> <span class="fu">vbargraph</span>(<span class="st">"value[style:numerical]"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> SR)<span class="op">;</span></span>
@@ -2951,7 +2993,7 @@ process = counter(SR): gui;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/waveform_switch_counter.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-filename="faust/examples/time/waveform_switch_counter.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb29-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-filename="faust/examples/time/waveform_switch_counter.dsp" data-code-line-numbers="3-4|3-7|3-12|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb29-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb29-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb29-3" class="hljs-ln-code"><a href="" aria-label="3"></a>SR <span class="op">=</span> <span class="dv">48000</span><span class="op">;</span></span>
 <span id="cb29-4" class="hljs-ln-code"><a href="" aria-label="4"></a>gui <span class="op">=</span> <span class="fu">vbargraph</span>(<span class="st">"value[style:numerical]"</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> SR)<span class="op">;</span></span>
@@ -3011,7 +3053,7 @@ process = counter(count1s, 4) : gui;
 
 </div>
 <ul>
-<li>A counter can be used as a base for many many things. With it, we can for instance build a <strong><em>ramp signal</em></strong> that <em>goes from 0 to 1 repeatedly at a certain rate</em>.</li>
+<li>A counter can be used as a <strong><em>base for many many things</em></strong>. With it, we can for instance build a <strong><em>ramp signal</em></strong> that <em>goes from 0 to 1 repeatedly at a certain rate</em>.</li>
 </ul>
 </div>
 </div><div class="column" style="width:44%;">
@@ -3019,20 +3061,22 @@ process = counter(count1s, 4) : gui;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/phasor.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-filename="faust/examples/time/phasor.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb30-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-filename="faust/examples/time/phasor.dsp" data-code-line-numbers="3|3-7|9-13|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb30-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb30-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
-<span id="cb30-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We can put a decimal as increment value, </span></span>
-<span id="cb30-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// and wrap it around 0.0 and 1.0:</span></span>
-<span id="cb30-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(<span class="fl">0.00195</span><span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
-<span id="cb30-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
-<span id="cb30-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// But it would be much better to </span></span>
-<span id="cb30-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// use the frequency unit in Hertz,</span></span>
-<span id="cb30-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// We know one second of time is the sample rate,</span></span>
-<span id="cb30-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// so to get the increment value, we can use:</span></span>
-<span id="cb30-11" class="hljs-ln-code"><a href="" aria-label="11"></a>frequency <span class="op">=</span> <span class="dv">440</span><span class="op">/</span>ma<span class="op">.</span><span class="at">SR</span><span class="op">;</span></span>
-<span id="cb30-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
-<span id="cb30-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(frequency<span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
-<span id="cb30-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb30-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb30-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
+<span id="cb30-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// We can put a decimal as increment value, </span></span>
+<span id="cb30-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// and wrap it around 0.0 and 1.0:</span></span>
+<span id="cb30-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(<span class="fl">0.00195</span><span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
+<span id="cb30-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb30-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// But it would be much better to </span></span>
+<span id="cb30-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// use the frequency unit in Hertz,</span></span>
+<span id="cb30-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="co">// We know one second of time is the sample rate,</span></span>
+<span id="cb30-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// so to get the increment value, we can use:</span></span>
+<span id="cb30-13" class="hljs-ln-code"><a href="" aria-label="13"></a>frequency <span class="op">=</span> <span class="dv">440</span><span class="op">/</span>ma<span class="op">.</span><span class="at">SR</span><span class="op">;</span></span>
+<span id="cb30-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span>
+<span id="cb30-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(frequency<span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
+<span id="cb30-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -3043,6 +3087,8 @@ process = counter(count1s, 4) : gui;
 
 <faust-editor>
 <!--
+import("stdfaust.lib");
+
 counter(i, n) = ((_ + i) % n) ~ _;
 
 // We can put a decimal as increment value, 
@@ -3068,7 +3114,7 @@ process = counter(frequency, 1.0);
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="faust-time-22-1" class="slide level2" data-auto-animate="true">
+<section id="faust-time-22-1" class="slide level2 scrollable nostretch" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Faust: Time (2/2)</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns faust-layout">
@@ -3088,20 +3134,22 @@ process = counter(frequency, 1.0);
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/phasor.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-filename="faust/examples/time/phasor.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb31-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-filename="faust/examples/time/phasor.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb31-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb31-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
-<span id="cb31-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We can put a decimal as increment value, </span></span>
-<span id="cb31-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// and wrap it around 0.0 and 1.0:</span></span>
-<span id="cb31-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(<span class="fl">0.00195</span><span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
-<span id="cb31-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
-<span id="cb31-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// But it would be much better to </span></span>
-<span id="cb31-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// use the frequency unit in Hertz,</span></span>
-<span id="cb31-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// We know one second of time is the sample rate,</span></span>
-<span id="cb31-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// so to get the increment value, we can use:</span></span>
-<span id="cb31-11" class="hljs-ln-code"><a href="" aria-label="11"></a>frequency <span class="op">=</span> <span class="dv">440</span><span class="op">/</span>ma<span class="op">.</span><span class="at">SR</span><span class="op">;</span></span>
-<span id="cb31-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
-<span id="cb31-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(frequency<span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
-<span id="cb31-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb31-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb31-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
+<span id="cb31-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// We can put a decimal as increment value, </span></span>
+<span id="cb31-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// and wrap it around 0.0 and 1.0:</span></span>
+<span id="cb31-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(<span class="fl">0.00195</span><span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
+<span id="cb31-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb31-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// But it would be much better to </span></span>
+<span id="cb31-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// use the frequency unit in Hertz,</span></span>
+<span id="cb31-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="co">// We know one second of time is the sample rate,</span></span>
+<span id="cb31-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// so to get the increment value, we can use:</span></span>
+<span id="cb31-13" class="hljs-ln-code"><a href="" aria-label="13"></a>frequency <span class="op">=</span> <span class="dv">440</span><span class="op">/</span>ma<span class="op">.</span><span class="at">SR</span><span class="op">;</span></span>
+<span id="cb31-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span>
+<span id="cb31-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">counter</span>(frequency<span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
+<span id="cb31-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -3112,6 +3160,8 @@ process = counter(frequency, 1.0);
 
 <faust-editor>
 <!--
+import("stdfaust.lib");
+
 counter(i, n) = ((_ + i) % n) ~ _;
 
 // We can put a decimal as increment value, 
@@ -3158,7 +3208,7 @@ process = counter(frequency, 1.0);
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/waveforms.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-filename="faust/examples/time/waveforms.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb32-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-filename="faust/examples/time/waveforms.dsp" data-code-line-numbers="3-4|6-7|9-11|13-20|22-35|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb32-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb32-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb32-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
 <span id="cb32-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="fu">phasor</span>(f) <span class="op">=</span> <span class="fu">counter</span>(f<span class="op">/</span>ma<span class="op">.</span><span class="at">SR</span><span class="op">,</span> <span class="fl">1.0</span>)<span class="op">;</span></span>
@@ -3277,7 +3327,7 @@ process = phasor(440) * 0.25;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/tables.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33" data-filename="faust/examples/time/tables.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb33-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33" data-filename="faust/examples/time/tables.dsp" data-code-line-numbers="3|5-6|8-11|14-15|17-18|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb33-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb33-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb33-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="fu">counter</span>(i<span class="op">,</span> n) <span class="op">=</span> ((_ <span class="op">+</span> i) <span class="op">%</span> n) <span class="op">~</span> _<span class="op">;</span></span>
 <span id="cb33-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
@@ -3364,7 +3414,7 @@ process = buffer(play, record, _);
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/soundfile.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34" data-filename="faust/examples/time/soundfile.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb34-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34" data-filename="faust/examples/time/soundfile.dsp" data-code-line-numbers="3-6|8-9|8-12|8-15|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb34-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb34-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb34-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// We declare a root directory, </span></span>
 <span id="cb34-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// from which we can retrieve a </span></span>
@@ -3434,7 +3484,7 @@ process = sampler(1);
 </ul>
 </div>
 <ul>
-<li><strong>Delaying</strong> a signal in Faust can be done using the operator ‘<strong><code>@</code></strong>’. Thus, the expression <em><code>x @ n</code></em> delays a signal ‘x’ by ‘n’ <strong>samples</strong>.</li>
+<li><strong>Delaying</strong> a signal in Faust can be done using the operator ‘<strong><code>@</code></strong>’. Thus, the expression <em><code>x @ n</code></em> delays a signal ‘<code>x</code>’ by ‘<code>n</code>’ <strong>samples</strong>.</li>
 </ul>
 </div>
 </div><div class="column" style="width:44%;">
@@ -3442,7 +3492,7 @@ process = sampler(1);
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/delays.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35" data-filename="faust/examples/time/delays.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb35-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35" data-filename="faust/examples/time/delays.dsp" data-code-line-numbers="3-4|6-12|14-18|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb35-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb35-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb35-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Simple sine oscillator at low frequency:</span></span>
 <span id="cb35-4" class="hljs-ln-code"><a href="" aria-label="4"></a>osc <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">110</span>)<span class="op">;</span></span>
@@ -3526,7 +3576,7 @@ process = osc * env : del;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/delays-sliders.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" data-filename="faust/examples/time/delays-sliders.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb36-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" data-filename="faust/examples/time/delays-sliders.dsp" data-code-line-numbers="1-12|14-16|14-21|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb36-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb36-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb36-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Simple sine oscillator at low frequency:</span></span>
 <span id="cb36-4" class="hljs-ln-code"><a href="" aria-label="4"></a>osc <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">110</span>)<span class="op">;</span></span>
@@ -3617,7 +3667,7 @@ process = osc * env : del;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/time/delays-feedback.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-filename="faust/examples/time/delays-feedback.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb37-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-filename="faust/examples/time/delays-feedback.dsp" data-code-line-numbers="20-21|24-26|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb37-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb37-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb37-3" class="hljs-ln-code"><a href="" aria-label="3"></a>osc <span class="op">=</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">440</span>)<span class="op">;</span></span>
 <span id="cb37-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
@@ -4761,12 +4811,12 @@ declare options "[http:on]";
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1280,
 
-        height: 700,
+        height: 720,
 
         // Factor of the display size that should remain empty around the content
-        margin: 0.1,
+        margin: 5.5e-2,
 
         math: {
           mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',

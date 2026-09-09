@@ -33,7 +33,7 @@
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/counter_samples.dsp"}
+```{.js code-line-numbers="3-9|11-13|15-17|15-19" filename="faust/examples/time/counter_samples.dsp"}
 {{< include /faust/examples/time/counter_samples.dsp >}}
 ```
 {{< faust faust/examples/time/counter_samples.dsp >}}
@@ -55,7 +55,7 @@
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/monitoring_values.dsp"}
+```{.js code-line-numbers="3-4|3-5|" filename="faust/examples/time/monitoring_values.dsp"}
 {{< include /faust/examples/time/monitoring_values.dsp >}}
 ```
 {{< faust faust/examples/time/monitoring_values.dsp >}}
@@ -78,7 +78,7 @@
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/waveform_switch_counter.dsp"}
+```{.js code-line-numbers="3-4|3-7|3-12|" filename="faust/examples/time/waveform_switch_counter.dsp"}
 {{< include /faust/examples/time/waveform_switch_counter.dsp >}}
 ```
 {{< faust faust/examples/time/waveform_switch_counter.dsp >}}
@@ -94,11 +94,11 @@
 ::: {style="font-size: 100%;"}
 ::: {style="opacity: 0.5"}
 :::
-  - A counter can be used as a base for many many things. With it, we can for instance build a ***ramp signal*** that *goes from 0 to 1 repeatedly at a certain rate*.
+  - A counter can be used as a ***base for many many things***. With it, we can for instance build a ***ramp signal*** that *goes from 0 to 1 repeatedly at a certain rate*.
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/phasor.dsp"}
+```{.js code-line-numbers="3|3-7|9-13|" filename="faust/examples/time/phasor.dsp"}
 {{< include /faust/examples/time/phasor.dsp >}}
 ```
 {{< faust faust/examples/time/phasor.dsp >}}
@@ -106,7 +106,7 @@
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Faust: Time (2/2) {auto-animate=true}
+## Faust: Time (2/2) {auto-animate=true .scrollable .nostretch}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns .faust-layout}
@@ -141,7 +141,7 @@
 :::
 :::
 ::: {.column width="44%"}
-```{.js code-line-numbers="|" filename="faust/examples/time/waveforms.dsp"}
+```{.js code-line-numbers="3-4|6-7|9-11|13-20|22-35|" filename="faust/examples/time/waveforms.dsp"}
 {{< include /faust/examples/time/waveforms.dsp >}}
 ```
 {{< faust faust/examples/time/waveforms.dsp >}}

@@ -1118,7 +1118,7 @@ class Harmonics {
         this.numHarmonics = parseInt(placeholder.dataset.harmonics ?? "1", 10);
 
         this.width = 700;
-        this.height = 300;
+        this.height = 500;
         this.margin = {
             left: 45,
             right: 20,
@@ -1234,7 +1234,6 @@ class Harmonics {
         if (this.waveform === "sawtooth") {
             return 1 / n;
         }
-
         // Triangle:
         // odd harmonics only,
         // amplitude falls as 1/n²

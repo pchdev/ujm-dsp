@@ -1,3 +1,5 @@
+import("stdfaust.lib");
+
 counter(i, n) = ((_ + i) % n) ~ _;
 
 // We can put a decimal as increment value, 

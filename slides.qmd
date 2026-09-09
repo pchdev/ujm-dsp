@@ -7,12 +7,15 @@ preview:
   watch-inputs: true
 format:
   revealjs:
+    width: 1280
+    height: 720
+    margin: 0.055
+    scrollable: true
     theme: [solarized, custom.scss]
     css:
       - _extensions/sound-viz/sound-viz.scss
     transition: fade
     chalkboard: true
-    margin: 0.1
     include-in-header:
           text: |
             <script type="module"

@@ -64,7 +64,7 @@
   - **Pro Audio**: 48/96 kHz
   - **MP3 (compressed)**: 320/256/192/128/96/64 kbps
 :::
-- Because of ***aliasing*** the sampling rate must be ***at least two times superior to the highest frequency*** we want to represent (**Nyquist-Shannon**)
+- Because of ***aliasing***, the sampling rate must be ***at least two times superior to the highest frequency*** we want to represent (**Nyquist-Shannon**)
 :::
 :::
 :::

@@ -1,10 +1,11 @@
 /*-- scss:rules --*/
 .reveal .slide {
-  margin-left: -50px !important;
+  /* margin-left: -100px !important; */
+  /* margin-right: 300px !important; */
 }
 
 .reveal .code-with-filename {
-  width: 115% !important;
+  width: 100% !important;
   max-width: none !important;
 }
 
@@ -21,5 +22,9 @@
 iframe {
     overflow: scroll;
     border: 1px solid black;
+}
+
+faust-editor {
+  display: block;
 }
 

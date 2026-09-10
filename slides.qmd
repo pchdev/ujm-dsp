@@ -7,6 +7,8 @@ preview:
   watch-inputs: true
 format:
   revealjs:
+    mermaid:
+      theme: forest
     # width: 1280
     # height: 720
     margin: 0.055
@@ -153,3 +155,6 @@ format:
 
 {{< include faust/control.qmd >}}
 
+# Faust everywhere!
+
+{{< include faust/export.qmd >}}

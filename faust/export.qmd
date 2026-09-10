@@ -1,0 +1,415 @@
+<!-- ----------------------------------------------------------------------- -->
+## Faust : Exporting {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
+:::
+:::
+
+::: {.column width="44%"}
+:::{style="padding-left: 15%"}
+```{mermaid}
+%%| fig-width: 20.5
+flowchart TD
+  DSP[.dsp file] --> CPP[DSP C++ code]
+  ARCH[C++ architecture file] --> CPP
+  CPP --> CC[C++ compiler]
+  CC --> APP[Binary executable]
+```
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust : Exporting {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
+:::
+- Every single export target is materialized by a specific architecture file, written in C++.
+:::
+:::
+
+::: {.column width="44%"}
+:::{style="padding-left: 15%"}
+```{mermaid}
+%%| fig-width: 20.5
+flowchart TD
+  DSP[.dsp file] --> CPP[DSP C++ code]
+  ARCH[PortAudio GTK architecture file] --> CPP
+  CPP --> CC[C++ compiler]
+  CC --> APP[PortAudio executable]
+```
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust : Exporting {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
+:::
+- Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="1-5|7-11|13-14|16-18|19-21|23-26|28-30|32-33|35-38" filename="faust/architecture/pa-gtk.cpp"}
+// Include code from the faust C++ libraries:
+#include "faust/gui/FUI.h"
+#include "faust/misc.h"
+#include "faust/audio/portaudio-dsp.h"
+#include "faust/gui/GTKUI.h"
+
+// These are markers used to indicate to the Faust compiler
+// where to 'paste' the generated DSP code
+// from the .dsp file
+<<includeIntrinsic>>
+<<includeclass>>
+
+// Create a DSP object
+mydsp DSP;
+
+// Program entrypoint:
+int main(int argc, char *argv[])
+{
+  // Build the GTK User Interface:
+  GUI* interface = new GTKUI (appname, &argc, &argv);
+  DSP.buildUserInterface(interface);
+
+  // Get the sample-rate from command-line arguments:
+  long srate = (long)lopt(argv, "--sample-rate", 44100);
+  // Get the buffer size from command-line arguments:
+  int fpb = lopt(argv, "--buffer", 128);
+
+  // Create the portaudio backend and initialize it:
+  portaudio audio(srate, fpb);
+  audio.init(appname, &DSP);
+
+  // Run the interface:
+  interface->run();
+
+  // When the GTK Interface is closed, stop the audio
+  // and deallocate the interface.  
+  audio.stop();
+  delete interface;o
+}
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust : Exporting {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
+- Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
+:::
+- The architecture file is **completely generic**, it doesn't change depending on the Faust program.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="|" filename="faust/architecture/pa-gtk.cpp"}
+// Include code from the faust C++ libraries:
+#include "faust/gui/FUI.h"
+#include "faust/misc.h"
+#include "faust/audio/portaudio-dsp.h"
+#include "faust/gui/GTKUI.h"
+
+// These are markers used to indicate to the Faust compiler
+// where to 'paste' the generated DSP code
+// from the .dsp file
+<<includeIntrinsic>>
+<<includeclass>>
+
+// Create a DSP object
+mydsp DSP;
+
+// Program entrypoint:
+int main(int argc, char *argv[])
+{
+  // Build the GTK User Interface:
+  GUI* interface = new GTKUI (appname, &argc, &argv);
+  DSP.buildUserInterface(interface);
+
+  // Get the sample-rate from command-line arguments:
+  long srate = (long)lopt(argv, "--sample-rate", 44100);
+  // Get the buffer size from command-line arguments:
+  int fpb = lopt(argv, "--buffer", 128);
+
+  // Create the portaudio backend and initialize it:
+  portaudio audio(srate, fpb);
+  audio.init(appname, &DSP);
+
+  // Run the interface:
+  interface->run();
+
+  // When the GTK Interface is closed, stop the audio
+  // and deallocate the interface.  
+  audio.stop();
+  delete interface;
+}
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust : Exporting {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
+- Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
+- The architecture file is **completely generic**, it doesn't change depending on the Faust program.
+:::
+- Instead, the **generated C++ code** for the **DSP program** is going to be inserted inside the architecture file, to create the **final compilable file**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="1-5|7-10|12|14-20|23|25-30|32-60|62-64|66-69|71-82|" filename="fm.cpp"}
+/* ------------------------------------------------------------
+name: "fm"
+Code generated with Faust 2.88.0 (https://faust.grame.fr)
+Compilation options: -lang cpp -fpga-mem-th 4 -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+------------------------------------------------------------ */
+
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <math.h>
+
+class mydsp : public dsp {
+private:
+  int fSampleRate;
+  float fConst0;
+  float fConst1;
+  float fRec2[2];
+  float fConst2;
+  float fRec1[2];
+  float fRec0[2];
+	
+public:
+  mydsp() {}
+
+  virtual int getNumInputs() {
+ 	return 0;
+  }
+  virtual int getNumOutputs() {
+ 	return 1;
+  }
+
+  virtual void instanceConstants(int sample_rate) {
+ 	fSampleRate = sample_rate;
+ 	fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
+ 	fConst1 = 4.4e+02f / fConst0;
+ 	fConst2 = 1.0f / fConst0;
+  }
+
+  virtual void instanceClear() {
+ 	for (int l0 = 0; l0 < 2; l0 = faust_wrap_add(l0, 1)) {
+  		fRec2[l0] = 0.0f;
+ 	}
+ 	for (int l1 = 0; l1 < 2; l1 = faust_wrap_add(l1, 1)) {
+  		fRec1[l1] = 0.0f;
+ 	}
+ 	for (int l2 = 0; l2 < 2; l2 = faust_wrap_add(l2, 1)) {
+  		fRec0[l2] = 0.0f;
+ 	}
+  }
+
+  virtual void init(int sample_rate) {
+ 	classInit(sample_rate);
+ 	instanceInit(sample_rate);
+  }
+
+  virtual void instanceInit(int sample_rate) {
+ 	instanceConstants(sample_rate);
+ 	instanceResetUserInterface();
+ 	instanceClear();
+  }
+
+  virtual int getSampleRate() {
+ 	return fSampleRate;
+  }
+
+  virtual void buildUserInterface(UI* ui_interface) {
+ 	ui_interface->openVerticalBox("fm");
+ 	ui_interface->closeBox();
+  }
+
+  virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
+ 	FAUSTFLOAT* output0 = outputs[0];
+ 	for (int i0 = 0; i0 < count; i0 = faust_wrap_add(i0, 1)) {
+  		fRec2[0] = fConst1 - std::floor(fRec2[1]) + fRec2[1];
+  		float fTemp0 = 4.4e+02f + 1.32e+03f * std::cos(6.2831855f * fRec2[1]);
+  		fRec1[0] = fRec1[1] + fConst2 * fTemp0 - std::floor(fRec1[1]);
+  		fRec0[0] = fRec0[1] + fConst2 * (4.4e+02f + 2.0f * fTemp0 * std::cos(6.2831855f * fRec1[1])) - std::floor(fRec0[1]);
+  		output0[i0] = static_cast<FAUSTFLOAT>(std::cos(6.2831855f * fRec0[1]));
+  		fRec2[1] = fRec2[0];
+  		fRec1[1] = fRec1[0];
+  		fRec0[1] = fRec0[0];
+ 	}
+  }
+};
+```
+:::
+::::
+<!-- ----------------------------------------------------------------------- -->
+## Faust : Exporting {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
+- Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
+- The architecture file is **completely generic**, it doesn't change depending on the Faust program.
+:::
+- Instead, the **generated C++ code** for the **DSP program** is going to be inserted inside the architecture file, to create the **final compilable file**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="1-84|85-87|89-90|12|93|97|66-69|106|51-54|71-82|" filename="fm.cpp"}
+/* ------------------------------------------------------------
+name: "fm"
+Code generated with Faust 2.88.0 (https://faust.grame.fr)
+Compilation options: -lang cpp -fpga-mem-th 4 -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0
+------------------------------------------------------------ */
+
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <math.h>
+
+class mydsp : public dsp {
+private:
+  int fSampleRate;
+  float fConst0;
+  float fConst1;
+  float fRec2[2];
+  float fConst2;
+  float fRec1[2];
+  float fRec0[2];
+	
+public:
+  mydsp() {}
+
+  virtual int getNumInputs() {
+ 	return 0;
+  }
+  virtual int getNumOutputs() {
+ 	return 1;
+  }
+
+  virtual void instanceConstants(int sample_rate) {
+ 	fSampleRate = sample_rate;
+ 	fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, static_cast<float>(fSampleRate)));
+ 	fConst1 = 4.4e+02f / fConst0;
+ 	fConst2 = 1.0f / fConst0;
+  }
+
+  virtual void instanceClear() {
+ 	for (int l0 = 0; l0 < 2; l0 = faust_wrap_add(l0, 1)) {
+  		fRec2[l0] = 0.0f;
+ 	}
+ 	for (int l1 = 0; l1 < 2; l1 = faust_wrap_add(l1, 1)) {
+  		fRec1[l1] = 0.0f;
+ 	}
+ 	for (int l2 = 0; l2 < 2; l2 = faust_wrap_add(l2, 1)) {
+  		fRec0[l2] = 0.0f;
+ 	}
+  }
+
+  virtual void init(int sample_rate) {
+ 	classInit(sample_rate);
+ 	instanceInit(sample_rate);
+  }
+
+  virtual void instanceInit(int sample_rate) {
+ 	instanceConstants(sample_rate);
+ 	instanceResetUserInterface();
+ 	instanceClear();
+  }
+
+  virtual int getSampleRate() {
+ 	return fSampleRate;
+  }
+
+  virtual void buildUserInterface(UI* ui_interface) {
+ 	ui_interface->openVerticalBox("fm");
+ 	ui_interface->closeBox();
+  }
+
+  virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
+ 	FAUSTFLOAT* output0 = outputs[0];
+ 	for (int i0 = 0; i0 < count; i0 = faust_wrap_add(i0, 1)) {
+  		fRec2[0] = fConst1 - std::floor(fRec2[1]) + fRec2[1];
+  		float fTemp0 = 4.4e+02f + 1.32e+03f * std::cos(6.2831855f * fRec2[1]);
+  		fRec1[0] = fRec1[1] + fConst2 * fTemp0 - std::floor(fRec1[1]);
+  		fRec0[0] = fRec0[1] + fConst2 * (4.4e+02f + 2.0f * fTemp0 * std::cos(6.2831855f * fRec1[1])) - std::floor(fRec0[1]);
+  		output0[i0] = static_cast<FAUSTFLOAT>(std::cos(6.2831855f * fRec0[1]));
+  		fRec2[1] = fRec2[0];
+  		fRec1[1] = fRec1[0];
+  		fRec0[1] = fRec0[0];
+ 	}
+  }
+};
+// These are now replaced by the code above:
+// <<includeIntrinsic>>
+// <<includeclass>>
+
+// Create a DSP object
+mydsp DSP;
+
+// Program entrypoint:
+int main(int argc, char *argv[])
+{
+  // Build the GTK User Interface:
+  GUI* interface = new GTKUI (appname, &argc, &argv);
+  DSP.buildUserInterface(interface);
+
+  // Get the sample-rate from command-line arguments:
+  long srate = (long)lopt(argv, "--sample-rate", 44100);
+  // Get the buffer size from command-line arguments:
+  int fpb = lopt(argv, "--buffer", 128);
+
+  // Create the portaudio backend and initialize it:
+  portaudio audio(srate, fpb);
+  audio.init(appname, &DSP);
+
+  // Run the interface:
+  interface->run();
+
+  // When the GTK Interface is closed, stop the audio
+  // and deallocate the interface.  
+  audio.stop();
+  delete interface;
+}
+```
+:::
+::::

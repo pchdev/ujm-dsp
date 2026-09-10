@@ -196,6 +196,10 @@
       margin-right: 0; 
     }
   </style>
+  <meta name="mermaid-theme" content="forest">
+  <script src="slides_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="slides_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="slides_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <script type="module" src="https://cdn.jsdelivr.net/npm/@grame/faust-web-component@0.6.1/dist/faust-web-component.js">
   </script>
   <script src="_extensions/sound-viz/sound-viz.js"></script>
@@ -320,7 +324,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="ripple" id="ripple-116297" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-735546" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -344,7 +348,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-416363" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-652761" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -372,7 +376,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-779603" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-140024" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -401,7 +405,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-440086" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-702405" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -430,7 +434,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-453389" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-830927" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -461,7 +465,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-933075" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-722425" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -497,7 +501,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-289781" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-943877" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -4657,6 +4661,460 @@ declare options "[http:on]";
 
 </div>
 
+</div></div>
+</section></section>
+<section>
+<section id="faust-everywhere" class="title-slide slide level1 center">
+<h1>Faust everywhere!</h1>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-exporting" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust : Exporting</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li>Faust manages to <strong>export</strong> an audio program to many different platforms thanks to its <strong><em>architecture file system</em></strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div style="padding-left: 15%">
+<div class="cell" data-reveal="true" data-fig-width="20.5" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  DSP[.dsp file] --&gt; CPP[DSP C++ code]
+  ARCH[C++ architecture file] --&gt; CPP
+  CPP --&gt; CC[C++ compiler]
+  CC --&gt; APP[Binary executable]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-exporting-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust : Exporting</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust manages to <strong>export</strong> an audio program to many different platforms thanks to its <strong><em>architecture file system</em></strong>.</li>
+</ul>
+</div>
+<ul>
+<li>Every single export target is materialized by a specific architecture file, written in C++.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div style="padding-left: 15%">
+<div class="cell" data-reveal="true" data-fig-width="20.5" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  DSP[.dsp file] --&gt; CPP[DSP C++ code]
+  ARCH[PortAudio GTK architecture file] --&gt; CPP
+  CPP --&gt; CC[C++ compiler]
+  CC --&gt; APP[PortAudio executable]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-exporting-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust : Exporting</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust manages to <strong>export</strong> an audio program to many different platforms thanks to its <strong><em>architecture file system</em></strong>.</li>
+</ul>
+</div>
+<ul>
+<li>Every single <strong>export target</strong> is materialized by a <strong>specific architecture file</strong>, <strong>written in C++</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/architecture/pa-gtk.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49" data-filename="faust/architecture/pa-gtk.cpp" data-code-line-numbers="1-5|7-11|13-14|16-18|19-21|23-26|28-30|32-33|35-38"><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb49-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// Include code from the faust C++ libraries:</span></span>
+<span id="cb49-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="pp">#include </span><span class="im">"faust/gui/FUI.h"</span></span>
+<span id="cb49-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="pp">#include </span><span class="im">"faust/misc.h"</span></span>
+<span id="cb49-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="pp">#include </span><span class="im">"faust/audio/portaudio-dsp.h"</span></span>
+<span id="cb49-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="pp">#include </span><span class="im">"faust/gui/GTKUI.h"</span></span>
+<span id="cb49-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb49-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// These are markers used to indicate to the Faust compiler</span></span>
+<span id="cb49-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// where to 'paste' the generated DSP code</span></span>
+<span id="cb49-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// from the .dsp file</span></span>
+<span id="cb49-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="op">&lt;&lt;</span>includeIntrinsic<span class="op">&gt;&gt;</span></span>
+<span id="cb49-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="op">&lt;&lt;</span>includeclass<span class="op">&gt;&gt;</span></span>
+<span id="cb49-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb49-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// Create a DSP object</span></span>
+<span id="cb49-14" class="hljs-ln-code"><a href="" aria-label="14"></a>mydsp DSP<span class="op">;</span></span>
+<span id="cb49-15" class="hljs-ln-code"><a href="" aria-label="15"></a></span>
+<span id="cb49-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="co">// Program entrypoint:</span></span>
+<span id="cb49-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb49-18" class="hljs-ln-code"><a href="" aria-label="18"></a><span class="op">{</span></span>
+<span id="cb49-19" class="hljs-ln-code"><a href="" aria-label="19"></a>  <span class="co">// Build the GTK User Interface:</span></span>
+<span id="cb49-20" class="hljs-ln-code"><a href="" aria-label="20"></a>  GUI<span class="op">*</span> interface <span class="op">=</span> <span class="kw">new</span> GTKUI <span class="op">(</span>appname<span class="op">,</span> <span class="op">&amp;</span>argc<span class="op">,</span> <span class="op">&amp;</span>argv<span class="op">);</span></span>
+<span id="cb49-21" class="hljs-ln-code"><a href="" aria-label="21"></a>  DSP<span class="op">.</span>buildUserInterface<span class="op">(</span>interface<span class="op">);</span></span>
+<span id="cb49-22" class="hljs-ln-code"><a href="" aria-label="22"></a></span>
+<span id="cb49-23" class="hljs-ln-code"><a href="" aria-label="23"></a>  <span class="co">// Get the sample-rate from command-line arguments:</span></span>
+<span id="cb49-24" class="hljs-ln-code"><a href="" aria-label="24"></a>  <span class="dt">long</span> srate <span class="op">=</span> <span class="op">(</span><span class="dt">long</span><span class="op">)</span>lopt<span class="op">(</span>argv<span class="op">,</span> <span class="st">"--sample-rate"</span><span class="op">,</span> <span class="dv">44100</span><span class="op">);</span></span>
+<span id="cb49-25" class="hljs-ln-code"><a href="" aria-label="25"></a>  <span class="co">// Get the buffer size from command-line arguments:</span></span>
+<span id="cb49-26" class="hljs-ln-code"><a href="" aria-label="26"></a>  <span class="dt">int</span> fpb <span class="op">=</span> lopt<span class="op">(</span>argv<span class="op">,</span> <span class="st">"--buffer"</span><span class="op">,</span> <span class="dv">128</span><span class="op">);</span></span>
+<span id="cb49-27" class="hljs-ln-code"><a href="" aria-label="27"></a></span>
+<span id="cb49-28" class="hljs-ln-code"><a href="" aria-label="28"></a>  <span class="co">// Create the portaudio backend and initialize it:</span></span>
+<span id="cb49-29" class="hljs-ln-code"><a href="" aria-label="29"></a>  portaudio audio<span class="op">(</span>srate<span class="op">,</span> fpb<span class="op">);</span></span>
+<span id="cb49-30" class="hljs-ln-code"><a href="" aria-label="30"></a>  audio<span class="op">.</span>init<span class="op">(</span>appname<span class="op">,</span> <span class="op">&amp;</span>DSP<span class="op">);</span></span>
+<span id="cb49-31" class="hljs-ln-code"><a href="" aria-label="31"></a></span>
+<span id="cb49-32" class="hljs-ln-code"><a href="" aria-label="32"></a>  <span class="co">// Run the interface:</span></span>
+<span id="cb49-33" class="hljs-ln-code"><a href="" aria-label="33"></a>  interface<span class="op">-&gt;</span>run<span class="op">();</span></span>
+<span id="cb49-34" class="hljs-ln-code"><a href="" aria-label="34"></a></span>
+<span id="cb49-35" class="hljs-ln-code"><a href="" aria-label="35"></a>  <span class="co">// When the GTK Interface is closed, stop the audio</span></span>
+<span id="cb49-36" class="hljs-ln-code"><a href="" aria-label="36"></a>  <span class="co">// and deallocate the interface.  </span></span>
+<span id="cb49-37" class="hljs-ln-code"><a href="" aria-label="37"></a>  audio<span class="op">.</span>stop<span class="op">();</span></span>
+<span id="cb49-38" class="hljs-ln-code"><a href="" aria-label="38"></a>  <span class="kw">delete</span> interface<span class="op">;</span>o</span>
+<span id="cb49-39" class="hljs-ln-code"><a href="" aria-label="39"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-exporting-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust : Exporting</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust manages to <strong>export</strong> an audio program to many different platforms thanks to its <strong><em>architecture file system</em></strong>.</li>
+<li>Every single <strong>export target</strong> is materialized by a <strong>specific architecture file</strong>, <strong>written in C++</strong>.</li>
+</ul>
+</div>
+<ul>
+<li>The architecture file is <strong>completely generic</strong>, it doesn’t change depending on the Faust program.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>faust/architecture/pa-gtk.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50" data-filename="faust/architecture/pa-gtk.cpp" data-code-line-numbers="|"><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb50-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">// Include code from the faust C++ libraries:</span></span>
+<span id="cb50-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="pp">#include </span><span class="im">"faust/gui/FUI.h"</span></span>
+<span id="cb50-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="pp">#include </span><span class="im">"faust/misc.h"</span></span>
+<span id="cb50-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="pp">#include </span><span class="im">"faust/audio/portaudio-dsp.h"</span></span>
+<span id="cb50-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="pp">#include </span><span class="im">"faust/gui/GTKUI.h"</span></span>
+<span id="cb50-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb50-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// These are markers used to indicate to the Faust compiler</span></span>
+<span id="cb50-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="co">// where to 'paste' the generated DSP code</span></span>
+<span id="cb50-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// from the .dsp file</span></span>
+<span id="cb50-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="op">&lt;&lt;</span>includeIntrinsic<span class="op">&gt;&gt;</span></span>
+<span id="cb50-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="op">&lt;&lt;</span>includeclass<span class="op">&gt;&gt;</span></span>
+<span id="cb50-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb50-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// Create a DSP object</span></span>
+<span id="cb50-14" class="hljs-ln-code"><a href="" aria-label="14"></a>mydsp DSP<span class="op">;</span></span>
+<span id="cb50-15" class="hljs-ln-code"><a href="" aria-label="15"></a></span>
+<span id="cb50-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="co">// Program entrypoint:</span></span>
+<span id="cb50-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb50-18" class="hljs-ln-code"><a href="" aria-label="18"></a><span class="op">{</span></span>
+<span id="cb50-19" class="hljs-ln-code"><a href="" aria-label="19"></a>  <span class="co">// Build the GTK User Interface:</span></span>
+<span id="cb50-20" class="hljs-ln-code"><a href="" aria-label="20"></a>  GUI<span class="op">*</span> interface <span class="op">=</span> <span class="kw">new</span> GTKUI <span class="op">(</span>appname<span class="op">,</span> <span class="op">&amp;</span>argc<span class="op">,</span> <span class="op">&amp;</span>argv<span class="op">);</span></span>
+<span id="cb50-21" class="hljs-ln-code"><a href="" aria-label="21"></a>  DSP<span class="op">.</span>buildUserInterface<span class="op">(</span>interface<span class="op">);</span></span>
+<span id="cb50-22" class="hljs-ln-code"><a href="" aria-label="22"></a></span>
+<span id="cb50-23" class="hljs-ln-code"><a href="" aria-label="23"></a>  <span class="co">// Get the sample-rate from command-line arguments:</span></span>
+<span id="cb50-24" class="hljs-ln-code"><a href="" aria-label="24"></a>  <span class="dt">long</span> srate <span class="op">=</span> <span class="op">(</span><span class="dt">long</span><span class="op">)</span>lopt<span class="op">(</span>argv<span class="op">,</span> <span class="st">"--sample-rate"</span><span class="op">,</span> <span class="dv">44100</span><span class="op">);</span></span>
+<span id="cb50-25" class="hljs-ln-code"><a href="" aria-label="25"></a>  <span class="co">// Get the buffer size from command-line arguments:</span></span>
+<span id="cb50-26" class="hljs-ln-code"><a href="" aria-label="26"></a>  <span class="dt">int</span> fpb <span class="op">=</span> lopt<span class="op">(</span>argv<span class="op">,</span> <span class="st">"--buffer"</span><span class="op">,</span> <span class="dv">128</span><span class="op">);</span></span>
+<span id="cb50-27" class="hljs-ln-code"><a href="" aria-label="27"></a></span>
+<span id="cb50-28" class="hljs-ln-code"><a href="" aria-label="28"></a>  <span class="co">// Create the portaudio backend and initialize it:</span></span>
+<span id="cb50-29" class="hljs-ln-code"><a href="" aria-label="29"></a>  portaudio audio<span class="op">(</span>srate<span class="op">,</span> fpb<span class="op">);</span></span>
+<span id="cb50-30" class="hljs-ln-code"><a href="" aria-label="30"></a>  audio<span class="op">.</span>init<span class="op">(</span>appname<span class="op">,</span> <span class="op">&amp;</span>DSP<span class="op">);</span></span>
+<span id="cb50-31" class="hljs-ln-code"><a href="" aria-label="31"></a></span>
+<span id="cb50-32" class="hljs-ln-code"><a href="" aria-label="32"></a>  <span class="co">// Run the interface:</span></span>
+<span id="cb50-33" class="hljs-ln-code"><a href="" aria-label="33"></a>  interface<span class="op">-&gt;</span>run<span class="op">();</span></span>
+<span id="cb50-34" class="hljs-ln-code"><a href="" aria-label="34"></a></span>
+<span id="cb50-35" class="hljs-ln-code"><a href="" aria-label="35"></a>  <span class="co">// When the GTK Interface is closed, stop the audio</span></span>
+<span id="cb50-36" class="hljs-ln-code"><a href="" aria-label="36"></a>  <span class="co">// and deallocate the interface.  </span></span>
+<span id="cb50-37" class="hljs-ln-code"><a href="" aria-label="37"></a>  audio<span class="op">.</span>stop<span class="op">();</span></span>
+<span id="cb50-38" class="hljs-ln-code"><a href="" aria-label="38"></a>  <span class="kw">delete</span> interface<span class="op">;</span></span>
+<span id="cb50-39" class="hljs-ln-code"><a href="" aria-label="39"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-exporting-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust : Exporting</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust manages to <strong>export</strong> an audio program to many different platforms thanks to its <strong><em>architecture file system</em></strong>.</li>
+<li>Every single <strong>export target</strong> is materialized by a <strong>specific architecture file</strong>, <strong>written in C++</strong>.</li>
+<li>The architecture file is <strong>completely generic</strong>, it doesn’t change depending on the Faust program.</li>
+</ul>
+</div>
+<ul>
+<li>Instead, the <strong>generated C++ code</strong> for the <strong>DSP program</strong> is going to be inserted inside the architecture file, to create the <strong>final compilable file</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>fm.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51" data-filename="fm.cpp" data-code-line-numbers="1-5|7-10|12|14-20|23|25-30|32-60|62-64|66-69|71-82|"><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb51-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">/* ------------------------------------------------------------</span></span>
+<span id="cb51-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="co">name: "fm"</span></span>
+<span id="cb51-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">Code generated with Faust 2.88.0 (https://faust.grame.fr)</span></span>
+<span id="cb51-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">Compilation options: -lang cpp -fpga-mem-th 4 -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0</span></span>
+<span id="cb51-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">------------------------------------------------------------ */</span></span>
+<span id="cb51-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb51-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb51-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
+<span id="cb51-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="pp">#include </span><span class="im">&lt;cstdint&gt;</span></span>
+<span id="cb51-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="pp">#include </span><span class="im">&lt;math.h&gt;</span></span>
+<span id="cb51-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb51-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="kw">class</span> mydsp <span class="op">:</span> <span class="kw">public</span> dsp <span class="op">{</span></span>
+<span id="cb51-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="kw">private</span><span class="op">:</span></span>
+<span id="cb51-14" class="hljs-ln-code"><a href="" aria-label="14"></a>  <span class="dt">int</span> fSampleRate<span class="op">;</span></span>
+<span id="cb51-15" class="hljs-ln-code"><a href="" aria-label="15"></a>  <span class="dt">float</span> fConst0<span class="op">;</span></span>
+<span id="cb51-16" class="hljs-ln-code"><a href="" aria-label="16"></a>  <span class="dt">float</span> fConst1<span class="op">;</span></span>
+<span id="cb51-17" class="hljs-ln-code"><a href="" aria-label="17"></a>  <span class="dt">float</span> fRec2<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
+<span id="cb51-18" class="hljs-ln-code"><a href="" aria-label="18"></a>  <span class="dt">float</span> fConst2<span class="op">;</span></span>
+<span id="cb51-19" class="hljs-ln-code"><a href="" aria-label="19"></a>  <span class="dt">float</span> fRec1<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
+<span id="cb51-20" class="hljs-ln-code"><a href="" aria-label="20"></a>  <span class="dt">float</span> fRec0<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
+<span id="cb51-21" class="hljs-ln-code"><a href="" aria-label="21"></a>    </span>
+<span id="cb51-22" class="hljs-ln-code"><a href="" aria-label="22"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb51-23" class="hljs-ln-code"><a href="" aria-label="23"></a>  mydsp<span class="op">()</span> <span class="op">{}</span></span>
+<span id="cb51-24" class="hljs-ln-code"><a href="" aria-label="24"></a></span>
+<span id="cb51-25" class="hljs-ln-code"><a href="" aria-label="25"></a>  <span class="kw">virtual</span> <span class="dt">int</span> getNumInputs<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb51-26" class="hljs-ln-code"><a href="" aria-label="26"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb51-27" class="hljs-ln-code"><a href="" aria-label="27"></a>  <span class="op">}</span></span>
+<span id="cb51-28" class="hljs-ln-code"><a href="" aria-label="28"></a>  <span class="kw">virtual</span> <span class="dt">int</span> getNumOutputs<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb51-29" class="hljs-ln-code"><a href="" aria-label="29"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb51-30" class="hljs-ln-code"><a href="" aria-label="30"></a>  <span class="op">}</span></span>
+<span id="cb51-31" class="hljs-ln-code"><a href="" aria-label="31"></a></span>
+<span id="cb51-32" class="hljs-ln-code"><a href="" aria-label="32"></a>  <span class="kw">virtual</span> <span class="dt">void</span> instanceConstants<span class="op">(</span><span class="dt">int</span> sample_rate<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb51-33" class="hljs-ln-code"><a href="" aria-label="33"></a>    fSampleRate <span class="op">=</span> sample_rate<span class="op">;</span></span>
+<span id="cb51-34" class="hljs-ln-code"><a href="" aria-label="34"></a>    fConst0 <span class="op">=</span> <span class="bu">std::</span>min<span class="op">&lt;</span><span class="dt">float</span><span class="op">&gt;(</span><span class="fl">1.92e+05</span><span class="bu">f</span><span class="op">,</span> <span class="bu">std::</span>max<span class="op">&lt;</span><span class="dt">float</span><span class="op">&gt;(</span><span class="fl">1.0</span><span class="bu">f</span><span class="op">,</span> <span class="kw">static_cast</span><span class="op">&lt;</span><span class="dt">float</span><span class="op">&gt;(</span>fSampleRate<span class="op">)));</span></span>
+<span id="cb51-35" class="hljs-ln-code"><a href="" aria-label="35"></a>    fConst1 <span class="op">=</span> <span class="fl">4.4e+02</span><span class="bu">f</span> <span class="op">/</span> fConst0<span class="op">;</span></span>
+<span id="cb51-36" class="hljs-ln-code"><a href="" aria-label="36"></a>    fConst2 <span class="op">=</span> <span class="fl">1.0</span><span class="bu">f</span> <span class="op">/</span> fConst0<span class="op">;</span></span>
+<span id="cb51-37" class="hljs-ln-code"><a href="" aria-label="37"></a>  <span class="op">}</span></span>
+<span id="cb51-38" class="hljs-ln-code"><a href="" aria-label="38"></a></span>
+<span id="cb51-39" class="hljs-ln-code"><a href="" aria-label="39"></a>  <span class="kw">virtual</span> <span class="dt">void</span> instanceClear<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb51-40" class="hljs-ln-code"><a href="" aria-label="40"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> l0 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> l0 <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> l0 <span class="op">=</span> faust_wrap_add<span class="op">(</span>l0<span class="op">,</span> <span class="dv">1</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb51-41" class="hljs-ln-code"><a href="" aria-label="41"></a>        fRec2<span class="op">[</span>l0<span class="op">]</span> <span class="op">=</span> <span class="fl">0.0</span><span class="bu">f</span><span class="op">;</span></span>
+<span id="cb51-42" class="hljs-ln-code"><a href="" aria-label="42"></a>    <span class="op">}</span></span>
+<span id="cb51-43" class="hljs-ln-code"><a href="" aria-label="43"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> l1 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> l1 <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> l1 <span class="op">=</span> faust_wrap_add<span class="op">(</span>l1<span class="op">,</span> <span class="dv">1</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb51-44" class="hljs-ln-code"><a href="" aria-label="44"></a>        fRec1<span class="op">[</span>l1<span class="op">]</span> <span class="op">=</span> <span class="fl">0.0</span><span class="bu">f</span><span class="op">;</span></span>
+<span id="cb51-45" class="hljs-ln-code"><a href="" aria-label="45"></a>    <span class="op">}</span></span>
+<span id="cb51-46" class="hljs-ln-code"><a href="" aria-label="46"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> l2 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> l2 <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> l2 <span class="op">=</span> faust_wrap_add<span class="op">(</span>l2<span class="op">,</span> <span class="dv">1</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb51-47" class="hljs-ln-code"><a href="" aria-label="47"></a>        fRec0<span class="op">[</span>l2<span class="op">]</span> <span class="op">=</span> <span class="fl">0.0</span><span class="bu">f</span><span class="op">;</span></span>
+<span id="cb51-48" class="hljs-ln-code"><a href="" aria-label="48"></a>    <span class="op">}</span></span>
+<span id="cb51-49" class="hljs-ln-code"><a href="" aria-label="49"></a>  <span class="op">}</span></span>
+<span id="cb51-50" class="hljs-ln-code"><a href="" aria-label="50"></a></span>
+<span id="cb51-51" class="hljs-ln-code"><a href="" aria-label="51"></a>  <span class="kw">virtual</span> <span class="dt">void</span> init<span class="op">(</span><span class="dt">int</span> sample_rate<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb51-52" class="hljs-ln-code"><a href="" aria-label="52"></a>    classInit<span class="op">(</span>sample_rate<span class="op">);</span></span>
+<span id="cb51-53" class="hljs-ln-code"><a href="" aria-label="53"></a>    instanceInit<span class="op">(</span>sample_rate<span class="op">);</span></span>
+<span id="cb51-54" class="hljs-ln-code"><a href="" aria-label="54"></a>  <span class="op">}</span></span>
+<span id="cb51-55" class="hljs-ln-code"><a href="" aria-label="55"></a></span>
+<span id="cb51-56" class="hljs-ln-code"><a href="" aria-label="56"></a>  <span class="kw">virtual</span> <span class="dt">void</span> instanceInit<span class="op">(</span><span class="dt">int</span> sample_rate<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb51-57" class="hljs-ln-code"><a href="" aria-label="57"></a>    instanceConstants<span class="op">(</span>sample_rate<span class="op">);</span></span>
+<span id="cb51-58" class="hljs-ln-code"><a href="" aria-label="58"></a>    instanceResetUserInterface<span class="op">();</span></span>
+<span id="cb51-59" class="hljs-ln-code"><a href="" aria-label="59"></a>    instanceClear<span class="op">();</span></span>
+<span id="cb51-60" class="hljs-ln-code"><a href="" aria-label="60"></a>  <span class="op">}</span></span>
+<span id="cb51-61" class="hljs-ln-code"><a href="" aria-label="61"></a></span>
+<span id="cb51-62" class="hljs-ln-code"><a href="" aria-label="62"></a>  <span class="kw">virtual</span> <span class="dt">int</span> getSampleRate<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb51-63" class="hljs-ln-code"><a href="" aria-label="63"></a>    <span class="cf">return</span> fSampleRate<span class="op">;</span></span>
+<span id="cb51-64" class="hljs-ln-code"><a href="" aria-label="64"></a>  <span class="op">}</span></span>
+<span id="cb51-65" class="hljs-ln-code"><a href="" aria-label="65"></a></span>
+<span id="cb51-66" class="hljs-ln-code"><a href="" aria-label="66"></a>  <span class="kw">virtual</span> <span class="dt">void</span> buildUserInterface<span class="op">(</span>UI<span class="op">*</span> ui_interface<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb51-67" class="hljs-ln-code"><a href="" aria-label="67"></a>    ui_interface<span class="op">-&gt;</span>openVerticalBox<span class="op">(</span><span class="st">"fm"</span><span class="op">);</span></span>
+<span id="cb51-68" class="hljs-ln-code"><a href="" aria-label="68"></a>    ui_interface<span class="op">-&gt;</span>closeBox<span class="op">();</span></span>
+<span id="cb51-69" class="hljs-ln-code"><a href="" aria-label="69"></a>  <span class="op">}</span></span>
+<span id="cb51-70" class="hljs-ln-code"><a href="" aria-label="70"></a></span>
+<span id="cb51-71" class="hljs-ln-code"><a href="" aria-label="71"></a>  <span class="kw">virtual</span> <span class="dt">void</span> compute<span class="op">(</span><span class="dt">int</span> count<span class="op">,</span> FAUSTFLOAT<span class="op">**</span> RESTRICT inputs<span class="op">,</span> FAUSTFLOAT<span class="op">**</span> RESTRICT outputs<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb51-72" class="hljs-ln-code"><a href="" aria-label="72"></a>    FAUSTFLOAT<span class="op">*</span> output0 <span class="op">=</span> outputs<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb51-73" class="hljs-ln-code"><a href="" aria-label="73"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i0 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i0 <span class="op">&lt;</span> count<span class="op">;</span> i0 <span class="op">=</span> faust_wrap_add<span class="op">(</span>i0<span class="op">,</span> <span class="dv">1</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb51-74" class="hljs-ln-code"><a href="" aria-label="74"></a>        fRec2<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> fConst1 <span class="op">-</span> <span class="bu">std::</span>floor<span class="op">(</span>fRec2<span class="op">[</span><span class="dv">1</span><span class="op">])</span> <span class="op">+</span> fRec2<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb51-75" class="hljs-ln-code"><a href="" aria-label="75"></a>        <span class="dt">float</span> fTemp0 <span class="op">=</span> <span class="fl">4.4e+02</span><span class="bu">f</span> <span class="op">+</span> <span class="fl">1.32e+03</span><span class="bu">f</span> <span class="op">*</span> <span class="bu">std::</span>cos<span class="op">(</span><span class="fl">6.2831855</span><span class="bu">f</span> <span class="op">*</span> fRec2<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb51-76" class="hljs-ln-code"><a href="" aria-label="76"></a>        fRec1<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> fRec1<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">+</span> fConst2 <span class="op">*</span> fTemp0 <span class="op">-</span> <span class="bu">std::</span>floor<span class="op">(</span>fRec1<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb51-77" class="hljs-ln-code"><a href="" aria-label="77"></a>        fRec0<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> fRec0<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">+</span> fConst2 <span class="op">*</span> <span class="op">(</span><span class="fl">4.4e+02</span><span class="bu">f</span> <span class="op">+</span> <span class="fl">2.0</span><span class="bu">f</span> <span class="op">*</span> fTemp0 <span class="op">*</span> <span class="bu">std::</span>cos<span class="op">(</span><span class="fl">6.2831855</span><span class="bu">f</span> <span class="op">*</span> fRec1<span class="op">[</span><span class="dv">1</span><span class="op">]))</span> <span class="op">-</span> <span class="bu">std::</span>floor<span class="op">(</span>fRec0<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb51-78" class="hljs-ln-code"><a href="" aria-label="78"></a>        output0<span class="op">[</span>i0<span class="op">]</span> <span class="op">=</span> <span class="kw">static_cast</span><span class="op">&lt;</span>FAUSTFLOAT<span class="op">&gt;(</span><span class="bu">std::</span>cos<span class="op">(</span><span class="fl">6.2831855</span><span class="bu">f</span> <span class="op">*</span> fRec0<span class="op">[</span><span class="dv">1</span><span class="op">]));</span></span>
+<span id="cb51-79" class="hljs-ln-code"><a href="" aria-label="79"></a>        fRec2<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> fRec2<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb51-80" class="hljs-ln-code"><a href="" aria-label="80"></a>        fRec1<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> fRec1<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb51-81" class="hljs-ln-code"><a href="" aria-label="81"></a>        fRec0<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> fRec0<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb51-82" class="hljs-ln-code"><a href="" aria-label="82"></a>    <span class="op">}</span></span>
+<span id="cb51-83" class="hljs-ln-code"><a href="" aria-label="83"></a>  <span class="op">}</span></span>
+<span id="cb51-84" class="hljs-ln-code"><a href="" aria-label="84"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-exporting-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust : Exporting</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Faust manages to <strong>export</strong> an audio program to many different platforms thanks to its <strong><em>architecture file system</em></strong>.</li>
+<li>Every single <strong>export target</strong> is materialized by a <strong>specific architecture file</strong>, <strong>written in C++</strong>.</li>
+<li>The architecture file is <strong>completely generic</strong>, it doesn’t change depending on the Faust program.</li>
+</ul>
+</div>
+<ul>
+<li>Instead, the <strong>generated C++ code</strong> for the <strong>DSP program</strong> is going to be inserted inside the architecture file, to create the <strong>final compilable file</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>fm.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52" data-filename="fm.cpp" data-code-line-numbers="1-84|85-87|89-90|12|93|97|66-69|106|51-54|71-82|"><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb52-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="co">/* ------------------------------------------------------------</span></span>
+<span id="cb52-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="co">name: "fm"</span></span>
+<span id="cb52-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">Code generated with Faust 2.88.0 (https://faust.grame.fr)</span></span>
+<span id="cb52-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">Compilation options: -lang cpp -fpga-mem-th 4 -ct 1 -es 1 -mcd 16 -mdd 1024 -mdy 33 -single -ftz 0</span></span>
+<span id="cb52-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">------------------------------------------------------------ */</span></span>
+<span id="cb52-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb52-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb52-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
+<span id="cb52-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="pp">#include </span><span class="im">&lt;cstdint&gt;</span></span>
+<span id="cb52-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="pp">#include </span><span class="im">&lt;math.h&gt;</span></span>
+<span id="cb52-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb52-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="kw">class</span> mydsp <span class="op">:</span> <span class="kw">public</span> dsp <span class="op">{</span></span>
+<span id="cb52-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="kw">private</span><span class="op">:</span></span>
+<span id="cb52-14" class="hljs-ln-code"><a href="" aria-label="14"></a>  <span class="dt">int</span> fSampleRate<span class="op">;</span></span>
+<span id="cb52-15" class="hljs-ln-code"><a href="" aria-label="15"></a>  <span class="dt">float</span> fConst0<span class="op">;</span></span>
+<span id="cb52-16" class="hljs-ln-code"><a href="" aria-label="16"></a>  <span class="dt">float</span> fConst1<span class="op">;</span></span>
+<span id="cb52-17" class="hljs-ln-code"><a href="" aria-label="17"></a>  <span class="dt">float</span> fRec2<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
+<span id="cb52-18" class="hljs-ln-code"><a href="" aria-label="18"></a>  <span class="dt">float</span> fConst2<span class="op">;</span></span>
+<span id="cb52-19" class="hljs-ln-code"><a href="" aria-label="19"></a>  <span class="dt">float</span> fRec1<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
+<span id="cb52-20" class="hljs-ln-code"><a href="" aria-label="20"></a>  <span class="dt">float</span> fRec0<span class="op">[</span><span class="dv">2</span><span class="op">];</span></span>
+<span id="cb52-21" class="hljs-ln-code"><a href="" aria-label="21"></a>    </span>
+<span id="cb52-22" class="hljs-ln-code"><a href="" aria-label="22"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb52-23" class="hljs-ln-code"><a href="" aria-label="23"></a>  mydsp<span class="op">()</span> <span class="op">{}</span></span>
+<span id="cb52-24" class="hljs-ln-code"><a href="" aria-label="24"></a></span>
+<span id="cb52-25" class="hljs-ln-code"><a href="" aria-label="25"></a>  <span class="kw">virtual</span> <span class="dt">int</span> getNumInputs<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb52-26" class="hljs-ln-code"><a href="" aria-label="26"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb52-27" class="hljs-ln-code"><a href="" aria-label="27"></a>  <span class="op">}</span></span>
+<span id="cb52-28" class="hljs-ln-code"><a href="" aria-label="28"></a>  <span class="kw">virtual</span> <span class="dt">int</span> getNumOutputs<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb52-29" class="hljs-ln-code"><a href="" aria-label="29"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb52-30" class="hljs-ln-code"><a href="" aria-label="30"></a>  <span class="op">}</span></span>
+<span id="cb52-31" class="hljs-ln-code"><a href="" aria-label="31"></a></span>
+<span id="cb52-32" class="hljs-ln-code"><a href="" aria-label="32"></a>  <span class="kw">virtual</span> <span class="dt">void</span> instanceConstants<span class="op">(</span><span class="dt">int</span> sample_rate<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb52-33" class="hljs-ln-code"><a href="" aria-label="33"></a>    fSampleRate <span class="op">=</span> sample_rate<span class="op">;</span></span>
+<span id="cb52-34" class="hljs-ln-code"><a href="" aria-label="34"></a>    fConst0 <span class="op">=</span> <span class="bu">std::</span>min<span class="op">&lt;</span><span class="dt">float</span><span class="op">&gt;(</span><span class="fl">1.92e+05</span><span class="bu">f</span><span class="op">,</span> <span class="bu">std::</span>max<span class="op">&lt;</span><span class="dt">float</span><span class="op">&gt;(</span><span class="fl">1.0</span><span class="bu">f</span><span class="op">,</span> <span class="kw">static_cast</span><span class="op">&lt;</span><span class="dt">float</span><span class="op">&gt;(</span>fSampleRate<span class="op">)));</span></span>
+<span id="cb52-35" class="hljs-ln-code"><a href="" aria-label="35"></a>    fConst1 <span class="op">=</span> <span class="fl">4.4e+02</span><span class="bu">f</span> <span class="op">/</span> fConst0<span class="op">;</span></span>
+<span id="cb52-36" class="hljs-ln-code"><a href="" aria-label="36"></a>    fConst2 <span class="op">=</span> <span class="fl">1.0</span><span class="bu">f</span> <span class="op">/</span> fConst0<span class="op">;</span></span>
+<span id="cb52-37" class="hljs-ln-code"><a href="" aria-label="37"></a>  <span class="op">}</span></span>
+<span id="cb52-38" class="hljs-ln-code"><a href="" aria-label="38"></a></span>
+<span id="cb52-39" class="hljs-ln-code"><a href="" aria-label="39"></a>  <span class="kw">virtual</span> <span class="dt">void</span> instanceClear<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb52-40" class="hljs-ln-code"><a href="" aria-label="40"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> l0 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> l0 <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> l0 <span class="op">=</span> faust_wrap_add<span class="op">(</span>l0<span class="op">,</span> <span class="dv">1</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb52-41" class="hljs-ln-code"><a href="" aria-label="41"></a>        fRec2<span class="op">[</span>l0<span class="op">]</span> <span class="op">=</span> <span class="fl">0.0</span><span class="bu">f</span><span class="op">;</span></span>
+<span id="cb52-42" class="hljs-ln-code"><a href="" aria-label="42"></a>    <span class="op">}</span></span>
+<span id="cb52-43" class="hljs-ln-code"><a href="" aria-label="43"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> l1 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> l1 <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> l1 <span class="op">=</span> faust_wrap_add<span class="op">(</span>l1<span class="op">,</span> <span class="dv">1</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb52-44" class="hljs-ln-code"><a href="" aria-label="44"></a>        fRec1<span class="op">[</span>l1<span class="op">]</span> <span class="op">=</span> <span class="fl">0.0</span><span class="bu">f</span><span class="op">;</span></span>
+<span id="cb52-45" class="hljs-ln-code"><a href="" aria-label="45"></a>    <span class="op">}</span></span>
+<span id="cb52-46" class="hljs-ln-code"><a href="" aria-label="46"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> l2 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> l2 <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> l2 <span class="op">=</span> faust_wrap_add<span class="op">(</span>l2<span class="op">,</span> <span class="dv">1</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb52-47" class="hljs-ln-code"><a href="" aria-label="47"></a>        fRec0<span class="op">[</span>l2<span class="op">]</span> <span class="op">=</span> <span class="fl">0.0</span><span class="bu">f</span><span class="op">;</span></span>
+<span id="cb52-48" class="hljs-ln-code"><a href="" aria-label="48"></a>    <span class="op">}</span></span>
+<span id="cb52-49" class="hljs-ln-code"><a href="" aria-label="49"></a>  <span class="op">}</span></span>
+<span id="cb52-50" class="hljs-ln-code"><a href="" aria-label="50"></a></span>
+<span id="cb52-51" class="hljs-ln-code"><a href="" aria-label="51"></a>  <span class="kw">virtual</span> <span class="dt">void</span> init<span class="op">(</span><span class="dt">int</span> sample_rate<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb52-52" class="hljs-ln-code"><a href="" aria-label="52"></a>    classInit<span class="op">(</span>sample_rate<span class="op">);</span></span>
+<span id="cb52-53" class="hljs-ln-code"><a href="" aria-label="53"></a>    instanceInit<span class="op">(</span>sample_rate<span class="op">);</span></span>
+<span id="cb52-54" class="hljs-ln-code"><a href="" aria-label="54"></a>  <span class="op">}</span></span>
+<span id="cb52-55" class="hljs-ln-code"><a href="" aria-label="55"></a></span>
+<span id="cb52-56" class="hljs-ln-code"><a href="" aria-label="56"></a>  <span class="kw">virtual</span> <span class="dt">void</span> instanceInit<span class="op">(</span><span class="dt">int</span> sample_rate<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb52-57" class="hljs-ln-code"><a href="" aria-label="57"></a>    instanceConstants<span class="op">(</span>sample_rate<span class="op">);</span></span>
+<span id="cb52-58" class="hljs-ln-code"><a href="" aria-label="58"></a>    instanceResetUserInterface<span class="op">();</span></span>
+<span id="cb52-59" class="hljs-ln-code"><a href="" aria-label="59"></a>    instanceClear<span class="op">();</span></span>
+<span id="cb52-60" class="hljs-ln-code"><a href="" aria-label="60"></a>  <span class="op">}</span></span>
+<span id="cb52-61" class="hljs-ln-code"><a href="" aria-label="61"></a></span>
+<span id="cb52-62" class="hljs-ln-code"><a href="" aria-label="62"></a>  <span class="kw">virtual</span> <span class="dt">int</span> getSampleRate<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb52-63" class="hljs-ln-code"><a href="" aria-label="63"></a>    <span class="cf">return</span> fSampleRate<span class="op">;</span></span>
+<span id="cb52-64" class="hljs-ln-code"><a href="" aria-label="64"></a>  <span class="op">}</span></span>
+<span id="cb52-65" class="hljs-ln-code"><a href="" aria-label="65"></a></span>
+<span id="cb52-66" class="hljs-ln-code"><a href="" aria-label="66"></a>  <span class="kw">virtual</span> <span class="dt">void</span> buildUserInterface<span class="op">(</span>UI<span class="op">*</span> ui_interface<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb52-67" class="hljs-ln-code"><a href="" aria-label="67"></a>    ui_interface<span class="op">-&gt;</span>openVerticalBox<span class="op">(</span><span class="st">"fm"</span><span class="op">);</span></span>
+<span id="cb52-68" class="hljs-ln-code"><a href="" aria-label="68"></a>    ui_interface<span class="op">-&gt;</span>closeBox<span class="op">();</span></span>
+<span id="cb52-69" class="hljs-ln-code"><a href="" aria-label="69"></a>  <span class="op">}</span></span>
+<span id="cb52-70" class="hljs-ln-code"><a href="" aria-label="70"></a></span>
+<span id="cb52-71" class="hljs-ln-code"><a href="" aria-label="71"></a>  <span class="kw">virtual</span> <span class="dt">void</span> compute<span class="op">(</span><span class="dt">int</span> count<span class="op">,</span> FAUSTFLOAT<span class="op">**</span> RESTRICT inputs<span class="op">,</span> FAUSTFLOAT<span class="op">**</span> RESTRICT outputs<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb52-72" class="hljs-ln-code"><a href="" aria-label="72"></a>    FAUSTFLOAT<span class="op">*</span> output0 <span class="op">=</span> outputs<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb52-73" class="hljs-ln-code"><a href="" aria-label="73"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i0 <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i0 <span class="op">&lt;</span> count<span class="op">;</span> i0 <span class="op">=</span> faust_wrap_add<span class="op">(</span>i0<span class="op">,</span> <span class="dv">1</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb52-74" class="hljs-ln-code"><a href="" aria-label="74"></a>        fRec2<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> fConst1 <span class="op">-</span> <span class="bu">std::</span>floor<span class="op">(</span>fRec2<span class="op">[</span><span class="dv">1</span><span class="op">])</span> <span class="op">+</span> fRec2<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb52-75" class="hljs-ln-code"><a href="" aria-label="75"></a>        <span class="dt">float</span> fTemp0 <span class="op">=</span> <span class="fl">4.4e+02</span><span class="bu">f</span> <span class="op">+</span> <span class="fl">1.32e+03</span><span class="bu">f</span> <span class="op">*</span> <span class="bu">std::</span>cos<span class="op">(</span><span class="fl">6.2831855</span><span class="bu">f</span> <span class="op">*</span> fRec2<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb52-76" class="hljs-ln-code"><a href="" aria-label="76"></a>        fRec1<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> fRec1<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">+</span> fConst2 <span class="op">*</span> fTemp0 <span class="op">-</span> <span class="bu">std::</span>floor<span class="op">(</span>fRec1<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb52-77" class="hljs-ln-code"><a href="" aria-label="77"></a>        fRec0<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> fRec0<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">+</span> fConst2 <span class="op">*</span> <span class="op">(</span><span class="fl">4.4e+02</span><span class="bu">f</span> <span class="op">+</span> <span class="fl">2.0</span><span class="bu">f</span> <span class="op">*</span> fTemp0 <span class="op">*</span> <span class="bu">std::</span>cos<span class="op">(</span><span class="fl">6.2831855</span><span class="bu">f</span> <span class="op">*</span> fRec1<span class="op">[</span><span class="dv">1</span><span class="op">]))</span> <span class="op">-</span> <span class="bu">std::</span>floor<span class="op">(</span>fRec0<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb52-78" class="hljs-ln-code"><a href="" aria-label="78"></a>        output0<span class="op">[</span>i0<span class="op">]</span> <span class="op">=</span> <span class="kw">static_cast</span><span class="op">&lt;</span>FAUSTFLOAT<span class="op">&gt;(</span><span class="bu">std::</span>cos<span class="op">(</span><span class="fl">6.2831855</span><span class="bu">f</span> <span class="op">*</span> fRec0<span class="op">[</span><span class="dv">1</span><span class="op">]));</span></span>
+<span id="cb52-79" class="hljs-ln-code"><a href="" aria-label="79"></a>        fRec2<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> fRec2<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb52-80" class="hljs-ln-code"><a href="" aria-label="80"></a>        fRec1<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> fRec1<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb52-81" class="hljs-ln-code"><a href="" aria-label="81"></a>        fRec0<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> fRec0<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb52-82" class="hljs-ln-code"><a href="" aria-label="82"></a>    <span class="op">}</span></span>
+<span id="cb52-83" class="hljs-ln-code"><a href="" aria-label="83"></a>  <span class="op">}</span></span>
+<span id="cb52-84" class="hljs-ln-code"><a href="" aria-label="84"></a><span class="op">};</span></span>
+<span id="cb52-85" class="hljs-ln-code"><a href="" aria-label="85"></a><span class="co">// These are now replaced by the code above:</span></span>
+<span id="cb52-86" class="hljs-ln-code"><a href="" aria-label="86"></a><span class="co">// &lt;&lt;includeIntrinsic&gt;&gt;</span></span>
+<span id="cb52-87" class="hljs-ln-code"><a href="" aria-label="87"></a><span class="co">// &lt;&lt;includeclass&gt;&gt;</span></span>
+<span id="cb52-88" class="hljs-ln-code"><a href="" aria-label="88"></a></span>
+<span id="cb52-89" class="hljs-ln-code"><a href="" aria-label="89"></a><span class="co">// Create a DSP object</span></span>
+<span id="cb52-90" class="hljs-ln-code"><a href="" aria-label="90"></a>mydsp DSP<span class="op">;</span></span>
+<span id="cb52-91" class="hljs-ln-code"><a href="" aria-label="91"></a></span>
+<span id="cb52-92" class="hljs-ln-code"><a href="" aria-label="92"></a><span class="co">// Program entrypoint:</span></span>
+<span id="cb52-93" class="hljs-ln-code"><a href="" aria-label="93"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb52-94" class="hljs-ln-code"><a href="" aria-label="94"></a><span class="op">{</span></span>
+<span id="cb52-95" class="hljs-ln-code"><a href="" aria-label="95"></a>  <span class="co">// Build the GTK User Interface:</span></span>
+<span id="cb52-96" class="hljs-ln-code"><a href="" aria-label="96"></a>  GUI<span class="op">*</span> interface <span class="op">=</span> <span class="kw">new</span> GTKUI <span class="op">(</span>appname<span class="op">,</span> <span class="op">&amp;</span>argc<span class="op">,</span> <span class="op">&amp;</span>argv<span class="op">);</span></span>
+<span id="cb52-97" class="hljs-ln-code"><a href="" aria-label="97"></a>  DSP<span class="op">.</span>buildUserInterface<span class="op">(</span>interface<span class="op">);</span></span>
+<span id="cb52-98" class="hljs-ln-code"><a href="" aria-label="98"></a></span>
+<span id="cb52-99" class="hljs-ln-code"><a href="" aria-label="99"></a>  <span class="co">// Get the sample-rate from command-line arguments:</span></span>
+<span id="cb52-100" class="hljs-ln-code"><a href="" aria-label="100"></a>  <span class="dt">long</span> srate <span class="op">=</span> <span class="op">(</span><span class="dt">long</span><span class="op">)</span>lopt<span class="op">(</span>argv<span class="op">,</span> <span class="st">"--sample-rate"</span><span class="op">,</span> <span class="dv">44100</span><span class="op">);</span></span>
+<span id="cb52-101" class="hljs-ln-code"><a href="" aria-label="101"></a>  <span class="co">// Get the buffer size from command-line arguments:</span></span>
+<span id="cb52-102" class="hljs-ln-code"><a href="" aria-label="102"></a>  <span class="dt">int</span> fpb <span class="op">=</span> lopt<span class="op">(</span>argv<span class="op">,</span> <span class="st">"--buffer"</span><span class="op">,</span> <span class="dv">128</span><span class="op">);</span></span>
+<span id="cb52-103" class="hljs-ln-code"><a href="" aria-label="103"></a></span>
+<span id="cb52-104" class="hljs-ln-code"><a href="" aria-label="104"></a>  <span class="co">// Create the portaudio backend and initialize it:</span></span>
+<span id="cb52-105" class="hljs-ln-code"><a href="" aria-label="105"></a>  portaudio audio<span class="op">(</span>srate<span class="op">,</span> fpb<span class="op">);</span></span>
+<span id="cb52-106" class="hljs-ln-code"><a href="" aria-label="106"></a>  audio<span class="op">.</span>init<span class="op">(</span>appname<span class="op">,</span> <span class="op">&amp;</span>DSP<span class="op">);</span></span>
+<span id="cb52-107" class="hljs-ln-code"><a href="" aria-label="107"></a></span>
+<span id="cb52-108" class="hljs-ln-code"><a href="" aria-label="108"></a>  <span class="co">// Run the interface:</span></span>
+<span id="cb52-109" class="hljs-ln-code"><a href="" aria-label="109"></a>  interface<span class="op">-&gt;</span>run<span class="op">();</span></span>
+<span id="cb52-110" class="hljs-ln-code"><a href="" aria-label="110"></a></span>
+<span id="cb52-111" class="hljs-ln-code"><a href="" aria-label="111"></a>  <span class="co">// When the GTK Interface is closed, stop the audio</span></span>
+<span id="cb52-112" class="hljs-ln-code"><a href="" aria-label="112"></a>  <span class="co">// and deallocate the interface.  </span></span>
+<span id="cb52-113" class="hljs-ln-code"><a href="" aria-label="113"></a>  audio<span class="op">.</span>stop<span class="op">();</span></span>
+<span id="cb52-114" class="hljs-ln-code"><a href="" aria-label="114"></a>  <span class="kw">delete</span> interface<span class="op">;</span></span>
+<span id="cb52-115" class="hljs-ln-code"><a href="" aria-label="115"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </div></div>
 
 </section></section>

@@ -482,7 +482,7 @@ struct sinewave {
 
 ::: {.column width="44%"}
 ```{.cpp code-line-numbers="2-3" filename="sinewave.cpp"}
-struct sinewave {
+struct Sinewave {
     // Stored data: 32-bits floating-point value:
     float phase;
 
@@ -513,7 +513,7 @@ struct sinewave {
 
 ::: {.column width="44%"}
 ```{.cpp code-line-numbers="5-6|8-9" filename="sinewave.cpp"}
-struct sinewave {
+struct Sinewave {
     // Stored data: 32-bits floating-point value:
     float phase;
 
@@ -544,7 +544,7 @@ struct sinewave {
 
 ::: {.column width="44%"}
 ```{.cpp code-line-numbers="6-9|7|3,7" filename="sinewave.cpp"}
-struct sinewave {
+struct Sinewave {
     // Stored data: 32-bits floating-point value:
     float phase;
 
@@ -580,7 +580,7 @@ struct sinewave {
 ```{.cpp code-line-numbers="13-24|14-16|17-21|22-23,1|24,13|" filename="sinewave.cpp"}
 #include <cmath>
 
-struct sinewave {
+struct Sinewave {
     // Stored data: 32-bits floating-point value:
     float phase;
 
@@ -626,7 +626,7 @@ struct sinewave {
 ```{.cpp code-line-numbers="28-30" filename="sinewave.cpp"}
 #include <cmath>
 
-struct sinewave {
+struct Sinewave {
     // Stored data: 32-bits floating-point value:
     float phase;
 
@@ -677,7 +677,7 @@ int main() {
 #include <cmath>
 #include <cstdio>
 
-struct sinewave {
+struct Sinewave {
     // Stored data: 32-bits floating-point value:
     float phase;
 
@@ -705,7 +705,7 @@ struct sinewave {
 int main() {
     // Create an instance of our custom sinewave type,
     // store it into a local variable:
-    sinewave sine;
+    Sinewave sine;
 
     // Call its 'init' function:
     sine.init();
@@ -742,7 +742,7 @@ int main() {
 #include <cmath>
 #include <cstdio>
 
-struct sinewave {
+struct Sinewave {
     // Stored data: 32-bits floating-point value:
     float phase;
 
@@ -770,7 +770,7 @@ struct sinewave {
 int main() {
     // Create an instance of our custom sinewave type,
     // store it into a local variable:
-    sinewave sine;
+    Sinewave sine;
 
     // Call its 'init' function:
     sine.init();
@@ -782,6 +782,285 @@ int main() {
     }
     return 0;
 }
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+:::
+- We could also have made a ***separate structure*** for the '*phase*' computation, to make it **reusable** in other components or **waveform oscillators**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="4-22|5|7-9|11-21|24,26|29-31|33-39|36|42-56" filename="sinewave.cpp"}
+#include <cmath>
+#include <cstdio>
+
+struct Phasor {
+    float phase;
+
+    void init() {
+        phase = 0;
+    }
+
+    float process() {
+        // Increment phase sample-by-sample
+        // for a fixed frequency of 440 Hz
+        phase += 440.f / 48000.f;
+        // When phase reaches its maximum (1.0),
+        // start from 0.0 again:
+        if (phase >= 1.f) {
+            phase -= 1.f;
+        }
+        return phase;
+    }
+};
+
+struct Sinewave {
+    // Stored data: 32-bits floating-point value:
+    Phasor phasor;
+
+    // Initialization function declaration:
+    void init() {
+        phasor.init();
+    }
+
+    // Processing function declaration:
+    float process() {
+        // Compute and return the sinewave value:
+        float phase = phasor.process();
+        float sine = sin(phase * 2.f * M_PI);
+        return sine;
+    }
+};
+
+int main() {
+    // Create an instance of our custom sinewave type,
+    // store it into a local variable:
+    Sinewave sine;
+
+    // Call its 'init' function:
+    sine.init();
+
+    // Now, the following is going to be repeated 100 times:
+    for (int i = 0; i < 100; i++) {
+        float sample = sine.process();
+        printf("Sample value: %f\n", sample);
+    }
+    return 0;
+}
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- We could also have made a ***separate structure*** for the '*phase*' computation, to make it **reusable** in other components or **waveform oscillators**.
+:::
+- Additionally, let's make the **frequency** of the oscillator **variable**, instead of fixed to `440`.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="7-9|10-11|10-14,5,8|19|29,34-36|47,52-53" filename="sinewave.cpp"}
+#include <cmath>
+#include <cstdio>
+
+struct Phasor {
+    float phase;
+
+    // We add another struct member:
+    float frequency;
+
+    // Add a float argument to the init function:
+    void init(float freq) {
+        phase = 0;
+        frequency = freq;
+    }
+
+    float process() {
+        // Increment phase sample-by-sample
+        // given the frequency set at initialization:
+        phase += frequency / 48000.f;
+        // When phase reaches its maximum (1.0),
+        // start from 0.0 again:
+        if (phase >= 1.f) {
+            phase -= 1.f;
+        }
+        return phase;
+    }
+};
+
+struct Sinewave {
+    // Stored data: 32-bits floating-point value:
+    Phasor phasor;
+
+    // Initialization function declaration:
+    void init(float freq) {
+        phasor.init(freq);
+    }
+
+    // Processing function declaration:
+    float process() {
+        // Compute and return the sinewave value:
+        float phase = phasor.process();
+        float sine = sin(phase * 2.f * M_PI);
+        return sine;
+    }
+};
+
+int main() {
+    // Create an instance of our custom sinewave type,
+    // store it into a local variable:
+    Sinewave sine;
+
+    // Call its 'init' function:
+    sine.init(440.f);
+
+    // Now, the following is going to be repeated 100 times:
+    for (int i = 0; i < 100; i++) {
+        float sample = sine.process();
+        printf("Sample value: %f\n", sample);
+    }
+    return 0;
+}
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- We could also have made a ***separate structure*** for the '*phase*' computation, to make it **reusable** in other components or **waveform oscillators**.
+- Additionally, let's make the **frequency** of the oscillator **variable**, instead of fixed to `440`.
+:::
+- Now let's make the same `struct` for triangle, sawtooth, and square waves, and let's add an amplitude parameter to them:
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="|" filename="sinewave.cpp"}
+#include <cmath>
+#include <cstdio>
+
+struct Phasor {
+    float phase;
+    float frequency;
+
+    void init(float freq) {
+        phase = 0;
+        frequency = freq;
+    }
+
+    float process() {
+        phase += frequency/48000.f;
+        if (phase >= 1.f) {
+            phase -= 1.f;
+        }
+        return phase;
+    }
+};
+
+struct Sinewave {
+    Phasor phasor;
+
+    void init(float freq) {
+        phasor.init(freq);
+    }
+
+    float process() {
+        float phase = phasor.process();
+        float sine = sin(phase * M_PI * 2.f);
+        return sine;
+    }
+};
+
+struct Square {
+    Phasor phasor;
+
+    void init(float freq) {
+        phasor.init(freq);
+    }
+
+    float process() {
+        float phase = phasor.process();
+        float square = phase < 0.5f ? -1.f : 1.f;
+        return square;
+    }
+};
+
+struct Sawtooth {
+    Phasor phasor;
+    void init(float freq) {
+        phasor.init(freq);
+    }
+
+    float process() {
+        float phase = phasor.process();
+        float saw = phase * 2.f - 1.f;
+        return saw;
+    }
+};
+
+struct Triangle {
+    Phasor phasor;
+    void init(float freq) {
+        phasor.init(freq);
+    }
+
+    float process() {
+        float phase = phasor.process();
+        float tri;
+        if (phase < 0.5) {
+            tri = phase;
+        } else {
+            tri = 1.f - phase;
+        }
+        tri -= 0.25;
+        tri *= 4.0;
+        return tri ;
+    }
+};
+
+int main() {
+    Triangle sine;
+    sine.init(440.f);
+
+    for (int i = 0; i < 48000; i++) {
+        float sample = sine.process();
+        int n = sample * 40 + 40;
+        for (int s = 0; s < 100; ++s) {
+            if (s == n) {
+                printf("%f", sample);
+            } else {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+
 ```
 :::
 ::::

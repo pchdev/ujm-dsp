@@ -1,124 +1,75 @@
 <!-- ----------------------------------------------------------------------- -->
-## Faust : Exporting {auto-animate=true}
+## Faust: Exporting {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 90%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 :::
-- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
+- Faust manages to **export** an audio program to many different platforms & targets thanks to its ***architecture file system***.
 :::
 :::
 
 ::: {.column width="44%"}
 :::{style="padding-left: 15%"}
 ```{mermaid}
-%%| fig-width: 20.5
 flowchart TD
-  DSP[.dsp file] --> CPP[DSP C++ code]
-  ARCH[C++ architecture file] --> CPP
-  CPP --> CC[C++ compiler]
-  CC --> APP[Binary executable]
+  DSP(myprogram.dsp) --> FAUST(Faust compiler)
+  ARCH(portaudio.cpp) --> FAUST
+  LIB(portaudio.dylib) --> ARCH
+  FAUST --> CPP(myprogram-portaudio.cpp)
+  CPP --> GCC(C++ compiler)
+  GCC --> EXE(myprogram-portaudio.exe)
+  classDef files font-weight:bold,text-align:center;
+  classDef compilers fill:#00000000,stroke:none,font-style:italic,text-align:center;
+  class DSP,CPP,EXE,ARCH files;
+  class FAUST,GCC compilers;
 ```
 :::
 :::
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Faust : Exporting {auto-animate=true}
+## Faust: Exporting {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 90%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 - Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
 :::
-- Every single export target is materialized by a specific architecture file, written in C++.
+- Every single export target is materialized by a **specific architecture file**, written in C++.
 :::
 :::
 
 ::: {.column width="44%"}
 :::{style="padding-left: 15%"}
 ```{mermaid}
-%%| fig-width: 20.5
 flowchart TD
-  DSP[.dsp file] --> CPP[DSP C++ code]
-  ARCH[PortAudio GTK architecture file] --> CPP
-  CPP --> CC[C++ compiler]
-  CC --> APP[PortAudio executable]
+  DSP(myprogram.dsp) --> FAUST(Faust compiler)
+  ARCH(vst3.cpp) --> FAUST
+  LIB(vst3-sdk.dylib) --> ARCH
+  FAUST --> CPP(myprogram-vst3.cpp)
+  CPP --> GCC(C++ compiler)
+  GCC --> EXE(myprogram-vst3.dll)
+  classDef files font-weight:bold,text-align:center;
+  classDef compilers fill:#00000000,stroke:none,font-style:italic,text-align:center;
+  class DSP,CPP,EXE,ARCH files;
+  class FAUST,GCC compilers;
 ```
 :::
 :::
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Faust : Exporting {auto-animate=true}
+## Faust: Exporting {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 90%;"}
-::: {style="opacity: 0.5"}
-- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
-:::
-- Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
-:::
-:::
-
-::: {.column width="44%"}
-```{.cpp code-line-numbers="1-5|7-11|13-14|16-18|19-21|23-26|28-30|32-33|35-38" filename="faust/architecture/pa-gtk.cpp"}
-// Include code from the faust C++ libraries:
-#include "faust/gui/FUI.h"
-#include "faust/misc.h"
-#include "faust/audio/portaudio-dsp.h"
-#include "faust/gui/GTKUI.h"
-
-// These are markers used to indicate to the Faust compiler
-// where to 'paste' the generated DSP code
-// from the .dsp file
-<<includeIntrinsic>>
-<<includeclass>>
-
-// Create a DSP object
-mydsp DSP;
-
-// Program entrypoint:
-int main(int argc, char *argv[])
-{
-  // Build the GTK User Interface:
-  GUI* interface = new GTKUI (appname, &argc, &argv);
-  DSP.buildUserInterface(interface);
-
-  // Get the sample-rate from command-line arguments:
-  long srate = (long)lopt(argv, "--sample-rate", 44100);
-  // Get the buffer size from command-line arguments:
-  int fpb = lopt(argv, "--buffer", 128);
-
-  // Create the portaudio backend and initialize it:
-  portaudio audio(srate, fpb);
-  audio.init(appname, &DSP);
-
-  // Run the interface:
-  interface->run();
-
-  // When the GTK Interface is closed, stop the audio
-  // and deallocate the interface.  
-  audio.stop();
-  delete interface;o
-}
-```
-:::
-::::
-
-<!-- ----------------------------------------------------------------------- -->
-## Faust : Exporting {auto-animate=true}
-<!-- ----------------------------------------------------------------------- -->
-
-:::: {.columns .faust-layout}
-::: {.column width="50%" .add-space}
-::: {style="font-size: 90%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 - Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
 - Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
@@ -128,8 +79,43 @@ int main(int argc, char *argv[])
 :::
 
 ::: {.column width="44%"}
-```{.cpp code-line-numbers="|" filename="faust/architecture/pa-gtk.cpp"}
-// Include code from the faust C++ libraries:
+:::{style="padding-left: 15%"}
+```{mermaid}
+flowchart TD
+  DSP(myprogram.dsp) --> FAUST(Faust compiler)
+  ARCH(portaudio.cpp) --> FAUST
+  LIB(portaudio.dylib) --> ARCH
+  FAUST --> CPP(myprogram-portaudio.cpp)
+  CPP --> GCC(C++ compiler)
+  GCC --> EXE(myprogram-portaudio.exe)
+  classDef files font-weight:bold,text-align:center;
+  classDef compilers fill:#00000000,stroke:none,font-style:italic,text-align:center;
+  classDef archfile stroke:DarkRed,fill:white;
+  class DSP,CPP,EXE,ARCH files;
+  class FAUST,GCC compilers;
+  class ARCH archfile;
+```
+:::
+:::
+::::
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Exporting {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
+- Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
+:::
+- The architecture file is **completely generic**, it doesn't change depending on the Faust program.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="1-5|7-11|13-14|16-18|19-21|23-26|28-30|32-33|35-38" filename="faust/architecture/pa-gtk.cpp"}
+// Include code from the faust and portaudio C++ libraries:
 #include "faust/gui/FUI.h"
 #include "faust/misc.h"
 #include "faust/audio/portaudio-dsp.h"
@@ -173,12 +159,49 @@ int main(int argc, char *argv[])
 ::::
 
 <!-- ----------------------------------------------------------------------- -->
-## Faust : Exporting {auto-animate=true}
+## Faust: Exporting {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 90%;"}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
+- Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
+- The architecture file is **completely generic**, it doesn't change depending on the Faust program.
+:::
+- Instead, the **generated C++ code** for the **DSP program** is going to be inserted inside the architecture file, to create the **final compilable file**.
+:::
+:::
+
+::: {.column width="44%"}
+:::{style="padding-left: 15%"}
+```{mermaid}
+flowchart TD
+  DSP(myprogram.dsp) --> FAUST(Faust compiler)
+  ARCH(portaudio.cpp) --> FAUST
+  LIB(portaudio.dylib) --> ARCH
+  FAUST --> CPP(myprogram-portaudio.cpp)
+  CPP --> GCC(C++ compiler)
+  GCC --> EXE(myprogram-portaudio.exe)
+  classDef files font-weight:bold,text-align:center;
+  classDef compilers fill:#00000000,stroke:none,font-style:italic,text-align:center;
+  classDef archfile stroke:DarkRed,fill:white;
+  class DSP,CPP,EXE,ARCH files;
+  class FAUST,GCC compilers;
+  class DSP,CPP,ARCH archfile;
+```
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Exporting {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 - Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
 - Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
@@ -278,12 +301,12 @@ public:
 :::
 ::::
 <!-- ----------------------------------------------------------------------- -->
-## Faust : Exporting {auto-animate=true}
+## Faust: Exporting {auto-animate=true}
 <!-- ----------------------------------------------------------------------- -->
 
 :::: {.columns .faust-layout}
 ::: {.column width="50%" .add-space}
-::: {style="font-size: 90%;"}
+::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 - Faust manages to **export** an audio program to many different platforms thanks to its ***architecture file system***.
 - Every single **export target** is materialized by a **specific architecture file**, **written in C++**.
@@ -411,5 +434,345 @@ int main(int argc, char *argv[])
   delete interface;
 }
 ```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+:::
+- A **C/C++** `struct` represents a named data structure, in which one can **store data** of different types, and define **functions** associated (or not) with that data (***methods***).
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="1,7" filename="sinewave.cpp"}
+struct sinewave {
+    // Stored data: 32-bits floating-point value:
+    float phase;
+
+    // Initialization function declaration:
+    void init();
+
+    // Processing function declaration:
+    void process();
+};
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- A **C/C++** `struct` represents a named data structure, in which one can **store data** of different types, and define **functions** associated (or not) with that data (***methods***).
+:::
+- Stored data can be **declared** with the syntax: `type mydata;`. It is called a **`struct` member.**
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="2-3" filename="sinewave.cpp"}
+struct sinewave {
+    // Stored data: 32-bits floating-point value:
+    float phase;
+
+    // Initialization function declaration:
+    void init();
+
+    // Processing function declaration:
+    void process();
+};
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- A **C/C++** `struct` represents a named data structure, in which one can **store data** of different types, and define **functions** associated (or not) with that data.
+- Stored data can be **declared** with the syntax: `type mydata`. They are called **`struct` members.**
+:::
+- `struct` functions are declared with the syntax: `type myfunction()`. They are called ***methods***.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="5-6|8-9" filename="sinewave.cpp"}
+struct sinewave {
+    // Stored data: 32-bits floating-point value:
+    float phase;
+
+    // Initialization function declaration:
+    void init();
+
+    // Processing function declaration:
+    void process();
+};
+```
+:::
+::::
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- A **C/C++** `struct` represents a named data structure, in which one can **store data** of different types, and define **functions** associated (or not) with that data.
+- Stored data can be **declared** with the syntax: `type mydata`. They are called **`struct` members.**
+- `struct` functions are declared with the syntax: `type myfunction()`. They are called ***methods***.
+:::
+- We can **define what a method does** by opening a **curly-braces** `{}` **scope** after its name.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="6-9|7|3,7" filename="sinewave.cpp"}
+struct sinewave {
+    // Stored data: 32-bits floating-point value:
+    float phase;
+
+    // Initialization function declaration:
+    void init() {
+        phase = 0;
+    }
+
+    // Processing function declaration:
+    void process();
+};
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- A **C/C++** `struct` represents a named data structure, in which one can **store data** of different types, and define **functions** associated (or not) with that data.
+- Stored data can be **declared** with the syntax: `type mydata`. They are called **`struct` members.**
+- `struct` functions are declared with the syntax: `type myfunction()`. They are called ***methods***.
+:::
+- We can **define what a method does** by opening a **curly-braces** `{}` **scope** after its name.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="10-17|12|12-15|12-18|" filename="sinewave.cpp"}
+struct sinewave {
+    // Stored data: 32-bits floating-point value:
+    float phase;
+
+    // Initialization function declaration:
+    void init() {
+        phase = 0;
+    }
+
+    // Processing function declaration:
+    float process() {
+        phase += 440.f / 48000.f;
+        if (phase >= 1.f) {
+            phase -= 1.f;
+        }
+        float sine = sin(phase * 2.f * M_PI);
+        return sine;
+    }
+};
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+```{.cpp filename="sinewave.cpp"}
+
+#include <cmath>
+#include <iostream>
+
+struct sinewave {
+    // Store phase in memory:
+    float phase;
+
+    // Initialization function:
+    void init() {
+        phase = 0;
+    }
+
+  // Processing function:
+    void process() {
+        phase += 440.f / 48000.f;
+        if (phase >= 1.f) {
+            phase -= 1.f;
+        }
+        float sine = sin(phase * 2.f * M_PI);
+        std::cout << "Sine value: " << sine << std::endl;
+    }
+};
+
+int main() {
+    // Instantiate an object of type 'sinewave' named 'sine'
+    sinewave sine;
+
+    // Initialize it:
+    sine.init();
+
+    // Compute audio samples:
+    sine.process();
+ 
+    // End the program:
+    return 0;
+}
+```
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+```{.cpp filename="sinewave.cpp"}
+
+#include <cmath>
+#include <iostream>
+
+struct sinewave {
+    // Store phase in memory:
+    float phase;
+
+    // Initialization function:
+    void init() {
+        phase = 0;
+    }
+
+  // Processing function:
+    void process(float buffer[64]) {
+        phase += 440.f / 48000.f;
+        if (phase >= 1.f) {
+            phase -= 1.f;
+        }
+        for (int i = 0; i < 64; i++) {
+            // Write sine values into the buffer:
+            float sine = sin(phase * 2.f * M_PI);
+            buffer[i] = sine;
+        }
+    }
+};
+
+int main() {
+    // Instantiate an object of type 'sinewave' named 'sine'
+    sinewave sine;
+
+    // Create a float buffer of 64 samples:
+    static float buffer[64];
+
+    // Initialize it:
+    sine.init();
+
+    // Compute audio samples:
+    sine.process(buffer);
+
+    // Read values from the buffer:
+    for (int i = 0; i < 64; i++) {
+         std::cout << "Sine value at index " << i << ": " << buffer[i];
+    }
+ 
+    // End the program:
+    return 0;
+}
+```
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+```{.cpp filename="sinewave.cpp"}
+
+#include <cmath>
+#include <iostream>
+
+struct sinewave {
+    // Store phase in memory:
+    float phase;
+
+    // Initialization function:
+    void init() {
+        phase = 0;
+    }
+
+  // Processing function:
+    void process(float buffer[64]) {
+        phase += 440.f / 48000.f;
+        if (phase >= 1.f) {
+            phase -= 1.f;
+        }
+        for (int i = 0; i < 64; i++) {
+            // Write sine values into the buffer:
+            float sine = sin(phase * 2.f * M_PI);
+            buffer[i] = sine;
+        }
+    }
+};
+
+int main() {
+    // Instantiate an object of type 'sinewave' named 'sine'
+    sinewave sine;
+
+    // Create a float buffer of 64 samples:
+    static float buffer[64];
+
+    // Initialize it:
+    sine.init();
+
+    // Compute audio samples:
+    sine.process(buffer);
+
+    // Read values from the buffer:
+    for (int i = 0; i < 64; i++) {
+         std::cout << "Sine value at index " << i << ": " << buffer[i];
+    }
+ 
+    // End the program:
+    return 0;
+}
+```
+
+<!-- ----------------------------------------------------------------------- -->
+## VCV-Rack example {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- The previous PortAudio example is a pretty simple one, but things can get much more complicated.
+- Export your synth to VCV-Rack and take a look at the generated C++ code.
+- Luckily, the VCV-Rack plugin interface is rather simple, and has a well-contained API. 
+- We'll try now to make a new VCV-Rack module, from scratch, in C++!
+:::
+:::
+
+::: {.column width="44%"}
+:::{style="padding-left: 15%"}
+:::
 :::
 ::::

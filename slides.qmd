@@ -7,8 +7,8 @@ preview:
   watch-inputs: true
 format:
   revealjs:
-    mermaid:
-      theme: forest
+    # mermaid:
+    #   theme: forest
     # width: 1280
     # height: 720
     margin: 0.055

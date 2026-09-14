@@ -1,7 +1,6 @@
 #include <cmath>
 #include <cstdio>
 
-
 struct Phasor {
     float phase;
     float frequency;
@@ -20,69 +19,28 @@ struct Phasor {
     }
 };
 
+const int TABLE_SIZE = 16384;
+
 struct Sinewave {
     Phasor phasor;
+    float table[TABLE_SIZE];
 
     void init(float freq) {
         phasor.init(freq);
+        for (int i = 0; i < TABLE_SIZE; i++) {
+             float p = float(i) / TABLE_SIZE;
+             table[i] = sin(p * M_PI * 2.f);
+        }
     }
-
     float process() {
         float phase = phasor.process();
-        float sine = sin(phase * M_PI * 2.f);
+        float sine = table[int(phase * TABLE_SIZE)];
         return sine;
     }
 };
 
-struct Square {
-    Phasor phasor;
-
-    void init(float freq) {
-        phasor.init(freq);
-    }
-
-    float process() {
-        float phase = phasor.process();
-        float square = phase < 0.5f ? -1.f : 1.f;
-        return square;
-    }
-};
-
-struct Sawtooth {
-    Phasor phasor;
-    void init(float freq) {
-        phasor.init(freq);
-    }
-
-    float process() {
-        float phase = phasor.process();
-        float saw = phase * 2.f - 1.f;
-        return saw;
-    }
-};
-
-struct Triangle {
-    Phasor phasor;
-    void init(float freq) {
-        phasor.init(freq);
-    }
-
-    float process() {
-        float phase = phasor.process();
-        float tri;
-        if (phase < 0.5) {
-            tri = phase;
-        } else {
-            tri = 1.f - phase;
-        }
-        tri -= 0.25;
-        tri *= 4.0;
-        return tri ;
-    }
-};
-
 int main() {
-    Triangle sine;
+    Sinewave sine;
     sine.init(440.f);
 
     for (int i = 0; i < 48000; i++) {

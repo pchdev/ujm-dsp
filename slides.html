@@ -323,7 +323,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="ripple" id="ripple-614160" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-329931" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -347,7 +347,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-835449" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-763931" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -375,7 +375,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-577772" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-740166" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -404,7 +404,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-177205" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-479978" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -433,7 +433,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-963770" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-687874" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -464,7 +464,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-171350" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-722499" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -500,7 +500,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-983939" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-617859" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -5713,7 +5713,7 @@ declare options "[http:on]";
 </ul>
 </div>
 <ul>
-<li>Now let’s make the same <code>struct</code> for triangle, sawtooth, and square waves, and let’s add an amplitude parameter to them:</li>
+<li>Now let’s make the same <code>struct</code> for <em>triangle</em>, <em>sawtooth</em>, and <em>square</em> waves, and let’s also add an <strong>amplitude parameter</strong> to them.</li>
 </ul>
 </div>
 </div><div class="column" style="width:44%;">
@@ -5822,6 +5822,92 @@ declare options "[http:on]";
 <span id="cb62-99" class="hljs-ln-code"><a href="" aria-label="99"></a></span>
 <span id="cb62-100" class="hljs-ln-code"><a href="" aria-label="100"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb62-101" class="hljs-ln-code"><a href="" aria-label="101"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-anatomy-of-a-c-audio-program-11" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Anatomy of a C++ audio program</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 95%;">
+<div style="opacity: 0.5">
+<ul>
+<li>We could also have made a <strong><em>separate structure</em></strong> for the ‘<em>phase</em>’ computation, to make it <strong>reusable</strong> in other components or <strong>waveform oscillators</strong>.</li>
+<li>Additionally, let’s make the <strong>frequency</strong> of the oscillator <strong>variable</strong>, instead of fixed to <code>440</code>.</li>
+<li>Now let’s make the same <code>struct</code> for <em>triangle</em>, <em>sawtooth</em>, and <em>square</em> waves, and let’s also add an <strong>amplitude parameter</strong> to them.</li>
+</ul>
+</div>
+<ul>
+<li>In order to make the computation less intensive, we could also store the waveforms in pre-computed table/arrays.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>sinewave.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63" data-filename="sinewave.cpp" data-code-line-numbers="|"><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb63-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;cmath&gt;</span></span>
+<span id="cb63-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;cstdio&gt;</span></span>
+<span id="cb63-3" class="hljs-ln-code"><a href="" aria-label="3"></a></span>
+<span id="cb63-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="kw">struct</span> Phasor <span class="op">{</span></span>
+<span id="cb63-5" class="hljs-ln-code"><a href="" aria-label="5"></a>    <span class="dt">float</span> phase<span class="op">;</span></span>
+<span id="cb63-6" class="hljs-ln-code"><a href="" aria-label="6"></a>    <span class="dt">float</span> frequency<span class="op">;</span></span>
+<span id="cb63-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb63-8" class="hljs-ln-code"><a href="" aria-label="8"></a>    <span class="dt">void</span> init<span class="op">(</span><span class="dt">float</span> freq<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb63-9" class="hljs-ln-code"><a href="" aria-label="9"></a>        phase <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb63-10" class="hljs-ln-code"><a href="" aria-label="10"></a>        frequency <span class="op">=</span> freq<span class="op">;</span></span>
+<span id="cb63-11" class="hljs-ln-code"><a href="" aria-label="11"></a>    <span class="op">}</span></span>
+<span id="cb63-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb63-13" class="hljs-ln-code"><a href="" aria-label="13"></a>    <span class="dt">float</span> process<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb63-14" class="hljs-ln-code"><a href="" aria-label="14"></a>        phase <span class="op">+=</span> frequency<span class="op">/</span><span class="fl">48000.</span><span class="bu">f</span><span class="op">;</span></span>
+<span id="cb63-15" class="hljs-ln-code"><a href="" aria-label="15"></a>        <span class="cf">if</span> <span class="op">(</span>phase <span class="op">&gt;=</span> <span class="fl">1.</span><span class="bu">f</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb63-16" class="hljs-ln-code"><a href="" aria-label="16"></a>            phase <span class="op">-=</span> <span class="fl">1.</span><span class="bu">f</span><span class="op">;</span></span>
+<span id="cb63-17" class="hljs-ln-code"><a href="" aria-label="17"></a>        <span class="op">}</span></span>
+<span id="cb63-18" class="hljs-ln-code"><a href="" aria-label="18"></a>        <span class="cf">return</span> phase<span class="op">;</span></span>
+<span id="cb63-19" class="hljs-ln-code"><a href="" aria-label="19"></a>    <span class="op">}</span></span>
+<span id="cb63-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="op">};</span></span>
+<span id="cb63-21" class="hljs-ln-code"><a href="" aria-label="21"></a></span>
+<span id="cb63-22" class="hljs-ln-code"><a href="" aria-label="22"></a><span class="at">const</span> <span class="dt">int</span> TABLE_SIZE <span class="op">=</span> <span class="dv">16384</span><span class="op">;</span></span>
+<span id="cb63-23" class="hljs-ln-code"><a href="" aria-label="23"></a></span>
+<span id="cb63-24" class="hljs-ln-code"><a href="" aria-label="24"></a><span class="kw">struct</span> Sinewave <span class="op">{</span></span>
+<span id="cb63-25" class="hljs-ln-code"><a href="" aria-label="25"></a>    Phasor phasor<span class="op">;</span></span>
+<span id="cb63-26" class="hljs-ln-code"><a href="" aria-label="26"></a>    <span class="dt">float</span> table<span class="op">[</span>TABLE_SIZE<span class="op">];</span></span>
+<span id="cb63-27" class="hljs-ln-code"><a href="" aria-label="27"></a></span>
+<span id="cb63-28" class="hljs-ln-code"><a href="" aria-label="28"></a>    <span class="dt">void</span> init<span class="op">(</span><span class="dt">float</span> freq<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb63-29" class="hljs-ln-code"><a href="" aria-label="29"></a>        phasor<span class="op">.</span>init<span class="op">(</span>freq<span class="op">);</span></span>
+<span id="cb63-30" class="hljs-ln-code"><a href="" aria-label="30"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> TABLE_SIZE<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb63-31" class="hljs-ln-code"><a href="" aria-label="31"></a>             <span class="dt">float</span> p <span class="op">=</span> <span class="dt">float</span><span class="op">(</span>i<span class="op">)</span> <span class="op">/</span> TABLE_SIZE<span class="op">;</span></span>
+<span id="cb63-32" class="hljs-ln-code"><a href="" aria-label="32"></a>             table<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> sin<span class="op">(</span>p <span class="op">*</span> M_PI <span class="op">*</span> <span class="fl">2.</span><span class="bu">f</span><span class="op">);</span></span>
+<span id="cb63-33" class="hljs-ln-code"><a href="" aria-label="33"></a>        <span class="op">}</span></span>
+<span id="cb63-34" class="hljs-ln-code"><a href="" aria-label="34"></a>    <span class="op">}</span></span>
+<span id="cb63-35" class="hljs-ln-code"><a href="" aria-label="35"></a>    <span class="dt">float</span> process<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb63-36" class="hljs-ln-code"><a href="" aria-label="36"></a>        <span class="dt">float</span> phase <span class="op">=</span> phasor<span class="op">.</span>process<span class="op">();</span></span>
+<span id="cb63-37" class="hljs-ln-code"><a href="" aria-label="37"></a>        <span class="dt">float</span> sine <span class="op">=</span> table<span class="op">[</span><span class="dt">int</span><span class="op">(</span>phase <span class="op">*</span> TABLE_SIZE<span class="op">)];</span></span>
+<span id="cb63-38" class="hljs-ln-code"><a href="" aria-label="38"></a>        <span class="cf">return</span> sine<span class="op">;</span></span>
+<span id="cb63-39" class="hljs-ln-code"><a href="" aria-label="39"></a>    <span class="op">}</span></span>
+<span id="cb63-40" class="hljs-ln-code"><a href="" aria-label="40"></a><span class="op">};</span></span>
+<span id="cb63-41" class="hljs-ln-code"><a href="" aria-label="41"></a></span>
+<span id="cb63-42" class="hljs-ln-code"><a href="" aria-label="42"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb63-43" class="hljs-ln-code"><a href="" aria-label="43"></a>    Sinewave sine<span class="op">;</span></span>
+<span id="cb63-44" class="hljs-ln-code"><a href="" aria-label="44"></a>    sine<span class="op">.</span>init<span class="op">(</span><span class="fl">440.</span><span class="bu">f</span><span class="op">);</span></span>
+<span id="cb63-45" class="hljs-ln-code"><a href="" aria-label="45"></a></span>
+<span id="cb63-46" class="hljs-ln-code"><a href="" aria-label="46"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">48000</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb63-47" class="hljs-ln-code"><a href="" aria-label="47"></a>        <span class="dt">float</span> sample <span class="op">=</span> sine<span class="op">.</span>process<span class="op">();</span></span>
+<span id="cb63-48" class="hljs-ln-code"><a href="" aria-label="48"></a>        <span class="dt">int</span> n <span class="op">=</span> sample <span class="op">*</span> <span class="dv">40</span> <span class="op">+</span> <span class="dv">40</span><span class="op">;</span></span>
+<span id="cb63-49" class="hljs-ln-code"><a href="" aria-label="49"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> s <span class="op">&lt;</span> <span class="dv">100</span><span class="op">;</span> <span class="op">++</span>s<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb63-50" class="hljs-ln-code"><a href="" aria-label="50"></a>            <span class="cf">if</span> <span class="op">(</span>s <span class="op">==</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb63-51" class="hljs-ln-code"><a href="" aria-label="51"></a>                printf<span class="op">(</span><span class="st">"</span><span class="sc">%f</span><span class="st">"</span><span class="op">,</span> sample<span class="op">);</span></span>
+<span id="cb63-52" class="hljs-ln-code"><a href="" aria-label="52"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb63-53" class="hljs-ln-code"><a href="" aria-label="53"></a>                printf<span class="op">(</span><span class="st">" "</span><span class="op">);</span></span>
+<span id="cb63-54" class="hljs-ln-code"><a href="" aria-label="54"></a>            <span class="op">}</span></span>
+<span id="cb63-55" class="hljs-ln-code"><a href="" aria-label="55"></a>        <span class="op">}</span></span>
+<span id="cb63-56" class="hljs-ln-code"><a href="" aria-label="56"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb63-57" class="hljs-ln-code"><a href="" aria-label="57"></a>    <span class="op">}</span></span>
+<span id="cb63-58" class="hljs-ln-code"><a href="" aria-label="58"></a></span>
+<span id="cb63-59" class="hljs-ln-code"><a href="" aria-label="59"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb63-60" class="hljs-ln-code"><a href="" aria-label="60"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 

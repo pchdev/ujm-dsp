@@ -446,7 +446,7 @@ int main(int argc, char *argv[])
 ::: {style="font-size: 95%;"}
 ::: {style="opacity: 0.5"}
 :::
-- A **C/C++** `struct` represents a named data structure, in which one can **store data** of different types, and define **functions** associated (or not) with that data (***methods***).
+- A **C/C++** `struct` represents a named data structure, in which one can **store data** of different types, and define **functions** associated (or not) with that data.
 :::
 :::
 
@@ -460,7 +460,7 @@ struct sinewave {
     void init();
 
     // Processing function declaration:
-    void process();
+    float process();
 };
 ```
 :::
@@ -490,7 +490,7 @@ struct Sinewave {
     void init();
 
     // Processing function declaration:
-    void process();
+    float process();
 };
 ```
 :::
@@ -521,7 +521,7 @@ struct Sinewave {
     void init();
 
     // Processing function declaration:
-    void process();
+    float process();
 };
 ```
 :::
@@ -800,7 +800,7 @@ int main() {
 :::
 
 ::: {.column width="44%"}
-```{.cpp code-line-numbers="4-22|5|7-9|11-21|24,26|29-31|33-39|36|42-56" filename="sinewave.cpp"}
+```{.cpp code-line-numbers="4-22|5|7-9|11-21|24,25-26|29-31|33-39|36|42-56" filename="sinewave.cpp"}
 #include <cmath>
 #include <cstdio>
 
@@ -825,7 +825,7 @@ struct Phasor {
 };
 
 struct Sinewave {
-    // Stored data: 32-bits floating-point value:
+    // Stored data: an instance of the Phasor struct:
     Phasor phasor;
 
     // Initialization function declaration:
@@ -1078,12 +1078,12 @@ int main() {
 - Additionally, let's make the **frequency** of the oscillator **variable**, instead of fixed to `440`.
 - Now let's make the same `struct` for *triangle*, *sawtooth*, and *square* waves, and let's also add an **amplitude parameter** to them.
 :::
-- In order to make the computation less intensive, we could also store the waveforms in pre-computed table/arrays.
+- In order to make the computation a bit lighter, we could also store the waveforms in **pre-computed table/arrays**.
 :::
 :::
 
 ::: {.column width="44%"}
-```{.cpp code-line-numbers="|" filename="sinewave.cpp"}
+```{.cpp code-line-numbers="22|24,26|28-34|30-33|30|31|32|35-39|37" filename="sinewave.cpp"}
 #include <cmath>
 #include <cstdio>
 

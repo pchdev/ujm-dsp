@@ -7,12 +7,12 @@
 ::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 :::
-- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
+- **Filtering** is the process of **altering** the *spectrum* of a signal using a **transfer function**. A filter can *remove* or *attenuate* specific frequencies, and/or *boost* others. 
 :::
 :::
 
 ::: {.column width="44%"}
-{{< harmonics id="filtering" waveform="sawtooth" >}}
+{{< harmonics id="filtering" waveform="sawtooth" harmonics=25 >}}
 :::
 ::::
 
@@ -24,14 +24,14 @@
 ::: {.column width="50%" .add-space}
 ::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
-- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
+- **Filtering** is the process of **altering** the *spectrum* of a signal using a **transfer function**. A filter can *remove* or *attenuate* specific frequencies, and/or *boost* others. 
 :::
-- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
+- In this first example, we use a **lowpass filter** to *cut-off* all frequencies **above** the one specified with the slider.
 :::
 :::
 
 ::: {.column width="44%"}
-```{.js code-line-numbers="" filename="faust/examples/filtering/sawtooth-lowpass.dsp"}
+```{.js code-line-numbers="3|5" filename="faust/examples/filtering/sawtooth-lowpass.dsp"}
 {{< include /faust/examples/filtering/sawtooth-lowpass.dsp >}}
 ```
 {{< faust faust/examples/filtering/sawtooth-lowpass.dsp >}}
@@ -46,10 +46,10 @@
 ::: {.column width="50%" .add-space}
 ::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
-- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
-- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
+- **Filtering** is the process of **altering** the *spectrum* of a signal using a **transfer function**. A filter can *remove* or *attenuate* specific frequencies, and/or *boost* others. 
+- In this first example, we use a **lowpass filter** to *cut-off* all frequencies **above** the one specified with the slider.
 :::
-- Inversely, we can use a highpass filter to filter out frequencies below a certain threshold.
+- Inversely, we can use a **highpass filter** to filter out frequencies **below** a certain threshold.
 :::
 :::
 
@@ -69,11 +69,11 @@
 ::: {.column width="50%" .add-space}
 ::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
-- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
-- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
-- Inversely, we can use a highpass filter to filter out frequencies below a certain threshold.
+- **Filtering** is the process of **altering** the *spectrum* of a signal using a **transfer function**. A filter can *remove* or *attenuate* specific frequencies, and/or *boost* others. 
+- In this first example, we use a **lowpass filter** to *cut-off* all frequencies **above** the one specified with the slider.
+- Inversely, we can use a **highpass filter** to filter out frequencies **below** a certain threshold.
 :::
-- ... or specify a restrictive frequency band, using a bandpass filter.
+- ... or specify a *restrictive frequency band*, using a **bandpass filter**.
 :::
 :::
 
@@ -93,12 +93,12 @@
 ::: {.column width="50%" .add-space}
 ::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
-- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
-- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
-- Inversely, we can use a highpass filter to filter out frequencies below a certain threshold.
-- ... or specify a restrictive frequency band, using a bandpass filter.
+- **Filtering** is the process of **altering** the *spectrum* of a signal using a **transfer function**. A filter can *remove* or *attenuate* specific frequencies, and/or *boost* others. 
+- In this first example, we use a **lowpass filter** to *cut-off* all frequencies **above** the one specified with the slider.
+- Inversely, we can use a **highpass filter** to filter out frequencies **below** a certain threshold.
+- ... or specify a *restrictive frequency band*, using a **bandpass filter**.
 :::
-- In general, filters are applied progressively, the frequency decay (rolloff) depends on the filter order.
+- In general, filters are applied **progressively**, the frequency *decay* (**roll-off**) depends on the **filter order**.
 :::
 :::
 
@@ -118,12 +118,12 @@
 ::: {.column width="50%"}
 ::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
-- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
-- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
-- Inversely, we can use a highpass filter to filter out frequencies below a certain threshold.
-- ... or specify a restrictive frequency band, using a bandpass filter.
+- **Filtering** is the process of **altering** the *spectrum* of a signal using a **transfer function**. A filter can *remove* or *attenuate* specific frequencies, and/or *boost* others. 
+- In this first example, we use a **lowpass filter** to *cut-off* all frequencies **above** the one specified with the slider.
+- Inversely, we can use a **highpass filter** to filter out frequencies **below** a certain threshold.
+- ... or specify a *restrictive frequency band*, using a **bandpass filter**.
 :::
-- In general, filters are applied progressively, the frequency decay (rolloff) depends on the filter order.
+- In general, filters are applied **progressively**, the frequency *decay* (**roll-off**) depends on the **filter order**.
 :::
 :::
 
@@ -174,14 +174,15 @@ plt.show();
 ::: {style="font-size: 90%;"}
 ::: {style="opacity: 0.5"}
 :::
-- Faust has quite a large range of filters (`fi` library prefix) with different behaviors, from basic one-pole/one-zero filters to parametric equalizers or octave filter-banks.
+- **Faust** has quite a large range of filters (`fi` library prefix) with different behaviors and responses, from basic *one-pole*/*one-zero* **building blocks** to full parametric **equalizers** or octave **filter-banks**.
 :::
 :::
 
 ::: {.column width="44%"}
-```{.js code-line-numbers="5-6|8|" filename="faust/examples/filtering/sawtooth-lowpass-order.dsp"}
-{{< include /faust/examples/filtering/sawtooth-lowpass-order.dsp >}}
+::: {.content style="padding-left: 5%; width: 120%;"}
+```{=html}
+<iframe width="1080" height="600" src="https://faustlibraries.grame.fr/libs/filters/#filterslib" title="Webpage example"></iframe>
 ```
-{{< faust faust/examples/filtering/sawtooth-lowpass-order.dsp >}}
+:::
 :::
 ::::

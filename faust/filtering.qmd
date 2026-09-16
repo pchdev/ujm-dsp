@@ -1,0 +1,187 @@
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Filtering {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
+:::
+:::
+
+::: {.column width="44%"}
+{{< harmonics id="filtering" waveform="sawtooth" >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Filtering {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
+:::
+- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="" filename="faust/examples/filtering/sawtooth-lowpass.dsp"}
+{{< include /faust/examples/filtering/sawtooth-lowpass.dsp >}}
+```
+{{< faust faust/examples/filtering/sawtooth-lowpass.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Filtering {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
+- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
+:::
+- Inversely, we can use a highpass filter to filter out frequencies below a certain threshold.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="" filename="faust/examples/filtering/sawtooth-highpass.dsp"}
+{{< include /faust/examples/filtering/sawtooth-highpass.dsp >}}
+```
+{{< faust faust/examples/filtering/sawtooth-highpass.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Filtering {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
+- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
+- Inversely, we can use a highpass filter to filter out frequencies below a certain threshold.
+:::
+- ... or specify a restrictive frequency band, using a bandpass filter.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="" filename="faust/examples/filtering/sawtooth-bandpass.dsp"}
+{{< include /faust/examples/filtering/sawtooth-bandpass.dsp >}}
+```
+{{< faust faust/examples/filtering/sawtooth-bandpass.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Filtering {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
+- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
+- Inversely, we can use a highpass filter to filter out frequencies below a certain threshold.
+- ... or specify a restrictive frequency band, using a bandpass filter.
+:::
+- In general, filters are applied progressively, the frequency decay (rolloff) depends on the filter order.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="5-7|9|" filename="faust/examples/filtering/sawtooth-lowpass-order.dsp"}
+{{< include /faust/examples/filtering/sawtooth-lowpass-order.dsp >}}
+```
+{{< faust faust/examples/filtering/sawtooth-lowpass-order.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Filtering {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Filtering is the process of altering the spectrum of a signal. A filter can remove or attenuate specific frequencies, and/or boost others. 
+- In this first example, we use a lowpass filter to cut-off all frequencies above the one specified with the slider.
+- Inversely, we can use a highpass filter to filter out frequencies below a certain threshold.
+- ... or specify a restrictive frequency band, using a bandpass filter.
+:::
+- In general, filters are applied progressively, the frequency decay (rolloff) depends on the filter order.
+:::
+:::
+
+::: {.column width="50%"}
+::: {.content style="padding-left: 5%; width: 110%;"}
+```{python}
+#| fig-align: center
+import numpy as np;
+import matplotlib.pyplot as plt;
+from scipy import signal;
+
+fs = 48000;
+
+b1, a1 = signal.butter(1, 1000, btype='low', fs=fs);
+b2, a2 = signal.butter(2, 1000, btype='low', fs=fs);
+b4, a4 = signal.butter(4, 1000, btype='low', fs=fs);
+b8, a8 = signal.butter(8, 1000, btype='low', fs=fs);
+w1, h1 = signal.freqz(b1, a1, fs=fs);
+w2, h2 = signal.freqz(b2, a2, fs=fs);
+w4, h4 = signal.freqz(b4, a4, fs=fs);
+w8, h8 = signal.freqz(b8, a8, fs=fs);
+
+# Filter frequency response:
+plt.figure(facecolor="#fdf6e3")
+ax = plt.gca()
+ax.set_facecolor("#fdf6e3")
+plt.grid();
+plt.plot(w1, 20 * np.log10(np.abs(h1)), label="Order 1");
+plt.plot(w2, 20 * np.log10(np.abs(h2)), label="Order 2");
+plt.plot(w4, 20 * np.log10(np.abs(h4)), label="Order 4");
+plt.plot(w8, 20 * np.log10(np.abs(h8)), label="Order 8");
+plt.xlabel("Frequency (Hz)");
+plt.ylabel("Magnitude (dB)");
+plt.title("Butterworth filter frequency response");
+plt.legend();
+plt.show();
+```
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Filtering {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- Faust has quite a large range of filters (`fi` library prefix) with different behaviors, from basic one-pole/one-zero filters to parametric equalizers or octave filter-banks.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="5-6|8|" filename="faust/examples/filtering/sawtooth-lowpass-order.dsp"}
+{{< include /faust/examples/filtering/sawtooth-lowpass-order.dsp >}}
+```
+{{< faust faust/examples/filtering/sawtooth-lowpass-order.dsp >}}
+:::
+::::

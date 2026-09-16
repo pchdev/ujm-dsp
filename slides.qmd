@@ -139,6 +139,10 @@ format:
 
 {{< include faust/synthesis.qmd >}}
 
+# Faust: Filtering
+
+{{< include faust/filtering.qmd >}}
+
 # Faust: Time
 
 {{< include faust/time.qmd >}}

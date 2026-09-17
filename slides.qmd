@@ -162,3 +162,5 @@ format:
 # Faust everywhere!
 
 {{< include faust/export.qmd >}}
+{{< include faust/anatomy-cpp.qmd >}}
+{{< include faust/vcv-plugin.qmd >}}

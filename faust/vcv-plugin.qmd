@@ -1,0 +1,235 @@
+<!-- ----------------------------------------------------------------------- -->
+## Creating a simple VCV-Rack plugin {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+:::
+- **VCV-Rack** has a simple but powerful **plugin system**, which allows user to program their own **third-party modules**.
+:::
+:::
+
+::: {.column width="44%"}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Creating a simple VCV-Rack plugin {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **VCV-Rack** has a simple but powerful **plugin system**, which allows user to program their own **third-party modules**.
+:::
+- A plugin consists in **multiple files**, set in a specific **directory structure**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.text code-line-numbers="1|2-3|2|3|4|4-7|5-6|7|8-9|3,7,9" filename="vcv-rack/plugins/"}
+-- my_plugin/
+  -- Makefile                 | Build 
+  -- plugin.json              | Plugin Metadata
+  -- src/
+      -- plugin.cpp           | Plugin interface
+      -- plugin.hpp
+      -- my_plugin.cpp        | Actual plugin code
+  -- res/
+      -- my_plugin.svg        | Plugin appearance
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Creating a simple VCV-Rack plugin {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **VCV-Rack** has a simple but powerful **plugin system**, which allows user to program their own **third-party modules**.
+- A plugin consists in **multiple files**, set in a specific **directory structure**.
+:::
+- The **`plugin.json`** file contains the plugin's **metadata**: its name, author, version, etc.
+:::
+:::
+
+::: {.column width="44%"}
+```{.json code-line-numbers="" filename="my_plugin/plugin.json"}
+{
+  "slug": "emeraude", 
+  "name": "Emeraude",
+  "version": "2.2.0",
+  "license": "MIT",
+  "brand": "Emeraude",
+  "author": "Pierre Cochard",
+  "authorEmail": "pierre.cochard@insa-lyon.fr",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "my_module",
+      "name": "My Module",
+      "description": "",
+      "tags": ["Oscillator"]
+    }
+  ]
+}
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Creating a simple VCV-Rack plugin {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **VCV-Rack** has a simple but powerful **plugin system**, which allows user to program their own **third-party modules**.
+- A plugin consists in **multiple files**, set in a specific **directory structure**.
+- The `plugin.json` file contains the plugin's **metadata**: its name, author, version, etc.
+:::
+- The **`plugin.hpp`** & **`plugin.cpp`** files declare the plugin instance data (nothing to do in these files for now).
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="" filename="my_plugin/src/plugin.hpp"}
+#pragma once
+#include <rack.hpp>
+
+using namespace rack;
+
+// Declare the Plugin, defined in plugin.cpp
+extern Plugin* pluginInstance;
+
+// Declare each Model, defined in each module source file
+extern Model* modelMyModule;
+
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Creating a simple VCV-Rack plugin {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **VCV-Rack** has a simple but powerful **plugin system**, which allows user to program their own **third-party modules**.
+- A plugin consists in **multiple files**, set in a specific **directory structure**.
+- The `plugin.json` file contains the plugin's **metadata**: its name, author, version, etc.
+:::
+- The **`plugin.hpp`** & **`plugin.cpp`** files declare the plugin instance data (nothing to do in these files for now).
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="" filename="my_plugin/src/plugin.cpp"}
+#include "plugin.hpp"
+
+Plugin* pluginInstance;
+
+void init(Plugin* p) {
+	pluginInstance = p;
+
+	// Add modules here
+	p->addModel(modelMyModule);
+}
+
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Creating a simple VCV-Rack plugin {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **VCV-Rack** has a simple but powerful **plugin system**, which allows user to program their own **third-party modules**.
+- A plugin consists in **multiple files**, set in a specific **directory structure**.
+- The `plugin.json` file contains the plugin's **metadata**: its name, author, version, etc.
+- The `plugin.hpp` & `plugin.cpp` files declare the plugin instance data (nothing to do in these files for now).
+:::
+- Finally, **`myplugin.cpp`**, must be structured in the following way:
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="4-5|6-11|12-15|17-20|21-24|26-34|36-38|41-42|43" filename="my_plugin/src/myplugin.cpp"}
+
+#include "plugin.hpp"
+
+// It must inherit from Module
+struct MyModule : Module {
+    // Declare parameter ids:
+    enum ParamId {
+        // Last value is equal to the number of items in the enum:
+        FREQUENCY_PARAM = 0,
+        PARAMS_LEN = 1
+    };
+    // Declare input ids:
+    enum InputId {
+        INPUTS_LEN
+    };
+    // Declare output ids:
+    enum OutputId {
+        MAIN_OUTPUT,
+        OUTPUTS_LEN
+    };
+    // Declare light (LED) ids:
+    enum LightId {
+        LIGHTS_LEN
+    };
+
+    MyModule() {
+        config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
+        // Register parameters:
+        // min, max, default, name, unit
+        configParam(FREQUENCY_PARAM, 50.f, 100.f, 75.f, "frequency", "Hz");
+
+        // Register outputs:
+        configOutput(MAIN_OUTPUT, "main");
+    }
+
+    void process(ProcessArgs const& args) override {
+        // Processing goes here:
+    }
+};
+
+// The 'widget' part, meaning its graphical representation:
+struct MyModuleWidget : ModuleWidget {
+    MyModuleWidget(MyModule* module) {
+        // Link the widget with the module:
+        setModule(module);
+
+        // Load the .svg panel in res/ directory:
+        setParanel(createPanel(asset::plugin(pluginInstance, "res/my_module.svg")));
+
+        addParam(CreateParamCentered<RoundBlockKnob>(
+            Vec(
+                box.size.x - 2 * RACK_GRID_WIDTH, // x
+                
+            )      
+        ));
+    }
+};
+```
+:::
+::::

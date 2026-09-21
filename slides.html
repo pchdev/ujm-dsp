@@ -323,7 +323,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="ripple" id="ripple-803601" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-638140" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -347,7 +347,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-451903" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-634369" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -375,7 +375,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-325239" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-866197" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -404,7 +404,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-256111" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-736068" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -433,7 +433,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-909739" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-895523" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -464,7 +464,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-760626" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-480928" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -500,7 +500,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-665759" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-610595" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -3098,7 +3098,7 @@ process = os.sawtooth(220) : fi.lowpass(ORDER, cutoff);
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="c0cabb32" class="cell" data-execution_count="1">
+<div id="bdcfbaa7" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -6190,7 +6190,7 @@ declare options "[http:on]";
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="e3f0f620" class="cell" data-execution_count="2">
+<div id="d874b79f" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -6484,7 +6484,7 @@ declare options "[http:on]";
 <div class="code-with-filename-file">
 <pre><strong>my_plugin/src/myplugin.cpp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb72" data-filename="my_plugin/src/myplugin.cpp" data-code-line-numbers="4-5|6-11|12-15|17-20|21-24|26-34|36-38|41-42|43"><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb72-1" class="hljs-ln-code"><a href="" aria-label="1"></a></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb72" data-filename="my_plugin/src/myplugin.cpp" data-code-line-numbers="4-5|6-11|12-15|16-20|21-24|26-35|37-39|42-43|44|45-46|48-49|57-74"><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb72-1" class="hljs-ln-code"><a href="" aria-label="1"></a></span>
 <span id="cb72-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="pp">#include </span><span class="im">"plugin.hpp"</span></span>
 <span id="cb72-3" class="hljs-ln-code"><a href="" aria-label="3"></a></span>
 <span id="cb72-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// It must inherit from Module</span></span>
@@ -6509,38 +6509,59 @@ declare options "[http:on]";
 <span id="cb72-23" class="hljs-ln-code"><a href="" aria-label="23"></a>        LIGHTS_LEN</span>
 <span id="cb72-24" class="hljs-ln-code"><a href="" aria-label="24"></a>    <span class="op">};</span></span>
 <span id="cb72-25" class="hljs-ln-code"><a href="" aria-label="25"></a></span>
-<span id="cb72-26" class="hljs-ln-code"><a href="" aria-label="26"></a>    MyModule<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb72-27" class="hljs-ln-code"><a href="" aria-label="27"></a>        config<span class="op">(</span>PARAMS_LEN<span class="op">,</span> INPUTS_LEN<span class="op">,</span> OUTPUTS_LEN<span class="op">,</span> LIGHTS_LEN<span class="op">);</span></span>
-<span id="cb72-28" class="hljs-ln-code"><a href="" aria-label="28"></a>        <span class="co">// Register parameters:</span></span>
-<span id="cb72-29" class="hljs-ln-code"><a href="" aria-label="29"></a>        <span class="co">// min, max, default, name, unit</span></span>
-<span id="cb72-30" class="hljs-ln-code"><a href="" aria-label="30"></a>        configParam<span class="op">(</span>FREQUENCY_PARAM<span class="op">,</span> <span class="fl">50.</span><span class="bu">f</span><span class="op">,</span> <span class="fl">100.</span><span class="bu">f</span><span class="op">,</span> <span class="fl">75.</span><span class="bu">f</span><span class="op">,</span> <span class="st">"frequency"</span><span class="op">,</span> <span class="st">"Hz"</span><span class="op">);</span></span>
-<span id="cb72-31" class="hljs-ln-code"><a href="" aria-label="31"></a></span>
-<span id="cb72-32" class="hljs-ln-code"><a href="" aria-label="32"></a>        <span class="co">// Register outputs:</span></span>
-<span id="cb72-33" class="hljs-ln-code"><a href="" aria-label="33"></a>        configOutput<span class="op">(</span>MAIN_OUTPUT<span class="op">,</span> <span class="st">"main"</span><span class="op">);</span></span>
-<span id="cb72-34" class="hljs-ln-code"><a href="" aria-label="34"></a>    <span class="op">}</span></span>
-<span id="cb72-35" class="hljs-ln-code"><a href="" aria-label="35"></a></span>
-<span id="cb72-36" class="hljs-ln-code"><a href="" aria-label="36"></a>    <span class="dt">void</span> process<span class="op">(</span>ProcessArgs <span class="at">const</span><span class="op">&amp;</span> args<span class="op">)</span> <span class="kw">override</span> <span class="op">{</span></span>
-<span id="cb72-37" class="hljs-ln-code"><a href="" aria-label="37"></a>        <span class="co">// Processing goes here:</span></span>
-<span id="cb72-38" class="hljs-ln-code"><a href="" aria-label="38"></a>    <span class="op">}</span></span>
-<span id="cb72-39" class="hljs-ln-code"><a href="" aria-label="39"></a><span class="op">};</span></span>
-<span id="cb72-40" class="hljs-ln-code"><a href="" aria-label="40"></a></span>
-<span id="cb72-41" class="hljs-ln-code"><a href="" aria-label="41"></a><span class="co">// The 'widget' part, meaning its graphical representation:</span></span>
-<span id="cb72-42" class="hljs-ln-code"><a href="" aria-label="42"></a><span class="kw">struct</span> MyModuleWidget <span class="op">:</span> ModuleWidget <span class="op">{</span></span>
-<span id="cb72-43" class="hljs-ln-code"><a href="" aria-label="43"></a>    MyModuleWidget<span class="op">(</span>MyModule<span class="op">*</span> <span class="kw">module</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb72-44" class="hljs-ln-code"><a href="" aria-label="44"></a>        <span class="co">// Link the widget with the module:</span></span>
-<span id="cb72-45" class="hljs-ln-code"><a href="" aria-label="45"></a>        setModule<span class="op">(</span><span class="kw">module</span><span class="op">);</span></span>
-<span id="cb72-46" class="hljs-ln-code"><a href="" aria-label="46"></a></span>
-<span id="cb72-47" class="hljs-ln-code"><a href="" aria-label="47"></a>        <span class="co">// Load the .svg panel in res/ directory:</span></span>
-<span id="cb72-48" class="hljs-ln-code"><a href="" aria-label="48"></a>        setParanel<span class="op">(</span>createPanel<span class="op">(</span>asset<span class="op">::</span>plugin<span class="op">(</span>pluginInstance<span class="op">,</span> <span class="st">"res/my_module.svg"</span><span class="op">)));</span></span>
-<span id="cb72-49" class="hljs-ln-code"><a href="" aria-label="49"></a></span>
-<span id="cb72-50" class="hljs-ln-code"><a href="" aria-label="50"></a>        addParam<span class="op">(</span>CreateParamCentered<span class="op">&lt;</span>RoundBlockKnob<span class="op">&gt;(</span></span>
-<span id="cb72-51" class="hljs-ln-code"><a href="" aria-label="51"></a>            Vec<span class="op">(</span></span>
-<span id="cb72-52" class="hljs-ln-code"><a href="" aria-label="52"></a>                box<span class="op">.</span>size<span class="op">.</span>x <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> RACK_GRID_WIDTH<span class="op">,</span> <span class="co">// x</span></span>
-<span id="cb72-53" class="hljs-ln-code"><a href="" aria-label="53"></a>                </span>
-<span id="cb72-54" class="hljs-ln-code"><a href="" aria-label="54"></a>            <span class="op">)</span>      </span>
-<span id="cb72-55" class="hljs-ln-code"><a href="" aria-label="55"></a>        <span class="op">));</span></span>
-<span id="cb72-56" class="hljs-ln-code"><a href="" aria-label="56"></a>    <span class="op">}</span></span>
-<span id="cb72-57" class="hljs-ln-code"><a href="" aria-label="57"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb72-26" class="hljs-ln-code"><a href="" aria-label="26"></a>    <span class="co">// Initialization function (constructor):</span></span>
+<span id="cb72-27" class="hljs-ln-code"><a href="" aria-label="27"></a>    MyModule<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb72-28" class="hljs-ln-code"><a href="" aria-label="28"></a>        config<span class="op">(</span>PARAMS_LEN<span class="op">,</span> INPUTS_LEN<span class="op">,</span> OUTPUTS_LEN<span class="op">,</span> LIGHTS_LEN<span class="op">);</span></span>
+<span id="cb72-29" class="hljs-ln-code"><a href="" aria-label="29"></a>        <span class="co">// Register parameters:</span></span>
+<span id="cb72-30" class="hljs-ln-code"><a href="" aria-label="30"></a>        <span class="co">// min, max, default, name, unit</span></span>
+<span id="cb72-31" class="hljs-ln-code"><a href="" aria-label="31"></a>        configParam<span class="op">(</span>FREQUENCY_PARAM<span class="op">,</span> <span class="fl">50.</span><span class="bu">f</span><span class="op">,</span> <span class="fl">100.</span><span class="bu">f</span><span class="op">,</span> <span class="fl">75.</span><span class="bu">f</span><span class="op">,</span> <span class="st">"frequency"</span><span class="op">,</span> <span class="st">"Hz"</span><span class="op">);</span></span>
+<span id="cb72-32" class="hljs-ln-code"><a href="" aria-label="32"></a></span>
+<span id="cb72-33" class="hljs-ln-code"><a href="" aria-label="33"></a>        <span class="co">// Register outputs:</span></span>
+<span id="cb72-34" class="hljs-ln-code"><a href="" aria-label="34"></a>        configOutput<span class="op">(</span>MAIN_OUTPUT<span class="op">,</span> <span class="st">"main"</span><span class="op">);</span></span>
+<span id="cb72-35" class="hljs-ln-code"><a href="" aria-label="35"></a>    <span class="op">}</span></span>
+<span id="cb72-36" class="hljs-ln-code"><a href="" aria-label="36"></a></span>
+<span id="cb72-37" class="hljs-ln-code"><a href="" aria-label="37"></a>    <span class="dt">void</span> process<span class="op">(</span>ProcessArgs <span class="at">const</span><span class="op">&amp;</span> args<span class="op">)</span> <span class="kw">override</span> <span class="op">{</span></span>
+<span id="cb72-38" class="hljs-ln-code"><a href="" aria-label="38"></a>        <span class="co">// Processing goes here:</span></span>
+<span id="cb72-39" class="hljs-ln-code"><a href="" aria-label="39"></a>    <span class="op">}</span></span>
+<span id="cb72-40" class="hljs-ln-code"><a href="" aria-label="40"></a><span class="op">};</span></span>
+<span id="cb72-41" class="hljs-ln-code"><a href="" aria-label="41"></a></span>
+<span id="cb72-42" class="hljs-ln-code"><a href="" aria-label="42"></a><span class="co">// The 'widget' part, meaning its graphical representation:</span></span>
+<span id="cb72-43" class="hljs-ln-code"><a href="" aria-label="43"></a><span class="kw">struct</span> MyModuleWidget <span class="op">:</span> ModuleWidget <span class="op">{</span></span>
+<span id="cb72-44" class="hljs-ln-code"><a href="" aria-label="44"></a>    MyModuleWidget<span class="op">(</span>MyModule<span class="op">*</span> <span class="kw">module</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb72-45" class="hljs-ln-code"><a href="" aria-label="45"></a>        <span class="co">// Link the widget with the module:</span></span>
+<span id="cb72-46" class="hljs-ln-code"><a href="" aria-label="46"></a>        setModule<span class="op">(</span><span class="kw">module</span><span class="op">);</span></span>
+<span id="cb72-47" class="hljs-ln-code"><a href="" aria-label="47"></a></span>
+<span id="cb72-48" class="hljs-ln-code"><a href="" aria-label="48"></a>        <span class="co">// Load the .svg panel in res/ directory:</span></span>
+<span id="cb72-49" class="hljs-ln-code"><a href="" aria-label="49"></a>        setPanel<span class="op">(</span>createPanel<span class="op">(</span>asset<span class="op">::</span>plugin<span class="op">(</span>pluginInstance<span class="op">,</span> <span class="st">"res/my_module.svg"</span><span class="op">)));</span></span>
+<span id="cb72-50" class="hljs-ln-code"><a href="" aria-label="50"></a></span>
+<span id="cb72-51" class="hljs-ln-code"><a href="" aria-label="51"></a>        <span class="co">// Create and place decorative screws:</span></span>
+<span id="cb72-52" class="hljs-ln-code"><a href="" aria-label="52"></a>        addChild<span class="op">(</span>createWidget<span class="op">&lt;</span>ScrewSilver<span class="op">&gt;(</span>Vec<span class="op">(</span>RACK_GRID_WIDTH<span class="op">,</span> <span class="dv">0</span><span class="op">)));</span></span>
+<span id="cb72-53" class="hljs-ln-code"><a href="" aria-label="53"></a>        addChild<span class="op">(</span>createWidget<span class="op">&lt;</span>ScrewSilver<span class="op">&gt;(</span>Vec<span class="op">(</span>box<span class="op">.</span>size<span class="op">.</span>x <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> RACK_GRID_WIDTH<span class="op">,</span> <span class="dv">0</span><span class="op">)));</span></span>
+<span id="cb72-54" class="hljs-ln-code"><a href="" aria-label="54"></a>        addChild<span class="op">(</span>createWidget<span class="op">&lt;</span>ScrewSilver<span class="op">&gt;(</span>Vec<span class="op">(</span>RACK_GRID_WIDTH<span class="op">,</span> RACK_GRID_HEIGHT <span class="op">-</span> RACK_GRID_WIDTH<span class="op">)));</span></span>
+<span id="cb72-55" class="hljs-ln-code"><a href="" aria-label="55"></a>        addChild<span class="op">(</span>createWidget<span class="op">&lt;</span>ScrewSilver<span class="op">&gt;(</span>Vec<span class="op">(</span>box<span class="op">.</span>size<span class="op">.</span>x <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> RACK_GRID_WIDTH<span class="op">,</span> RACK_GRID_HEIGHT <span class="op">-</span> RACK_GRID_WIDTH<span class="op">)));</span></span>
+<span id="cb72-56" class="hljs-ln-code"><a href="" aria-label="56"></a></span>
+<span id="cb72-57" class="hljs-ln-code"><a href="" aria-label="57"></a>        <span class="co">// Create and place frequency parameter knob:</span></span>
+<span id="cb72-58" class="hljs-ln-code"><a href="" aria-label="58"></a>        addParam<span class="op">(</span>createParamCentered<span class="op">&lt;</span>RoundBlackKnob<span class="op">&gt;(</span></span>
+<span id="cb72-59" class="hljs-ln-code"><a href="" aria-label="59"></a>            mm2px<span class="op">(</span>Vec<span class="op">(</span><span class="fl">12.899</span><span class="op">,</span> <span class="fl">34.577</span><span class="op">)),</span></span>
+<span id="cb72-60" class="hljs-ln-code"><a href="" aria-label="60"></a>            <span class="kw">module</span><span class="op">,</span></span>
+<span id="cb72-61" class="hljs-ln-code"><a href="" aria-label="61"></a>            Blinky<span class="op">::</span>FREQ_PARAM</span>
+<span id="cb72-62" class="hljs-ln-code"><a href="" aria-label="62"></a>        <span class="op">));</span></span>
+<span id="cb72-63" class="hljs-ln-code"><a href="" aria-label="63"></a>        <span class="co">// Create and place output mini-jack port:</span></span>
+<span id="cb72-64" class="hljs-ln-code"><a href="" aria-label="64"></a>        addOutput<span class="op">(</span>createOutputCentered<span class="op">&lt;</span>PJ301MPort<span class="op">&gt;(</span></span>
+<span id="cb72-65" class="hljs-ln-code"><a href="" aria-label="65"></a>            mm2px<span class="op">(</span>Vec<span class="op">(</span><span class="fl">12.961</span><span class="op">,</span> <span class="fl">116.674</span><span class="op">)),</span></span>
+<span id="cb72-66" class="hljs-ln-code"><a href="" aria-label="66"></a>            <span class="kw">module</span><span class="op">,</span></span>
+<span id="cb72-67" class="hljs-ln-code"><a href="" aria-label="67"></a>            Blinky<span class="op">::</span>MAIN_OUT_OUTPUT</span>
+<span id="cb72-68" class="hljs-ln-code"><a href="" aria-label="68"></a>        <span class="op">));</span></span>
+<span id="cb72-69" class="hljs-ln-code"><a href="" aria-label="69"></a>        <span class="co">// Create and place blinky LED:</span></span>
+<span id="cb72-70" class="hljs-ln-code"><a href="" aria-label="70"></a>        addChild<span class="op">(</span>createLightCentered<span class="op">&lt;</span>MediumLight<span class="op">&lt;</span>GreenLight<span class="op">&gt;&gt;(</span></span>
+<span id="cb72-71" class="hljs-ln-code"><a href="" aria-label="71"></a>            mm2px<span class="op">(</span>Vec<span class="op">(</span><span class="fl">12.885</span><span class="op">,</span> <span class="fl">54.325</span><span class="op">)),</span></span>
+<span id="cb72-72" class="hljs-ln-code"><a href="" aria-label="72"></a>            <span class="kw">module</span><span class="op">,</span></span>
+<span id="cb72-73" class="hljs-ln-code"><a href="" aria-label="73"></a>            Blinky<span class="op">::</span>LED_LIGHT</span>
+<span id="cb72-74" class="hljs-ln-code"><a href="" aria-label="74"></a>        <span class="op">));</span></span>
+<span id="cb72-75" class="hljs-ln-code"><a href="" aria-label="75"></a>    <span class="op">}</span></span>
+<span id="cb72-76" class="hljs-ln-code"><a href="" aria-label="76"></a><span class="op">};</span></span>
+<span id="cb72-77" class="hljs-ln-code"><a href="" aria-label="77"></a></span>
+<span id="cb72-78" class="hljs-ln-code"><a href="" aria-label="78"></a>Model<span class="op">*</span> modelMyModule <span class="op">=</span> createModel<span class="op">&lt;</span>MyModule<span class="op">,</span> MyModuleWidget<span class="op">&gt;(</span><span class="st">"my_module"</span><span class="op">);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 

@@ -172,7 +172,7 @@ void init(Plugin* p) {
 :::
 
 ::: {.column width="44%"}
-```{.cpp code-line-numbers="4-5|6-11|12-15|17-20|21-24|26-34|36-38|41-42|43" filename="my_plugin/src/myplugin.cpp"}
+```{.cpp code-line-numbers="4-5|6-11|12-15|16-20|21-24|26-35|37-39|42-43|44|45-46|48-49|57-74" filename="my_plugin/src/myplugin.cpp"}
 
 #include "plugin.hpp"
 
@@ -198,6 +198,7 @@ struct MyModule : Module {
         LIGHTS_LEN
     };
 
+    // Initialization function (constructor):
     MyModule() {
         config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
         // Register parameters:
@@ -220,16 +221,37 @@ struct MyModuleWidget : ModuleWidget {
         setModule(module);
 
         // Load the .svg panel in res/ directory:
-        setParanel(createPanel(asset::plugin(pluginInstance, "res/my_module.svg")));
+        setPanel(createPanel(asset::plugin(pluginInstance, "res/my_module.svg")));
 
-        addParam(CreateParamCentered<RoundBlockKnob>(
-            Vec(
-                box.size.x - 2 * RACK_GRID_WIDTH, // x
-                
-            )      
+        // Create and place decorative screws:
+        addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, 0)));
+        addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, 0)));
+        addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
+        addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
+
+        // Create and place frequency parameter knob:
+        addParam(createParamCentered<RoundBlackKnob>(
+   	        mm2px(Vec(12.899, 34.577)),
+   	        module,
+   	        Blinky::FREQ_PARAM
+   	    ));
+        // Create and place output mini-jack port:
+      	addOutput(createOutputCentered<PJ301MPort>(
+            mm2px(Vec(12.961, 116.674)),
+            module,
+            Blinky::MAIN_OUT_OUTPUT
+  	    ));
+        // Create and place blinky LED:
+       	addChild(createLightCentered<MediumLight<GreenLight>>(
+            mm2px(Vec(12.885, 54.325)),
+            module,
+            Blinky::LED_LIGHT
         ));
     }
 };
+
+Model* modelMyModule = createModel<MyModule, MyModuleWidget>("my_module");
+
 ```
 :::
 ::::

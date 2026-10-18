@@ -1,0 +1,408 @@
+.ripple {
+  width: 100%;
+  max-width: 600px;
+  padding-left: 15%;
+  margin: 0 auto;
+
+  --ripple-background: #fdf6e3;
+  --ripple-foreground: #586e75;
+}
+
+.ripple svg {
+  display: block;
+  width: 90%;
+  height: auto;
+
+  background: var(--ripple-background);
+}
+
+.ripple-source {
+  fill: var(--ripple-foreground);
+}
+
+.ripple-compression,
+.ripple-rarefaction {
+  fill: none;
+  stroke: var(--ripple-foreground);
+  stroke-width: 2;
+}
+
+.ripple-rarefaction {
+  stroke-dasharray: 5 5;
+}
+
+.ripple-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.5em;
+}
+
+.ripple-controls label:last-child {
+  flex-basis: 100%;
+  justify-content: center;
+}
+
+.ripple-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ripple-controls input[type="range"] {
+  width: 100px;
+}
+
+.ripple-controls output {
+  min-width: 2.5em;
+}
+
+.ripple-info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 0.4rem;
+  font-family: monospace;
+  font-size: 0.55em;
+}
+
+.particles {
+  width: 125%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  --particles-background: #fdf6e3;
+  --particles-foreground: #586e75;
+}
+
+.particles svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--particles-background);
+}
+
+.particle {
+  fill: var(--particles-foreground);
+}
+
+.particles-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 1.5rem;
+  row-gap: 0.2rem;
+  margin-top: 0.75rem;
+  font-size: 0.5em;
+}
+
+.particles-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.particles-controls label:last-child {
+  flex-basis: 100%;
+  justify-content: center;
+}
+
+.particles-controls input[type="range"] {
+  width: 100px;
+}
+
+.particles-controls output {
+  min-width: 2.5em;
+}
+
+.waveform-widget {
+  width: 110%;
+  max-width: 600px;
+  margin: 0 auto;
+  --waveform-background: #fdf6e3;
+  --waveform-foreground: #586e75;
+}
+
+.waveform-widget svg {
+  display: block;
+  width: 115%;
+  height: auto;
+  background: var(--waveform-background);
+}
+
+.waveform-grid {
+  stroke: var(--waveform-foreground);
+  stroke-width: 1;
+  opacity: 0.15;
+}
+
+.waveform-zero {
+  stroke: var(--waveform-foreground);
+  stroke-width: 1.5;
+  opacity: 0.5;
+}
+
+.waveform-line {
+  fill: none;
+  stroke: var(--waveform-foreground);
+  stroke-width: 2;
+}
+
+.waveform-labels {
+  fill: var(--waveform-foreground);
+  font-family: monospace;
+  font-size: 10px;
+}
+
+.waveform-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0rem;
+  font-size: 0.5em;
+  gap: 0.4rem;
+}
+
+.waveform-controls > label {
+  display: grid;
+  grid-template-columns: 90px 180px 60px;
+  align-items: center;
+  column-gap: 0.75rem;
+  width: 340px;
+}
+
+.waveform-controls input[type="range"] {
+  width: 180x;
+}
+
+.waveform-controls > label > output {
+    width: 60px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.waveform-controls output {
+  min-width: 2.5em;
+}
+
+.waveform-samples-toggle {
+    display: flex !important;
+    justify-content: left;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.waveform-interpolation-toggle {
+    display: flex !important;
+    justify-content: left;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.waveform-controls button {
+    margin: 0 0.25rem;
+}
+
+.waveform-controls button,
+.waveform-controls select {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.15em 0.6em;
+  border: 1px solid
+    var(--waveform-foreground);
+  background:
+    var(--waveform-background);
+  color:
+    var(--waveform-foreground);
+}
+
+.waveform-sample {
+    fill: var(--waveform-background);
+    stroke: var(--waveform-foreground);
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+.waveform-sample:hover {
+    stroke-width: 3;
+}
+
+.waveform-sample {
+  fill: var(--waveform-background);
+  /* stroke: var(--waveform-foreground); */
+  stroke: DarkRed;
+  stroke-width: 2;
+}
+
+.waveform-time-axis text {
+    fill: var(--waveform-foreground);
+    font-size: 12px;
+}
+
+.waveform-time-marker {
+    stroke: var(--waveform-foreground);
+    stroke-width: 1;
+    stroke-dasharray: 3 4;
+    opacity: 0.4;
+}
+
+.waveform-interpolation {
+    fill: none;
+    stroke: red;
+    stroke-width: 1.5;
+    stroke-dasharray: 5 4;
+    pointer-events: none;
+}
+
+.waveform-sample {
+    fill: var(--waveform-background);
+    stroke: var(--waveform-foreground);
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+.waveform-sample:hover {
+    stroke-width: 3;
+}
+
+.waveform-sample-info {
+    pointer-events: none;
+}
+
+.waveform-sample-info-box {
+    fill: var(--waveform-background);
+    stroke: var(--waveform-foreground);
+    stroke-width: 1;
+}
+
+.waveform-sample-info-text {
+    fill: var(--waveform-foreground);
+    font-size: 11px;
+}
+
+.waveform-quantization-error {
+    stroke: var(--waveform-foreground);
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+    opacity: 0.5;
+}
+
+.waveform-quantized-sample {
+    fill: var(--waveform-background);
+    stroke: red;
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+.waveform-quantized-sample:hover,
+.waveform-sample-active {
+    stroke-width: 3;
+}
+
+.waveform-quantization-toggle {
+    display: flex !important;
+    justify-content: left;
+    align-items: center;
+    gap: 0.5rem;
+}
+.waveform-placeholder {
+    width: 100%;
+}
+
+.waveform-widget {
+    width: 100%;
+}
+
+.harmonics-widget {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+
+  --harmonics-background: #fdf6e3;
+  --harmonics-foreground: #586e75;
+}
+
+.harmonics-svg {
+  display: block;
+  width: 120%;
+  height: auto;
+  background: var(--harmonics-background);
+}
+
+.harmonics-grid line {
+  stroke: var(--harmonics-foreground);
+  stroke-width: 1;
+  opacity: 0.25;
+}
+
+.harmonics-component {
+  fill: none;
+  stroke: var(--harmonics-foreground);
+  stroke-width: 1;
+  opacity: 0.2;
+}
+
+.harmonics-result {
+  fill: none;
+  stroke: var(--harmonics-foreground);
+  stroke-width: 2.5;
+}
+
+.harmonics-labels {
+  fill: var(--harmonics-foreground);
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.harmonics-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  font-size: 0.6em;
+}
+
+.harmonics-slider-row {
+  display: grid;
+  grid-template-columns: 90px 180px 40px;
+  align-items: center;
+  column-gap: 0.75rem;
+  width: 330px;
+}
+
+.harmonics-slider-row input[type="range"] {
+  width: 180px;
+}
+
+.harmonics-slider-row output {
+  width: 40px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.harmonics-select-row {
+  display: grid;
+  grid-template-columns: 90px 180px;
+  align-items: center;
+  column-gap: 0.75rem;
+  width: 330px;
+}
+
+.harmonics-select-row select {
+  width: 180px;
+}
+
+.harmonics-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.harmonics-component-last {
+    stroke: red;
+    fill: none;
+    opacity: 1;
+}

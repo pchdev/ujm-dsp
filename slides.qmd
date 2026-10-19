@@ -1,6 +1,10 @@
 ---
 title: "Digital Audio Signal Processing and Synthesis"
-author: "Pierre Cochard"
+subtitle: "<b>UJM</b> 2026-2027 - <b>DIGICREA</b>(1), <b>CCNT</b>(3)"
+author:
+  - name: "<b>Pierre Cochard</b>, <b>INSA Lyon</b>, <b>Inria</b>, <b>Emeraude</b>"
+  # - affiliations: "INSA Lyon, Inria, Emeraude"
+date: "2026-10-20"
 render:
   - slides.qmd
 preview:

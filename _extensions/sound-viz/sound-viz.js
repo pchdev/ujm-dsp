@@ -616,9 +616,52 @@ class Waveform {
         this.labels.appendChild(label);
     }
 
-    quantize(value, bits) {
-        const max = Math.pow(2, bits-1) -1;
-        return Math.round(value * max) / max;
+    /*
+     * Amplitude slider value mapping to full scale (±1 V).
+     */
+    static FULL_SCALE = 50;
+
+    /*
+     * Signal level relative to full scale,
+     * taking the amplitude factor into account.
+     */
+    level(value) {
+        return value * this.amplitude / Waveform.FULL_SCALE;
+    }
+
+    /*
+     * Quantizes a level in [-1, 1] to the given format
+     * ("8", "16", "24" for signed integers, "32f" for float32).
+     * Returns the stored value and the level it decodes back to.
+     */
+    quantize(level, format) {
+        if (format === "32f") {
+            const qlevel = Math.fround(level);
+            const view = new DataView(new ArrayBuffer(4));
+            view.setFloat32(0, qlevel);
+            const hex = view.getUint32(0)
+                .toString(16)
+                .toUpperCase()
+                .padStart(8, "0");
+            return { float: true, qlevel, hex };
+        }
+        const bits = parseInt(format, 10);
+        const max = Math.pow(2, bits - 1) - 1;
+        // Clip to the representable integer range:
+        const code = Math.max(
+            -max - 1,
+            Math.min(max, Math.round(level * max))
+        );
+        return {
+            float: false,
+            bits,
+            code,
+            min: -max - 1,
+            max,
+            qlevel: code / max,
+            // Error expressed in LSB (quantization steps):
+            lsbError: code - level * max
+        };
     }
 
     showSampleInfo(point) {
@@ -626,9 +669,22 @@ class Waveform {
         const NS = "http://www.w3.org/2000/svg";
         const group = document.createElementNS(NS, "g");
         group.classList.add("waveform-sample-info");
-        const hasQuantization = point.qvalue !== undefined;
-        const boxWidth = 125;
-        const boxHeight = hasQuantization ? 66 : 38;
+        const q = point.quantized;
+        const lines = [
+            `t: ${point.time.toFixed(3)}s`,
+            `x: ${point.level.toFixed(4)} V`
+        ];
+        if (q && q.float) {
+            lines.push(`float32: ${q.qlevel.toPrecision(9)}`);
+            lines.push(`bits: 0x${q.hex}`);
+        } else if (q) {
+            lines.push(`int${q.bits}: ${q.code}`);
+            lines.push(`range: ${q.min} … ${q.max}`);
+            const sign = q.lsbError >= 0 ? "+" : "";
+            lines.push(`error: ${sign}${q.lsbError.toFixed(2)} LSB`);
+        }
+        const boxWidth = 165;
+        const boxHeight = 10 + lines.length * 14;
         let boxX = point.x + 8;
         let boxY = point.y - boxHeight - 8;
         if (boxX + boxWidth > 395) {
@@ -646,20 +702,6 @@ class Waveform {
         box.classList.add("waveform-sample-info-box");
         group.appendChild(box);
 
-        const lines = [
-            `t: ${point.time.toFixed(3)}s`,
-            `x: ${point.value.toFixed(3)}`
-        ];
-        if (hasQuantization) {
-            lines.push(
-                `${point.bits}-bit: ` +
-                `${point.qvalue.toFixed(3)}`
-            );
-            lines.push(
-                `error: ` +
-                `${(point.qvalue - point.value).toFixed(4)}`
-            );
-        }
         lines.forEach((text, index) => {
             const textElement = document.createElementNS(NS, "text");
             textElement.classList.add("waveform-sample-info-text");
@@ -738,7 +780,6 @@ class Waveform {
                 Waveform
                 <select class="waveform-select">
                     <option value="sine">Sine</option>
-                    <option value="sine2">SinCos</option>
                     <option value="triangle">Triangle</option>
                     <option value="square">Square</option>
                     <option value="saw">Saw</option>
@@ -752,6 +793,7 @@ class Waveform {
                     <option value="8">8 bits</option>
                     <option value="16" selected>16 bits</option>
                     <option value="24">24 bits</option>
+                    <option value="32f">32 bits (float)</option>
                 </select>
             </label>
 
@@ -884,10 +926,6 @@ class Waveform {
                     phase * Math.PI * 2
                 );
 
-            case "sine2":
-                return Math.sin(phase * Math.PI * 2)
-                     + Math.cos((phase + 0.05) * Math.PI * 2)
-
             case "triangle": {
                 const t = phase <= 0.5 ? phase : 1 - phase;
                 return (t - 0.25) * 4;
@@ -1012,10 +1050,11 @@ class Waveform {
             }
             this.quantizationGroup.replaceChildren();
             if (this.showQuantization.checked) {
-                const bits = parseInt(this.bitDepthSelect.value, 10);
+                const format = this.bitDepthSelect.value;
                 for (const point of samples) {
-                     const qvalue = this.quantize(point.value, bits);
-                     const qy = 150 - qvalue * this.amplitude * 2;
+                     const level = this.level(point.value);
+                     const quantized = this.quantize(level, format);
+                     const qy = 150 - quantized.qlevel * 100;
                      // Error line:
                      const eline = document.createElementNS(NS, "line");
                      eline.setAttribute("x1", point.x);
@@ -1033,9 +1072,9 @@ class Waveform {
                          circle.classList.add("waveform-sample-active");
                          this.showSampleInfo({
                              ...point,
-                             qvalue,
-                             qy,
-                             bits
+                             level,
+                             quantized,
+                             qy
                          });
                      });
                      circle.addEventListener("mouseleave", () => {

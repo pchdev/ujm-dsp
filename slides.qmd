@@ -21,7 +21,7 @@ format:
     scrollable: false
     theme: [solarized, custom.scss]
     css:
-      - _extensions/sound-viz/sound-viz.scss
+      - _extensions/sound-viz/sound-viz.css
     transition: fade
     chalkboard: true
     include-in-header:

@@ -536,6 +536,11 @@ class Waveform {
         this.timeAxis.classList.add("waveform-time-axis");
         this.svg.appendChild(this.timeAxis);
 
+        // Quantization levels grid (behind the waveform):
+        this.levelGrid = document.createElementNS(NS, "g");
+        this.levelGrid.classList.add("waveform-level-grid");
+        this.svg.appendChild(this.levelGrid);
+
         // Continuous waveform.
         this.path = document.createElementNS(NS, "path");
         this.path.classList.add("waveform-line");
@@ -545,6 +550,11 @@ class Waveform {
         this.interpolationPath = document.createElementNS(NS, "path");
         this.interpolationPath.classList.add("waveform-interpolation");
         this.svg.appendChild(this.interpolationPath);
+
+        // Sample-and-hold (zero-order hold) line:
+        this.holdPath = document.createElementNS(NS, "path");
+        this.holdPath.classList.add("waveform-hold");
+        this.svg.appendChild(this.holdPath);
 
         // Sample points.
         this.sampleGroup = document.createElementNS(NS, "g");
@@ -790,6 +800,9 @@ class Waveform {
             <label>
                 Bit Depth
                 <select class="waveform-bit-depth">
+                    <option value="2">2 bits</option>
+                    <option value="3">3 bits</option>
+                    <option value="4">4 bits</option>
                     <option value="8">8 bits</option>
                     <option value="16" selected>16 bits</option>
                     <option value="24">24 bits</option>
@@ -809,6 +822,13 @@ class Waveform {
                     type="checkbox"
                     class="waveform-show-interpolation">
                 Linear interpolation
+            </label>
+
+            <label class="waveform-hold-toggle">
+                <input
+                    type="checkbox"
+                    class="waveform-show-hold">
+                Sample & hold
             </label>
 
             <label class="waveform-quantization-toggle">
@@ -844,6 +864,9 @@ class Waveform {
         );
         this.showInterpolation = this.controls.querySelector(
             ".waveform-show-interpolation"
+        );
+        this.showHold = this.controls.querySelector(
+            ".waveform-show-hold"
         );
         this.showQuantization = this.controls.querySelector(
             ".waveform-show-quantization"
@@ -906,6 +929,7 @@ class Waveform {
         this.showInterpolation.addEventListener(
             "change", () => this.draw()
         );
+        this.showHold.addEventListener("change", () => this.draw());
         this.showQuantization.addEventListener("change", () => {
             this.draw();
         });
@@ -956,6 +980,54 @@ class Waveform {
     }
 
     /*
+     * Horizontal lines at each level the selected format can store,
+     * or a note when they are too close together to be told apart.
+     */
+    drawLevelGrid() {
+        const NS = "http://www.w3.org/2000/svg";
+        this.levelGrid.replaceChildren();
+        if (!this.showQuantization.checked) {
+            return;
+        }
+        const format = this.bitDepthSelect.value;
+        // Minimum spacing between two levels, in pixels:
+        const minSpacing = 4;
+        let note = null;
+
+        if (format === "32f") {
+            note = "float32: levels too fine to display";
+        } else {
+            const bits = parseInt(format, 10);
+            const max = Math.pow(2, bits - 1) - 1;
+            const spacing = 100 / max;
+            if (spacing < minSpacing) {
+                note = `${bits}-bit: ${Math.pow(2, bits)} levels ` +
+                       `(too fine to display)`;
+            } else {
+                // Only levels within full scale (±1 V):
+                for (let code = -max; code <= max; code++) {
+                    const y = 150 - code / max * 100;
+                    const line = document.createElementNS(NS, "line");
+                    line.setAttribute("x1", 10);
+                    line.setAttribute("x2", 390);
+                    line.setAttribute("y1", y);
+                    line.setAttribute("y2", y);
+                    line.classList.add("waveform-level");
+                    this.levelGrid.appendChild(line);
+                }
+            }
+        }
+        if (note) {
+            const text = document.createElementNS(NS, "text");
+            text.setAttribute("x", 14);
+            text.setAttribute("y", 30);
+            text.classList.add("waveform-level-note");
+            text.textContent = note;
+            this.levelGrid.appendChild(text);
+        }
+    }
+
+    /*
      * Draw the continuous-looking signal.
      */
     draw() {
@@ -985,10 +1057,12 @@ class Waveform {
             points.push(`${x},${y}`);
         }
         this.path.setAttribute("d", "M " + points.join(" L "));
+        this.drawLevelGrid();
         /*
          * Draw discrete samples.
          */
         this.sampleGroup.replaceChildren();
+        this.holdPath.setAttribute("d", "");
 
         if (this.showSamples.checked) {
             const samples = [];
@@ -1055,6 +1129,7 @@ class Waveform {
                      const level = this.level(point.value);
                      const quantized = this.quantize(level, format);
                      const qy = 150 - quantized.qlevel * 100;
+                     point.qy = qy;
                      // Error line:
                      const eline = document.createElementNS(NS, "line");
                      eline.setAttribute("x1", point.x);
@@ -1083,6 +1158,22 @@ class Waveform {
                      });
                      this.quantizationGroup.appendChild(circle);
                 }
+            }
+            /*
+             * Sample-and-hold: each (quantized, if enabled) value
+             * is held until the next sample instant.
+             */
+            if (this.showHold.checked && samples.length > 0) {
+                const step = 380 * samplePeriod / duration;
+                const hpoints = [];
+                for (const point of samples) {
+                    const y = point.qy ?? point.y;
+                    const x2 = Math.min(390, point.x + step);
+                    hpoints.push(`${point.x},${y}`, `${x2},${y}`);
+                }
+                this.holdPath.setAttribute(
+                    "d", "M " + hpoints.join(" L ")
+                );
             }
         }
     }

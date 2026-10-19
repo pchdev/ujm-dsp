@@ -301,12 +301,34 @@
     stroke-width: 3;
 }
 
+.waveform-hold-toggle,
 .waveform-quantization-toggle {
     display: flex !important;
     justify-content: left;
     align-items: center;
     gap: 0.5rem;
 }
+
+.waveform-level {
+    stroke: var(--waveform-foreground);
+    stroke-width: 0.5;
+    opacity: 0.25;
+}
+
+.waveform-level-note {
+    fill: var(--waveform-foreground);
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+.waveform-hold {
+    fill: none;
+    stroke: red;
+    stroke-width: 1.5;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
 .waveform-placeholder {
     width: 100%;
 }

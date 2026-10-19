@@ -9,7 +9,8 @@
 <link href="slides_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.10.18">
 
-  <meta name="author" content="Pierre Cochard">
+  <meta name="author" content="Pierre Cochard, INSA Lyon, Inria, Emeraude">
+  <meta name="dcterms.date" content="2026-10-20">
   <title>Digital Audio Signal Processing and Synthesis</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -209,22 +210,25 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Digital Audio Signal Processing and Synthesis</h1>
+  <p class="subtitle"><b>UJM</b> 2026-2027 - <b>DIGICREA</b>(1), <b>CCNT</b>(3)</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Pierre Cochard
+<b>Pierre Cochard</b>, <b>INSA Lyon</b>, <b>Inria</b>, <b>Emeraude</b>
 </div>
 </div>
 </div>
 
+  <p class="date">2026-10-20</p>
 </section>
 <section>
 <section id="hello" class="title-slide slide level1 center">
 <h1>Hello!</h1>
+<div style="font-size: 110%;">
 <ul>
 <li class="fragment"><p>My name is <strong>Pierre</strong>, nice to meet you all!</p></li>
-<li class="fragment"><p>I’m currently working as a research engineer in Inria/INSA team <strong>Emeraude</strong>, working among other things on a PhD Thesis intitled <em>Compilation and Optimization methods for Digital Audio Signal Processing and Synthesis on hardware architectures</em>.</p></li>
+<li class="fragment"><p>I’m currently working as a <strong>research engineer</strong> in Inria/INSA team <strong>Emeraude</strong>, working among other things on a PhD Thesis intitled <em>Compilation and Optimization methods for Digital Audio Signal Processing and Synthesis on hardware architectures</em>.</p></li>
 <li class="fragment"><p>I’m mainly a <strong>software engineer</strong>, a bit specialized in <strong>audio</strong> and <strong>compilation</strong>, I’m involved in the development/maintenance of tools such as:</p>
 <ul>
 <li class="fragment"><strong>Syfala</strong> (Faust-to-FPGA compilation toolchain)</li>
@@ -233,9 +237,30 @@ Pierre Cochard
 <li class="fragment"><strong>Faust</strong> (but not really…)</li>
 </ul></li>
 </ul>
+</div>
 </section>
 <section id="learning-audio-dsp-synthesis-stuff" class="slide level2">
-<h2>Learning audio DSP &amp; synthesis stuff</h2>
+<h2>Learning Audio DSP &amp; synthesis stuff</h2>
+<ul>
+<li class="fragment"><strong>Sound</strong> (physics)</li>
+<li class="fragment"><strong>Signal</strong> &amp; <strong>transduction</strong>:
+<ul>
+<li class="fragment"><strong>Analog</strong> (electrical) <strong>signal</strong></li>
+<li class="fragment"><strong>Digital</strong> Audio signal</li>
+</ul></li>
+<li class="fragment">Audio DSP with the <strong>Faust programming language</strong>
+<ul>
+<li class="fragment">Playground &amp; Basics</li>
+<li class="fragment">Filtering &amp; Synthesis</li>
+<li class="fragment">Time, Buffers &amp; Delays</li>
+<li class="fragment">Controls (GUI, MIDI, OSC, …)</li>
+<li class="fragment">Exporting to different targets</li>
+</ul></li>
+<li class="fragment">Audio DSP with <strong>C++</strong>:
+<ul>
+<li class="fragment">Creating a <strong>VCV-Rack Module</strong></li>
+</ul></li>
+</ul>
 </section>
 <section id="agenda" class="slide level2">
 <h2>Agenda</h2>
@@ -245,7 +270,7 @@ Pierre Cochard
 <div class="columns">
 <div class="column" style="width:50%;">
 <h3 id="october"><strong>October</strong></h3>
-<div style="font-size: 85%;">
+<div style="font-size: 90%;">
 <ul>
 <li>Tuesday <strong>20th</strong> 14h-18h (<strong>4 hours</strong>)</li>
 </ul>
@@ -254,7 +279,7 @@ Pierre Cochard
 <p><br></p>
 </div>
 <h3 id="november"><strong>November</strong></h3>
-<div style="font-size: 85%;">
+<div style="font-size: 90%;">
 <ul>
 <li>Tuesday <strong>3rd</strong>: 9h-12h (<strong>3 hours</strong>)</li>
 <li>Thursday <strong>5th</strong>: 13h-16h</li>
@@ -268,7 +293,7 @@ Pierre Cochard
 </div>
 </div><div class="column" style="width:50%;">
 <h3 id="december"><strong>December</strong></h3>
-<div style="font-size: 85%;">
+<div style="font-size: 90%;">
 <ul>
 <li>Tuesday <strong>1st</strong>: 9h-12h</li>
 <li>Thursday <strong>3rd</strong>: 13h-16h</li>
@@ -279,7 +304,7 @@ Pierre Cochard
 </div>
 <h3 id="evaluation"><strong>Evaluation</strong></h3>
 <ul>
-<li>?</li>
+<li>Individual &amp; group <strong>projects</strong> (deadline TBD)</li>
 </ul>
 </div></div>
 </section></section>
@@ -323,7 +348,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="ripple" id="ripple-638140" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-337172" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -347,7 +372,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-634369" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-267707" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -375,7 +400,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-866197" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-331516" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -404,7 +429,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-736068" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-775257" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -433,7 +458,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-895523" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-765691" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -464,7 +489,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-480928" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-203315" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -500,7 +525,7 @@ Pierre Cochard
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-610595" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-264902" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -509,10 +534,11 @@ Pierre Cochard
 <section id="sound-perception" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Sound perception</h2>
 <!-- ----------------------------------------------------------------------- -->
+<div style="font-size: 110%;">
 <ul>
 <li class="fragment">Our perception of sound is made from the conversion of the <strong>vibrations</strong> reaching our <strong>eardrums</strong> to a <strong>signal of nerve impulses</strong>, transmitted and interpreted by the brain.</li>
 <li class="fragment"><strong>Human ears</strong> can typically identify sounds ranging from <strong>20 Hz to 20 kHz</strong>.</li>
-<li class="fragment">Other animal hearing ranges (a little <em>quizzzzzz</em>):</li>
+<li class="fragment">Other animal hearing ranges (a little <em>quizz</em>):</li>
 </ul>
 <div class="columns">
 <div class="column">
@@ -546,6 +572,19 @@ Pierre Cochard
 </ul></li>
 </ul>
 </div></div>
+</div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="sound-perception-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Sound perception</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="content" style="padding-left: 75px;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="faust/hearing.png" class="quarto-figure quarto-figure-center" style="width:92.0%"></p>
+</figure>
+</div>
+</div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
 <section id="signal" class="slide level2" data-auto-animate="true">
@@ -3098,7 +3137,7 @@ process = os.sawtooth(220) : fi.lowpass(ORDER, cutoff);
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="bdcfbaa7" class="cell" data-execution_count="1">
+<div id="434e8087" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -6190,7 +6229,7 @@ declare options "[http:on]";
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="d874b79f" class="cell" data-execution_count="2">
+<div id="a180887a" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>

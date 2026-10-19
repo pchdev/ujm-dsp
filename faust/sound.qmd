@@ -188,9 +188,10 @@
 <!-- ----------------------------------------------------------------------- -->
 
 ::: {.incremental}
+::: {style="font-size: 110%;"}
 - Our perception of sound is made from the conversion of the **vibrations** reaching our **eardrums** to a **signal of nerve impulses**, transmitted and interpreted by the brain.
 - **Human ears** can typically identify sounds ranging from **20 Hz to 20 kHz**.
-- Other animal hearing ranges (a little *quizzzzzz*):
+- Other animal hearing ranges (a little *quizz*):
 
 :::: {.columns}
 ::: {.column}
@@ -209,6 +210,14 @@
   - **Owl**:
     - 100 Hz to 18 kHz,
 :::
+:::
 ::::
 :::
 
+<!-- ----------------------------------------------------------------------- -->
+## Sound perception {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+::: {.content style="padding-left: 75px;"}
+![](faust/hearing.png){width="92%" fig-align="center"}
+:::

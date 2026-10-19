@@ -37,9 +37,10 @@ format:
 # Hello!
 
 :::{.incremental}
+::: {style="font-size: 110%;"}
 - My name is **Pierre**, nice to meet you all!
 
- - I'm currently working as a research engineer in Inria/INSA team **Emeraude**, working among other things on a PhD Thesis intitled *Compilation and Optimization methods for Digital Audio Signal Processing and Synthesis on hardware architectures*.
+ - I'm currently working as a **research engineer** in Inria/INSA team **Emeraude**, working among other things on a PhD Thesis intitled *Compilation and Optimization methods for Digital Audio Signal Processing and Synthesis on hardware architectures*.
 
 - I'm mainly a **software engineer**, a bit specialized in **audio** and **compilation**, I'm involved in the development/maintenance of tools such as:
   - **Syfala** (Faust-to-FPGA compilation toolchain)
@@ -47,8 +48,24 @@ format:
   - **Emeraude-MLIR** (Compilation framework)
   - **Faust** (but not really...)
 :::
+:::
 
-## Learning audio DSP & synthesis stuff
+## Learning Audio DSP & synthesis stuff
+
+:::{.incremental}
+- **Sound** (physics)
+- **Signal** & **transduction**:
+  - **Analog** (electrical) **signal**
+  - **Digital** Audio signal
+- Audio DSP with the **Faust programming language**
+  - Playground & Basics
+  - Filtering & Synthesis
+  - Time, Buffers & Delays
+  - Controls (GUI, MIDI, OSC, ...)
+  - Exporting to different targets
+- Audio DSP with **C++**:
+  - Creating a **VCV-Rack Module**
+:::
 
 ## Agenda
 
@@ -59,7 +76,7 @@ format:
 :::: {.columns}
 ::: {.column width="50%"}
 ### **October**
-::: {style="font-size: 85%;"}
+::: {style="font-size: 90%;"}
 - Tuesday **20th** 14h-18h (**4 hours**)
 :::
 
@@ -68,7 +85,7 @@ format:
 :::
 
 ### **November**
-::: {style="font-size: 85%;"}
+::: {style="font-size: 90%;"}
 - Tuesday **3rd**: 9h-12h (**3 hours**)
 - Thursday **5th**: 13h-16h 
 - Tuesday **10th**: 9h-12h 
@@ -82,7 +99,7 @@ format:
 
 ::: {.column width="50%"}
 ### **December**
-::: {style="font-size: 85%;"}
+::: {style="font-size: 90%;"}
 - Tuesday **1st**: 9h-12h
 - Thursday **3rd**: 13h-16h
 :::
@@ -91,7 +108,7 @@ format:
 <br>
 :::
 ### **Evaluation**
-- ?
+- Individual & group **projects** (deadline TBD)
 :::
 ::::
 

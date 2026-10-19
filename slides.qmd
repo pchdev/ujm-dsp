@@ -85,7 +85,7 @@ format:
 :::
 
 ### **November**
-::: {style="font-size: 90%;"}
+::: {style="font-size: 85%;"}
 - Tuesday **3rd**: 9h-12h (**3 hours**)
 - Thursday **5th**: 13h-16h 
 - Tuesday **10th**: 9h-12h 
@@ -112,6 +112,12 @@ format:
 :::
 ::::
 
+## Resources:
+
+::: {style="font-size: 200%; display: flex; justify-content: center; align-items: center;"}
+<br><br>
+[https://pchdev.github.io/ujm-dsp](https://pchdev.github.io/ujm-dsp)
+:::
 # Sound & Signal ....................................
 
 {{< include faust/sound.qmd >}}

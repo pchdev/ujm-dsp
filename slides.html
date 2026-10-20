@@ -279,7 +279,7 @@
 <p><br></p>
 </div>
 <h3 id="november"><strong>November</strong></h3>
-<div style="font-size: 90%;">
+<div style="font-size: 85%;">
 <ul>
 <li>Tuesday <strong>3rd</strong>: 9h-12h (<strong>3 hours</strong>)</li>
 <li>Thursday <strong>5th</strong>: 13h-16h</li>
@@ -307,6 +307,12 @@
 <li>Individual &amp; group <strong>projects</strong> (deadline TBD)</li>
 </ul>
 </div></div>
+</section>
+<section id="resources" class="slide level2">
+<h2>Resources:</h2>
+<div style="font-size: 200%; display: flex; justify-content: center; align-items: center;">
+<p><br><br> <a href="https://pchdev.github.io/ujm-dsp">https://pchdev.github.io/ujm-dsp</a></p>
+</div>
 </section></section>
 <section>
 <section id="sound-signal" class="title-slide slide level1 center">
@@ -348,7 +354,7 @@
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="ripple" id="ripple-522591" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-671991" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -372,7 +378,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-384302" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-498799" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -400,7 +406,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-532560" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-496312" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -429,7 +435,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-518913" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-548733" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -458,7 +464,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-187168" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-487174" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -489,7 +495,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-542876" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-650842" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -525,7 +531,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-672804" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-913588" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -721,6 +727,44 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
+<div style="font-size: 135%;">
+<div class="content" style="padding-left: 15%;">
+<div class="faust-example">
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+process = os.osci(440) * 0.25;
+
+-->
+</faust-editor>
+
+</div>
+</div>
+
+</div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="signal-spectrum-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Signal: Spectrum</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns">
+<div class="column add-space" style="width:50%;">
+<div class="content" style="padding-left: -50px;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li>Any sound can be decomposed into a <strong><em>sum of sine waves</em></strong> of different <strong>phase</strong>, <strong>amplitude</strong>, and <strong>frequency</strong>.</li>
+</ul>
+</div>
+</div>
+</div><div class="column" style="width:44%;">
 <div class="content" style="padding-left: 15%;">
     <div class="waveform-placeholder" data-waveform-id="default" data-amplitude="25" data-frequency="1.0" data-srate="5" data-waveform="sine" <="" div="">
   
@@ -728,7 +772,47 @@
 </div>
 </div><!-- ----------------------------------------------------------------------- -->
 </div></section>
-<section id="signal-spectrum-1" class="slide level2" data-auto-animate="true">
+<section id="signal-spectrum-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Signal: Spectrum</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns">
+<div class="column add-space" style="width:50%;">
+<div class="content" style="padding-left: -50px;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+<ul>
+<li>Any sound can be decomposed into a <strong><em>sum of sine waves</em></strong>.</li>
+</ul>
+</div>
+<ul>
+<li>A <strong>sawtooth wave</strong>, for instance, is composed of a <strong>fundamental frequency</strong> and a certain number of <strong>harmonics</strong>, which are <strong><em>multiples of the fundamental</em></strong>.</li>
+</ul>
+</div>
+</div>
+</div><div class="column" style="width:44%;">
+<div style="font-size: 135%;">
+<div class="content" style="padding-left: 15%;">
+<div class="faust-example">
+<div style="font-size: 40%;">
+
+<faust-editor>
+<!--
+import("stdfaust.lib");
+
+process = os.sawtooth(440) * 0.25;
+
+-->
+</faust-editor>
+
+</div>
+</div>
+
+</div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="signal-spectrum-3" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Signal: Spectrum</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -751,7 +835,7 @@
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="signal-spectrum-2" class="slide level2" data-auto-animate="true">
+<section id="signal-spectrum-4" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Signal: Spectrum</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -777,7 +861,7 @@
 </div>
 </div><!-- ----------------------------------------------------------------------- -->
 </div></section>
-<section id="signal-spectrum-3" class="slide level2" data-auto-animate="true">
+<section id="signal-spectrum-5" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Signal: Spectrum</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -804,7 +888,7 @@
 </div>
 </div><!-- ----------------------------------------------------------------------- -->
 </div></section>
-<section id="signal-spectrum-4" class="slide level2" data-auto-animate="true">
+<section id="signal-spectrum-6" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Signal: Spectrum</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -847,7 +931,7 @@ process = os.sawtooth(440);
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
-<section id="signal-spectrum-5" class="slide level2" data-auto-animate="true">
+<section id="signal-spectrum-7" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Signal: Spectrum</h2>
 <!-- ----------------------------------------------------------------------- -->
 <div class="columns">
@@ -3137,7 +3221,7 @@ process = os.sawtooth(220) : fi.lowpass(ORDER, cutoff);
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="10e87d7f" class="cell" data-execution_count="1">
+<div id="2d5281cb" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -6229,7 +6313,7 @@ declare options "[http:on]";
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="a8e9c140" class="cell" data-execution_count="2">
+<div id="eb3b3b5a" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>

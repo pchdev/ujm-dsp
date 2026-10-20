@@ -14,8 +14,57 @@
 :::
 
 ::: {.column width="44%"}
+::: {style="font-size: 135%;"}
+::: {.content style="padding-left: 15%;"}
+{{< faust faust/examples/sine440.dsp deploy=true >}}
+:::
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Signal: Spectrum {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- Any sound can be decomposed into a ***sum of sine waves*** of different **phase**, **amplitude**, and **frequency**.
+:::
+:::
+:::
+
+::: {.column width="44%"}
 ::: {.content style="padding-left: 15%;"}
 {{< waveform amplitude=25 waveform=sine frequency=1.0 >}}
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Signal: Spectrum {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns}
+::: {.column width="50%" .add-space}
+::: {.content style="padding-left: -50px;"}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- Any sound can be decomposed into a ***sum of sine waves***.
+:::
+- A **sawtooth wave**, for instance, is composed of a **fundamental frequency** and a certain number of **harmonics**, which are ***multiples of the fundamental***.
+:::
+:::
+:::
+
+::: {.column width="44%"}
+::: {style="font-size: 135%;"}
+::: {.content style="padding-left: 15%;"}
+{{< faust faust/examples/saw440.dsp deploy=true >}}
+:::
 :::
 :::
 ::::

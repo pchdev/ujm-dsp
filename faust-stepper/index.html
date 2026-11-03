@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faust Stepper</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Faust Stepper <span class="sub">see every wire's value, sample by sample</span></h1>
+  <div class="top-actions">
+    <label class="ex">Example
+      <select id="examples"></select>
+    </label>
+    <button id="share" type="button" title="Copy a link to this exact program">Copy link</button>
+    <button id="help-btn" type="button" aria-expanded="false">Help</button>
+  </div>
+</header>
+
+<section id="help" class="help" hidden>
+  <p><b>What you see:</b> the block diagram of <code>process</code>, drawn like <code>faust -svg</code>.
+  The small labels on the wires show each signal's value <b>at the current sample <i>n</i></b>.</p>
+  <p><b>Recursion <code>A ~ B</code>:</b> the outputs of A go back to the inputs of B through a
+  <span class="z">z⁻¹</span> box: a <b>one-sample delay</b>. Its label shows the value that wire had
+  at sample <i>n − 1</i> (it is 0 at <i>n</i> = 0). Faust draws this delay as a tiny ⊓ sign at the same place.</p>
+  <p><b>Use it:</b> <kbd>→</kbd> next sample, <kbd>←</kbd> previous, <kbd>Home</kbd> back to <i>n</i> = 0,
+  <kbd>Space</kbd> play/pause. Hover a wire to highlight it; click it to add a column to the table.
+  <b>Guess mode</b> hides the values of the current sample: work them out by hand, then click a <span class="q">?</span> to check.</p>
+  <p><b>Supported Faust:</b> <code>_ ! : , &lt;: :&gt; ~ ' @ mem</code>, arithmetic and comparison operators, partial application
+  (<code>+(1)</code>), definitions with parameters, <code>with { }</code>, <code>par/seq/sum/prod</code>,
+  <code>button checkbox hslider vslider nentry hbargraph vbargraph</code>, math functions,
+  <code>select2</code>, <code>ma.SR</code>, <code>ma.PI</code>, <code>ba.if</code>. Values use 32-bit floats and ints like Faust's default.</p>
+</section>
+
+<main class="layout">
+  <section class="panel editor-panel">
+    <label class="lbl" for="code">Faust code</label>
+    <textarea id="code" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+    <div id="error" class="error" hidden></div>
+
+    <div id="inputs-box" class="box" hidden>
+      <div class="lbl">Input signals</div>
+      <div id="inputs"></div>
+    </div>
+    <div id="ui-box" class="box" hidden>
+      <div class="lbl">Controls <span class="hint">(apply from the current sample on)</span></div>
+      <div id="ui"></div>
+    </div>
+    <details class="box opts">
+      <summary class="lbl">Display options</summary>
+      <label><input type="checkbox" id="opt-groups" checked> Show definition boxes</label>
+      <label><input type="checkbox" id="opt-const"> Show values of constants</label>
+      <label><input type="checkbox" id="opt-full"> Full float precision (9 digits)</label>
+      <label>ma.SR <input type="number" id="opt-sr" value="48000" min="1" step="1"></label>
+    </details>
+  </section>
+
+  <section class="panel main-panel">
+    <pre id="code-view" class="code-view" hidden></pre>
+    <div class="transport" role="toolbar" aria-label="Sample stepping">
+      <button id="reset" type="button" title="Back to n = 0 (Home)">⏮</button>
+      <button id="back" type="button" title="Previous sample (←)">◀</button>
+      <label class="nview"><span class="n-label">n =</span>
+        <input id="n" type="number" min="0" step="1" value="0" inputmode="numeric" title="Type a sample number and press Enter"></label>
+      <button id="fwd" type="button" class="primary" title="Next sample (→)">▶</button>
+      <button id="fwd10" type="button" title="Jump 10 samples">+10</button>
+      <button id="play" type="button" title="Play / pause (Space)">Play</button>
+      <label class="speed" title="Samples per second">
+        <input type="range" id="speed" min="1" max="20" value="3"><span id="speed-v">3/s</span>
+      </label>
+      <label class="guess"><input type="checkbox" id="guess"> Guess mode</label>
+      <span id="busy" class="busy" hidden role="status"><span id="busy-t">Computing…</span>
+        <progress id="busy-p" max="1" value="0"></progress>
+        <button id="busy-cancel" type="button">Cancel</button></span>
+      <span class="spacer"></span>
+      <button id="open-editor" type="button" title="Open this program in the full editor (new tab)" hidden>Edit ↗</button>
+      <div class="zoom">
+        <button id="zoom-out" type="button" title="Zoom out">−</button>
+        <button id="zoom-fit" type="button" title="Fit">Fit</button>
+        <button id="zoom-in" type="button" title="Zoom in">+</button>
+      </div>
+    </div>
+    <div id="diagram" class="diagram" tabindex="-1"></div>
+    <div id="tip" class="tip" hidden></div>
+    <div class="table-head">
+      <span class="lbl">Values over time</span>
+      <span class="hint">click a wire in the diagram to add it here, click a column header to remove it</span>
+    </div>
+    <div class="table-wrap" id="table-wrap">
+      <table id="table"></table>
+    </div>
+  </section>
+</main>
+
+<script src="core.js"></script>
+<script src="diagram.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

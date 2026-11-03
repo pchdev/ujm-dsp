@@ -5,11 +5,14 @@ author:
   - name: "<b>Pierre Cochard</b>, <b>INSA Lyon</b>, <b>Inria</b>, <b>Emeraude</b>"
   # - affiliations: "INSA Lyon, Inria, Emeraude"
 date: "2026-10-20"
+# Used by the stepper shortcode to link to the published app from the PDF.
+faust-stepper-url: "https://pchdev.github.io/ujm-dsp/faust-stepper/"
 render:
   - slides.qmd
 preview:
   watch-inputs: true
 format:
+  # The first format is the one `quarto preview` shows.
   revealjs:
     # mermaid:
     #   theme: forest
@@ -32,6 +35,10 @@ format:
             <script src="_extensions/sound-viz/sound-viz.js"></script>
     smaller: true
     footer: "Pierre Cochard - Digital Audio Signal Processing and Synthesis - UJM 2026-2027"
+  pdf:
+    include-in-header:
+      text: |
+        \AtBeginDocument{\floatplacement{codelisting}{H}}
 ---
 
 # Hello!

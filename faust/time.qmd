@@ -27,6 +27,23 @@
 ::: {.column width="50%" .add-space}
 ::: {style="font-size: 93%;"}
 ::: {style="opacity: 0.5"}
+:::
+  - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
+:::
+:::
+::: {.column width="44%"}
+{{< stepper faust/examples/time/recursive.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Time (1/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 93%;"}
+::: {style="opacity: 0.5"}
   - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
 :::
   - The recursive operator is typically used to implement **counters**, and/or ***to represent time***. With it, we can count for instance *up to 44100 or 48000 samples* to ***represent one second of audio time***.
@@ -37,6 +54,24 @@
 {{< include /faust/examples/time/counter_samples.dsp >}}
 ```
 {{< faust faust/examples/time/counter_samples.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Time (1/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 93%;"}
+::: {style="opacity: 0.5"}
+  - Faust has one final composition operator: the ***recursive operator*** ('**~**') which allows to ***connect two signals recursively*** (with ***a delay of one sample***).
+:::
+  - The recursive operator is typically used to implement **counters**, and/or ***to represent time***. With it, we can count for instance *up to 44100 or 48000 samples* to ***represent one second of audio time***.
+:::
+:::
+::: {.column width="44%"}
+{{< stepper faust/examples/time/counter_samples.dsp >}}
 :::
 ::::
 

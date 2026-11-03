@@ -6,5 +6,6 @@ project:
     - faust/*.qmd
     - faust/**
     - _extensions/sound-viz/sound-viz.js
+    - faust-stepper/**
   preview:
     watch-inputs: true

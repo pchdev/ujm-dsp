@@ -7,6 +7,10 @@ author:
 date: "2026-10-20"
 # Used by the stepper shortcode to link to the published app from the PDF.
 faust-stepper-url: "https://pchdev.github.io/ujm-dsp/faust-stepper/"
+# `quarto publish gh-pages` deploys this file as a single document, which
+# ignores the project `resources` in _quarto.yml: list extra files here.
+resources:
+  - faust-stepper/*
 render:
   - slides.qmd
 preview:

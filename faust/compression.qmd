@@ -13,6 +13,49 @@
 :::
 
 ::: {.column width="44%"}
+::: {.content style="padding-left: 5%; width: 120%;"}
+```{=html}
+<iframe width="1080" height="600" src="https://faustlibraries.grame.fr/libs/compressors/#compressorslib" title="Webpage example"></iframe>
+```
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Compression {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- **Compression** is the process of **reducing the dynamic range** of a signal using a **transfer function**. Compressors are usually used to **dynamically manage the volume** of a specific sound source, in order to **improve consistency during mixing and mastering**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="3-4|6-7|10-19" filename="faust/examples/compression.dsp"}
+{{< include /faust/examples/compression.dsp >}}
+```
+{{< faust faust/examples/compression.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Compression {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- **Compression** is the process of **reducing the dynamic range** of a signal using a **transfer function**. Compressors are usually used to **dynamically manage the volume** of a specific sound source, in order to **improve consistency during mixing and mastering**.
+:::
+:::
+
+::: {.column width="44%"}
 ::: {.content style="padding-left: 5%; width: 110%;"}
 {{< compressor mode=static >}}
 :::
@@ -41,6 +84,53 @@
 ::: {.column width="44%"}
 ::: {.content style="padding-left: 5%; width: 110%;"}
 {{< compressor >}}
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Compression {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+:::
+- A **Limiter** is a compressor with a (very) *high ratio* (usually *10:1* or more) and a *fast attack-time*.
+It is generally used to ensure an ***audio signal never exceeds the amplitude of the threshold***,
+to either *prevent distortion or damage* to PA speakers in a live situation, or to *make a
+sound appear louder* in a **mixing/mastering context**. 
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 5%; width: 110%;"}
+{{< compressor mode=static >}}
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Compression {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+- A **Limiter** is a compressor with a (very) *high ratio* (usually *10:1* or more) and a *fast attack-time*.
+It is generally used to ensure an ***audio signal never exceeds the amplitude of the threshold***,
+to either *prevent distortion or damage* to PA speakers in a live situation, or to *make a
+sound appear louder* in a **mixing/mastering context**. 
+:::
+
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 5%; width: 110%;"}
+{{< compressor mode=static >}}
 :::
 :::
 ::::

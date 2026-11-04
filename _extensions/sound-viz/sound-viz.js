@@ -1605,3 +1605,468 @@ if (document.readyState === "loading") {
     initSoundViz();
 }
 
+
+// ----------------------------------------------------------------------------
+// Compressor
+// ----------------------------------------------------------------------------
+//
+// Same algorithm as Faust's co.compressor_mono (compressors.lib), plus makeup:
+//   level = |x| : onePoleSwitching(attack, release) : linear2db
+//   gain  = max(level - threshold, 0) * (1/ratio - 1)        (dB)
+//   gain  : smooth(tau = attack / 2) ; y = x * db2linear(gain + makeup)
+
+const compressorInstances = new Map();
+
+const COMP_FS = 4000;          // simulation rate of the illustrative signal
+const COMP_DURATION = 1.0;     // seconds of signal shown
+const COMP_LOOP_SECONDS = 4;   // playhead: slow motion, 1 s of signal in 4 s
+const COMP_RATIOS = [1, 1.5, 2, 3, 4, 6, 8, 10, 20, Infinity];
+const COMP_DB_MIN = -60, COMP_DB_MAX = 0;
+
+function compNum(value, fallback) {
+    const v = parseFloat(value);
+    return Number.isFinite(v) ? v : fallback;
+}
+
+function compressorSignal(kind) {
+    const N = Math.round(COMP_FS * COMP_DURATION);
+    const x = new Float32Array(N);
+    const db2 = (db) => Math.pow(10, db / 20);
+    if (kind === "drums") {
+        // Decaying hits of different strengths.
+        const hits = [[0.05, -4], [0.3, -16], [0.55, -8], [0.8, -24]];
+        for (let n = 0; n < N; n++) {
+            const t = n / COMP_FS;
+            let a = 0;
+            for (const [t0, db] of hits) {
+                if (t >= t0) a += db2(db) * Math.exp(-(t - t0) / 0.06);
+            }
+            x[n] = a * Math.sin(2 * Math.PI * 30 * t);
+        }
+        return { x, quiet: -24, loud: -4, label: "drum hits" };
+    }
+    // Burst: quiet, loud, quiet.
+    for (let n = 0; n < N; n++) {
+        const t = n / COMP_FS;
+        const db = (t >= 0.25 && t < 0.65) ? -6 : -36;
+        x[n] = db2(db) * Math.sin(2 * Math.PI * 20 * t);
+    }
+    return { x, quiet: -36, loud: -6, label: "quiet / loud / quiet" };
+}
+
+function compressorStatic(level, p) {
+    const slope = Number.isFinite(p.ratio) ? 1 / p.ratio : 0;
+    return level + Math.max(level - p.threshold, 0) * (slope - 1) + p.makeup;
+}
+
+function compressorRun(x, p) {
+    const tau2pole = (ms) => (ms > 0 ? Math.exp(-1 / (ms / 1000 * COMP_FS)) : 0);
+    const pa = tau2pole(p.attack), pr = tau2pole(p.release), pk = tau2pole(p.attack / 2);
+    const slope = Number.isFinite(p.ratio) ? 1 / p.ratio : 0;
+    const N = x.length;
+    const level = new Float32Array(N), gain = new Float32Array(N), y = new Float32Array(N);
+    let env = 0, g = 0;
+    for (let n = 0; n < N; n++) {
+        const a = Math.abs(x[n]);
+        const pole = a > env ? pa : pr;
+        env = (1 - pole) * a + pole * env;
+        const l = 20 * Math.log10(Math.max(env, 1e-6));
+        const gc = Math.max(l - p.threshold, 0) * (slope - 1);
+        g = (1 - pk) * gc + pk * g;
+        level[n] = l;
+        gain[n] = g;
+        y[n] = x[n] * Math.pow(10, (g + p.makeup) / 20);
+    }
+    return { level, gain, y };
+}
+
+function getCompressorInstance(placeholder) {
+    const id = placeholder.dataset.compressorId;
+    if (!compressorInstances.has(id)) {
+        compressorInstances.set(id, new Compressor(placeholder));
+    }
+    return compressorInstances.get(id);
+}
+
+function updatePersistentCompressors(slide) {
+    for (const c of compressorInstances.values()) {
+        c.element.remove();
+        c.visible = false;
+    }
+    if (!slide) return;
+    for (const placeholder of slide.querySelectorAll(".compressor-placeholder")) {
+        const c = getCompressorInstance(placeholder);
+        c.setMode(placeholder.dataset.mode || "full");
+        c.visible = true;
+        placeholder.replaceChildren(c.element);
+    }
+}
+
+class Compressor {
+    constructor(placeholder) {
+        const d = placeholder.dataset;
+        this.p = {
+            threshold: compNum(d.threshold, -20),
+            ratio: compNum(d.ratio, 4),
+            attack: compNum(d.attack, 20),
+            release: compNum(d.release, 150),
+            makeup: compNum(d.makeup, 0),
+        };
+        this.signalKind = d.signal === "drums" ? "drums" : "burst";
+        this.mode = null;
+        this.visible = true;
+        this.playing = true;
+        this.playPos = 0;           // seconds of signal
+        this.lastTime = performance.now();
+
+        this.W = 700;
+        // Transfer function plot area (square) and the bars on its right.
+        this.tf = { x0: 80, y0: 26, size: 280 };
+        // Time-domain area (full mode only).
+        this.td = { x0: 80, x1: 690, wy0: 390, wy1: 525, gy0: 552, gy1: 612 };
+
+        this.element = document.createElement("div");
+        this.element.className = "compressor-widget";
+        this.svg = this.svgEl("svg", { class: "compressor-svg" });
+        this.element.appendChild(this.svg);
+        this.createControls();
+        this.setSignal(this.signalKind);
+        this.setMode(d.mode || "full");
+
+        requestAnimationFrame((t) => this.tick(t));
+    }
+
+    svgEl(name, attrs, parent) {
+        const e = document.createElementNS("http://www.w3.org/2000/svg", name);
+        for (const k in attrs || {}) e.setAttribute(k, attrs[k]);
+        if (parent) parent.appendChild(e);
+        return e;
+    }
+
+    // --- scales -----------------------------------------------------------
+    dbX(db) {
+        const { x0, size } = this.tf;
+        return x0 + (db - COMP_DB_MIN) / (COMP_DB_MAX - COMP_DB_MIN) * size;
+    }
+    dbY(db) {
+        const { y0, size } = this.tf;
+        const c = Math.min(COMP_DB_MAX + 6, Math.max(COMP_DB_MIN, db));
+        return y0 + size - (c - COMP_DB_MIN) / (COMP_DB_MAX - COMP_DB_MIN) * size;
+    }
+    tX(t) { const { x0, x1 } = this.td; return x0 + t / COMP_DURATION * (x1 - x0); }
+    wY(v) { const { wy0, wy1 } = this.td; return (wy0 + wy1) / 2 - v * (wy1 - wy0) / 2; }
+    gY(db) { const { gy0, gy1 } = this.td; return gy0 + Math.min(1, -db / 30) * (gy1 - gy0); }
+
+    // --- controls ---------------------------------------------------------
+    createControls() {
+        this.controls = document.createElement("div");
+        this.controls.className = "compressor-controls";
+        const ratioIndex = (r) => {
+            let best = 0;
+            COMP_RATIOS.forEach((v, i) => {
+                if (Math.abs(v - r) < Math.abs(COMP_RATIOS[best] - r)) best = i;
+            });
+            return best;
+        };
+        const fmtRatio = (r) => (Number.isFinite(r) ? `${r}:1` : "∞:1");
+        const defs = [
+            { key: "threshold", label: "Threshold", min: -60, max: 0, step: 1,
+              fmt: (v) => `${v} dB`, get: () => this.p.threshold, set: (v) => (this.p.threshold = v) },
+            { key: "ratio", label: "Ratio", min: 0, max: COMP_RATIOS.length - 1, step: 1,
+              fmt: (i) => fmtRatio(COMP_RATIOS[i]), get: () => ratioIndex(this.p.ratio),
+              set: (i) => (this.p.ratio = COMP_RATIOS[i]) },
+            { key: "attack", label: "Attack", min: 0, max: 200, step: 1, full: true,
+              fmt: (v) => `${v} ms`, get: () => this.p.attack, set: (v) => (this.p.attack = v) },
+            { key: "release", label: "Release", min: 0, max: 1000, step: 5, full: true,
+              fmt: (v) => `${v} ms`, get: () => this.p.release, set: (v) => (this.p.release = v) },
+            { key: "makeup", label: "Makeup", min: 0, max: 24, step: 1, full: true,
+              fmt: (v) => `+${v} dB`, get: () => this.p.makeup, set: (v) => (this.p.makeup = v) },
+        ];
+        this.rows = [];
+        for (const def of defs) {
+            const row = document.createElement("label");
+            row.className = "compressor-slider-row";
+            if (def.full) row.dataset.full = "true";
+            const text = document.createElement("span");
+            text.textContent = def.label;
+            const input = document.createElement("input");
+            Object.assign(input, { type: "range", min: def.min, max: def.max, step: def.step });
+            input.value = def.get();
+            const out = document.createElement("output");
+            out.value = def.fmt(def.get());
+            input.addEventListener("input", () => {
+                const v = parseFloat(input.value);
+                def.set(v);
+                out.value = def.fmt(v);
+                this.update();
+            });
+            row.append(text, input, out);
+            this.controls.appendChild(row);
+        }
+
+        const sigRow = document.createElement("label");
+        sigRow.className = "compressor-select-row";
+        sigRow.dataset.full = "true";
+        const sigText = document.createElement("span");
+        sigText.textContent = "Signal";
+        this.signalSelect = document.createElement("select");
+        for (const [v, t] of [["burst", "Quiet / loud / quiet"], ["drums", "Drum hits"]]) {
+            const o = document.createElement("option");
+            o.value = v; o.textContent = t;
+            this.signalSelect.appendChild(o);
+        }
+        this.signalSelect.value = this.signalKind;
+        this.signalSelect.addEventListener("change", () => this.setSignal(this.signalSelect.value));
+        this.playButton = document.createElement("button");
+        this.playButton.type = "button";
+        this.playButton.className = "compressor-play";
+        this.playButton.addEventListener("click", () => {
+            this.playing = !this.playing;
+            this.lastTime = performance.now();
+            this.updatePlayButton();
+        });
+        this.updatePlayButton();
+        sigRow.append(sigText, this.signalSelect, this.playButton);
+        this.controls.appendChild(sigRow);
+        this.element.appendChild(this.controls);
+    }
+
+    updatePlayButton() {
+        this.playButton.textContent = this.playing ? "❚❚ Pause" : "▶ Play";
+        this.playButton.setAttribute("aria-pressed", this.playing ? "false" : "true");
+    }
+
+    setSignal(kind) {
+        this.signalKind = kind;
+        this.signal = compressorSignal(kind);
+        this.update();
+    }
+
+    setMode(mode) {
+        mode = mode === "static" ? "static" : "full";
+        if (mode === this.mode) return;
+        this.mode = mode;
+        this.element.dataset.mode = mode;
+        this.svg.setAttribute("viewBox", `0 0 ${this.W} ${mode === "full" ? 640 : 360}`);
+        this.update();
+    }
+
+    // --- drawing ----------------------------------------------------------
+    update() {
+        if (!this.mode || !this.signal) return;
+        this.result = compressorRun(this.signal.x, this.p);
+        this.draw();
+    }
+
+    draw() {
+        const svg = this.svg;
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        this.svgEl("rect", { class: "compressor-bg", x: 0, y: 0, width: this.W, height: 640 }, svg);
+        this.drawTransfer();
+        if (this.mode === "static") this.drawRangeBars();
+        else { this.drawMeters(); this.drawTime(); }
+        this.drawPlayhead();
+    }
+
+    drawTransfer() {
+        const g = this.svgEl("g", {}, this.svg);
+        const { x0, y0, size } = this.tf;
+        const p = this.p;
+
+        // Grid and axes labels every 12 dB.
+        for (let db = COMP_DB_MIN; db <= COMP_DB_MAX; db += 12) {
+            this.svgEl("line", { class: "compressor-grid", x1: this.dbX(db), x2: this.dbX(db), y1: y0, y2: y0 + size }, g);
+            this.svgEl("line", { class: "compressor-grid", x1: x0, x2: x0 + size, y1: this.dbY(db), y2: this.dbY(db) }, g);
+            this.text(g, this.dbX(db), y0 + size + 18, `${db}`, "middle", "compressor-tick");
+            this.text(g, x0 - 6, this.dbY(db) + 5, `${db}`, "end", "compressor-tick");
+        }
+        this.text(g, x0 + size / 2, y0 + size + 40, "input level (dB)", "middle", "compressor-axis");
+        const yl = this.text(g, 0, 0, "output level (dB)", "middle", "compressor-axis");
+        yl.setAttribute("transform", `translate(${x0 - 50}, ${y0 + size / 2}) rotate(-90)`);
+
+        // Clip the curves to the plot.
+        const clipId = `comp-clip-${Math.random().toString(36).slice(2)}`;
+        const clip = this.svgEl("clipPath", { id: clipId }, g);
+        this.svgEl("rect", { x: x0, y: y0, width: size, height: size }, clip);
+        const inner = this.svgEl("g", { "clip-path": `url(#${clipId})` }, g);
+
+        // Identity (no compression) and threshold.
+        this.svgEl("line", { class: "compressor-identity", x1: this.dbX(COMP_DB_MIN), y1: this.dbY(COMP_DB_MIN), x2: this.dbX(0), y2: this.dbY(0) }, inner);
+        this.svgEl("line", { class: "compressor-threshold", x1: this.dbX(p.threshold), x2: this.dbX(p.threshold), y1: y0, y2: y0 + size }, inner);
+
+        // Transfer function: static curve.
+        let d = "";
+        for (let db = COMP_DB_MIN; db <= COMP_DB_MAX; db += 0.5) {
+            d += `${d ? "L" : "M"}${this.dbX(db).toFixed(1)},${this.dbY(compressorStatic(db, p)).toFixed(1)}`;
+        }
+        this.svgEl("path", { class: "compressor-curve", d }, inner);
+        this.svgEl("circle", { class: "compressor-knee", cx: this.dbX(p.threshold), cy: this.dbY(compressorStatic(p.threshold, p)), r: 4 }, inner);
+
+        this.svgEl("rect", { class: "compressor-frame", x: x0, y: y0, width: size, height: size }, g);
+        this.text(g, this.dbX(p.threshold) + 5, y0 + 14, "threshold", "start", "compressor-threshold-label");
+        const r = Number.isFinite(p.ratio) ? `${p.ratio}:1` : "∞:1";
+        const mid = Math.min(0, (p.threshold + COMP_DB_MAX) / 2);
+        if (p.threshold < -3) {
+            this.text(g, this.dbX(mid), this.dbY(compressorStatic(mid, p)) + 30, `ratio ${r}`, "middle", "compressor-curve-label");
+        }
+        if (this.mode === "full") this.dotGroup = this.svgEl("g", {}, g);
+    }
+
+    // Static mode: a quiet-to-loud range, before and after compression,
+    // on the same dB scale as the transfer function's output axis.
+    drawRangeBars() {
+        const g = this.svgEl("g", {}, this.svg);
+        const { quiet, loud } = this.signal;
+        const outQ = compressorStatic(quiet, this.p), outL = compressorStatic(loud, this.p);
+        const bars = [
+            { x: 445, label: "input", lo: quiet, hi: loud, cls: "compressor-bar-in" },
+            { x: 580, label: "output", lo: outQ, hi: outL, cls: "compressor-bar-out" },
+        ];
+        this.text(g, 530, this.tf.y0 - 6, "dynamic range", "middle", "compressor-axis");
+        for (const b of bars) {
+            const y1 = this.dbY(b.hi), y2 = this.dbY(b.lo);
+            this.svgEl("line", { class: "compressor-bar-axis", x1: b.x, x2: b.x, y1: this.dbY(COMP_DB_MIN), y2: this.dbY(0) }, g);
+            this.svgEl("rect", { class: b.cls, x: b.x - 26, y: y1, width: 52, height: Math.max(1, y2 - y1), rx: 3 }, g);
+            this.text(g, b.x, this.tf.y0 + this.tf.size + 18, b.label, "middle", "compressor-tick");
+            this.text(g, b.x + 32, y1 + 5, `${b.hi.toFixed(1)} dB`, "start", "compressor-value");
+            this.text(g, b.x + 32, y2 + 5, `${b.lo.toFixed(1)} dB`, "start", "compressor-value");
+            this.text(g, b.x, (y1 + y2) / 2 + 5, `${(b.hi - b.lo).toFixed(1)}`, "middle", "compressor-range");
+        }
+    }
+
+    // Full mode: what the compressor sees and does at the playhead.
+    drawMeters() {
+        const g = this.svgEl("g", {}, this.svg);
+        this.meters = g;
+        this.text(g, 535, this.tf.y0 - 6, "at the playhead", "middle", "compressor-axis");
+        this.meterEls = [];
+        const defs = [
+            { x: 440, label: "level", cls: "compressor-bar-in" },
+            { x: 540, label: "gain", cls: "compressor-bar-gr" },
+            { x: 640, label: "output", cls: "compressor-bar-out" },
+        ];
+        for (const m of defs) {
+            this.svgEl("line", { class: "compressor-bar-axis", x1: m.x, x2: m.x, y1: this.dbY(COMP_DB_MIN), y2: this.dbY(0) }, g);
+            const rect = this.svgEl("rect", { class: m.cls, x: m.x - 22, width: 44, rx: 3 }, g);
+            const val = this.text(g, m.x, 0, "", "middle", "compressor-value");
+            this.text(g, m.x, this.tf.y0 + this.tf.size + 18, m.label, "middle", "compressor-tick");
+            this.meterEls.push({ rect, val });
+        }
+    }
+
+    drawTime() {
+        const g = this.svgEl("g", {}, this.svg);
+        const { x0, x1, wy0, wy1, gy0, gy1 } = this.td;
+        const { x } = this.signal;
+        const { y, gain } = this.result;
+        const N = x.length;
+
+        this.svgEl("line", { class: "compressor-grid", x1: x0, x2: x1, y1: this.wY(0), y2: this.wY(0) }, g);
+        const th = Math.pow(10, this.p.threshold / 20);
+        for (const s of [1, -1]) {
+            this.svgEl("line", { class: "compressor-threshold", x1: x0, x2: x1, y1: this.wY(s * th), y2: this.wY(s * th) }, g);
+        }
+        const path = (arr, fy) => {
+            let d = "";
+            for (let n = 0; n < N; n += 2) d += `${d ? "L" : "M"}${this.tX(n / COMP_FS).toFixed(1)},${fy(arr[n]).toFixed(1)}`;
+            return d;
+        };
+        this.svgEl("path", { class: "compressor-wave-in", d: path(x, (v) => this.wY(v)) }, g);
+        this.svgEl("path", { class: "compressor-wave-out", d: path(y, (v) => this.wY(Math.max(-1.05, Math.min(1.05, v)))) }, g);
+        this.svgEl("rect", { class: "compressor-frame", x: x0, y: wy0, width: x1 - x0, height: wy1 - wy0 }, g);
+        this.text(g, x0 - 6, wy0 + 4, "1", "end", "compressor-tick");
+        this.text(g, x0 - 6, wy1 + 4, "-1", "end", "compressor-tick");
+        this.text(g, x0 + 6, wy0 - 8, "input", "start", "compressor-legend-in");
+        this.text(g, x0 + 75, wy0 - 8, "output", "start", "compressor-legend-out");
+        this.text(g, x0 + 160, wy0 - 8, "± threshold", "start", "compressor-threshold-label");
+
+        // Gain reduction strip (0 to -30 dB).
+        this.svgEl("line", { class: "compressor-grid", x1: x0, x2: x1, y1: gy0, y2: gy0 }, g);
+        this.svgEl("path", { class: "compressor-gr", d: path(gain, (v) => this.gY(v)) + `L${this.tX((N - 1) / COMP_FS)},${gy0}L${x0},${gy0}Z` }, g);
+        this.svgEl("rect", { class: "compressor-frame", x: x0, y: gy0, width: x1 - x0, height: gy1 - gy0 }, g);
+        this.text(g, x0 - 6, gy0 + 4, "0", "end", "compressor-tick");
+        this.text(g, x0 - 6, gy1 + 4, "-30", "end", "compressor-tick");
+        this.text(g, x0 + 6, gy1 - 6, "gain reduction (dB)", "start", "compressor-gr-label");
+        this.text(g, x1, gy1 + 20, "time →", "end", "compressor-tick");
+
+        // Click / drag on the time view to move the playhead.
+        const hit = this.svgEl("rect", { class: "compressor-hit", x: x0, y: wy0, width: x1 - x0, height: gy1 - wy0 }, g);
+        const seek = (ev) => {
+            const pt = this.svg.createSVGPoint();
+            pt.x = ev.clientX; pt.y = ev.clientY;
+            const loc = pt.matrixTransform(this.svg.getScreenCTM().inverse());
+            this.playPos = Math.max(0, Math.min(COMP_DURATION - 1e-6, (loc.x - x0) / (x1 - x0) * COMP_DURATION));
+            this.drawPlayhead();
+        };
+        hit.addEventListener("pointerdown", (ev) => {
+            this.playing = false; this.updatePlayButton();
+            hit.setPointerCapture(ev.pointerId);
+            seek(ev);
+        });
+        hit.addEventListener("pointermove", (ev) => { if (hit.hasPointerCapture(ev.pointerId)) seek(ev); });
+
+        this.playhead = this.svgEl("line", { class: "compressor-playhead", y1: wy0, y2: gy1 }, g);
+    }
+
+    drawPlayhead() {
+        if (this.mode !== "full" || !this.playhead) return;
+        const n = Math.min(this.signal.x.length - 1, Math.floor(this.playPos * COMP_FS));
+        const px = this.tX(this.playPos);
+        this.playhead.setAttribute("x1", px);
+        this.playhead.setAttribute("x2", px);
+
+        // Where the compressor actually is on its transfer function: detected
+        // level vs. level + applied gain. With a slow attack/release the dot
+        // leaves the static curve.
+        const level = this.result.level[n], gain = this.result.gain[n];
+        const out = level + gain + this.p.makeup;
+        const g = this.dotGroup;
+        while (g.firstChild) g.removeChild(g.firstChild);
+        if (level > COMP_DB_MIN) {
+            this.svgEl("line", { class: "compressor-dot-guide", x1: this.dbX(level), x2: this.dbX(level), y1: this.dbY(COMP_DB_MIN), y2: this.dbY(out) }, g);
+            this.svgEl("line", { class: "compressor-dot-guide", x1: this.tf.x0, x2: this.dbX(level), y1: this.dbY(out), y2: this.dbY(out) }, g);
+            this.svgEl("circle", { class: "compressor-dot", cx: this.dbX(level), cy: this.dbY(out), r: 6 }, g);
+        }
+
+        const vals = [level, gain, out];
+        this.meterEls.forEach(({ rect, val }, i) => {
+            const v = vals[i];
+            const top = i === 1 ? this.dbY(0) : this.dbY(Math.max(COMP_DB_MIN, v));
+            const bottom = i === 1 ? this.dbY(Math.max(COMP_DB_MIN, v)) : this.dbY(COMP_DB_MIN);
+            rect.setAttribute("y", Math.min(top, bottom));
+            rect.setAttribute("height", Math.max(1, Math.abs(bottom - top)));
+            val.textContent = `${v <= COMP_DB_MIN ? "-∞" : v.toFixed(1)} dB`;
+            val.setAttribute("y", (i === 1 ? bottom + 18 : top - 7));
+        });
+    }
+
+    text(parent, x, y, s, anchor, cls) {
+        const t = this.svgEl("text", { x, y, "text-anchor": anchor, class: cls }, parent);
+        t.textContent = s;
+        return t;
+    }
+
+    tick(time) {
+        const dt = (time - this.lastTime) / 1000;
+        this.lastTime = time;
+        if (this.visible && this.playing && this.mode === "full" && this.element.isConnected) {
+            this.playPos = (this.playPos + dt * COMP_DURATION / COMP_LOOP_SECONDS) % COMP_DURATION;
+            this.drawPlayhead();
+        }
+        requestAnimationFrame((t) => this.tick(t));
+    }
+}
+
+function initPersistentCompressors() {
+    if (!window.Reveal) return;
+    Reveal.on("ready", (event) => updatePersistentCompressors(event.currentSlide));
+    Reveal.on("slidechanged", (event) => updatePersistentCompressors(event.currentSlide));
+    // Reveal may already be ready when this runs ("ready" fires only once).
+    if (Reveal.isReady && Reveal.isReady()) updatePersistentCompressors(Reveal.getCurrentSlide());
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPersistentCompressors);
+} else {
+    initPersistentCompressors();
+}

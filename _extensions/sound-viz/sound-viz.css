@@ -428,3 +428,81 @@
     fill: none;
     opacity: 1;
 }
+
+/* ------------------------------------------------------------------------ */
+/* Compressor                                                               */
+/* ------------------------------------------------------------------------ */
+
+.compressor-widget {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  --comp-bg: #fdf6e3;
+  --comp-fg: #586e75;
+  --comp-in: #93a1a1;
+  --comp-out: #268bd2;
+  --comp-threshold: #cb4b16;
+  --comp-gr: #d33682;
+}
+
+.compressor-svg { display: block; width: 100%; height: auto; }
+.compressor-bg { fill: var(--comp-bg); }
+.compressor-frame { fill: none; stroke: var(--comp-fg); stroke-width: 1; }
+.compressor-grid { stroke: var(--comp-fg); stroke-width: 1; opacity: 0.18; }
+.compressor-identity { stroke: var(--comp-fg); stroke-width: 1.2; stroke-dasharray: 5 5; opacity: 0.55; }
+.compressor-threshold { stroke: var(--comp-threshold); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.compressor-curve { fill: none; stroke: var(--comp-out); stroke-width: 3.5; stroke-linejoin: round; }
+.compressor-knee { fill: var(--comp-bg); stroke: var(--comp-threshold); stroke-width: 2; }
+
+.compressor-svg text { font-family: monospace; fill: var(--comp-fg); }
+.compressor-tick { font-size: 16px; }
+.compressor-axis { font-size: 18px; font-weight: bold; }
+.compressor-value { font-size: 16px; }
+.compressor-range { font-size: 18px; font-weight: bold; fill: #fdf6e3 !important; }
+.compressor-threshold-label { font-size: 16px; fill: var(--comp-threshold) !important; }
+.compressor-curve-label { font-size: 18px; fill: var(--comp-out) !important; font-weight: bold; }
+.compressor-legend-in { font-size: 16px; fill: var(--comp-in) !important; font-weight: bold; }
+.compressor-legend-out { font-size: 16px; fill: var(--comp-out) !important; font-weight: bold; }
+.compressor-gr-label { font-size: 16px; fill: var(--comp-gr) !important; }
+
+.compressor-bar-axis { stroke: var(--comp-fg); stroke-width: 1; opacity: 0.3; }
+.compressor-bar-in { fill: var(--comp-in); }
+.compressor-bar-out { fill: var(--comp-out); }
+.compressor-bar-gr { fill: var(--comp-gr); }
+
+.compressor-wave-in { fill: none; stroke: var(--comp-in); stroke-width: 1.5; }
+.compressor-wave-out { fill: none; stroke: var(--comp-out); stroke-width: 2; }
+.compressor-gr { fill: var(--comp-gr); fill-opacity: 0.35; stroke: var(--comp-gr); stroke-width: 1.5; }
+.compressor-playhead { stroke: var(--comp-fg); stroke-width: 1.5; }
+.compressor-hit { fill: transparent; cursor: ew-resize; }
+
+.compressor-dot { fill: var(--comp-gr); stroke: var(--comp-bg); stroke-width: 2; }
+.compressor-dot-guide { stroke: var(--comp-gr); stroke-width: 1; stroke-dasharray: 3 3; }
+
+.compressor-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem 1.2rem;
+  margin-top: 0.4rem;
+  font-size: 0.55em;
+}
+.compressor-widget[data-mode="static"] .compressor-controls [data-full] { display: none; }
+
+.compressor-slider-row {
+  display: grid;
+  grid-template-columns: 5.5em minmax(0, 1fr) 4.5em;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+.compressor-slider-row input[type="range"] { width: 100%; }
+.compressor-slider-row output { text-align: right; font-variant-numeric: tabular-nums; }
+
+.compressor-select-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 5.5em auto auto;
+  justify-content: start;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+.compressor-play { font-size: 1em; padding: 0 0.6em; cursor: pointer; }

@@ -1,0 +1,47 @@
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Compression {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- **Compression** is the process of **reducing the dynamic range** of a signal using a **transfer function**. Compressors are usually used to **dynamically manage the volume** of a specific sound source, in order to **improve consistency during mixing and mastering**.
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 5%; width: 110%;"}
+{{< compressor mode=static >}}
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Compression {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+- **Compression** is the process of **reducing the dynamic range** of a signal using a **transfer function**. Compressors are usually used to **dynamically manage the volume** of a specific sound source, in order to **improve consistency during mixing and mastering**.
+:::
+- **Control parameters** are usually the following:
+  - **Threshold** (*dB*): the level above which the amplitude of a signal is going to be reduced.
+  - **Ratio**: the reduction factor when amplitude is above the threshold. 
+  - **Attack** (*ms*): the speed at which compression is applied.
+  - **Release** (*ms*): the speed at which compression is released.
+  - **Makeup gain** (*dB*): final gain applied to the compressed signal.
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 5%; width: 110%;"}
+{{< compressor >}}
+:::
+:::
+::::
+

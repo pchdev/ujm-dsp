@@ -80,3 +80,30 @@ function harmonics(args, kwargs, meta)
     ></div>
   ]], id, waveform, harmonics))
 end
+
+-- Dynamic range compressor: transfer function (+ time-domain view in "full" mode).
+--   {{< compressor mode=static >}}   transfer function, threshold & ratio
+--   {{< compressor >}}               everything: attack, release, makeup, signal view
+-- Placeholders sharing an `id` share one widget (settings persist across slides).
+function compressor(args, kwargs, meta)
+  local id = default(kwargs["id"], "default")
+  local mode = default(kwargs["mode"], "full")
+  local threshold = default(kwargs["threshold"], "-20")
+  local ratio = default(kwargs["ratio"], "4")
+  local attack = default(kwargs["attack"], "20")
+  local release = default(kwargs["release"], "150")
+  local makeup = default(kwargs["makeup"], "0")
+  local signal = default(kwargs["signal"], "burst")
+  return pandoc.RawBlock("html", string.format([[
+    <div class="compressor-placeholder"
+      data-compressor-id="%s"
+      data-mode="%s"
+      data-threshold="%s"
+      data-ratio="%s"
+      data-attack="%s"
+      data-release="%s"
+      data-makeup="%s"
+      data-signal="%s"
+    ></div>
+  ]], id, mode, threshold, ratio, attack, release, makeup, signal))
+end

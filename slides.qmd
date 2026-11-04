@@ -181,6 +181,10 @@ format:
 
 {{< include faust/filtering.qmd >}}
 
+# Faust: Compression
+
+{{< include faust/compression.qmd >}}
+
 # Faust: Time
 
 {{< include faust/time.qmd >}}

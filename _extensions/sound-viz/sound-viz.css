@@ -506,3 +506,27 @@
   column-gap: 0.5rem;
 }
 .compressor-play { font-size: 1em; padding: 0 0.6em; cursor: pointer; }
+
+/* ------------------------------------------------------------------------ */
+/* Clipper (reuses the compressor styles)                                   */
+/* ------------------------------------------------------------------------ */
+
+.clipper-wave-in { stroke-dasharray: 4 3; }
+.clipper-bar { fill: var(--comp-gr); }
+.clipper-bar-fund { fill: var(--comp-out); }
+.clipper-dot-in { fill: var(--comp-in); stroke: var(--comp-bg); stroke-width: 2; }
+.clipper-drive-row { grid-column: 1 / -1; grid-template-columns: 5.5em minmax(0, 1fr) 9em; }
+.reveal pre.clipper-code, .clipper-code {
+  grid-column: 1 / -1;
+  width: auto;
+  margin: 0.2rem 0 0;
+  font-family: monospace;
+  line-height: 1.3;
+  color: var(--comp-fg);
+  padding: 0.3em 0.6em;
+  font-size: 0.85em;
+  white-space: pre-wrap;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  box-shadow: none;
+}

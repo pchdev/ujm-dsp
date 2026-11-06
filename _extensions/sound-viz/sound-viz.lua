@@ -107,3 +107,18 @@ function compressor(args, kwargs, meta)
     ></div>
   ]], id, mode, threshold, ratio, attack, release, makeup, signal))
 end
+
+-- Clipper / waveshaper: transfer curve, waveform, spectrum and sound.
+--   {{< clipper >}}  {{< clipper shape=tanh drive=12 >}}   (shape: hard|tanh|cubic)
+function clipper(args, kwargs, meta)
+  local id = default(kwargs["id"], "default")
+  local shape = default(kwargs["shape"], "hard")
+  local drive = default(kwargs["drive"], "6")
+  return pandoc.RawBlock("html", string.format([[
+    <div class="clipper-placeholder"
+      data-clipper-id="%s"
+      data-shape="%s"
+      data-drive="%s"
+    ></div>
+  ]], id, shape, drive))
+end

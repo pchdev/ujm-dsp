@@ -121,16 +121,18 @@ sound appear louder* in a **mixing/mastering context**.
 ::: {style="opacity: 0.5"}
 - A **Limiter** is a compressor with a (very) *high ratio* (usually *10:1* or more) and a *fast attack-time*.
 It is generally used to ensure an ***audio signal never exceeds the amplitude of the threshold***,
-to either *prevent distortion or damage* to PA speakers in a live situation, or to *make a
+to either *prevent distortion or damage* to PA speakers in a live situation (analog), or to *make a
 sound appear louder* in a **mixing/mastering context**. 
 :::
-
+- **Clipping** is different: there is no envelope and no attack/release, each **sample** goes through a function `y = f(x)` (**waveshaping**). It changes the **shape of the waveform**, which adds **harmonics** (distortion).
+  - **Hard clipping**: `max(-1) : min(1)`, sharp corner, strong high harmonics.
+  - **Soft clipping**: smooth curve (`ma.tanh`, cubic...), harmonics fall off faster.
 :::
 :::
 
 ::: {.column width="44%"}
 ::: {.content style="padding-left: 5%; width: 110%;"}
-{{< compressor mode=static >}}
+{{< clipper >}}
 :::
 :::
 ::::

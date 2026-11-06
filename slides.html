@@ -354,7 +354,7 @@
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="ripple" id="ripple-967013" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-485029" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -378,7 +378,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-661678" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-254201" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -406,7 +406,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-232701" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-837851" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -435,7 +435,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-335965" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-600460" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -464,7 +464,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-487479" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-576728" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -495,7 +495,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-779431" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-441079" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -531,7 +531,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-729324" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-496549" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -3221,7 +3221,7 @@ process = os.sawtooth(220) : fi.lowpass(ORDER, cutoff);
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="d6922bb3" class="cell" data-execution_count="1">
+<div id="63b76175" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -3435,13 +3435,20 @@ process = x : co.compressor_mono(
 <div style="font-size: 85%;">
 <div style="opacity: 0.5">
 <ul>
-<li>A <strong>Limiter</strong> is a compressor with a (very) <em>high ratio</em> (usually <em>10:1</em> or more) and a <em>fast attack-time</em>. It is generally used to ensure an <strong><em>audio signal never exceeds the amplitude of the threshold</em></strong>, to either <em>prevent distortion or damage</em> to PA speakers in a live situation, or to <em>make a sound appear louder</em> in a <strong>mixing/mastering context</strong>.</li>
+<li>A <strong>Limiter</strong> is a compressor with a (very) <em>high ratio</em> (usually <em>10:1</em> or more) and a <em>fast attack-time</em>. It is generally used to ensure an <strong><em>audio signal never exceeds the amplitude of the threshold</em></strong>, to either <em>prevent distortion or damage</em> to PA speakers in a live situation (analog), or to <em>make a sound appear louder</em> in a <strong>mixing/mastering context</strong>.</li>
 </ul>
 </div>
+<ul>
+<li><strong>Clipping</strong> is different: there is no envelope and no attack/release, each <strong>sample</strong> goes through a function <code>y = f(x)</code> (<strong>waveshaping</strong>). It changes the <strong>shape of the waveform</strong>, which adds <strong>harmonics</strong> (distortion).
+<ul>
+<li><strong>Hard clipping</strong>: <code>max(-1) : min(1)</code>, sharp corner, strong high harmonics.</li>
+<li><strong>Soft clipping</strong>: smooth curve (<code>ma.tanh</code>, cubic…), harmonics fall off faster.</li>
+</ul></li>
+</ul>
 </div>
 </div><div class="column" style="width:44%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-    <div class="compressor-placeholder" data-compressor-id="default" data-mode="static" data-threshold="-20" data-ratio="4" data-attack="20" data-release="150" data-makeup="0" data-signal="burst"></div>
+    <div class="clipper-placeholder" data-clipper-id="default" data-shape="hard" data-drive="6"></div>
   
 </div>
 </div></div>
@@ -6550,7 +6557,7 @@ declare options "[http:on]";
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="bfb7f17f" class="cell" data-execution_count="2">
+<div id="737b385c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>

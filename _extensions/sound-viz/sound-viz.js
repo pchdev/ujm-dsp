@@ -2070,3 +2070,344 @@ if (document.readyState === "loading") {
 } else {
     initPersistentCompressors();
 }
+
+
+// ----------------------------------------------------------------------------
+// Clipper (waveshaping): y = f(drive * x), memoryless, sample by sample.
+// ----------------------------------------------------------------------------
+//
+// All shapes have slope 1 at the origin and a ceiling of ±1, so they only
+// differ by how they bend (hard corner vs. smooth).
+
+const CLIP_SHAPES = {
+    hard: {
+        label: "Hard clip",
+        f: (x) => Math.max(-1, Math.min(1, x)),
+        faust: "process = *(drive) : max(-1) : min(1);",
+    },
+    tanh: {
+        label: "Soft clip (tanh)",
+        f: (x) => Math.tanh(x),
+        faust: "process = *(drive) : ma.tanh;",
+    },
+    cubic: {
+        label: "Soft clip (cubic)",
+        f: (x) => { const u = Math.max(-1, Math.min(1, x / 1.5)); return 1.5 * (u - u * u * u / 3); },
+        faust: "cubic(x) = 1.5*(u - u^3/3)\n  with { u = max(-1, min(1, x/1.5)); };\nprocess = *(drive) : cubic;",
+    },
+};
+const CLIP_HARMONICS = 15;
+const CLIP_DB_FLOOR = -80;
+const CLIP_RANGE = 1.2;        // plotted amplitude range: ±CLIP_RANGE
+const CLIP_LOOP_SECONDS = 4;   // the animated dot covers 2 periods in 4 s
+const CLIP_FREQ = 220;         // Hz, for the sound
+
+const clipperInstances = new Map();
+
+function getClipperInstance(placeholder) {
+    const id = placeholder.dataset.clipperId;
+    if (!clipperInstances.has(id)) clipperInstances.set(id, new Clipper(placeholder));
+    return clipperInstances.get(id);
+}
+
+function updatePersistentClippers(slide) {
+    for (const c of clipperInstances.values()) {
+        c.element.remove();
+        c.visible = false;
+        c.stopSound();
+    }
+    if (!slide) return;
+    for (const placeholder of slide.querySelectorAll(".clipper-placeholder")) {
+        const c = getClipperInstance(placeholder);
+        c.visible = true;
+        placeholder.replaceChildren(c.element);
+    }
+}
+
+class Clipper {
+    constructor(placeholder) {
+        const d = placeholder.dataset;
+        this.shape = CLIP_SHAPES[d.shape] ? d.shape : "hard";
+        this.driveDb = compNum(d.drive, 6);
+        this.visible = true;
+        this.phase = 0;              // 0..2 periods
+        this.lastTime = performance.now();
+        this.audio = null;
+
+        this.W = 700; this.H = 500;
+        this.tf = { x0: 70, y0: 20, size: 250 };
+        this.wv = { x0: 370, x1: 690 };
+        this.sp = { x0: 70, x1: 690, y0: 340, y1: 450 };
+
+        this.element = document.createElement("div");
+        this.element.className = "compressor-widget clipper-widget";
+        this.svg = Compressor.prototype.svgEl("svg", {
+            class: "compressor-svg", viewBox: `0 0 ${this.W} ${this.H}`,
+        });
+        this.element.appendChild(this.svg);
+        this.createControls();
+        this.update();
+        requestAnimationFrame((t) => this.tick(t));
+    }
+
+    svgEl(name, attrs, parent) { return Compressor.prototype.svgEl(name, attrs, parent); }
+    text(parent, x, y, s, anchor, cls) { return Compressor.prototype.text.call(this, parent, x, y, s, anchor, cls); }
+
+    get gain() { return Math.pow(10, this.driveDb / 20); }
+    out(x) { return CLIP_SHAPES[this.shape].f(this.gain * x); }
+
+    // --- scales -----------------------------------------------------------
+    ampY(v) { const { y0, size } = this.tf; return y0 + size / 2 - v / CLIP_RANGE * size / 2; }
+    ampX(v) { const { x0, size } = this.tf; return x0 + size / 2 + v / CLIP_RANGE * size / 2; }
+    timeX(ph) { const { x0, x1 } = this.wv; return x0 + ph / 2 * (x1 - x0); }
+    harmX(k) { const { x0, x1 } = this.sp; return x0 + (k - 0.5) / CLIP_HARMONICS * (x1 - x0); }
+    dbY(db) {
+        const { y0, y1 } = this.sp;
+        return y0 + Math.min(1, Math.max(0, db / CLIP_DB_FLOOR)) * (y1 - y0);
+    }
+
+    // --- controls ---------------------------------------------------------
+    createControls() {
+        const controls = document.createElement("div");
+        controls.className = "compressor-controls";
+
+        const shapeRow = document.createElement("label");
+        shapeRow.className = "compressor-select-row";
+        const shapeText = document.createElement("span");
+        shapeText.textContent = "Shape";
+        const select = document.createElement("select");
+        for (const [k, s] of Object.entries(CLIP_SHAPES)) {
+            const o = document.createElement("option");
+            o.value = k; o.textContent = s.label;
+            select.appendChild(o);
+        }
+        select.value = this.shape;
+        select.addEventListener("change", () => { this.shape = select.value; this.update(); });
+        this.soundButton = document.createElement("button");
+        this.soundButton.type = "button";
+        this.soundButton.className = "compressor-play";
+        this.soundButton.addEventListener("click", () => (this.audio ? this.stopSound() : this.startSound()));
+        this.updateSoundButton();
+        shapeRow.append(shapeText, select, this.soundButton);
+
+        const driveRow = document.createElement("label");
+        driveRow.className = "compressor-slider-row clipper-drive-row";
+        const driveText = document.createElement("span");
+        driveText.textContent = "Drive";
+        const input = document.createElement("input");
+        Object.assign(input, { type: "range", min: -6, max: 24, step: 1 });
+        input.value = this.driveDb;
+        const outEl = document.createElement("output");
+        const fmt = () => `${this.driveDb > 0 ? "+" : ""}${this.driveDb} dB (×${this.gain.toFixed(2)})`;
+        outEl.value = fmt();
+        input.addEventListener("input", () => {
+            this.driveDb = parseFloat(input.value);
+            outEl.value = fmt();
+            this.update();
+        });
+        driveRow.append(driveText, input, outEl);
+
+        this.code = document.createElement("pre");
+        this.code.className = "clipper-code";
+
+        controls.append(shapeRow, driveRow, this.code);
+        this.element.appendChild(controls);
+    }
+
+    updateSoundButton() {
+        this.soundButton.textContent = this.audio ? "■ Stop sound" : "🔊 Play sound";
+        this.soundButton.setAttribute("aria-pressed", this.audio ? "true" : "false");
+    }
+
+    shaperCurve() {
+        const n = 2048, curve = new Float32Array(n);
+        for (let i = 0; i < n; i++) curve[i] = this.out(i / (n - 1) * 2 - 1);
+        return curve;
+    }
+
+    startSound() {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        const ctx = new Ctx();
+        const osc = ctx.createOscillator();
+        osc.frequency.value = CLIP_FREQ;
+        const shaper = ctx.createWaveShaper();
+        shaper.oversample = "4x";    // limits aliasing of the added harmonics
+        shaper.curve = this.shaperCurve();
+        const vol = ctx.createGain();
+        vol.gain.setValueAtTime(0, ctx.currentTime);
+        vol.gain.linearRampToValueAtTime(0.2, ctx.currentTime + 0.03);
+        osc.connect(shaper).connect(vol).connect(ctx.destination);
+        osc.start();
+        this.audio = { ctx, shaper, vol };
+        this.updateSoundButton();
+    }
+
+    stopSound() {
+        if (!this.audio) return;
+        const { ctx, vol } = this.audio;
+        vol.gain.setValueAtTime(vol.gain.value, ctx.currentTime);
+        vol.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.03);
+        setTimeout(() => ctx.close(), 60);
+        this.audio = null;
+        this.updateSoundButton();
+    }
+
+    // --- analysis ---------------------------------------------------------
+    // Amplitudes of harmonics 1..CLIP_HARMONICS of f(drive * sin), by DFT
+    // over exactly one period.
+    harmonics() {
+        const N = 1024, y = new Float64Array(N);
+        for (let n = 0; n < N; n++) y[n] = this.out(Math.sin(2 * Math.PI * n / N));
+        const amps = [];
+        for (let k = 1; k <= CLIP_HARMONICS; k++) {
+            let re = 0, im = 0;
+            for (let n = 0; n < N; n++) {
+                const a = 2 * Math.PI * k * n / N;
+                re += y[n] * Math.cos(a);
+                im -= y[n] * Math.sin(a);
+            }
+            amps.push(2 * Math.hypot(re, im) / N);
+        }
+        return amps;
+    }
+
+    // --- drawing ----------------------------------------------------------
+    update() {
+        this.code.textContent = CLIP_SHAPES[this.shape].faust;
+        if (this.audio) this.audio.shaper.curve = this.shaperCurve();
+        const svg = this.svg;
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        this.svgEl("rect", { class: "compressor-bg", x: 0, y: 0, width: this.W, height: this.H }, svg);
+        this.drawTransfer();
+        this.drawWave();
+        this.drawSpectrum();
+        this.dots = this.svgEl("g", {}, svg);
+        this.drawDots();
+    }
+
+    drawTransfer() {
+        const g = this.svgEl("g", {}, this.svg);
+        const { x0, y0, size } = this.tf;
+        for (const v of [-1, -0.5, 0, 0.5, 1]) {
+            this.svgEl("line", { class: "compressor-grid", x1: this.ampX(v), x2: this.ampX(v), y1: y0, y2: y0 + size }, g);
+            this.svgEl("line", { class: "compressor-grid", x1: x0, x2: x0 + size, y1: this.ampY(v), y2: this.ampY(v) }, g);
+            this.text(g, this.ampX(v), y0 + size + 18, `${v}`, "middle", "compressor-tick");
+            this.text(g, x0 - 6, this.ampY(v) + 5, `${v}`, "end", "compressor-tick");
+        }
+        this.text(g, x0 + size / 2, y0 + size + 40, "input sample x", "middle", "compressor-axis");
+        const yl = this.text(g, 0, 0, "output sample y", "middle", "compressor-axis");
+        yl.setAttribute("transform", `translate(${x0 - 48}, ${y0 + size / 2}) rotate(-90)`);
+        this.svgEl("rect", { class: "compressor-frame", x: x0, y: y0, width: size, height: size }, g);
+
+        // Ceiling ±1 and identity (no effect).
+        for (const c of [-1, 1]) {
+            this.svgEl("line", { class: "compressor-threshold", x1: x0, x2: this.wv.x1, y1: this.ampY(c), y2: this.ampY(c) }, g);
+        }
+        this.svgEl("line", { class: "compressor-identity",
+            x1: this.ampX(-1 / this.gainClamp()), y1: this.ampY(-1 / this.gainClamp() * this.gain),
+            x2: this.ampX(1 / this.gainClamp()), y2: this.ampY(1 / this.gainClamp() * this.gain) }, g);
+
+        let d = "";
+        for (let i = 0; i <= 400; i++) {
+            const x = i / 400 * 2 - 1;
+            d += `${d ? "L" : "M"}${this.ampX(x).toFixed(1)},${this.ampY(this.out(x)).toFixed(1)}`;
+        }
+        this.svgEl("path", { class: "compressor-curve", d }, g);
+        this.text(g, x0 + 8, y0 + 22, `y = f(${this.gain.toFixed(2)}·x)`, "start", "compressor-curve-label");
+    }
+
+    // Keeps the dashed linear line y = drive·x inside the plot.
+    gainClamp() { return Math.max(1, this.gain / CLIP_RANGE); }
+
+    drawWave() {
+        const g = this.svgEl("g", {}, this.svg);
+        const { x0, x1 } = this.wv;
+        const { y0, size } = this.tf;
+        this.svgEl("line", { class: "compressor-grid", x1: x0, x2: x1, y1: this.ampY(0), y2: this.ampY(0) }, g);
+        this.svgEl("rect", { class: "compressor-frame", x: x0, y: y0, width: x1 - x0, height: size }, g);
+        let din = "", dout = "";
+        for (let i = 0; i <= 400; i++) {
+            const ph = i / 400 * 2, x = Math.sin(Math.PI * 2 * ph);
+            const X = this.timeX(ph).toFixed(1);
+            din += `${din ? "L" : "M"}${X},${this.ampY(x).toFixed(1)}`;
+            dout += `${dout ? "L" : "M"}${X},${this.ampY(this.out(x)).toFixed(1)}`;
+        }
+        this.svgEl("path", { class: "compressor-wave-in clipper-wave-in", d: din }, g);
+        this.svgEl("path", { class: "compressor-wave-out", d: dout }, g);
+        this.text(g, (x0 + x1) / 2, y0 + size + 40, "time (2 periods)", "middle", "compressor-axis");
+        this.text(g, x0 + 8, y0 + size - 10, "input x", "start", "compressor-legend-in");
+        this.text(g, x1 - 8, y0 + size - 10, "output y", "end", "compressor-legend-out");
+        this.text(g, x1 - 8, this.ampY(1) - 6, "ceiling ±1", "end", "compressor-threshold-label");
+    }
+
+    drawSpectrum() {
+        const g = this.svgEl("g", {}, this.svg);
+        const { x0, x1, y0, y1 } = this.sp;
+        const amps = this.harmonics();
+        for (const db of [0, -20, -40, -60, -80]) {
+            this.svgEl("line", { class: "compressor-grid", x1: x0, x2: x1, y1: this.dbY(db), y2: this.dbY(db) }, g);
+            this.text(g, x0 - 6, this.dbY(db) + 5, `${db}`, "end", "compressor-tick");
+        }
+        const bw = (x1 - x0) / CLIP_HARMONICS * 0.55;
+        amps.forEach((a, i) => {
+            const k = i + 1, X = this.harmX(k);
+            const db = 20 * Math.log10(Math.max(a, 1e-12));
+            if (db > CLIP_DB_FLOOR) {
+                this.svgEl("rect", {
+                    class: k === 1 ? "clipper-bar-fund" : "clipper-bar",
+                    x: X - bw / 2, y: this.dbY(db), width: bw, height: this.dbY(CLIP_DB_FLOOR) - this.dbY(db),
+                }, g);
+            }
+            this.text(g, X, y1 + 18, `${k}`, "middle", "compressor-tick");
+        });
+        this.text(g, (x0 + x1) / 2, y1 + 42, "harmonic (× 220 Hz)", "middle", "compressor-axis");
+        const yl = this.text(g, 0, 0, "dB", "middle", "compressor-axis");
+        yl.setAttribute("transform", `translate(${x0 - 48}, ${(y0 + y1) / 2}) rotate(-90)`);
+
+        // Total harmonic distortion: energy of the added harmonics vs. fundamental.
+        const rest = Math.sqrt(amps.slice(1).reduce((s, a) => s + a * a, 0));
+        const thd = 100 * rest / amps[0];
+        this.text(g, x1, y0 - 10, `THD ≈ ${thd < 0.1 ? thd.toFixed(2) : thd.toFixed(1)} %`, "end", "compressor-value");
+        this.text(g, x0, y0 - 10, "Spectrum of the output", "start", "compressor-value");
+    }
+
+    drawDots() {
+        const g = this.dots;
+        if (!g) return;
+        while (g.firstChild) g.removeChild(g.firstChild);
+        const x = Math.sin(2 * Math.PI * this.phase), y = this.out(x);
+        const tx = this.ampX(x), ty = this.ampY(y), wx = this.timeX(this.phase);
+        // The output value is read on the curve and carried over in time.
+        this.svgEl("line", { class: "compressor-dot-guide", x1: tx, x2: tx, y1: this.ampY(0), y2: ty }, g);
+        this.svgEl("line", { class: "compressor-dot-guide", x1: tx, x2: wx, y1: ty, y2: ty }, g);
+        this.svgEl("line", { class: "compressor-playhead", x1: wx, x2: wx, y1: this.tf.y0, y2: this.tf.y0 + this.tf.size }, g);
+        this.svgEl("circle", { class: "clipper-dot-in", cx: tx, cy: this.ampY(0), r: 5 }, g);
+        this.svgEl("circle", { class: "clipper-dot-in", cx: wx, cy: this.ampY(x), r: 5 }, g);
+        this.svgEl("circle", { class: "compressor-dot", cx: tx, cy: ty, r: 7 }, g);
+        this.svgEl("circle", { class: "compressor-dot", cx: wx, cy: ty, r: 7 }, g);
+    }
+
+    tick(time) {
+        const dt = (time - this.lastTime) / 1000;
+        this.lastTime = time;
+        if (this.visible && this.element.isConnected) {
+            this.phase = (this.phase + dt * 2 / CLIP_LOOP_SECONDS) % 2;
+            this.drawDots();
+        }
+        requestAnimationFrame((t) => this.tick(t));
+    }
+}
+
+function initPersistentClippers() {
+    if (!window.Reveal) return;
+    Reveal.on("ready", (event) => updatePersistentClippers(event.currentSlide));
+    Reveal.on("slidechanged", (event) => updatePersistentClippers(event.currentSlide));
+    if (Reveal.isReady && Reveal.isReady()) updatePersistentClippers(Reveal.getCurrentSlide());
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPersistentClippers);
+} else {
+    initPersistentClippers();
+}

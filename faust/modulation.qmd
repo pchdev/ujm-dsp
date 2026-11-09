@@ -1,0 +1,134 @@
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Modulation {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- **Modulation** in audio DSP is the process of ***using signals*** to **drive** or ***influence other signal parameters*** (such as *frequency*, *amplitude*, *phase*, etc.).
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="" filename="faust/examples/modulation-1.dsp"}
+{{< include /faust/examples/modulation-1.dsp >}}
+```
+{{< faust faust/examples/modulation-1.dsp >}}
+:::
+::::
+
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Modulation {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- **Modulation** in audio DSP is the process of ***using signals*** to **drive** or ***influence other signal parameters*** (such as *frequency*, *amplitude*, *phase*, etc.).
+:::
+- In order to do so, ***low-frequency signals*** are often used: **envelope generators**, **low-frequency oscillators** (**LFOs**) or **noise/random generators**, etc.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="" filename="faust/examples/modulation-1.dsp"}
+{{< include /faust/examples/modulation-1.dsp >}}
+```
+{{< faust faust/examples/modulation-1.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Modulation {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- **Modulation** in audio DSP is the process of ***using signals*** to **drive** or ***influence other signal parameters*** (such as *frequency*, *amplitude*, *phase*, etc.).
+- In order to do so, ***low-frequency signals*** are often used: **envelope generators**, **low-frequency oscillators** (**LFOs**) or **noise/random generators**, etc.
+:::
+- **Amplitude modulation** can be used to **shape the envelope of a signal**, or to create the *ring-modulation* effect.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="" filename="faust/examples/modulation-2.dsp"}
+{{< include /faust/examples/modulation-2.dsp >}}
+```
+{{< faust faust/examples/modulation-2.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Modulation {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- **Modulation** in audio DSP is the process of ***using signals*** to **drive** or ***influence other signal parameters*** (such as *frequency*, *amplitude*, *phase*, etc.).
+- In order to do so, ***low-frequency signals*** are often used: **envelope generators**, **low-frequency oscillators** (**LFOs**) or **noise/random generators**, etc.
+- **Amplitude modulation** can be used to **shape the envelope of a signal**, or to create the *ring-modulation* effect.
+:::
+- **Envelope generators** are often presented as **AR** (*attack*/*release*) or **ADSR** (*attack*/*decay*/*sustain*/*release*) envelopes. They can be also used to modulate other parameters (such as a *filter's cutoff frequency*).
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="" filename="faust/examples/modulation-3.dsp"}
+{{< include /faust/examples/modulation-3.dsp >}}
+```
+{{< faust faust/examples/modulation-3.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Modulation {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+:::
+- **LFOs** are often used to make **tremolo** (*amplitude modulation*) or **vibrato** (*frequency modulation*) effects. 
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="3-6|3-12|" filename="faust/examples/modulation-4.dsp"}
+{{< include /faust/examples/modulation-4.dsp >}}
+```
+{{< faust faust/examples/modulation-4.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Modulation {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- **LFOs** are often used to make **tremolo** (*amplitude modulation*) or **vibrato** (*frequency modulation*) effects. 
+:::
+- Finally, **noise generators** can introduce *randomness* in modulation, which can be useful for **generative patches** or *sound installations*, etc.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="3-4|3-8|3-11|3-18" filename="faust/examples/modulation-5.dsp"}
+{{< include /faust/examples/modulation-5.dsp >}}
+```
+{{< faust faust/examples/modulation-5.dsp >}}
+:::
+::::

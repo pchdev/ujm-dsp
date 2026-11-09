@@ -181,10 +181,6 @@ format:
 
 {{< include faust/filtering.qmd >}}
 
-# Faust: Compression
-
-{{< include faust/compression.qmd >}}
-
 # Faust: Time
 
 {{< include faust/time.qmd >}}
@@ -192,6 +188,14 @@ format:
 # Faust: Buffers & Delays
 
 {{< include faust/buffers-delays.qmd >}}
+
+# Faust: Modulation
+
+{{< include faust/modulation.qmd >}}
+
+# Faust: Compression
+
+{{< include faust/compression.qmd >}}
 
 # Faust: Advanced Synthesis
 

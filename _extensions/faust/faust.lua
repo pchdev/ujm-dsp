@@ -60,7 +60,7 @@ function faust(args, kwargs, meta)
 </details>
 
 </div>
-]], type, escaped, type)
+]], type, code, type)
   end
   return pandoc.RawBlock("html", html)
 end

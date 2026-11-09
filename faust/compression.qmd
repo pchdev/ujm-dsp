@@ -97,9 +97,9 @@
 ::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
 :::
-- A **Limiter** is a compressor with a (very) *high ratio* (usually *10:1* or more) and a *fast attack-time*.
+- A **Limiter** is a compressor with a (very) *high ratio* (usually *20:1* or more), a *fast attack-time*, moderate release, and ***lookahead time***.
 It is generally used to ensure an ***audio signal never exceeds the amplitude of the threshold***,
-to either *prevent distortion or damage* to PA speakers in a live situation, or to *make a
+to either *prevent distortion or damage* to PA speakers in a live situation (analog), or to *make a
 sound appear louder* in a **mixing/mastering context**. 
 :::
 :::
@@ -119,7 +119,34 @@ sound appear louder* in a **mixing/mastering context**.
 ::: {.column width="50%" .add-space}
 ::: {style="font-size: 85%;"}
 ::: {style="opacity: 0.5"}
-- A **Limiter** is a compressor with a (very) *high ratio* (usually *10:1* or more) and a *fast attack-time*.
+- A **Limiter** is a compressor with a (very) *high ratio* (usually *20:1* or more), a *fast attack-time*, moderate release, and ***lookahead time***.
+It is generally used to ensure an ***audio signal never exceeds the amplitude of the threshold***,
+to either *prevent distortion or damage* to PA speakers in a live situation (analog), or to *make a
+sound appear louder* in a **mixing/mastering context**. 
+:::
+- **Clipping** is different: there is no envelope and no attack/release, each **sample** goes through a function `y = f(x)` (**waveshaping**). It changes the **shape of the waveform**, which adds **harmonics** (distortion).
+  - **Hard clipping**: `max(-1) : min(1)`, sharp corner, strong high harmonics.
+  - **Soft clipping**: smooth curve (`ma.tanh`, cubic...), harmonics fall off faster.
+:::
+:::
+
+::: {.column width="44%"}
+```{.js code-line-numbers="5-6|12-14|16-19|20|22-26" filename="faust/examples/compression.dsp"}
+{{< include /faust/examples/clipping.dsp >}}
+```
+{{< faust faust/examples/clipping.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Compression {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+- A **Limiter** is a compressor with a (very) *high ratio* (usually *20:1* or more), a *fast attack-time*, moderate release, and ***lookahead time***.
 It is generally used to ensure an ***audio signal never exceeds the amplitude of the threshold***,
 to either *prevent distortion or damage* to PA speakers in a live situation (analog), or to *make a
 sound appear louder* in a **mixing/mastering context**. 

@@ -2411,3 +2411,800 @@ if (document.readyState === "loading") {
 } else {
     initPersistentClippers();
 }
+
+
+// ----------------------------------------------------------------------------
+// Shared helpers for the modulation widgets (ring modulation, FM)
+// ----------------------------------------------------------------------------
+
+const MOD_FS = 32768;      // simulation rate; 1 s of signal => 1 Hz FFT bins
+const MOD_N = 32768;
+
+// Placeholders sharing an id share one widget, moved from slide to slide.
+function persistentWidget(selector, makeKey, make) {
+    const instances = new Map();
+    const update = (slide) => {
+        for (const w of instances.values()) {
+            w.element.remove();
+            w.visible = false;
+            if (w.player && w.player.playing) w.player.stop();
+        }
+        if (!slide) return;
+        for (const placeholder of slide.querySelectorAll(selector)) {
+            const key = makeKey(placeholder);
+            if (!instances.has(key)) instances.set(key, make(placeholder));
+            const w = instances.get(key);
+            w.visible = true;
+            if (w.onShow) w.onShow(placeholder);
+            placeholder.replaceChildren(w.element);
+        }
+    };
+    const init = () => {
+        if (!window.Reveal) return;
+        Reveal.on("ready", (e) => update(e.currentSlide));
+        Reveal.on("slidechanged", (e) => update(e.currentSlide));
+        if (Reveal.isReady && Reveal.isReady()) update(Reveal.getCurrentSlide());
+    };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+    else init();
+}
+
+function svgNode(name, attrs, parent, text) {
+    const e = document.createElementNS("http://www.w3.org/2000/svg", name);
+    for (const k in attrs || {}) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+}
+
+function fmtNum(v, digits = 2) {
+    return String(+v.toFixed(digits));
+}
+
+// In-place radix-2 FFT.
+function fftInPlace(re, im) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) {
+        let bit = n >> 1;
+        for (; j & bit; bit >>= 1) j ^= bit;
+        j ^= bit;
+        if (i < j) {
+            [re[i], re[j]] = [re[j], re[i]];
+            [im[i], im[j]] = [im[j], im[i]];
+        }
+    }
+    for (let len = 2; len <= n; len <<= 1) {
+        const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+        for (let i = 0; i < n; i += len) {
+            let cr = 1, ci = 0;
+            for (let j = 0; j < len / 2; j++) {
+                const k = i + j, l = k + len / 2;
+                const tr = re[l] * cr - im[l] * ci, ti = re[l] * ci + im[l] * cr;
+                re[l] = re[k] - tr; im[l] = im[k] - ti;
+                re[k] += tr; im[k] += ti;
+                const ncr = cr * wr - ci * wi;
+                ci = cr * wi + ci * wr; cr = ncr;
+            }
+        }
+    }
+}
+
+// Amplitude spectrum (peak amplitudes) of 1 s of signal, bins of 1 Hz.
+function amplitudeSpectrum(x, maxHz) {
+    const re = Float64Array.from(x), im = new Float64Array(x.length);
+    fftInPlace(re, im);
+    const out = new Float64Array(maxHz + 1);
+    for (let k = 0; k <= maxHz; k++) out[k] = (k === 0 ? 1 : 2) * Math.hypot(re[k], im[k]) / x.length;
+    return out;
+}
+
+// Real-time synthesis in an AudioWorklet: phases stay continuous and every
+// parameter glides (~20 ms), so moving a slider doesn't click. Only a change
+// of FM graph (different operators) fades out and back in.
+const MODVIZ_WORKLET = `
+const TAU = 2 * Math.PI;
+class ModVizSynth extends AudioWorkletProcessor {
+    constructor() {
+        super();
+        this.a = 1 - Math.exp(-1 / (0.02 * sampleRate));   // smoothing coefficient
+        this.cur = null; this.next = null; this.env = 0;
+        this.port.onmessage = (e) => {
+            const p = e.data;
+            if (this.cur && this.cur.p.key === p.key) this.cur.p = p;
+            else this.next = p;
+        };
+    }
+    init(p) {
+        if (p.kind === "fm") {
+            const n = p.ops.length;
+            return { p, ph: new Float64Array(n), y: new Float64Array(n), dev: new Float64Array(n),
+                     f: Float64Array.from(p.ops, (o) => o.freq), I: Float64Array.from(p.ops, (o) => o.index), g: p.gain };
+        }
+        return { p, phc: 0, phm: 0, fc: p.fc, fm: p.fm, off: p.offset, d: p.depth, amps: Float64Array.from(p.amps), g: p.gain };
+    }
+    fm(s) {
+        const a = this.a, ops = s.p.ops, n = ops.length;
+        s.dev.fill(0);
+        let sum = 0, nc = 0;
+        for (let i = 0; i < n; i++) {
+            const o = ops[i];
+            s.f[i] += a * (o.freq - s.f[i]);
+            s.I[i] += a * (o.index - s.I[i]);
+            s.ph[i] += (s.f[i] + s.dev[i]) / sampleRate;
+            s.ph[i] -= Math.floor(s.ph[i]);
+            s.y[i] = Math.sin(TAU * s.ph[i] + (o.feedback ? s.I[i] * s.y[i] : 0));
+            if (!o.feedback) for (const t of o.targets) s.dev[t] += s.I[i] * s.f[i] * s.y[i];
+            if (o.carrier) { sum += s.y[i]; nc++; }
+        }
+        s.g += a * (s.p.gain - s.g);
+        return s.g * sum / Math.max(1, nc);
+    }
+    ring(s) {
+        const a = this.a, p = s.p;
+        s.fc += a * (p.fc - s.fc); s.fm += a * (p.fm - s.fm);
+        s.off += a * (p.offset - s.off); s.d += a * (p.depth - s.d); s.g += a * (p.gain - s.g);
+        s.phc += s.fc / sampleRate; s.phc -= Math.floor(s.phc);
+        s.phm += s.fm / sampleRate; s.phm -= Math.floor(s.phm);
+        let c = 0;
+        for (let h = 0; h < s.amps.length; h++) {
+            s.amps[h] += a * (p.amps[h] - s.amps[h]);
+            c += s.amps[h] * Math.sin(TAU * (h + 1) * s.phc);
+        }
+        return s.g * c * (s.off + s.d * Math.sin(TAU * s.phm));
+    }
+    process(inputs, outputs) {
+        const out = outputs[0];
+        const ch0 = out[0];
+        for (let i = 0; i < ch0.length; i++) {
+            if (this.next) {
+                this.env -= 1 / 256;
+                if (this.env <= 0 || !this.cur) { this.env = 0; this.cur = this.init(this.next); this.next = null; }
+            } else if (this.env < 1) this.env = Math.min(1, this.env + 1 / 256);
+            ch0[i] = this.cur ? this.env * (this.cur.p.kind === "fm" ? this.fm(this.cur) : this.ring(this.cur)) : 0;
+        }
+        for (let c = 1; c < out.length; c++) out[c].set(ch0);
+        return true;
+    }
+}
+registerProcessor("modviz-synth", ModVizSynth);
+`;
+
+let modvizContext = null, modvizModule = null;
+function modvizAudio() {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    if (!modvizContext) {
+        modvizContext = new Ctx();
+        if (modvizContext.audioWorklet) {
+            const url = URL.createObjectURL(new Blob([MODVIZ_WORKLET], { type: "application/javascript" }));
+            modvizModule = modvizContext.audioWorklet.addModule(url);
+        }
+    }
+    if (modvizContext.state === "suspended") modvizContext.resume();
+    return modvizContext;
+}
+
+class SynthPlayer {
+    constructor() { this.node = null; this.out = null; this.playing = false; this.params = null; }
+    async play(params) {
+        const ctx = modvizAudio();
+        if (!ctx || !modvizModule) return;
+        this.playing = true;
+        this.params = params;
+        await modvizModule;
+        if (!this.playing || this.node) return;
+        this.node = new AudioWorkletNode(ctx, "modviz-synth", { outputChannelCount: [2] });
+        this.out = ctx.createGain();
+        this.node.connect(this.out).connect(ctx.destination);
+        this.node.port.postMessage(this.params);
+    }
+    update(params) {
+        this.params = params;
+        if (this.node) this.node.port.postMessage(params);
+    }
+    stop() {
+        const wasPlaying = this.playing;
+        this.playing = false;
+        if (this.node) {
+            const ctx = modvizContext, t = ctx.currentTime, { node, out } = this;
+            out.gain.setValueAtTime(1, t);
+            out.gain.linearRampToValueAtTime(0, t + 0.03);
+            setTimeout(() => { node.disconnect(); out.disconnect(); }, 80);
+            this.node = this.out = null;
+        }
+        if (wasPlaying && this.onStop) this.onStop();
+    }
+}
+
+// Gain bringing a signal to a comfortable listening level.
+function listeningGain(x) {
+    let peak = 1e-9;
+    for (const v of x) peak = Math.max(peak, Math.abs(v));
+    return 0.2 / peak;
+}
+
+function makeSlider(parent, { label, min, max, step, value, fmt, onInput, wide }) {
+    const row = document.createElement("label");
+    row.className = "compressor-slider-row modviz-slider-row" + (wide ? " modviz-wide" : "");
+    const text = document.createElement("span");
+    text.textContent = label;
+    const input = document.createElement("input");
+    Object.assign(input, { type: "range", min, max, step });
+    input.value = value;
+    const out = document.createElement("output");
+    out.value = fmt(value);
+    input.addEventListener("input", () => {
+        const v = parseFloat(input.value);
+        out.value = fmt(v);
+        onInput(v);
+    });
+    row.append(text, input, out);
+    parent.appendChild(row);
+    return row;
+}
+
+function makeSelect(parent, label, options, value, onChange, extra) {
+    const row = document.createElement("label");
+    row.className = "compressor-select-row";
+    const text = document.createElement("span");
+    text.textContent = label;
+    const select = document.createElement("select");
+    for (const [v, t] of options) {
+        const o = document.createElement("option");
+        o.value = v; o.textContent = t;
+        select.appendChild(o);
+    }
+    select.value = value;
+    select.addEventListener("change", () => onChange(select.value));
+    row.append(text, select, ...(extra || []));
+    parent.appendChild(row);
+    return select;
+}
+
+function makeSoundButton(widget) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "compressor-play";
+    const refresh = () => {
+        button.textContent = widget.player.playing ? "■ Stop sound" : "🔊 Play sound";
+        button.setAttribute("aria-pressed", widget.player.playing ? "true" : "false");
+    };
+    widget.player.onStop = refresh;
+    button.addEventListener("click", () => {
+        if (widget.player.playing) widget.player.stop();
+        else { widget.player.play(widget.synthParams()); refresh(); }
+    });
+    refresh();
+    return button;
+}
+
+// Line spectrum (stems), linear amplitude 0..1. lines: [{f, a, cls, label}]
+function drawStems(g, lines, box, maxHz, opts = {}) {
+    const { x0, x1, y0, y1 } = box;
+    const X = (f) => x0 + f / maxHz * (x1 - x0);
+    const Y = (a) => y1 - Math.min(1, a) * (y1 - y0);
+    svgNode("line", { class: "compressor-bar-axis", x1: x0, x2: x1, y1, y2: y1 }, g);
+    if (opts.ticks) {
+        for (let f = 0; f <= maxHz; f += opts.ticks) {
+            svgNode("line", { class: "compressor-grid", x1: X(f), x2: X(f), y1: y0, y2: y1 }, g);
+            if (opts.tickLabels) svgNode("text", { x: X(f), y: y1 + 18, "text-anchor": f + opts.ticks > maxHz ? "end" : "middle", class: "compressor-tick" }, g, `${f}`);
+        }
+    }
+    for (const l of lines) {
+        if (l.f > maxHz || l.a < 0.004) continue;
+        svgNode("line", { class: `modviz-stem ${l.cls || ""}`, x1: X(l.f), x2: X(l.f), y1, y2: Y(l.a) }, g);
+        svgNode("circle", { class: `modviz-stem-head ${l.cls || ""}`, cx: X(l.f), cy: Y(l.a), r: 3.5 }, g);
+        if (l.label) svgNode("text", { x: X(l.f), y: Y(l.a) - 8, "text-anchor": "middle", class: `modviz-stem-label ${l.cls || ""}` }, g, l.label);
+    }
+}
+
+// Labels lines (sorted by frequency) when they are at least minPx apart.
+function labelSpaced(lines, pxPerHz, minPx, text) {
+    let last = -Infinity;
+    for (const l of lines) {
+        if (l.a < 0.004) continue;
+        const x = l.f * pxPerHz;
+        if (x - last >= minPx) { l.label = text(l); last = x; }
+    }
+}
+
+function drawTrace(g, samples, box, range, cls) {
+    const { x0, x1, y0, y1 } = box;
+    let d = "";
+    const n = samples.length;
+    for (let i = 0; i < n; i++) {
+        const X = x0 + i / (n - 1) * (x1 - x0);
+        const Y = (y0 + y1) / 2 - Math.max(-1.05, Math.min(1.05, samples[i] / range)) * (y1 - y0) / 2;
+        d += `${d ? "L" : "M"}${X.toFixed(1)},${Y.toFixed(1)}`;
+    }
+    svgNode("path", { class: cls, d }, g);
+}
+
+
+// ----------------------------------------------------------------------------
+// Ring modulation / AM:  output = carrier × modulator
+// ----------------------------------------------------------------------------
+//
+// Spectra are computed exactly from the product of cosines:
+//   cos(a)·cos(b) = ½cos(a+b) + ½cos(a−b)
+// so every carrier line at f gives two sidebands at f ± fm.
+
+// Frequency axis: the smallest of these ranges that shows every output line.
+const RING_RANGES = [1000, 2000, 4000, 6000];
+
+// Terms: A·cos(2π f t + φ). Merges equal frequencies, folds negative ones.
+function ringCollect(terms) {
+    const map = new Map();
+    for (let { f, A, phi } of terms) {
+        if (f < 0) { f = -f; phi = -phi; }
+        const key = Math.round(f * 1000);
+        const c = map.get(key) || { f, re: 0, im: 0 };
+        c.re += A * Math.cos(phi); c.im += A * Math.sin(phi);
+        map.set(key, c);
+    }
+    return [...map.values()]
+        .map(({ f, re, im }) => ({ f, A: Math.hypot(re, im), phi: Math.atan2(im, re) }))
+        .filter((t) => t.A > 1e-9)
+        .sort((a, b) => a.f - b.f);
+}
+
+function ringMultiply(as, bs) {
+    const out = [];
+    for (const a of as) for (const b of bs) {
+        out.push({ f: a.f + b.f, A: a.A * b.A / 2, phi: a.phi + b.phi });
+        out.push({ f: a.f - b.f, A: a.A * b.A / 2, phi: a.phi - b.phi });
+    }
+    return ringCollect(out);
+}
+
+// A cos term at f = 0 is a constant: its amplitude is A·cos(φ), counted once.
+function ringLines(terms) {
+    return terms.map((t) => ({ f: t.f, a: t.f === 0 ? Math.abs(t.A * Math.cos(t.phi)) : t.A }));
+}
+
+function ringEval(terms, t) {
+    let s = 0;
+    for (const { f, A, phi } of terms) s += A * Math.cos(2 * Math.PI * f * t + phi);
+    return s;
+}
+
+class RingMod {
+    constructor(placeholder) {
+        const d = placeholder.dataset;
+        this.mode = d.mode === "am" ? "am" : "ring";
+        this.fc = compNum(d.carrier, 400);
+        this.fm = compNum(d.modulator, 100);
+        this.depth = compNum(d.depth, 0.5);
+        this.harmonics = compNum(d.harmonics, 1);
+        this.visible = true;
+        this.player = new SynthPlayer();
+
+        this.W = 700; this.H = 415;
+        this.rowH = 112; this.rowY0 = 30;
+        this.wave = { x0: 110, x1: 380 };
+        this.spec = { x0: 410, x1: 690 };
+
+        this.element = document.createElement("div");
+        this.element.className = "compressor-widget modviz-widget";
+        this.svg = svgNode("svg", { class: "compressor-svg", viewBox: `0 0 ${this.W} ${this.H}` });
+        this.element.appendChild(this.svg);
+        this.createControls();
+        this.update();
+    }
+
+    onShow(placeholder) {
+        if (placeholder.dataset.mode && placeholder.dataset.mode !== this.mode) {
+            this.mode = placeholder.dataset.mode === "am" ? "am" : "ring";
+            this.modeSelect.value = this.mode;
+            this.update();
+        }
+    }
+
+    createControls() {
+        const c = document.createElement("div");
+        c.className = "compressor-controls";
+        this.modeSelect = makeSelect(c, "Mode",
+            [["ring", "Ring modulation: c × m"], ["am", "AM: c × (1 + d·m)"]],
+            this.mode, (v) => { this.mode = v; this.update(); }, [makeSoundButton(this)]);
+        makeSelect(c, "Carrier",
+            [["1", "Sine"], ["3", "3 harmonics"], ["5", "5 harmonics"]],
+            String(this.harmonics), (v) => { this.harmonics = +v; this.update(); });
+        makeSlider(c, { wide: true, label: "Carrier fc", min: 50, max: 1000, step: 10, value: this.fc,
+            fmt: (v) => `${v} Hz`, onInput: (v) => { this.fc = v; this.update(); } });
+        makeSlider(c, { wide: true, label: "Modulator fm", min: 1, max: 1000, step: 1, value: this.fm,
+            fmt: (v) => `${v} Hz`, onInput: (v) => { this.fm = v; this.update(); } });
+        this.depthRow = makeSlider(c, { wide: true, label: "Depth d", min: 0, max: 1, step: 0.05, value: this.depth,
+            fmt: (v) => fmtNum(v), onInput: (v) => { this.depth = v; this.update(); } });
+        this.code = document.createElement("pre");
+        this.code.className = "clipper-code";
+        c.appendChild(this.code);
+        this.element.appendChild(c);
+    }
+
+    terms() {
+        const carrier = [];
+        for (let h = 1; h <= this.harmonics; h++) carrier.push({ f: h * this.fc, A: 1 / h, phi: -Math.PI / 2 });
+        const mod = this.mode === "am"
+            ? [{ f: 0, A: 1, phi: 0 }, { f: this.fm, A: this.depth, phi: -Math.PI / 2 }]
+            : [{ f: this.fm, A: 1, phi: -Math.PI / 2 }];
+        return { carrier, mod, out: ringMultiply(carrier, mod) };
+    }
+
+    synthParams() {
+        const am = this.mode === "am";
+        return {
+            kind: "ring", key: "ring", fc: this.fc, fm: this.fm,
+            offset: am ? 1 : 0, depth: am ? this.depth : 1,
+            amps: [1, 2, 3, 4, 5].map((h) => (h <= this.harmonics ? 1 / h : 0)),
+            gain: listeningGain(this.signal),
+        };
+    }
+
+    faustCode() {
+        const { fc, fm, harmonics: H } = this;
+        let carrier = `os.osci(${fc})`;
+        for (let h = 2; h <= H; h++) carrier += ` + os.osci(${h * fc})/${h}`;
+        const lines = [];
+        let c = carrier;
+        if (H > 1) { lines.push(`carrier = ${carrier};`); c = "carrier"; }
+        lines.push(this.mode === "am"
+            ? `process = ${c} * (1 + ${fmtNum(this.depth)}*os.osci(${fm}));`
+            : `process = ${c} * os.osci(${fm});`);
+        return lines.join("\n");
+    }
+
+    update() {
+        this.depthRow.style.display = this.mode === "am" ? "" : "none";
+        this.code.textContent = this.faustCode();
+        const T = this.terms();
+        this.T = T;
+        const top = Math.max(...T.out.map((t) => t.f), ...T.carrier.map((t) => t.f));
+        this.maxHz = RING_RANGES.find((r) => r >= top * 1.05) || RING_RANGES[RING_RANGES.length - 1];
+        // 1 s of output for the sound (all frequencies are whole Hz: it loops).
+        const sig = new Float64Array(MOD_N);
+        for (let n = 0; n < MOD_N; n++) sig[n] = ringEval(T.out, n / MOD_FS);
+        this.signal = sig;
+        if (this.player.playing) this.player.update(this.synthParams());
+        this.draw();
+    }
+
+    draw() {
+        const svg = this.svg;
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        svgNode("rect", { class: "compressor-bg", x: 0, y: 0, width: this.W, height: this.H }, svg);
+        const T = this.T;
+        // Time window: about two modulator periods, within [5 ms, 200 ms].
+        const win = Math.min(0.2, Math.max(0.005, 2 / this.fm));
+        const n = 900;
+        const sample = (terms) => Array.from({ length: n }, (_, i) => ringEval(terms, i / (n - 1) * win));
+        const peak = (xs) => Math.max(1e-9, ...xs.map(Math.abs));
+        const rows = [
+            { name: "carrier", sym: "", terms: T.carrier, cls: "modviz-carrier" },
+            { name: this.mode === "am" ? "1 + d·m" : "modulator", sym: "×", terms: T.mod, cls: "modviz-mod" },
+            { name: "output", sym: "=", terms: T.out, cls: "modviz-out" },
+        ];
+        const cw = sample(T.carrier), mw = sample(T.mod);
+        rows.forEach((r, i) => {
+            const y0 = this.rowY0 + i * this.rowH, y1 = y0 + this.rowH - 30;
+            const g = svgNode("g", {}, svg);
+            svgNode("text", { x: 8, y: (y0 + y1) / 2 + 6, class: `modviz-row-label ${r.cls}` }, g, r.name);
+            if (r.sym) svgNode("text", { x: 60, y: y0 - 4, "text-anchor": "middle", class: "modviz-op" }, g, r.sym);
+            const wbox = { x0: this.wave.x0, x1: this.wave.x1, y0, y1 };
+            svgNode("rect", { class: "compressor-frame", x: wbox.x0, y: y0, width: wbox.x1 - wbox.x0, height: y1 - y0 }, g);
+            const w = sample(r.terms);
+            // Mod. waveforms (incl. AM's DC) share the same ±range as the output.
+            const range = i === 0 ? peak(w) : Math.max(peak(w), i === 2 ? peak(mw) * peak(cw) : 1);
+            svgNode("line", { class: "compressor-grid", x1: wbox.x0, x2: wbox.x1, y1: (y0 + y1) / 2, y2: (y0 + y1) / 2 }, g);
+            if (i === 2) {
+                // Envelope: the modulator, scaled by the carrier's peak.
+                const cp = peak(cw);
+                drawTrace(g, mw.map((v) => v * cp), wbox, range, "modviz-envelope");
+                drawTrace(g, mw.map((v) => -v * cp), wbox, range, "modviz-envelope");
+            }
+            drawTrace(g, w, wbox, range, `modviz-trace ${r.cls}`);
+            const sbox = { x0: this.spec.x0, x1: this.spec.x1, y0: y0 + 14, y1 };
+            const lines = ringLines(r.terms).map((l) => ({ ...l, cls: r.cls }));
+            if (i === 2) labelSpaced(lines, (sbox.x1 - sbox.x0) / this.maxHz, 34, (l) => fmtNum(l.a));
+            drawStems(g, lines, sbox, this.maxHz, { ticks: this.maxHz / 4, tickLabels: i === 2 });
+            if (i === 2) {
+                svgNode("text", { x: (wbox.x0 + wbox.x1) / 2, y: y1 + 42, "text-anchor": "middle", class: "compressor-axis" }, g, `time (${fmtNum(win * 1000, 1)} ms)`);
+                svgNode("text", { x: (sbox.x0 + sbox.x1) / 2, y: y1 + 42, "text-anchor": "middle", class: "compressor-axis" }, g, "frequency (Hz)");
+            }
+        });
+        // Sideband annotation on the output.
+        if (this.harmonics === 1 && this.fc - this.fm !== 0) {
+            const lo = Math.abs(this.fc - this.fm), hi = this.fc + this.fm;
+            svgNode("text", { x: this.spec.x1, y: this.rowY0 + 2 * this.rowH - 4, "text-anchor": "end", class: "modviz-note" }, svg,
+                `difference: ${lo} Hz,  sum: ${hi} Hz`);
+        }
+        svgNode("text", { x: this.wave.x0, y: 18, class: "compressor-value" }, svg, "waveform");
+        svgNode("text", { x: this.spec.x0, y: 18, class: "compressor-value" }, svg, "spectrum (amplitude)");
+    }
+}
+
+persistentWidget(".ringmod-placeholder", (p) => p.dataset.ringmodId, (p) => new RingMod(p));
+
+
+// ----------------------------------------------------------------------------
+// FM synthesis: operator graphs
+// ----------------------------------------------------------------------------
+//
+// Same model as the Faust code shown with the widget (true frequency modulation):
+//   op(r, dev)     = os.osci(r*f0 + dev);       // dev: frequency deviation (Hz)
+//   mod(r, I, dev) = r*f0*I * op(r, dev);       // modulator: deviation = I × its freq.
+// so for one sine modulator, the spectrum has sidebands at fc ± k·fm with
+// amplitudes |J_k(I)| (Bessel functions).
+
+const FM_F0 = 200;
+const FM_MAX_HZ = 4000;
+
+// Operators are listed in evaluation order (modulators before what they modulate).
+// `to`: the operator it modulates ("out" for carriers).
+const FM_PRESETS = {
+    simple: {
+        label: "1 modulator → carrier",
+        ops: [
+            { id: "M", ratio: 2, index: 3, to: "C", x: 125, y: 45 },
+            { id: "C", ratio: 1, to: "out", x: 125, y: 135 },
+        ],
+        code: (o) => `process = op(${o.C.r}, mod(${o.M.r}, ${o.M.i}, 0));`,
+    },
+    stack: {
+        label: "Stack: M2 → M1 → carrier",
+        ops: [
+            { id: "M2", ratio: 3, index: 1, to: "M1", x: 125, y: 28 },
+            { id: "M1", ratio: 1, index: 2, to: "C", x: 125, y: 98 },
+            { id: "C", ratio: 1, to: "out", x: 125, y: 168 },
+        ],
+        code: (o) => `process = op(${o.C.r}, mod(${o.M1.r}, ${o.M1.i}, mod(${o.M2.r}, ${o.M2.i}, 0)));`,
+    },
+    parallel: {
+        label: "Parallel: M1 + M2 → carrier",
+        ops: [
+            { id: "M1", ratio: 1, index: 2, to: "C", x: 88, y: 45 },
+            { id: "M2", ratio: 4, index: 1, to: "C", x: 162, y: 45 },
+            { id: "C", ratio: 1, to: "out", x: 125, y: 135 },
+        ],
+        code: (o) => `process = op(${o.C.r}, mod(${o.M1.r}, ${o.M1.i}, 0) + mod(${o.M2.r}, ${o.M2.i}, 0));`,
+    },
+    twocarriers: {
+        label: "1 modulator → 2 carriers",
+        ops: [
+            { id: "M", ratio: 1, index: 2, to: ["C1", "C2"], x: 125, y: 45 },
+            { id: "C1", ratio: 1, to: "out", x: 88, y: 135 },
+            { id: "C2", ratio: 3, to: "out", x: 162, y: 135 },
+        ],
+        code: (o) => `process = mod(${o.M.r}, ${o.M.i}, 0) <: op(${o.C1.r}), op(${o.C2.r}) :> /(2);`,
+    },
+    feedback: {
+        label: "Feedback: carrier → itself",
+        ops: [
+            { id: "C", ratio: 1, index: 1, feedback: true, to: "out", x: 110, y: 100 },
+        ],
+        // Feedback modulates the phase (as on the DX7): with frequency
+        // modulation, the oscillator would freeze at y = -1/β when β ≥ 1.
+        code: (o) => `// feedback: phase modulation by β·y[n-1] (DX7-style)\n` +
+            `fbop(r, pm) = sin(2*ma.PI*os.lf_sawpos(r*f0) + pm);\n` +
+            `process = fbop(${o.C.r}) ~ *(${o.C.i});`,
+    },
+};
+
+function fmTargets(op) { return op.to === "out" ? [] : [].concat(op.to); }
+
+function fmRun(ops) {
+    const N = MOD_N, out = new Float64Array(N);
+    const n = ops.length;
+    const freq = ops.map((o) => o.ratio * FM_F0);
+    const idx = new Map(ops.map((o, i) => [o.id, i]));
+    const phase = new Float64Array(n), y = new Float64Array(n), dev = new Float64Array(n);
+    const carriers = ops.filter((o) => o.to === "out").map((o) => idx.get(o.id));
+    const targets = ops.map((o) => fmTargets(o).map((t) => idx.get(t)));
+    for (let s = 0; s < N; s++) {
+        dev.fill(0);
+        for (let i = 0; i < n; i++) {
+            const o = ops[i];
+            phase[i] += (freq[i] + dev[i]) / MOD_FS;
+            phase[i] -= Math.floor(phase[i]);
+            // Feedback: phase modulation by the previous output sample y[n-1].
+            y[i] = Math.sin(2 * Math.PI * phase[i] + (o.feedback ? o.index * y[i] : 0));
+            if (!o.feedback) for (const t of targets[i]) dev[t] += o.index * freq[i] * y[i];
+        }
+        let sum = 0;
+        for (const c of carriers) sum += y[c];
+        out[s] = sum / carriers.length;
+    }
+    return out;
+}
+
+class FMSynth {
+    constructor(placeholder) {
+        this.visible = true;
+        this.player = new SynthPlayer();
+        // Per-preset parameter values, kept when switching presets.
+        this.values = {};
+        for (const [k, p] of Object.entries(FM_PRESETS)) this.values[k] = p.ops.map((o) => ({ ...o }));
+        const d = placeholder.dataset;
+        this.preset = FM_PRESETS[d.preset] ? d.preset : "simple";
+        if (d.index !== undefined && d.index !== "") {
+            for (const o of this.values[this.preset]) if (o.index !== undefined) o.index = compNum(d.index, o.index);
+        }
+
+        this.W = 700; this.H = 480;
+        this.graph = { x0: 0, x1: 250, y0: 0, y1: 230 };
+        this.wave = { x0: 280, x1: 690, y0: 20, y1: 200 };
+        this.spec = { x0: 40, x1: 690, y0: 300, y1: 430 };
+
+        this.element = document.createElement("div");
+        this.element.className = "compressor-widget modviz-widget";
+        this.svg = svgNode("svg", { class: "compressor-svg", viewBox: `0 0 ${this.W} ${this.H}` });
+        this.element.appendChild(this.svg);
+        this.controls = document.createElement("div");
+        this.controls.className = "compressor-controls";
+        this.element.appendChild(this.controls);
+        this.buildControls();
+        this.update();
+    }
+
+    onShow(placeholder) {
+        const p = placeholder.dataset.preset;
+        if (p && FM_PRESETS[p] && p !== this.preset) {
+            this.preset = p;
+            this.buildControls();
+            this.update();
+        }
+    }
+
+    get ops() { return this.values[this.preset]; }
+
+    buildControls() {
+        const c = this.controls;
+        c.replaceChildren();
+        makeSelect(c, "Graph",
+            Object.entries(FM_PRESETS).map(([k, p]) => [k, p.label]),
+            this.preset, (v) => { this.preset = v; this.buildControls(); this.update(); },
+            [makeSoundButton(this)]);
+        for (const o of this.ops) {
+            makeSlider(c, { label: `${o.id} ratio`, min: 0.5, max: 8, step: 0.05, value: o.ratio,
+                fmt: (v) => `×${fmtNum(v)}`, onInput: (v) => { o.ratio = v; this.update(); } });
+            if (o.index !== undefined) {
+                makeSlider(c, { label: o.feedback ? `${o.id} feedback β` : `${o.id} index I`,
+                    min: 0, max: o.feedback ? 2 : 10, step: o.feedback ? 0.05 : 0.1, value: o.index,
+                    fmt: (v) => fmtNum(v), onInput: (v) => { o.index = v; this.update(); } });
+            }
+        }
+        this.code = document.createElement("pre");
+        this.code.className = "clipper-code";
+        c.appendChild(this.code);
+    }
+
+    synthParams() {
+        const ids = this.ops.map((o) => o.id);
+        return {
+            kind: "fm", key: `fm-${this.preset}`, gain: listeningGain(this.signal),
+            ops: this.ops.map((o) => ({
+                freq: o.ratio * FM_F0, index: o.index ?? 0, feedback: !!o.feedback,
+                carrier: o.to === "out", targets: fmTargets(o).map((t) => ids.indexOf(t)),
+            })),
+        };
+    }
+
+    faustCode() {
+        const o = {};
+        for (const op of this.ops) o[op.id] = { r: fmtNum(op.ratio), i: fmtNum(op.index ?? 0) };
+        return [
+            `f0 = ${FM_F0};`,
+            "op(r, dev) = os.osci(r*f0 + dev);",
+            "mod(r, I, dev) = r*f0*I * op(r, dev);",
+            FM_PRESETS[this.preset].code(o),
+        ].join("\n");
+    }
+
+    update() {
+        this.code.textContent = this.faustCode();
+        this.signal = fmRun(this.ops);
+        this.spectrum = amplitudeSpectrum(this.signal, FM_MAX_HZ);
+        if (this.player.playing) this.player.update(this.synthParams());
+        this.draw();
+    }
+
+    draw() {
+        const svg = this.svg;
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        svgNode("rect", { class: "compressor-bg", x: 0, y: 0, width: this.W, height: this.H }, svg);
+        this.drawGraph();
+        this.drawWave();
+        this.drawSpectrum();
+    }
+
+    drawGraph() {
+        const g = svgNode("g", {}, this.svg);
+        const markerId = `fm-arrow-${Math.random().toString(36).slice(2)}`;
+        const defs = svgNode("defs", {}, g);
+        const marker = svgNode("marker", { id: markerId, viewBox: "0 0 10 10", refX: 9, refY: 5,
+            markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+        svgNode("path", { d: "M0,0 L10,5 L0,10 z", class: "modviz-arrowhead" }, marker);
+        const R = 24;
+        const pos = new Map(this.ops.map((o) => [o.id, o]));
+        const arrow = (x1, y1, x2, y2) => {
+            const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy);
+            svgNode("line", { class: "modviz-edge", x1: x1 + dx / L * R, y1: y1 + dy / L * R,
+                x2: x2 - dx / L * (R + 2), y2: y2 - dy / L * (R + 2), "marker-end": `url(#${markerId})` }, g);
+        };
+        const carriers = this.ops.filter((o) => o.to === "out");
+        const outX = 125, outY = Math.max(...carriers.map((o) => o.y)) + 62;
+        for (const o of this.ops) {
+            for (const t of fmTargets(o)) {
+                const p = pos.get(t);
+                arrow(o.x, o.y, p.x, p.y);
+                // Label next to the modulator, on the outer side of the arrow.
+                const mx = o.x + (p.x - o.x) * 0.45, my = o.y + (p.y - o.y) * 0.45;
+                const left = mx < 125;
+                const side = p.x === o.x ? (left ? -8 : 8) : (left ? -10 : 10);
+                svgNode("text", { x: mx + side, y: my + 5, "text-anchor": left ? "end" : "start", class: "modviz-edge-label" }, g, `I=${fmtNum(o.index, 1)}`);
+            }
+            if (o.to === "out") {
+                svgNode("line", { class: "modviz-edge", x1: o.x, y1: o.y + R, x2: outX, y2: outY - 12, "marker-end": `url(#${markerId})` }, g);
+            }
+            if (o.feedback) {
+                svgNode("path", { class: "modviz-edge", fill: "none",
+                    d: `M${o.x + R * 0.8},${o.y - R * 0.6} C${o.x + 80},${o.y - 70} ${o.x + 80},${o.y + 50} ${o.x + R},${o.y + 4}`,
+                    "marker-end": `url(#${markerId})` }, g);
+                svgNode("text", { x: o.x + 70, y: o.y - 40, class: "modviz-edge-label" }, g, `β=${fmtNum(o.index)}`);
+                svgNode("text", { x: o.x + 70, y: o.y + 50, class: "modviz-edge-label" }, g, "z⁻¹");
+            }
+        }
+        for (const o of this.ops) {
+            const isCarrier = o.to === "out";
+            svgNode("circle", { cx: o.x, cy: o.y, r: R, class: isCarrier ? "modviz-op-carrier" : "modviz-op-mod" }, g);
+            svgNode("text", { x: o.x, y: o.y + 6, "text-anchor": "middle", class: "modviz-op-label" }, g, o.id);
+            const hzLeft = o.x < 125 || o.feedback;
+            svgNode("text", { x: o.x + (hzLeft ? -R - 6 : R + 6), y: o.y + 5, "text-anchor": hzLeft ? "end" : "start", class: "compressor-tick" }, g,
+                `${fmtNum(o.ratio * FM_F0, 0)} Hz`);
+        }
+        svgNode("text", { x: outX, y: outY + 6, "text-anchor": "middle", class: "compressor-axis" }, g, carriers.length > 1 ? "out (sum)" : "out");
+    }
+
+    drawWave() {
+        const g = svgNode("g", {}, this.svg);
+        const b = this.wave;
+        svgNode("rect", { class: "compressor-frame", x: b.x0, y: b.y0, width: b.x1 - b.x0, height: b.y1 - b.y0 }, g);
+        svgNode("line", { class: "compressor-grid", x1: b.x0, x2: b.x1, y1: (b.y0 + b.y1) / 2, y2: (b.y0 + b.y1) / 2 }, g);
+        // Two periods of f0 (10 ms), taken after the start (feedback settles).
+        const start = MOD_FS / 2, len = Math.round(2 * MOD_FS / FM_F0);
+        drawTrace(g, Array.from(this.signal.subarray(start, start + len)), b, 1.05, "modviz-trace modviz-out");
+        svgNode("text", { x: (b.x0 + b.x1) / 2, y: b.y1 + 22, "text-anchor": "middle", class: "compressor-axis" }, g, "output, 2 periods of f0 (10 ms)");
+    }
+
+    drawSpectrum() {
+        const g = svgNode("g", {}, this.svg);
+        const b = this.spec;
+        const lines = [];
+        const carriers = this.ops.filter((o) => o.to === "out").map((o) => Math.round(o.ratio * FM_F0));
+        for (let f = 0; f <= FM_MAX_HZ; f++) {
+            const a = this.spectrum[f];
+            if (a > 0.004) lines.push({ f, a, cls: carriers.includes(f) ? "modviz-carrier" : "modviz-side" });
+        }
+        // Simple FM: label sideband orders k at fc + k·fm.
+        if (this.preset === "simple") {
+            const fc = Math.round(this.ops[1].ratio * FM_F0), fm = Math.round(this.ops[0].ratio * FM_F0);
+            for (const l of lines) {
+                const k = (l.f - fc) / fm;
+                if (Number.isInteger(k) && l.a > 0.03) l.label = k === 0 ? "fc" : (k > 0 ? `+${k}` : `${k}`);
+            }
+        }
+        drawStems(g, lines, b, FM_MAX_HZ, { ticks: 500, tickLabels: true });
+        for (const a of [0.5, 1]) {
+            const y = b.y1 - a * (b.y1 - b.y0);
+            svgNode("line", { class: "compressor-grid", x1: b.x0, x2: b.x1, y1: y, y2: y }, g);
+            svgNode("text", { x: b.x0 - 6, y: y + 5, "text-anchor": "end", class: "compressor-tick" }, g, `${a}`);
+        }
+        svgNode("text", { x: (b.x0 + b.x1) / 2, y: b.y1 + 42, "text-anchor": "middle", class: "compressor-axis" }, g, "frequency (Hz)");
+        let note = "spectrum (amplitude)";
+        if (this.preset === "simple") {
+            note += `: sidebands every ${fmtNum(this.ops[0].ratio * FM_F0, 0)} Hz (modulator) around ${fmtNum(this.ops[1].ratio * FM_F0, 0)} Hz (carrier)`;
+        }
+        svgNode("text", { x: b.x0, y: b.y0 - 22, class: "compressor-value" }, g, note);
+    }
+}
+
+persistentWidget(".fm-placeholder", (p) => p.dataset.fmId, (p) => new FMSynth(p));

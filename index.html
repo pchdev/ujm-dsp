@@ -354,7 +354,7 @@
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="ripple" id="ripple-642729" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-160149" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -378,7 +378,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-233504" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-905671" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -406,7 +406,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-901661" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-750891" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -435,7 +435,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-436063" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-601847" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -464,7 +464,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-899848" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-464146" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -495,7 +495,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-741309" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-900422" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -531,7 +531,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-935597" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-375501" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -3221,7 +3221,7 @@ process = os.sawtooth(220) : fi.lowpass(ORDER, cutoff);
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="d0ee26e7" class="cell" data-execution_count="1">
+<div id="b96aeb87" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -5012,24 +5012,27 @@ process = x
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/synthesis/additive.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50" data-filename="faust/examples/synthesis/additive.dsp" data-code-line-numbers="3-6|3-7|9-10|9-17|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb50-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50" data-filename="faust/examples/synthesis/additive.dsp" data-code-line-numbers="3-6|3-10|12-13|12-20|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb50-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb50-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb50-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Use the 'par' primitive, which allows to </span></span>
 <span id="cb50-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// programatically put signal expressions </span></span>
 <span id="cb50-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// in parallel.</span></span>
 <span id="cb50-6" class="hljs-ln-code"><a href="" aria-label="6"></a>sine8 <span class="op">=</span> <span class="fu">par</span>(n<span class="op">,</span> <span class="dv">8</span><span class="op">,</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">220</span><span class="op">*</span>(n<span class="op">+</span><span class="dv">1</span>)))<span class="op">;</span></span>
-<span id="cb50-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span> sine8 <span class="op">:&gt;</span> _ <span class="op">*</span> <span class="dv">1</span><span class="op">/</span><span class="dv">16</span> <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
-<span id="cb50-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
-<span id="cb50-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// OR we could list the frequencies that we want manually:</span></span>
-<span id="cb50-10" class="hljs-ln-code"><a href="" aria-label="10"></a>frequencies <span class="op">=</span> (<span class="dv">220</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">550</span><span class="op">,</span> <span class="dv">551</span><span class="op">,</span> <span class="dv">880</span><span class="op">,</span> <span class="dv">1200</span>)<span class="op">;</span></span>
+<span id="cb50-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb50-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="bu">process</span> <span class="op">=</span> sine8 <span class="op">:&gt;</span> _</span>
+<span id="cb50-9" class="hljs-ln-code"><a href="" aria-label="9"></a>        <span class="op">*</span> <span class="dv">1</span><span class="op">/</span><span class="dv">16</span></span>
+<span id="cb50-10" class="hljs-ln-code"><a href="" aria-label="10"></a>        <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
 <span id="cb50-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
-<span id="cb50-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// And connect to a parallel group of sine oscillators:</span></span>
-<span id="cb50-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span> frequencies </span>
-<span id="cb50-14" class="hljs-ln-code"><a href="" aria-label="14"></a>        <span class="op">:</span> <span class="fu">par</span>(i<span class="op">,</span> <span class="dv">6</span><span class="op">,</span> os<span class="op">.</span><span class="at">osci</span>) </span>
-<span id="cb50-15" class="hljs-ln-code"><a href="" aria-label="15"></a>        <span class="op">:&gt;</span> _ </span>
-<span id="cb50-16" class="hljs-ln-code"><a href="" aria-label="16"></a>        <span class="op">:</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">12</span><span class="sc">)</span><span class="ss"> </span></span>
-<span id="cb50-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="ss">        &lt;: _,_;</span></span>
-<span id="cb50-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb50-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// OR we could list the frequencies that we want manually:</span></span>
+<span id="cb50-13" class="hljs-ln-code"><a href="" aria-label="13"></a>frequencies <span class="op">=</span> (<span class="dv">220</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">550</span><span class="op">,</span> <span class="dv">551</span><span class="op">,</span> <span class="dv">880</span><span class="op">,</span> <span class="dv">1200</span>)<span class="op">;</span></span>
+<span id="cb50-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span>
+<span id="cb50-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="co">// And connect to a parallel group of sine oscillators:</span></span>
+<span id="cb50-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="bu">process</span> <span class="op">=</span> frequencies </span>
+<span id="cb50-17" class="hljs-ln-code"><a href="" aria-label="17"></a>        <span class="op">:</span> <span class="fu">par</span>(i<span class="op">,</span> <span class="dv">6</span><span class="op">,</span> os<span class="op">.</span><span class="at">osci</span>) </span>
+<span id="cb50-18" class="hljs-ln-code"><a href="" aria-label="18"></a>        <span class="op">:&gt;</span> _ </span>
+<span id="cb50-19" class="hljs-ln-code"><a href="" aria-label="19"></a>        <span class="op">:</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">12</span><span class="sc">)</span><span class="ss"> </span></span>
+<span id="cb50-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="ss">        &lt;: _,_;</span></span>
+<span id="cb50-21" class="hljs-ln-code"><a href="" aria-label="21"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -5046,7 +5049,10 @@ import("stdfaust.lib");
 // programatically put signal expressions 
 // in parallel.
 sine8 = par(n, 8, os.osci(220*(n+1)));
-process = sine8 :> _ * 1/16 <: _,_;
+
+process = sine8 :> _
+        * 1/16
+        <: _,_;
 
 // OR we could list the frequencies that we want manually:
 frequencies = (220, 440, 550, 551, 880, 1200);
@@ -5057,6 +5063,7 @@ process = frequencies
         :> _ 
         : /(12) 
         <: _,_;
+
 -->
 </faust-editor>
 
@@ -5317,7 +5324,7 @@ process = par(n, 3, voice(n, freq(n)) * gain(n))
 <span id="cb53-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
 <span id="cb53-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="bu">process</span> <span class="op">=</span> <span class="fu">minimal_fm</span>(<span class="dv">440</span><span class="op">,</span> <span class="dv">20</span>)<span class="op">;</span></span>
 <span id="cb53-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
-<span id="cb53-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// But it's better to use the one in the library:</span></span>
+<span id="cb53-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// There's also the one in the library:</span></span>
 <span id="cb53-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="bu">process</span> <span class="op">=</span> sy<span class="op">.</span><span class="fu">fm</span>((<span class="dv">440</span><span class="op">,</span> <span class="dv">500</span><span class="op">,</span> <span class="dv">800</span>)<span class="op">,</span> (<span class="dv">500</span><span class="op">,</span> <span class="dv">400</span>)) <span class="op">*</span> <span class="fl">0.25</span> <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
 <span id="cb53-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -5339,8 +5346,9 @@ minimal_fm(f,m) = os.osci(
 
 process = minimal_fm(440, 20);
 
-// But it's better to use the one in the library:
+// There's also the one in the library:
 process = sy.fm((440, 500, 800), (500, 400)) * 0.25 <: _,_;
+
 -->
 </faust-editor>
 
@@ -5349,6 +5357,84 @@ process = sy.fm((440, 500, 800), (500, 400)) * 0.25 <: _,_;
 
 </div>
 
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 85%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>Frequency-modulation</strong> (<strong><em>FM</em></strong>) <strong>synthesis</strong> is another well-known synthesis method, which implies <em>inter-modulated oscillator graphs</em>.</li>
+</ul>
+</div>
+<ul>
+<li>In <strong>FM</strong>, the modulator makes the carrier’s <strong>frequency</strong> go up and down, very fast (at audio rate).</li>
+<li>The <strong>index</strong> sets <em>how far</em> the frequency moves: the higher the index, the <strong>brighter</strong> the sound.</li>
+<li>This creates new frequencies around the carrier, called <strong>sidebands</strong>, evenly spaced by the modulator’s frequency.</li>
+<li>When the modulator and carrier frequencies are in a <strong>simple ratio</strong> (×1, ×2, ×3…), the sidebands fall on harmonics: <strong>harmonic</strong> sound. Otherwise: <strong>inharmonic</strong> (bells, metallic sounds).</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="content" style="padding-left: 5%; width: 110%;">
+<div class="fm-placeholder" data-fm-id="default" data-preset="simple"></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 85%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>Frequency-modulation</strong> (<strong><em>FM</em></strong>) <strong>synthesis</strong> is another well-known synthesis method, which implies <em>inter-modulated oscillator graphs</em>.</li>
+</ul>
+</div>
+<ul>
+<li>Each oscillator is called an <strong>operator</strong>: it can be a <strong>carrier</strong> (heard) or a <strong>modulator</strong> (modulates another operator).</li>
+<li>Operators can be combined in <strong>graphs</strong> (called <em>algorithms</em> on the Yamaha <strong>DX7</strong>):
+<ul>
+<li><strong>stacks</strong> (a modulator modulating a modulator),</li>
+<li><strong>parallel</strong> modulators,</li>
+<li>one modulator shared by <strong>several carriers</strong>,</li>
+<li><strong>feedback</strong> (an operator modulating itself, with <code>~</code> in Faust!).</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="content" style="padding-left: 5%; width: 110%;">
+<div class="fm-placeholder" data-fm-id="default" data-preset="stack"></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12-6" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 85%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>Frequency-modulation</strong> (<strong><em>FM</em></strong>) <strong>synthesis</strong> is another well-known synthesis method, which implies <em>inter-modulated oscillator graphs</em>.</li>
+</ul>
+</div>
+<ul>
+<li><strong>Ring modulation</strong> (<em>multiplying</em> two signals, see <em>Faust: Basics</em>) also creates sidebands, but only <strong>two</strong>: at the <strong>sum</strong> and at the <strong>difference</strong> of the two frequencies. The carrier itself <strong>disappears</strong>.</li>
+<li>In <strong>AM</strong>, the modulator has an <em>offset</em>: the carrier <strong>stays</strong>, with its two sidebands.</li>
+<li>With a <em>rich</em> carrier, <strong>every harmonic</strong> gets its own pair of sidebands: the result is usually <strong>inharmonic</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="content" style="padding-left: 5%; width: 110%;">
+<div class="ringmod-placeholder" data-ringmod-id="default"></div>
+</div>
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
@@ -5558,8 +5644,102 @@ vocal = pm.SFFormantModelBP_ui;
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/synthesis/granular.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56" data-filename="faust/examples/synthesis/granular.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb56-1" class="hljs-ln-code"><a href="" aria-label="1"></a></span>
-<span id="cb56-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56" data-filename="faust/examples/synthesis/granular.dsp" data-code-line-numbers="|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb56-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<span id="cb56-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb56-3" class="hljs-ln-code"><a href="" aria-label="3"></a>declare author <span class="st">"Andrzej Ojczenasz"</span><span class="op">;</span></span>
+<span id="cb56-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// DIGICREA (1) 2025-2026</span></span>
+<span id="cb56-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// https://github.com/ojczeo/faust-granular-freezer</span></span>
+<span id="cb56-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb56-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// buffer size in samples (10 seconds at 48kHz)</span></span>
+<span id="cb56-8" class="hljs-ln-code"><a href="" aria-label="8"></a>BUFFER_SIZE <span class="op">=</span> <span class="dv">480000</span><span class="op">;</span> <span class="co">// 10 seconds</span></span>
+<span id="cb56-9" class="hljs-ln-code"><a href="" aria-label="9"></a></span>
+<span id="cb56-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="co">// maximum voices count</span></span>
+<span id="cb56-11" class="hljs-ln-code"><a href="" aria-label="11"></a>MAX_VOICES <span class="op">=</span> <span class="dv">16</span><span class="op">;</span> </span>
+<span id="cb56-12" class="hljs-ln-code"><a href="" aria-label="12"></a></span>
+<span id="cb56-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// voices scaling [to prevent clipping when all voices are active.]</span></span>
+<span id="cb56-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="co">// 0.25 is a safe value; with 16 voices it will be loud but clean.</span></span>
+<span id="cb56-15" class="hljs-ln-code"><a href="" aria-label="15"></a>VOICE_SCALE <span class="op">=</span> <span class="fl">0.25</span><span class="op">;</span></span>
+<span id="cb56-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span>
+<span id="cb56-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="co">// processing with ordered UI grouped for consistent layout</span></span>
+<span id="cb56-18" class="hljs-ln-code"><a href="" aria-label="18"></a><span class="bu">process</span>(<span class="kw">in</span>) <span class="op">=</span> <span class="fu">vgroup</span>(<span class="st">"Granular Freeze Processor"</span><span class="op">,</span> outL<span class="op">,</span> outR)</span>
+<span id="cb56-19" class="hljs-ln-code"><a href="" aria-label="19"></a><span class="cf">with</span> {</span>
+<span id="cb56-20" class="hljs-ln-code"><a href="" aria-label="20"></a>    <span class="co">// Controls in desired order</span></span>
+<span id="cb56-21" class="hljs-ln-code"><a href="" aria-label="21"></a>    <span class="co">// master volume control</span></span>
+<span id="cb56-22" class="hljs-ln-code"><a href="" aria-label="22"></a>    master_gain <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"01 Master Vol [unit:dB]"</span><span class="op">,</span> <span class="op">-</span><span class="dv">3</span><span class="op">,</span> <span class="op">-</span><span class="dv">60</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="fl">0.1</span>) <span class="op">:</span> ba<span class="op">.</span><span class="at">db2linear</span><span class="op">;</span> </span>
+<span id="cb56-23" class="hljs-ln-code"><a href="" aria-label="23"></a>    <span class="co">// default random; toggle on to force fixed position mode</span></span>
+<span id="cb56-24" class="hljs-ln-code"><a href="" aria-label="24"></a>    position_mode_fixed <span class="op">=</span> <span class="fu">checkbox</span>(<span class="st">"02 Fixed Position"</span>)<span class="op">;</span> </span>
+<span id="cb56-25" class="hljs-ln-code"><a href="" aria-label="25"></a>    <span class="co">// deterministic buffer position (0..1)</span></span>
+<span id="cb56-26" class="hljs-ln-code"><a href="" aria-label="26"></a>    position_frac <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"03 Position"</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.001</span>)<span class="op">;</span> </span>
+<span id="cb56-27" class="hljs-ln-code"><a href="" aria-label="27"></a>    <span class="co">// grain size in milliseconds</span></span>
+<span id="cb56-28" class="hljs-ln-code"><a href="" aria-label="28"></a>    grain_size_ms <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"04 Grain Size [unit:ms]"</span><span class="op">,</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">500</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb56-29" class="hljs-ln-code"><a href="" aria-label="29"></a>    <span class="co">// random spread range (used only in random mode)</span></span>
+<span id="cb56-30" class="hljs-ln-code"><a href="" aria-label="30"></a>    spread_amount <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"05 Spread"</span><span class="op">,</span> <span class="fl">0.1</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="fl">0.001</span>)<span class="op">;</span> </span>
+<span id="cb56-31" class="hljs-ln-code"><a href="" aria-label="31"></a>    <span class="co">// number of active voices</span></span>
+<span id="cb56-32" class="hljs-ln-code"><a href="" aria-label="32"></a>    active_voices_count <span class="op">=</span> <span class="fu">hslider</span>(<span class="st">"06 Voices"</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> MAX_VOICES<span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb56-33" class="hljs-ln-code"><a href="" aria-label="33"></a>    <span class="co">// update buffer button</span></span>
+<span id="cb56-34" class="hljs-ln-code"><a href="" aria-label="34"></a>    update_btn  <span class="op">=</span> <span class="fu">button</span>(<span class="st">"07 Update Buffer"</span>)<span class="op">;</span></span>
+<span id="cb56-35" class="hljs-ln-code"><a href="" aria-label="35"></a>    <span class="co">// play on/off</span></span>
+<span id="cb56-36" class="hljs-ln-code"><a href="" aria-label="36"></a>    play_active <span class="op">=</span> <span class="fu">checkbox</span>(<span class="st">"08 Play [style:led]"</span>)<span class="op">;</span></span>
+<span id="cb56-37" class="hljs-ln-code"><a href="" aria-label="37"></a></span>
+<span id="cb56-38" class="hljs-ln-code"><a href="" aria-label="38"></a>    <span class="co">// Grain size calculations</span></span>
+<span id="cb56-39" class="hljs-ln-code"><a href="" aria-label="39"></a>    <span class="co">// grain rate base frequency</span></span>
+<span id="cb56-40" class="hljs-ln-code"><a href="" aria-label="40"></a>    grain_freq_base <span class="op">=</span> <span class="fl">1000.0</span> <span class="op">/</span> grain_size_ms<span class="op">;</span></span>
+<span id="cb56-41" class="hljs-ln-code"><a href="" aria-label="41"></a>    <span class="co">// grain length in samples</span></span>
+<span id="cb56-42" class="hljs-ln-code"><a href="" aria-label="42"></a>    grain_len_samples <span class="op">=</span> (grain_size_ms <span class="op">/</span> <span class="fl">1000.0</span>) <span class="op">*</span> ma<span class="op">.</span><span class="at">SR</span><span class="op">;</span></span>
+<span id="cb56-43" class="hljs-ln-code"><a href="" aria-label="43"></a></span>
+<span id="cb56-44" class="hljs-ln-code"><a href="" aria-label="44"></a>    <span class="co">// Update buffer only while "Update Buffer" is clicked</span></span>
+<span id="cb56-45" class="hljs-ln-code"><a href="" aria-label="45"></a>    <span class="co">// writing to buffer</span></span>
+<span id="cb56-46" class="hljs-ln-code"><a href="" aria-label="46"></a>    run <span class="op">=</span> <span class="fu">int</span>(update_btn)<span class="op">;</span></span>
+<span id="cb56-47" class="hljs-ln-code"><a href="" aria-label="47"></a>    <span class="co">// Buffer write index</span></span>
+<span id="cb56-48" class="hljs-ln-code"><a href="" aria-label="48"></a>    w_idx <span class="op">=</span> (<span class="op">+</span>(run) <span class="op">:</span> <span class="op">%</span>(BUFFER_SIZE)) <span class="op">~</span> _<span class="op">;</span></span>
+<span id="cb56-49" class="hljs-ln-code"><a href="" aria-label="49"></a></span>
+<span id="cb56-50" class="hljs-ln-code"><a href="" aria-label="50"></a>    <span class="co">// Shared buffer for all voices</span></span>
+<span id="cb56-51" class="hljs-ln-code"><a href="" aria-label="51"></a>    <span class="fu">shared_buffer</span>(in_sig<span class="op">,</span> r_idx) <span class="op">=</span> <span class="fu">rwtable</span>(BUFFER_SIZE<span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> w_idx<span class="op">,</span> in_sig<span class="op">,</span> r_idx)<span class="op">;</span></span>
+<span id="cb56-52" class="hljs-ln-code"><a href="" aria-label="52"></a></span>
+<span id="cb56-53" class="hljs-ln-code"><a href="" aria-label="53"></a>    <span class="co">// Voices logic</span></span>
+<span id="cb56-54" class="hljs-ln-code"><a href="" aria-label="54"></a>    <span class="fu">granular_voice</span>(in_sig<span class="op">,</span> rate_mod<span class="op">,</span> voice_id) <span class="op">=</span> output</span>
+<span id="cb56-55" class="hljs-ln-code"><a href="" aria-label="55"></a>    <span class="cf">with</span> {</span>
+<span id="cb56-56" class="hljs-ln-code"><a href="" aria-label="56"></a>        <span class="co">// Per-voice phasor; wrap triggers grains</span></span>
+<span id="cb56-57" class="hljs-ln-code"><a href="" aria-label="57"></a>        local_freq <span class="op">=</span> grain_freq_base <span class="op">*</span> rate_mod<span class="op">;</span></span>
+<span id="cb56-58" class="hljs-ln-code"><a href="" aria-label="58"></a>        phase_offset <span class="op">=</span> voice_id <span class="op">*</span> <span class="fl">0.137</span><span class="op">;</span> </span>
+<span id="cb56-59" class="hljs-ln-code"><a href="" aria-label="59"></a>        phase <span class="op">=</span> (os<span class="op">.</span><span class="fu">phasor</span>(<span class="fl">1.0</span><span class="op">,</span> local_freq) <span class="op">+</span> phase_offset) <span class="op">:</span> ma<span class="op">.</span><span class="at">decimal</span><span class="op">;</span></span>
+<span id="cb56-60" class="hljs-ln-code"><a href="" aria-label="60"></a>        trig <span class="op">=</span> phase <span class="op">&lt;</span> phase<span class="st">';</span></span>
+<span id="cb56-61" class="hljs-ln-code"><a href="" aria-label="61"></a></span>
+<span id="cb56-62" class="hljs-ln-code"><a href="" aria-label="62"></a>        <span class="co">// Sample random position per grain</span></span>
+<span id="cb56-63" class="hljs-ln-code"><a href="" aria-label="63"></a>        rand_pos_val <span class="op">=</span> no<span class="op">.</span><span class="at">noise</span> <span class="op">:</span> ba<span class="op">.</span><span class="fu">latch</span>(trig) <span class="op">:</span> abs<span class="op">;</span></span>
+<span id="cb56-64" class="hljs-ln-code"><a href="" aria-label="64"></a></span>
+<span id="cb56-65" class="hljs-ln-code"><a href="" aria-label="65"></a>        <span class="co">// Voice slots (for toggling voices on/off when count changes)</span></span>
+<span id="cb56-66" class="hljs-ln-code"><a href="" aria-label="66"></a>        voice_slot <span class="op">=</span> voice_id <span class="op">%</span> MAX_VOICES<span class="op">;</span></span>
+<span id="cb56-67" class="hljs-ln-code"><a href="" aria-label="67"></a>        should_play <span class="op">=</span> (voice_slot <span class="op">&lt;</span> active_voices_count) <span class="op">:</span> si<span class="op">.</span><span class="at">smoo</span><span class="op">;</span></span>
+<span id="cb56-68" class="hljs-ln-code"><a href="" aria-label="68"></a></span>
+<span id="cb56-69" class="hljs-ln-code"><a href="" aria-label="69"></a>        <span class="co">// Position calculations (based on mode: fixed or random)</span></span>
+<span id="cb56-70" class="hljs-ln-code"><a href="" aria-label="70"></a>        voice_shift <span class="op">=</span> voice_slot <span class="op">*</span> <span class="dv">900</span><span class="op">;</span> </span>
+<span id="cb56-71" class="hljs-ln-code"><a href="" aria-label="71"></a>        fixed_offset <span class="op">=</span> position_frac <span class="op">*</span> (BUFFER_SIZE <span class="op">-</span> grain_len_samples <span class="op">-</span> <span class="dv">2000</span>)<span class="op">;</span></span>
+<span id="cb56-72" class="hljs-ln-code"><a href="" aria-label="72"></a>        random_offset <span class="op">=</span> rand_pos_val <span class="op">*</span> spread_amount <span class="op">*</span> (BUFFER_SIZE <span class="op">-</span> grain_len_samples <span class="op">-</span> <span class="dv">2000</span>)<span class="op">;</span></span>
+<span id="cb56-73" class="hljs-ln-code"><a href="" aria-label="73"></a>        offset_samples <span class="op">=</span> <span class="fu">int</span>(<span class="fu">select2</span>(position_mode_fixed<span class="op">,</span> random_offset<span class="op">,</span> fixed_offset)) <span class="op">+</span> voice_shift<span class="op">;</span></span>
+<span id="cb56-74" class="hljs-ln-code"><a href="" aria-label="74"></a></span>
+<span id="cb56-75" class="hljs-ln-code"><a href="" aria-label="75"></a>        <span class="co">// Buffer: read position calculations</span></span>
+<span id="cb56-76" class="hljs-ln-code"><a href="" aria-label="76"></a>        grain_start_pos <span class="op">=</span> ba<span class="op">.</span><span class="fu">latch</span>(trig<span class="op">,</span> w_idx)<span class="op">;</span></span>
+<span id="cb56-77" class="hljs-ln-code"><a href="" aria-label="77"></a>        read_ptr_raw <span class="op">=</span> grain_start_pos <span class="op">-</span> offset_samples <span class="op">+</span> (phase <span class="op">*</span> grain_len_samples)<span class="op">;</span></span>
+<span id="cb56-78" class="hljs-ln-code"><a href="" aria-label="78"></a>        my_r_idx <span class="op">=</span> (<span class="fu">int</span>(read_ptr_raw) <span class="op">+</span> BUFFER_SIZE) <span class="op">%</span> BUFFER_SIZE<span class="op">;</span></span>
+<span id="cb56-79" class="hljs-ln-code"><a href="" aria-label="79"></a>        </span>
+<span id="cb56-80" class="hljs-ln-code"><a href="" aria-label="80"></a>        <span class="co">// Windowed grain output</span></span>
+<span id="cb56-81" class="hljs-ln-code"><a href="" aria-label="81"></a>        <span class="bu">window</span> <span class="op">=</span> <span class="fu">sin</span>(phase <span class="op">*</span> ma<span class="op">.</span><span class="at">PI</span>)<span class="op">;</span></span>
+<span id="cb56-82" class="hljs-ln-code"><a href="" aria-label="82"></a>        output <span class="op">=</span> <span class="fu">shared_buffer</span>(in_sig<span class="op">,</span> my_r_idx) <span class="op">*</span> <span class="bu">window</span> <span class="op">*</span> should_play<span class="op">;</span></span>
+<span id="cb56-83" class="hljs-ln-code"><a href="" aria-label="83"></a>    }<span class="op">;</span></span>
+<span id="cb56-84" class="hljs-ln-code"><a href="" aria-label="84"></a></span>
+<span id="cb56-85" class="hljs-ln-code"><a href="" aria-label="85"></a>    <span class="co">// smooth play on/off</span></span>
+<span id="cb56-86" class="hljs-ln-code"><a href="" aria-label="86"></a>    play_env <span class="op">=</span> <span class="dt">play_active</span> <span class="op">:</span> si<span class="op">.</span><span class="at">smoo</span><span class="op">;</span></span>
+<span id="cb56-87" class="hljs-ln-code"><a href="" aria-label="87"></a></span>
+<span id="cb56-88" class="hljs-ln-code"><a href="" aria-label="88"></a>    <span class="co">// Stereo output from two banks of voices read at slightly different rates hack</span></span>
+<span id="cb56-89" class="hljs-ln-code"><a href="" aria-label="89"></a>    bankA <span class="op">=</span> (<span class="fu">par</span>(i<span class="op">,</span> MAX_VOICES<span class="op">,</span> <span class="fu">granular_voice</span>(<span class="kw">in</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> i)) <span class="op">:&gt;</span> _) <span class="op">*</span> VOICE_SCALE <span class="op">*</span> master_gain<span class="op">;</span></span>
+<span id="cb56-90" class="hljs-ln-code"><a href="" aria-label="90"></a>    bankB <span class="op">=</span> (<span class="fu">par</span>(i<span class="op">,</span> MAX_VOICES<span class="op">,</span> <span class="fu">granular_voice</span>(<span class="kw">in</span><span class="op">,</span> <span class="fl">1.03</span><span class="op">,</span> i <span class="op">+</span> MAX_VOICES)) <span class="op">:&gt;</span> _) <span class="op">*</span> VOICE_SCALE <span class="op">*</span> master_gain<span class="op">;</span></span>
+<span id="cb56-91" class="hljs-ln-code"><a href="" aria-label="91"></a>    </span>
+<span id="cb56-92" class="hljs-ln-code"><a href="" aria-label="92"></a>    <span class="co">// Final output with play control</span></span>
+<span id="cb56-93" class="hljs-ln-code"><a href="" aria-label="93"></a>    outL <span class="op">=</span> bankA <span class="op">*</span> play_env<span class="op">;</span></span>
+<span id="cb56-94" class="hljs-ln-code"><a href="" aria-label="94"></a>    outR <span class="op">=</span> bankB <span class="op">*</span> play_env<span class="op">;</span></span>
+<span id="cb56-95" class="hljs-ln-code"><a href="" aria-label="95"></a>}<span class="op">;</span></span>
+<span id="cb56-96" class="hljs-ln-code"><a href="" aria-label="96"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -5570,6 +5750,101 @@ vocal = pm.SFFormantModelBP_ui;
 
 <faust-editor>
 <!--
+import("stdfaust.lib");
+
+declare author "Andrzej Ojczenasz";
+// DIGICREA (1) 2025-2026
+// https://github.com/ojczeo/faust-granular-freezer
+
+// buffer size in samples (10 seconds at 48kHz)
+BUFFER_SIZE = 480000; // 10 seconds
+
+// maximum voices count
+MAX_VOICES = 16; 
+
+// voices scaling [to prevent clipping when all voices are active.]
+// 0.25 is a safe value; with 16 voices it will be loud but clean.
+VOICE_SCALE = 0.25;
+
+// processing with ordered UI grouped for consistent layout
+process(in) = vgroup("Granular Freeze Processor", outL, outR)
+with {
+    // Controls in desired order
+    // master volume control
+    master_gain = hslider("01 Master Vol [unit:dB]", -3, -60, 10, 0.1) : ba.db2linear; 
+    // default random; toggle on to force fixed position mode
+    position_mode_fixed = checkbox("02 Fixed Position"); 
+    // deterministic buffer position (0..1)
+    position_frac = hslider("03 Position", 0.5, 0, 1, 0.001); 
+    // grain size in milliseconds
+    grain_size_ms = hslider("04 Grain Size [unit:ms]", 100, 10, 500, 1);
+    // random spread range (used only in random mode)
+    spread_amount = hslider("05 Spread", 0.1, 0.0, 1, 0.001); 
+    // number of active voices
+    active_voices_count = hslider("06 Voices", 8, 1, MAX_VOICES, 1);
+    // update buffer button
+    update_btn  = button("07 Update Buffer");
+    // play on/off
+    play_active = checkbox("08 Play [style:led]");
+
+    // Grain size calculations
+    // grain rate base frequency
+    grain_freq_base = 1000.0 / grain_size_ms;
+    // grain length in samples
+    grain_len_samples = (grain_size_ms / 1000.0) * ma.SR;
+
+    // Update buffer only while "Update Buffer" is clicked
+    // writing to buffer
+    run = int(update_btn);
+    // Buffer write index
+    w_idx = (+(run) : %(BUFFER_SIZE)) ~ _;
+
+    // Shared buffer for all voices
+    shared_buffer(in_sig, r_idx) = rwtable(BUFFER_SIZE, 0.0, w_idx, in_sig, r_idx);
+
+    // Voices logic
+    granular_voice(in_sig, rate_mod, voice_id) = output
+    with {
+        // Per-voice phasor; wrap triggers grains
+        local_freq = grain_freq_base * rate_mod;
+        phase_offset = voice_id * 0.137; 
+        phase = (os.phasor(1.0, local_freq) + phase_offset) : ma.decimal;
+        trig = phase < phase';
+
+        // Sample random position per grain
+        rand_pos_val = no.noise : ba.latch(trig) : abs;
+
+        // Voice slots (for toggling voices on/off when count changes)
+        voice_slot = voice_id % MAX_VOICES;
+        should_play = (voice_slot < active_voices_count) : si.smoo;
+
+        // Position calculations (based on mode: fixed or random)
+        voice_shift = voice_slot * 900; 
+        fixed_offset = position_frac * (BUFFER_SIZE - grain_len_samples - 2000);
+        random_offset = rand_pos_val * spread_amount * (BUFFER_SIZE - grain_len_samples - 2000);
+        offset_samples = int(select2(position_mode_fixed, random_offset, fixed_offset)) + voice_shift;
+
+        // Buffer: read position calculations
+        grain_start_pos = ba.latch(trig, w_idx);
+        read_ptr_raw = grain_start_pos - offset_samples + (phase * grain_len_samples);
+        my_r_idx = (int(read_ptr_raw) + BUFFER_SIZE) % BUFFER_SIZE;
+        
+        // Windowed grain output
+        window = sin(phase * ma.PI);
+        output = shared_buffer(in_sig, my_r_idx) * window * should_play;
+    };
+
+    // smooth play on/off
+    play_env = play_active : si.smoo;
+
+    // Stereo output from two banks of voices read at slightly different rates hack
+    bankA = (par(i, MAX_VOICES, granular_voice(in, 1.0, i)) :> _) * VOICE_SCALE * master_gain;
+    bankB = (par(i, MAX_VOICES, granular_voice(in, 1.03, i + MAX_VOICES)) :> _) * VOICE_SCALE * master_gain;
+    
+    // Final output with play control
+    outL = bankA * play_env;
+    outR = bankB * play_env;
+};
 
 -->
 </faust-editor>
@@ -7077,7 +7352,7 @@ declare options "[http:on]";
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="19d9d2b7" class="cell" data-execution_count="2">
+<div id="cff7218a" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>

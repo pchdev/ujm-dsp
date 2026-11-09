@@ -530,3 +530,37 @@
   border-radius: 4px;
   box-shadow: none;
 }
+
+/* ------------------------------------------------------------------------ */
+/* Modulation widgets (ring modulation, FM)                                 */
+/* ------------------------------------------------------------------------ */
+
+.modviz-widget { --mod-carrier: #268bd2; --mod-mod: #859900; --mod-out: #d33682; }
+.modviz-trace { fill: none; stroke-width: 1.8; stroke-linejoin: round; }
+.modviz-trace.modviz-carrier { stroke: var(--mod-carrier); }
+.modviz-trace.modviz-mod { stroke: var(--mod-mod); }
+.modviz-trace.modviz-out { stroke: var(--mod-out); }
+.modviz-envelope { fill: none; stroke: var(--mod-mod); stroke-width: 1.2; stroke-dasharray: 4 3; opacity: 0.8; }
+
+.modviz-stem { stroke-width: 3; }
+.modviz-stem.modviz-carrier, .modviz-stem-head.modviz-carrier { stroke: var(--mod-carrier); fill: var(--mod-carrier); }
+.modviz-stem.modviz-mod, .modviz-stem-head.modviz-mod { stroke: var(--mod-mod); fill: var(--mod-mod); }
+.modviz-stem.modviz-out, .modviz-stem-head.modviz-out,
+.modviz-stem.modviz-side, .modviz-stem-head.modviz-side { stroke: var(--mod-out); fill: var(--mod-out); }
+.compressor-svg text.modviz-stem-label { font-size: 13px; }
+
+.compressor-svg text.modviz-row-label { font-size: 17px; font-weight: bold; }
+.compressor-svg text.modviz-row-label.modviz-carrier { fill: var(--mod-carrier); }
+.compressor-svg text.modviz-row-label.modviz-mod { fill: var(--mod-mod); }
+.compressor-svg text.modviz-row-label.modviz-out { fill: var(--mod-out); }
+.compressor-svg text.modviz-op { font-size: 26px; font-weight: bold; }
+.compressor-svg text.modviz-note { font-size: 14px; fill: var(--mod-out); }
+
+.modviz-edge { stroke: var(--comp-fg); stroke-width: 2; }
+.modviz-arrowhead { fill: var(--comp-fg); }
+.modviz-op-carrier { fill: var(--mod-carrier); }
+.modviz-op-mod { fill: var(--mod-mod); }
+.compressor-svg text.modviz-op-label { font-size: 17px; font-weight: bold; fill: #fdf6e3; }
+.compressor-svg text.modviz-edge-label { font-size: 15px; }
+.modviz-slider-row { grid-template-columns: 6.5em minmax(0, 1fr) 3em; }
+.modviz-slider-row.modviz-wide { grid-column: 1 / -1; grid-template-columns: 7.5em minmax(0, 1fr) 4.5em; }

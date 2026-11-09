@@ -354,7 +354,7 @@
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="ripple" id="ripple-123064" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-151391" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -378,7 +378,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-488568" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-413047" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -406,7 +406,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-837436" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-611284" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -435,7 +435,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-169327" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-574743" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -464,7 +464,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-988195" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-412235" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -495,7 +495,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-396510" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-450938" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -531,7 +531,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-665997" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-273604" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -3221,7 +3221,7 @@ process = os.sawtooth(220) : fi.lowpass(ORDER, cutoff);
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="e87790d8" class="cell" data-execution_count="1">
+<div id="28cf43cb" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -5012,24 +5012,27 @@ process = x
 <div class="code-with-filename-file">
 <pre><strong>faust/examples/synthesis/additive.dsp</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50" data-filename="faust/examples/synthesis/additive.dsp" data-code-line-numbers="3-6|3-7|9-10|9-17|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb50-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50" data-filename="faust/examples/synthesis/additive.dsp" data-code-line-numbers="3-6|3-10|12-13|12-20|"><pre class="sourceCode numberSource js number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode javascript hljs"><span id="cb50-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="im">import</span>(<span class="st">"stdfaust.lib"</span>)<span class="op">;</span></span>
 <span id="cb50-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
 <span id="cb50-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="co">// Use the 'par' primitive, which allows to </span></span>
 <span id="cb50-4" class="hljs-ln-code"><a href="" aria-label="4"></a><span class="co">// programatically put signal expressions </span></span>
 <span id="cb50-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// in parallel.</span></span>
 <span id="cb50-6" class="hljs-ln-code"><a href="" aria-label="6"></a>sine8 <span class="op">=</span> <span class="fu">par</span>(n<span class="op">,</span> <span class="dv">8</span><span class="op">,</span> os<span class="op">.</span><span class="fu">osci</span>(<span class="dv">220</span><span class="op">*</span>(n<span class="op">+</span><span class="dv">1</span>)))<span class="op">;</span></span>
-<span id="cb50-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="bu">process</span> <span class="op">=</span> sine8 <span class="op">:&gt;</span> _ <span class="op">*</span> <span class="dv">1</span><span class="op">/</span><span class="dv">16</span> <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
-<span id="cb50-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
-<span id="cb50-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="co">// OR we could list the frequencies that we want manually:</span></span>
-<span id="cb50-10" class="hljs-ln-code"><a href="" aria-label="10"></a>frequencies <span class="op">=</span> (<span class="dv">220</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">550</span><span class="op">,</span> <span class="dv">551</span><span class="op">,</span> <span class="dv">880</span><span class="op">,</span> <span class="dv">1200</span>)<span class="op">;</span></span>
+<span id="cb50-7" class="hljs-ln-code"><a href="" aria-label="7"></a></span>
+<span id="cb50-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="bu">process</span> <span class="op">=</span> sine8 <span class="op">:&gt;</span> _</span>
+<span id="cb50-9" class="hljs-ln-code"><a href="" aria-label="9"></a>        <span class="op">*</span> <span class="dv">1</span><span class="op">/</span><span class="dv">16</span></span>
+<span id="cb50-10" class="hljs-ln-code"><a href="" aria-label="10"></a>        <span class="op">&lt;:</span> _<span class="op">,</span>_<span class="op">;</span></span>
 <span id="cb50-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
-<span id="cb50-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// And connect to a parallel group of sine oscillators:</span></span>
-<span id="cb50-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="bu">process</span> <span class="op">=</span> frequencies </span>
-<span id="cb50-14" class="hljs-ln-code"><a href="" aria-label="14"></a>        <span class="op">:</span> <span class="fu">par</span>(i<span class="op">,</span> <span class="dv">6</span><span class="op">,</span> os<span class="op">.</span><span class="at">osci</span>) </span>
-<span id="cb50-15" class="hljs-ln-code"><a href="" aria-label="15"></a>        <span class="op">:&gt;</span> _ </span>
-<span id="cb50-16" class="hljs-ln-code"><a href="" aria-label="16"></a>        <span class="op">:</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">12</span><span class="sc">)</span><span class="ss"> </span></span>
-<span id="cb50-17" class="hljs-ln-code"><a href="" aria-label="17"></a><span class="ss">        &lt;: _,_;</span></span>
-<span id="cb50-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb50-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// OR we could list the frequencies that we want manually:</span></span>
+<span id="cb50-13" class="hljs-ln-code"><a href="" aria-label="13"></a>frequencies <span class="op">=</span> (<span class="dv">220</span><span class="op">,</span> <span class="dv">440</span><span class="op">,</span> <span class="dv">550</span><span class="op">,</span> <span class="dv">551</span><span class="op">,</span> <span class="dv">880</span><span class="op">,</span> <span class="dv">1200</span>)<span class="op">;</span></span>
+<span id="cb50-14" class="hljs-ln-code"><a href="" aria-label="14"></a></span>
+<span id="cb50-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="co">// And connect to a parallel group of sine oscillators:</span></span>
+<span id="cb50-16" class="hljs-ln-code"><a href="" aria-label="16"></a><span class="bu">process</span> <span class="op">=</span> frequencies </span>
+<span id="cb50-17" class="hljs-ln-code"><a href="" aria-label="17"></a>        <span class="op">:</span> <span class="fu">par</span>(i<span class="op">,</span> <span class="dv">6</span><span class="op">,</span> os<span class="op">.</span><span class="at">osci</span>) </span>
+<span id="cb50-18" class="hljs-ln-code"><a href="" aria-label="18"></a>        <span class="op">:&gt;</span> _ </span>
+<span id="cb50-19" class="hljs-ln-code"><a href="" aria-label="19"></a>        <span class="op">:</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">12</span><span class="sc">)</span><span class="ss"> </span></span>
+<span id="cb50-20" class="hljs-ln-code"><a href="" aria-label="20"></a><span class="ss">        &lt;: _,_;</span></span>
+<span id="cb50-21" class="hljs-ln-code"><a href="" aria-label="21"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="faust-example">
 
@@ -5046,7 +5049,10 @@ import("stdfaust.lib");
 // programatically put signal expressions 
 // in parallel.
 sine8 = par(n, 8, os.osci(220*(n+1)));
-process = sine8 :> _ * 1/16 <: _,_;
+
+process = sine8 :> _
+        * 1/16
+        <: _,_;
 
 // OR we could list the frequencies that we want manually:
 frequencies = (220, 440, 550, 551, 880, 1200);
@@ -5057,6 +5063,7 @@ process = frequencies
         :> _ 
         : /(12) 
         <: _,_;
+
 -->
 </faust-editor>
 
@@ -5349,6 +5356,84 @@ process = sy.fm((440, 500, 800), (500, 400)) * 0.25 <: _,_;
 
 </div>
 
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 85%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>Frequency-modulation</strong> (<strong><em>FM</em></strong>) <strong>synthesis</strong> is another well-known synthesis method, which implies <em>inter-modulated oscillator graphs</em>.</li>
+</ul>
+</div>
+<ul>
+<li>In <strong>FM</strong>, the modulator makes the carrier’s <strong>frequency</strong> go up and down, very fast (at audio rate).</li>
+<li>The <strong>index</strong> sets <em>how far</em> the frequency moves: the higher the index, the <strong>brighter</strong> the sound.</li>
+<li>This creates new frequencies around the carrier, called <strong>sidebands</strong>, evenly spaced by the modulator’s frequency.</li>
+<li>When the modulator and carrier frequencies are in a <strong>simple ratio</strong> (×1, ×2, ×3…), the sidebands fall on harmonics: <strong>harmonic</strong> sound. Otherwise: <strong>inharmonic</strong> (bells, metallic sounds).</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="content" style="padding-left: 5%; width: 110%;">
+<div class="fm-placeholder" data-fm-id="default" data-preset="simple"></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 85%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>Frequency-modulation</strong> (<strong><em>FM</em></strong>) <strong>synthesis</strong> is another well-known synthesis method, which implies <em>inter-modulated oscillator graphs</em>.</li>
+</ul>
+</div>
+<ul>
+<li>Each oscillator is called an <strong>operator</strong>: it can be a <strong>carrier</strong> (heard) or a <strong>modulator</strong> (modulates another operator).</li>
+<li>Operators can be combined in <strong>graphs</strong> (called <em>algorithms</em> on the Yamaha <strong>DX7</strong>):
+<ul>
+<li><strong>stacks</strong> (a modulator modulating a modulator),</li>
+<li><strong>parallel</strong> modulators,</li>
+<li>one modulator shared by <strong>several carriers</strong>,</li>
+<li><strong>feedback</strong> (an operator modulating itself, with <code>~</code> in Faust!).</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="content" style="padding-left: 5%; width: 110%;">
+<div class="fm-placeholder" data-fm-id="default" data-preset="stack"></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="faust-advanced-synthesis-12-6" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Faust: Advanced Synthesis (1/2)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 85%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>Frequency-modulation</strong> (<strong><em>FM</em></strong>) <strong>synthesis</strong> is another well-known synthesis method, which implies <em>inter-modulated oscillator graphs</em>.</li>
+</ul>
+</div>
+<ul>
+<li><strong>Ring modulation</strong> (<em>multiplying</em> two signals, see <em>Faust: Basics</em>) also creates sidebands, but only <strong>two</strong>: at the <strong>sum</strong> and at the <strong>difference</strong> of the two frequencies. The carrier itself <strong>disappears</strong>.</li>
+<li>In <strong>AM</strong>, the modulator has an <em>offset</em>: the carrier <strong>stays</strong>, with its two sidebands.</li>
+<li>With a <em>rich</em> carrier, <strong>every harmonic</strong> gets its own pair of sidebands: the result is usually <strong>inharmonic</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="content" style="padding-left: 5%; width: 110%;">
+<div class="ringmod-placeholder" data-ringmod-id="default"></div>
+</div>
 </div></div>
 <!-- ----------------------------------------------------------------------- -->
 </section>
@@ -7077,7 +7162,7 @@ declare options "[http:on]";
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="cd826ed5" class="cell" data-execution_count="2">
+<div id="bbd6734c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>

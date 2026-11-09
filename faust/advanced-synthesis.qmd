@@ -12,7 +12,7 @@
 :::
 
 ::: {.column width="44%"}
-```{.js code-line-numbers="3-6|3-7|9-10|9-17|" filename="faust/examples/synthesis/additive.dsp"}
+```{.js code-line-numbers="3-6|3-10|12-13|12-20|" filename="faust/examples/synthesis/additive.dsp"}
 {{< include /faust/examples/synthesis/additive.dsp >}}
 ```
 {{< faust faust/examples/synthesis/additive.dsp >}}
@@ -86,6 +86,82 @@
 {{< include /faust/examples/synthesis/fm.dsp >}}
 ```
 {{< faust faust/examples/synthesis/fm.dsp >}}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Advanced Synthesis (1/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+  - **Frequency-modulation** (***FM***) **synthesis** is another well-known
+   synthesis method, which implies *inter-modulated oscillator graphs*.
+:::
+  - In **FM**, the modulator makes the carrier's **frequency** go up and down, very fast (at audio rate).
+  - The **index** sets *how far* the frequency moves: the higher the index, the **brighter** the sound.
+  - This creates new frequencies around the carrier, called **sidebands**, evenly spaced by the modulator's frequency.
+  - When the modulator and carrier frequencies are in a **simple ratio** (×1, ×2, ×3...), the sidebands fall on harmonics: **harmonic** sound. Otherwise: **inharmonic** (bells, metallic sounds).
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 5%; width: 110%;"}
+{{< fm preset=simple >}}
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Advanced Synthesis (1/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+  - **Frequency-modulation** (***FM***) **synthesis** is another well-known
+   synthesis method, which implies *inter-modulated oscillator graphs*.
+:::
+  - Each oscillator is called an **operator**: it can be a **carrier** (heard) or a **modulator** (modulates another operator).
+  - Operators can be combined in **graphs** (called *algorithms* on the Yamaha **DX7**):
+    - **stacks** (a modulator modulating a modulator), 
+    - **parallel** modulators, 
+    - one modulator shared by **several carriers**, 
+    - **feedback** (an operator modulating itself, with `~` in Faust!).
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 5%; width: 110%;"}
+{{< fm preset=stack >}}
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Advanced Synthesis (1/2) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 85%;"}
+::: {style="opacity: 0.5"}
+  - **Frequency-modulation** (***FM***) **synthesis** is another well-known
+   synthesis method, which implies *inter-modulated oscillator graphs*.
+:::
+  - **Ring modulation** (*multiplying* two signals, see *Faust: Basics*) also creates sidebands, but only **two**: at the **sum** and at the **difference** of the two frequencies. The carrier itself **disappears**.
+  - In **AM**, the modulator has an *offset*: the carrier **stays**, with its two sidebands.
+  - With a *rich* carrier, **every harmonic** gets its own pair of sidebands: the result is usually **inharmonic**.
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 5%; width: 110%;"}
+{{< ringmod >}}
+:::
 :::
 ::::
 

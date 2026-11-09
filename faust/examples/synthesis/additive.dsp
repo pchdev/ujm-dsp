@@ -4,7 +4,10 @@ import("stdfaust.lib");
 // programatically put signal expressions 
 // in parallel.
 sine8 = par(n, 8, os.osci(220*(n+1)));
-process = sine8 :> _ * 1/16 <: _,_;
+
+process = sine8 :> _
+        * 1/16
+        <: _,_;
 
 // OR we could list the frequencies that we want manually:
 frequencies = (220, 440, 550, 551, 880, 1200);

@@ -122,3 +122,30 @@ function clipper(args, kwargs, meta)
     ></div>
   ]], id, shape, drive))
 end
+
+-- Ring modulation / AM: carrier × modulator, waveforms and spectra.
+--   {{< ringmod >}}  {{< ringmod mode=am carrier=400 modulator=100 depth=0.5 harmonics=3 >}}
+function ringmod(args, kwargs, meta)
+  local function attr(name, key)
+    local v = default(kwargs[key], "")
+    if v == "" then return "" end
+    return string.format(' data-%s="%s"', name, v)
+  end
+  return pandoc.RawBlock("html", string.format(
+    '<div class="ringmod-placeholder" data-ringmod-id="%s"%s%s%s%s%s></div>',
+    default(kwargs["id"], "default"),
+    attr("mode", "mode"), attr("carrier", "carrier"), attr("modulator", "modulator"),
+    attr("depth", "depth"), attr("harmonics", "harmonics")))
+end
+
+-- FM synthesis: operator graph, waveform, spectrum (sidebands), Faust code, sound.
+--   {{< fm >}}  {{< fm preset=stack >}}   (simple|stack|parallel|twocarriers|feedback)
+function fm(args, kwargs, meta)
+  local preset = default(kwargs["preset"], "")
+  local index = default(kwargs["index"], "")
+  return pandoc.RawBlock("html", string.format(
+    '<div class="fm-placeholder" data-fm-id="%s"%s%s></div>',
+    default(kwargs["id"], "default"),
+    preset ~= "" and string.format(' data-preset="%s"', preset) or "",
+    index ~= "" and string.format(' data-index="%s"', index) or ""))
+end

@@ -354,7 +354,7 @@
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div class="ripple" id="ripple-314601" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-643066" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -378,7 +378,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-663430" data-amplitude="20" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-368702" data-amplitude="20" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -406,7 +406,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-348996" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-674294" data-amplitude="0.8" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -435,7 +435,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-811118" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-800693" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -464,7 +464,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="particles" id="particles-712403" data-amplitude="2" data-frequency="0.4" data-speed="80">
+<div class="particles" id="particles-802866" data-amplitude="2" data-frequency="0.4" data-speed="80">
 </div>
 
 </div></div>
@@ -495,7 +495,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-578814" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
+<div class="ripple" id="ripple-340051" data-amplitude="0.75" data-frequency="0.8" data-speed="80">
 </div>
 
 </div></div>
@@ -531,7 +531,7 @@
 </div>
 </div>
 </div><div class="column" style="width:44%;">
-<div class="ripple" id="ripple-176150" data-amplitude="0.75" data-frequency="1" data-speed="100">
+<div class="ripple" id="ripple-243144" data-amplitude="0.75" data-frequency="1" data-speed="100">
 </div>
 
 </div></div>
@@ -3221,7 +3221,7 @@ process = os.sawtooth(220) : fi.lowpass(ORDER, cutoff);
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="9485d56d" class="cell" data-execution_count="1">
+<div id="6de9461e" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -7353,7 +7353,7 @@ declare options "[http:on]";
 </div>
 </div><div class="column" style="width:50%;">
 <div class="content" style="padding-left: 5%; width: 110%;">
-<div id="f2f3a8b2" class="cell" data-execution_count="2">
+<div id="b550e137" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -7912,6 +7912,284 @@ declare options "[http:on]";
 <span id="cb78-75" class="hljs-ln-code"><a href="" aria-label="75"></a>        <span class="op">}</span></span>
 <span id="cb78-76" class="hljs-ln-code"><a href="" aria-label="76"></a>    <span class="op">}</span></span>
 <span id="cb78-77" class="hljs-ln-code"><a href="" aria-label="77"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="juce-a-multi-purpose-audio-framework-tutorial-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">JUCE: a multi-purpose audio framework (Tutorial)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 95%;">
+<div style="opacity: 0.5">
+
+</div>
+<ul>
+<li><strong>JUCE projects</strong> are usually structured in the following way:</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>JUCE/Project</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb79" data-filename="JUCE/Project" data-code-line-numbers=""><pre class="sourceCode numberSource text number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode hljs"><span id="cb79-1" class="hljs-ln-code"><a href="" aria-label="1"></a>- Builds/ # Build-related files</span>
+<span id="cb79-2" class="hljs-ln-code"><a href="" aria-label="2"></a>- JuceLibraryCode/ # JUCE dependencies</span>
+<span id="cb79-3" class="hljs-ln-code"><a href="" aria-label="3"></a>- MyProject.jucer # Project file</span>
+<span id="cb79-4" class="hljs-ln-code"><a href="" aria-label="4"></a>- Source/ # Source files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="juce-a-multi-purpose-audio-framework-tutorial-3" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">JUCE: a multi-purpose audio framework (Tutorial)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 95%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>JUCE projects</strong> are usually structured in the following way:</li>
+</ul>
+</div>
+<ul>
+<li>For our first <code>Ringmod</code> standalone, we have 3 files in the <code>Source/</code> directory. <code>MainComponent.h &amp; .cpp</code> are the files that are going to be implemented with our simple ringmod algorithm.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>JUCE/Project</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb80" data-filename="JUCE/Project" data-code-line-numbers=""><pre class="sourceCode numberSource text number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode hljs"><span id="cb80-1" class="hljs-ln-code"><a href="" aria-label="1"></a>- Main.cpp # The application entrypoint (nothing to do here)</span>
+<span id="cb80-2" class="hljs-ln-code"><a href="" aria-label="2"></a>- MainComponent.h # Our new Audio module (header)</span>
+<span id="cb80-3" class="hljs-ln-code"><a href="" aria-label="3"></a>- MainComponent.cpp # Our new Audio module (source)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="juce-a-multi-purpose-audio-framework-tutorial-4" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">JUCE: a multi-purpose audio framework (Tutorial)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 95%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>JUCE projects</strong> are usually structured in the following way:</li>
+<li>For our first <code>Ringmod</code> standalone, we have 3 files in the <code>Source/</code> directory. <code>MainComponent.h &amp; .cpp</code> are the files that are going to be implemented with our simple ringmod algorithm.</li>
+</ul>
+</div>
+<ul>
+<li>First, let’s paste our <code>Ringmod</code> code in <code>MainComponent.h</code>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Ringmod/Source/MainComponent.h</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb81" data-filename="Ringmod/Source/MainComponent.h" data-code-line-numbers=""><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb81-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="pp">#pragma once</span></span>
+<span id="cb81-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb81-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="pp">#include </span><span class="im">&lt;JuceHeader.h&gt;</span></span>
+<span id="cb81-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
+<span id="cb81-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb81-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// Our pasted code:</span></span>
+<span id="cb81-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb81-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="kw">struct</span> Phasor <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb81-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="kw">struct</span> Sinewave <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb81-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="kw">struct</span> Ringmod <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb81-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb81-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb81-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// JUCE code</span></span>
+<span id="cb81-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb81-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="kw">class</span> MainComponent  <span class="op">:</span> <span class="kw">public</span> juce<span class="op">::</span>AudioAppComponent <span class="op">{...};</span></span>
+<span id="cb81-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="juce-a-multi-purpose-audio-framework-tutorial-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">JUCE: a multi-purpose audio framework (Tutorial)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 95%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>JUCE projects</strong> are usually structured in the following way:</li>
+<li>For our first <code>Ringmod</code> standalone, we have 3 files in the <code>Source/</code> directory. <code>MainComponent.h &amp; .cpp</code> are the files that are going to be implemented with our simple ringmod algorithm.</li>
+<li>First, let’s paste our <code>Ringmod</code> code in <code>MainComponent.h</code>.</li>
+</ul>
+</div>
+<ul>
+<li>In the <strong>JUCE API</strong>, the equivalent of our <code>init(...)</code> method would be <code>prepareToPlay(...)</code> and the one for our <code>process(...)</code> method would be <code>getNextAudioBlock(...)</code>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Ringmod/Source/MainComponent.h</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb82" data-filename="Ringmod/Source/MainComponent.h" data-code-line-numbers="17|19"><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb82-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="pp">#pragma once</span></span>
+<span id="cb82-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb82-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="pp">#include </span><span class="im">&lt;JuceHeader.h&gt;</span></span>
+<span id="cb82-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
+<span id="cb82-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb82-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// Our pasted code:</span></span>
+<span id="cb82-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb82-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="kw">struct</span> Phasor <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb82-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="kw">struct</span> Sinewave <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb82-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="kw">struct</span> Ringmod <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb82-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb82-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb82-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// JUCE code</span></span>
+<span id="cb82-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb82-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="kw">class</span> MainComponent  <span class="op">:</span> <span class="kw">public</span> juce<span class="op">::</span>AudioAppComponent <span class="op">{</span></span>
+<span id="cb82-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span>
+<span id="cb82-17" class="hljs-ln-code"><a href="" aria-label="17"></a>    <span class="dt">void</span> prepareToPlay<span class="op">(</span><span class="dt">int</span> samplesPerBlockExpected<span class="op">,</span> <span class="dt">double</span> sampleRate<span class="op">)</span> <span class="kw">override</span><span class="op">;</span></span>
+<span id="cb82-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span>
+<span id="cb82-19" class="hljs-ln-code"><a href="" aria-label="19"></a>    <span class="dt">void</span> getNextAudioBlock<span class="op">(</span><span class="at">const</span> juce<span class="op">::</span>AudioSourceChannelInfo<span class="op">&amp;</span> bufferToFill<span class="op">)</span> <span class="kw">override</span><span class="op">;</span></span>
+<span id="cb82-20" class="hljs-ln-code"><a href="" aria-label="20"></a>    </span>
+<span id="cb82-21" class="hljs-ln-code"><a href="" aria-label="21"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="juce-a-multi-purpose-audio-framework-tutorial-6" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">JUCE: a multi-purpose audio framework (Tutorial)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>JUCE projects</strong> are usually structured in the following way:</li>
+<li>For our first <code>Ringmod</code> standalone, we have 3 files in the <code>Source/</code> directory. <code>MainComponent.h &amp; .cpp</code> are the files that are going to be implemented with our simple ringmod algorithm.</li>
+<li>First, let’s paste our <code>Ringmod</code> code in <code>MainComponent.h</code>.</li>
+<li>In the <strong>JUCE API</strong>, the equivalent of our <code>init(...)</code> method would be <code>prepareToPlay(...)</code> and the one for our <code>process(...)</code> method would be <code>getNextAudioBlock(...)</code>.</li>
+</ul>
+</div>
+<ul>
+<li>We now need to write the <em>glue</em> between <strong>our code</strong> and the <strong>JUCE API</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Ringmod/Source/MainComponent.h</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb83" data-filename="Ringmod/Source/MainComponent.h" data-code-line-numbers="21-24"><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb83-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="pp">#pragma once</span></span>
+<span id="cb83-2" class="hljs-ln-code"><a href="" aria-label="2"></a></span>
+<span id="cb83-3" class="hljs-ln-code"><a href="" aria-label="3"></a><span class="pp">#include </span><span class="im">&lt;JuceHeader.h&gt;</span></span>
+<span id="cb83-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
+<span id="cb83-5" class="hljs-ln-code"><a href="" aria-label="5"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb83-6" class="hljs-ln-code"><a href="" aria-label="6"></a><span class="co">// Our pasted code:</span></span>
+<span id="cb83-7" class="hljs-ln-code"><a href="" aria-label="7"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb83-8" class="hljs-ln-code"><a href="" aria-label="8"></a><span class="kw">struct</span> Phasor <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb83-9" class="hljs-ln-code"><a href="" aria-label="9"></a><span class="kw">struct</span> Sinewave <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb83-10" class="hljs-ln-code"><a href="" aria-label="10"></a><span class="kw">struct</span> Ringmod <span class="op">{</span> <span class="op">...</span> <span class="op">};</span></span>
+<span id="cb83-11" class="hljs-ln-code"><a href="" aria-label="11"></a></span>
+<span id="cb83-12" class="hljs-ln-code"><a href="" aria-label="12"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb83-13" class="hljs-ln-code"><a href="" aria-label="13"></a><span class="co">// JUCE code</span></span>
+<span id="cb83-14" class="hljs-ln-code"><a href="" aria-label="14"></a><span class="co">// --------------------------------------------------------</span></span>
+<span id="cb83-15" class="hljs-ln-code"><a href="" aria-label="15"></a><span class="kw">class</span> MainComponent  <span class="op">:</span> <span class="kw">public</span> juce<span class="op">::</span>AudioAppComponent <span class="op">{</span></span>
+<span id="cb83-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span>
+<span id="cb83-17" class="hljs-ln-code"><a href="" aria-label="17"></a>    <span class="dt">void</span> prepareToPlay<span class="op">(</span><span class="dt">int</span> samplesPerBlockExpected<span class="op">,</span> <span class="dt">double</span> sampleRate<span class="op">)</span> <span class="kw">override</span><span class="op">;</span></span>
+<span id="cb83-18" class="hljs-ln-code"><a href="" aria-label="18"></a></span>
+<span id="cb83-19" class="hljs-ln-code"><a href="" aria-label="19"></a>    <span class="dt">void</span> getNextAudioBlock<span class="op">(</span><span class="at">const</span> juce<span class="op">::</span>AudioSourceChannelInfo<span class="op">&amp;</span> bufferToFill<span class="op">)</span> <span class="kw">override</span><span class="op">;</span></span>
+<span id="cb83-20" class="hljs-ln-code"><a href="" aria-label="20"></a></span>
+<span id="cb83-21" class="hljs-ln-code"><a href="" aria-label="21"></a><span class="kw">private</span><span class="op">:</span></span>
+<span id="cb83-22" class="hljs-ln-code"><a href="" aria-label="22"></a>    <span class="co">//==============================================================================</span></span>
+<span id="cb83-23" class="hljs-ln-code"><a href="" aria-label="23"></a>    <span class="co">// Your private member variables go here...</span></span>
+<span id="cb83-24" class="hljs-ln-code"><a href="" aria-label="24"></a>    Ringmod rm<span class="op">;</span></span>
+<span id="cb83-25" class="hljs-ln-code"><a href="" aria-label="25"></a>    </span>
+<span id="cb83-26" class="hljs-ln-code"><a href="" aria-label="26"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="juce-a-multi-purpose-audio-framework-tutorial-7" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">JUCE: a multi-purpose audio framework (Tutorial)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>JUCE projects</strong> are usually structured in the following way:</li>
+<li>For our first <code>Ringmod</code> standalone, we have 3 files in the <code>Source/</code> directory. <code>MainComponent.h &amp; .cpp</code> are the files that are going to be implemented with our simple ringmod algorithm.</li>
+<li>First, let’s paste our <code>Ringmod</code> code in <code>MainComponent.h</code>.</li>
+<li>In the <strong>JUCE API</strong>, the equivalent of our <code>init(...)</code> method would be <code>prepareToPlay(...)</code> and the one for our <code>process(...)</code> method would be <code>getNextAudioBlock(...)</code>.</li>
+</ul>
+</div>
+<ul>
+<li>We now need to write the <em>glue</em> between <strong>our code</strong> and the <strong>JUCE API</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Ringmod/Source/MainComponent.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb84" data-filename="Ringmod/Source/MainComponent.cpp" data-code-line-numbers=""><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb84-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="dt">void</span> MainComponent<span class="op">::</span>prepareToPlay <span class="op">(</span><span class="dt">int</span> samplesPerBlockExpected<span class="op">,</span> <span class="dt">double</span> sampleRate<span class="op">)</span></span>
+<span id="cb84-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="op">{</span></span>
+<span id="cb84-3" class="hljs-ln-code"><a href="" aria-label="3"></a>    <span class="co">// This function will be called when the audio device is started, or when</span></span>
+<span id="cb84-4" class="hljs-ln-code"><a href="" aria-label="4"></a>    <span class="co">// its settings (i.e. sample rate, block size, etc) are changed.</span></span>
+<span id="cb84-5" class="hljs-ln-code"><a href="" aria-label="5"></a></span>
+<span id="cb84-6" class="hljs-ln-code"><a href="" aria-label="6"></a>    <span class="co">// You can use this function to initialise any resources you might need,</span></span>
+<span id="cb84-7" class="hljs-ln-code"><a href="" aria-label="7"></a>    <span class="co">// but be careful - it will be called on the audio thread, not the GUI thread.</span></span>
+<span id="cb84-8" class="hljs-ln-code"><a href="" aria-label="8"></a></span>
+<span id="cb84-9" class="hljs-ln-code"><a href="" aria-label="9"></a>    <span class="co">// For more details, see the help for AudioProcessor::prepareToPlay()</span></span>
+<span id="cb84-10" class="hljs-ln-code"><a href="" aria-label="10"></a>    rm<span class="op">.</span>init<span class="op">(</span><span class="fl">440.</span><span class="bu">f</span><span class="op">,</span> <span class="fl">20.</span><span class="bu">f</span><span class="op">,</span> sampleRate<span class="op">,</span> samplesPerBlockExpected<span class="op">);</span></span>
+<span id="cb84-11" class="hljs-ln-code"><a href="" aria-label="11"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<!-- ----------------------------------------------------------------------- -->
+</section>
+<section id="juce-a-multi-purpose-audio-framework-tutorial-8" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">JUCE: a multi-purpose audio framework (Tutorial)</h2>
+<!-- ----------------------------------------------------------------------- -->
+<div class="columns faust-layout">
+<div class="column add-space" style="width:50%;">
+<div style="font-size: 90%;">
+<div style="opacity: 0.5">
+<ul>
+<li><strong>JUCE projects</strong> are usually structured in the following way:</li>
+<li>For our first <code>Ringmod</code> standalone, we have 3 files in the <code>Source/</code> directory. <code>MainComponent.h &amp; .cpp</code> are the files that are going to be implemented with our simple ringmod algorithm.</li>
+<li>First, let’s paste our <code>Ringmod</code> code in <code>MainComponent.h</code>.</li>
+<li>In the <strong>JUCE API</strong>, the equivalent of our <code>init(...)</code> method would be <code>prepareToPlay(...)</code> and the one for our <code>process(...)</code> method would be <code>getNextAudioBlock(...)</code>.</li>
+</ul>
+</div>
+<ul>
+<li>We now need to write the <em>glue</em> between <strong>our code</strong> and the <strong>JUCE API</strong>.</li>
+</ul>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Ringmod/Source/MainComponent.cpp</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb85" data-filename="Ringmod/Source/MainComponent.cpp" data-code-line-numbers=""><pre class="sourceCode numberSource cpp number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode cpp hljs"><span id="cb85-1" class="hljs-ln-code"><a href="" aria-label="1"></a><span class="dt">void</span> MainComponent<span class="op">::</span>getNextAudioBlock <span class="op">(</span><span class="at">const</span> juce<span class="op">::</span>AudioSourceChannelInfo<span class="op">&amp;</span> bufferToFill<span class="op">)</span></span>
+<span id="cb85-2" class="hljs-ln-code"><a href="" aria-label="2"></a><span class="op">{</span></span>
+<span id="cb85-3" class="hljs-ln-code"><a href="" aria-label="3"></a>    <span class="co">// Your audio-processing code goes here!</span></span>
+<span id="cb85-4" class="hljs-ln-code"><a href="" aria-label="4"></a></span>
+<span id="cb85-5" class="hljs-ln-code"><a href="" aria-label="5"></a>    <span class="co">// For more details, see the help for AudioProcessor::getNextAudioBlock()</span></span>
+<span id="cb85-6" class="hljs-ln-code"><a href="" aria-label="6"></a></span>
+<span id="cb85-7" class="hljs-ln-code"><a href="" aria-label="7"></a>    <span class="co">// Right now we are not producing any data, in which case we need to clear the buffer</span></span>
+<span id="cb85-8" class="hljs-ln-code"><a href="" aria-label="8"></a>    <span class="co">// (to prevent the output of random noise)</span></span>
+<span id="cb85-9" class="hljs-ln-code"><a href="" aria-label="9"></a>    bufferToFill<span class="op">.</span>clearActiveBufferRegion<span class="op">();</span></span>
+<span id="cb85-10" class="hljs-ln-code"><a href="" aria-label="10"></a>    <span class="co">// Get write access to left channel &amp; right channel pointers:</span></span>
+<span id="cb85-11" class="hljs-ln-code"><a href="" aria-label="11"></a>    <span class="dt">float</span><span class="op">*</span> ptr <span class="op">=</span> bufferToFill<span class="op">.</span>buffer<span class="op">-&gt;</span>getWritePointer<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb85-12" class="hljs-ln-code"><a href="" aria-label="12"></a>    <span class="dt">float</span><span class="op">*</span> ptr2 <span class="op">=</span> bufferToFill<span class="op">.</span>buffer<span class="op">-&gt;</span>getWritePointer<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb85-13" class="hljs-ln-code"><a href="" aria-label="13"></a></span>
+<span id="cb85-14" class="hljs-ln-code"><a href="" aria-label="14"></a>    <span class="co">// Process ringmod (only one channel)</span></span>
+<span id="cb85-15" class="hljs-ln-code"><a href="" aria-label="15"></a>    rm<span class="op">.</span>process<span class="op">(</span>ptr<span class="op">,</span> bufferToFill<span class="op">.</span>numSamples<span class="op">);</span></span>
+<span id="cb85-16" class="hljs-ln-code"><a href="" aria-label="16"></a></span>
+<span id="cb85-17" class="hljs-ln-code"><a href="" aria-label="17"></a>    <span class="co">// Copy the buffer to the right channel to make it stereo:</span></span>
+<span id="cb85-18" class="hljs-ln-code"><a href="" aria-label="18"></a>    memcpy<span class="op">(</span>ptr2<span class="op">,</span> ptr<span class="op">,</span> bufferToFill<span class="op">.</span>numSamples <span class="op">*</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">float</span><span class="op">));</span></span>
+<span id="cb85-19" class="hljs-ln-code"><a href="" aria-label="19"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 

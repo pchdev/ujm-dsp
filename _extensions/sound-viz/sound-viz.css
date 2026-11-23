@@ -453,6 +453,9 @@
 .compressor-threshold { stroke: var(--comp-threshold); stroke-width: 1.5; stroke-dasharray: 6 4; }
 .compressor-curve { fill: none; stroke: var(--comp-out); stroke-width: 3.5; stroke-linejoin: round; }
 .compressor-knee { fill: var(--comp-bg); stroke: var(--comp-threshold); stroke-width: 2; }
+.compressor-knee-zone { fill: var(--comp-threshold); fill-opacity: 0.12; }
+.compressor-hardknee { fill: none; stroke: var(--comp-out); stroke-width: 1.5; stroke-dasharray: 4 4; opacity: 0.6; }
+.compressor-knee-label { font-size: 16px; fill: var(--comp-threshold) !important; }
 
 .compressor-svg text { font-family: monospace; fill: var(--comp-fg); }
 .compressor-tick { font-size: 16px; }

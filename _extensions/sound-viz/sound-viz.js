@@ -1654,15 +1654,27 @@ function compressorSignal(kind) {
     return { x, quiet: -36, loud: -6, label: "quiet / loud / quiet" };
 }
 
+// Gain computer (dB), with a soft knee as in Faust's compressors.lib
+// (gain_computer in co.peak_compression_gain_mono_db, strength = 1 - 1/ratio):
+// no reduction below thresh - knee/2, full reduction above thresh + knee/2,
+// and a quadratic transition in between. knee = 0 gives the hard knee.
+function compressorGain(level, p) {
+    const strength = 1 - (Number.isFinite(p.ratio) ? 1 / p.ratio : 0);
+    const over = level - p.threshold, w = p.knee || 0;
+    let x;
+    if (over <= -w / 2) x = 0;
+    else if (over < w / 2) x = (over + w / 2) ** 2 / (2 * w);
+    else x = over;
+    return -strength * x;
+}
+
 function compressorStatic(level, p) {
-    const slope = Number.isFinite(p.ratio) ? 1 / p.ratio : 0;
-    return level + Math.max(level - p.threshold, 0) * (slope - 1) + p.makeup;
+    return level + compressorGain(level, p) + p.makeup;
 }
 
 function compressorRun(x, p) {
     const tau2pole = (ms) => (ms > 0 ? Math.exp(-1 / (ms / 1000 * COMP_FS)) : 0);
     const pa = tau2pole(p.attack), pr = tau2pole(p.release), pk = tau2pole(p.attack / 2);
-    const slope = Number.isFinite(p.ratio) ? 1 / p.ratio : 0;
     const N = x.length;
     const level = new Float32Array(N), gain = new Float32Array(N), y = new Float32Array(N);
     let env = 0, g = 0;
@@ -1671,7 +1683,7 @@ function compressorRun(x, p) {
         const pole = a > env ? pa : pr;
         env = (1 - pole) * a + pole * env;
         const l = 20 * Math.log10(Math.max(env, 1e-6));
-        const gc = Math.max(l - p.threshold, 0) * (slope - 1);
+        const gc = compressorGain(l, p);
         g = (1 - pk) * gc + pk * g;
         level[n] = l;
         gain[n] = g;
@@ -1711,6 +1723,7 @@ class Compressor {
             attack: compNum(d.attack, 20),
             release: compNum(d.release, 150),
             makeup: compNum(d.makeup, 0),
+            knee: compNum(d.knee, 0),
         };
         this.signalKind = d.signal === "drums" ? "drums" : "burst";
         this.mode = null;
@@ -1775,6 +1788,8 @@ class Compressor {
             { key: "ratio", label: "Ratio", min: 0, max: COMP_RATIOS.length - 1, step: 1,
               fmt: (i) => fmtRatio(COMP_RATIOS[i]), get: () => ratioIndex(this.p.ratio),
               set: (i) => (this.p.ratio = COMP_RATIOS[i]) },
+            { key: "knee", label: "Knee", min: 0, max: 24, step: 1, full: true,
+              fmt: (v) => `${v} dB`, get: () => this.p.knee, set: (v) => (this.p.knee = v) },
             { key: "attack", label: "Attack", min: 0, max: 200, step: 1, full: true,
               fmt: (v) => `${v} ms`, get: () => this.p.attack, set: (v) => (this.p.attack = v) },
             { key: "release", label: "Release", min: 0, max: 1000, step: 5, full: true,
@@ -1894,16 +1909,33 @@ class Compressor {
         this.svgEl("line", { class: "compressor-identity", x1: this.dbX(COMP_DB_MIN), y1: this.dbY(COMP_DB_MIN), x2: this.dbX(0), y2: this.dbY(0) }, inner);
         this.svgEl("line", { class: "compressor-threshold", x1: this.dbX(p.threshold), x2: this.dbX(p.threshold), y1: y0, y2: y0 + size }, inner);
 
+        // Knee: the zone where compression fades in, and the hard-knee curve
+        // for comparison.
+        const w = p.knee || 0;
+        if (w > 0) {
+            const kx0 = this.dbX(p.threshold - w / 2), kx1 = this.dbX(p.threshold + w / 2);
+            this.svgEl("rect", { class: "compressor-knee-zone", x: kx0, y: y0, width: kx1 - kx0, height: size }, inner);
+            const hard = { ...p, knee: 0 };
+            let dh = "";
+            for (let db = p.threshold - w; db <= Math.min(COMP_DB_MAX, p.threshold + w); db += 0.25) {
+                dh += `${dh ? "L" : "M"}${this.dbX(db).toFixed(1)},${this.dbY(compressorStatic(db, hard)).toFixed(1)}`;
+            }
+            this.svgEl("path", { class: "compressor-hardknee", d: dh }, inner);
+        }
+
         // Transfer function: static curve.
         let d = "";
         for (let db = COMP_DB_MIN; db <= COMP_DB_MAX; db += 0.5) {
             d += `${d ? "L" : "M"}${this.dbX(db).toFixed(1)},${this.dbY(compressorStatic(db, p)).toFixed(1)}`;
         }
         this.svgEl("path", { class: "compressor-curve", d }, inner);
-        this.svgEl("circle", { class: "compressor-knee", cx: this.dbX(p.threshold), cy: this.dbY(compressorStatic(p.threshold, p)), r: 4 }, inner);
+        for (const k of w > 0 ? [p.threshold - w / 2, p.threshold + w / 2] : [p.threshold]) {
+            this.svgEl("circle", { class: "compressor-knee", cx: this.dbX(k), cy: this.dbY(compressorStatic(k, p)), r: 4 }, inner);
+        }
 
         this.svgEl("rect", { class: "compressor-frame", x: x0, y: y0, width: size, height: size }, g);
         this.text(g, this.dbX(p.threshold) + 5, y0 + 14, "threshold", "start", "compressor-threshold-label");
+        if (w > 0) this.text(g, this.dbX(p.threshold), y0 + size - 8, `knee ${w} dB`, "middle", "compressor-knee-label");
         const r = Number.isFinite(p.ratio) ? `${p.ratio}:1` : "∞:1";
         const mid = Math.min(0, (p.threshold + COMP_DB_MAX) / 2);
         if (p.threshold < -3) {

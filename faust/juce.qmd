@@ -1,0 +1,194 @@
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+:::
+- **JUCE** is a widely used open-source C++ framework for audio application and plug-in development. Its libraries include **many tools** (DSP, GUI, etc.) for creating **complete standalone or VST-like applications** on many architectures.
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 75px;"}
+![](faust/juce-logo.png){width="92%" fig-align="center"}
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **JUCE** is a widely used open-source C++ framework for audio application and plug-in development. Its libraries include **many tools** (DSP, GUI, etc.) for creating **complete standalone or VST-like applications** on many architectures.
+:::
+- **JUCE projects** are usually generated & managed by a tool call the ***Projucer***. It is completely optional but useful for managing targets and modules.
+
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 75px;"}
+![](faust/projucer.png){width="300%" fig-align="center"}
+:::
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **JUCE** is a widely used open-source C++ framework for audio application and plug-in development. Its libraries include **many tools** (DSP, GUI, etc.) for creating **complete standalone or VST-like applications** on many architectures.
+- **JUCE projects** are usually generated & managed by a tool call the ***Projucer***. It is completely optional but useful for managing targets and modules.
+:::
+- The **[JUCE website](https://www.juce.com)** offers a lot of **documentation** and **tutorials** in order to get started. 
+
+:::
+:::
+
+::: {.column width="44%"}
+::: {.content style="padding-left: 75px;"}
+![](faust/juce-screen-learn.png){width="300%" fig-align="center"}
+:::
+:::
+::::
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **JUCE** is a widely used open-source C++ framework for audio application and plug-in development. Its libraries include **many tools** (DSP, GUI, etc.) for creating **complete standalone or VST-like applications** on many architectures.
+- **JUCE projects** are usually generated & managed by a tool call the ***Projucer***. It is completely optional but useful for managing targets and modules.
+- The **[JUCE website](https://www.juce.com)** offers a lot of **documentation** and **tutorials** in order to get started. 
+:::
+- **In this tutorial**, we will use the **Projucer** to generate first a **standalone app** from our **Ringmod** example, then a **VST3 plugin**.
+
+:::
+:::
+
+::: {.column width="44%"}
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework (Tutorial) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::{.incremental}
+- Open the Projucer and select `New Project` from the `File` menu.
+- On the left-most menu, select `Application/Audio`, and in exporters, select `Xcode (macOS)` if you're on macOS, or `Visual Studio 2026` if you're on Windows. Name the project `Ringmod` and click `Create Project`.
+- Let's now verify that the **template builds correctly**.
+:::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework (Tutorial) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- Open the Projucer and select `New Project` from the `File` menu.
+- On the left-most menu, select `Application/Audio`, and in exporters, select `Xcode (macOS)` if you're on macOS, or `Visual Studio 2026` if you're on Windows. Name the project `Ringmod` and click `Create Project`.
+- Let's now verify that the template builds correctly.
+:::
+- Now before we use our **Ringmod code** in the framework, we need to make little changes to it first: for instance, make the `SAMPLE_RATE` and the `BUFFER_SIZE` **constants** variable.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="1-21|4,6,9,12,13,15|23,27-28|37-39|50-51|50-51,57-59,62-66|68-70" filename="sinewave.cpp"}
+struct Phasor {
+    float phase;
+    float frequency;
+    float sample_rate;
+
+    void init(float freq, float sr) {
+        phase = 0;
+        frequency = freq;
+        sample_rate = sr;
+    }
+
+    void process(float buffer[], int nsamples) {
+        for (int i = 0; i < nsamples; ++i) {
+            buffer[i] = phase;
+            phase += frequency/sample_rate;
+            if (phase >= 1.f) {
+                phase -= 1.f;
+            }
+        }
+    }
+};
+
+struct Sinewave {
+    Phasor phasor;
+    float table[TABLE_SIZE];
+
+    void init(float freq, float sr) {
+        phasor.init(freq, sr);
+        for (int x = 0; x < TABLE_SIZE; x++) {
+            float fx = float(x);
+            float phase = fx / TABLE_SIZE;
+            float y = sin(phase * M_PI * 2.f);
+            table[x] = y;
+        }
+    }
+
+    void process(float buffer[], int nsamples) {
+        phasor.process(buffer, nsamples);
+        for (int i = 0; i < nsamples; ++i) {
+            int x = int(buffer[i] * TABLE_SIZE);
+            buffer[i] = table[x];
+        }
+    }
+};
+
+struct Ringmod {
+    Sinewave carrier;  
+    Sinewave modulator;
+    float amplitude = 0.25;
+    float* carrier_buffer;
+    float* mod_buffer;
+
+    void init(float c, float m, float sr, int nsamples) {
+        // Initialize carrier & modulator:
+        carrier.init(c, sr);
+        modulator.init(m, sr);
+        // Allocate intermediate buffers:
+        carrier_buffer = new float[nsamples];
+        mod_buffer = new float[nsamples];
+    }
+
+    ~Ringmod() {
+        // Deallocate buffers in destructor:
+        delete [] carrier_buffer;
+        delete [] mod_buffer;
+    }
+
+    void process(float buffer[], int nsamples) {
+        carrier.process(carrier_buffer, nsamples);
+        modulator.process(mod_buffer, nsamples);
+
+        for (int i = 0; i < nsamples; i++) {
+             buffer[i] = carrier_buffer[i] * mod_buffer[i]
+                       * amplitude;
+        }
+    }
+};
+
+```
+:::
+::::

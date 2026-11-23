@@ -13,7 +13,7 @@
 
 ::: {.column width="44%"}
 ```{.cpp code-line-numbers="1,7" filename="sinewave.cpp"}
-struct sinewave {
+struct Sinewave {
     // Stored data: 32-bits floating-point value:
     float phase;
 
@@ -514,7 +514,7 @@ int main() {
 - We could also have made a ***separate structure*** for the '*phase*' computation, to make it **reusable** in other components or **waveform oscillators**.
 - Additionally, let's make the **frequency** of the oscillator **variable**, instead of fixed to `440`.
 :::
-- Now let's make the same `struct` for *triangle*, *sawtooth*, and *square* waves, and let's also add an **amplitude parameter** to them.
+- Now let's make the same `struct` for *triangle*, *sawtooth*, and *square* waves.
 :::
 :::
 
@@ -608,6 +608,7 @@ int main() {
 
     for (int i = 0; i < 48000; i++) {
         float sample = sine.process();
+        // A little printing trick:
         int n = sample * 40 + 40;
         for (int s = 0; s < 100; ++s) {
             if (s == n) {
@@ -636,7 +637,7 @@ int main() {
 ::: {style="opacity: 0.5"}
 - We could also have made a ***separate structure*** for the '*phase*' computation, to make it **reusable** in other components or **waveform oscillators**.
 - Additionally, let's make the **frequency** of the oscillator **variable**, instead of fixed to `440`.
-- Now let's make the same `struct` for *triangle*, *sawtooth*, and *square* waves, and let's also add an **amplitude parameter** to them.
+- Now let's make the same `struct` for *triangle*, *sawtooth*, and *square* waves.
 :::
 - In order to make the computation a bit lighter, we could also store the waveforms in **pre-computed table/arrays**.
 :::
@@ -674,14 +675,14 @@ plt.show()
 ::: {style="opacity: 0.5"}
 - We could also have made a ***separate structure*** for the '*phase*' computation, to make it **reusable** in other components or **waveform oscillators**.
 - Additionally, let's make the **frequency** of the oscillator **variable**, instead of fixed to `440`.
-- Now let's make the same `struct` for *triangle*, *sawtooth*, and *square* waves, and let's also add an **amplitude parameter** to them.
+- Now let's make the same `struct` for *triangle*, *sawtooth*, and *square* waves.
 :::
 - In order to make the computations a bit lighter, we could also store the waveforms in **pre-computed table/arrays**.
 :::
 :::
 
 ::: {.column width="44%"}
-```{.cpp code-line-numbers="22|24,26|28-34|30-35|30|31|32|33|34|37-41|39" filename="sinewave.cpp"}
+```{.cpp code-line-numbers="22|24-28|30-43|44-52" filename="sinewave.cpp"}
 #include <cmath>
 #include <cstdio>
 
@@ -707,6 +708,106 @@ const int TABLE_SIZE = 16384;
 
 struct Sinewave {
     Phasor phasor;
+    // Create a table (array)
+    // with a static size of 16384 values:
+    float table[TABLE_SIZE];
+
+    void init(float freq) {
+        phasor.init(freq);
+        // Write one period of the sinewave in the table:
+        for (int x = 0; x < TABLE_SIZE; x++) {
+            // We cast as float to have a proper division:
+             float fx = float(x);
+             // 0/TABLE_SIZE, 1/TABLE_SIZE
+             // ... TABLE_SIZE-1/TABLE_SIZE
+             float phase = fx / TABLE_SIZE;
+             float y = sin(phase * M_PI * 2.f);
+             // Write sine value at 'x':
+             table[x] = y;
+        }
+    }
+    float process() {
+        float phase = phasor.process();
+        // We multiply the phase [0..1] by TABLE_SIZE
+        // and cast (truncate) as an integer:
+        int x = int(phase * TABLE_SIZE);
+        // then, read the value held in the table at that position:
+        float y = table[x];
+        return y;
+    }
+};
+
+int main() {
+    Sinewave sine;
+    sine.init(440.f);
+
+    for (int i = 0; i < 48000; i++) {
+        float sample = sine.process();
+        // A little printing trick:
+        int n = sample * 40 + 40;
+        for (int s = 0; s < 100; ++s) {
+            if (s == n) {
+                printf("%f", sample);
+            } else {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- We could also have made a ***separate structure*** for the '*phase*' computation, to make it **reusable** in other components or **waveform oscillators**.
+- Additionally, let's make the **frequency** of the oscillator **variable**, instead of fixed to `440`.
+- Now let's make the same `struct` for *triangle*, *sawtooth*, and *square* waves.
+- In order to make the computations a bit lighter, we could also store the waveforms in **pre-computed table/arrays**.
+:::
+- In many audio software environments, we use **buffers** to process samples.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="4,17|17-25|41-46|55-56|52-61|52-76" filename="sinewave.cpp"}
+#include <cmath>
+#include <cstdio>
+
+const int BUFFER_SIZE = 512;
+const int SAMPLE_RATE = 48000.f;
+const int TABLE_SIZE = 16384;
+
+struct Phasor {
+    float phase;
+    float frequency;
+
+    void init(float freq) {
+        phase = 0;
+        frequency = freq;
+    }
+
+    void process(float buffer[BUFFER_SIZE]) {
+        for (int i = 0; i < BUFFER_SIZE; ++i) {
+            buffer[i] = phase;
+            phase += frequency/SAMPLE_RATE;
+            if (phase >= 1.f) {
+                phase -= 1.f;
+            }
+        }
+    }
+};
+
+struct Sinewave {
+    Phasor phasor;
     float table[TABLE_SIZE];
 
     void init(float freq) {
@@ -718,29 +819,170 @@ struct Sinewave {
              table[x] = y;
         }
     }
-    float process() {
-        float phase = phasor.process();
-        float sine = table[int(phase * TABLE_SIZE)];
-        return sine;
+    void process(float buffer[BUFFER_SIZE]) {
+        phasor.process(buffer);
+        for (int i = 0; i < BUFFER_SIZE; ++i) {
+            int x = int(buffer[i] * TABLE_SIZE);
+            buffer[i] = table[x];
+        }
     }
 };
 
 int main() {
+    // Instantiate and initialize a sinewave oscillator (frequency: 440Hz):
     Sinewave sine;
     sine.init(440.f);
 
-    for (int i = 0; i < 48000; i++) {
-        float sample = sine.process();
-        int n = sample * 40 + 40;
-        for (int s = 0; s < 100; ++s) {
-            if (s == n) {
-                printf("%f", sample);
-            } else {
-                printf(" ");
+    // Create an empty buffer:
+    float buffer[BUFFER_SIZE];
+
+    // Process two buffers of 'BUFFER_SIZE' samples:
+    for (int i = 0; i < 2; i++) {
+        // Write the sine values for one buffer:
+        sine.process(buffer);
+        for (int s = 0; s < BUFFER_SIZE; s++) {
+            // Retrieve the sample value at index 's':
+            float sample = buffer[s];
+            // Print it:
+            int n = sample * 40 + 40;
+            for (int j = 0; j < 80; ++j) {
+                if (j == n) {
+                    printf("%f", sample);
+                } else {
+                    printf(" ");
+                }
+            }
+            printf("\n");
+        }
+    }
+
+    return 0;
+}
+
+```
+:::
+::::
+
+
+<!-- ----------------------------------------------------------------------- -->
+## Faust: Anatomy of a C++ audio program {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- We could also have made a ***separate structure*** for the '*phase*' computation, to make it **reusable** in other components or **waveform oscillators**.
+- Additionally, let's make the **frequency** of the oscillator **variable**, instead of fixed to `440`.
+- Now let's make the same `struct` for *triangle*, *sawtooth*, and *square* waves.
+- In order to make the computations a bit lighter, we could also store the waveforms in **pre-computed table/arrays**.
+- In many audio software environments, we use buffers to process samples
+:::
+- Now, let's make a **Ring modulation** effect.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="50-70" filename="sinewave.cpp"}
+#include <cmath>
+#include <cstdio>
+
+const int BUFFER_SIZE = 512;
+const int SAMPLE_RATE = 48000.f;
+const int TABLE_SIZE = 16384;
+
+struct Phasor {
+    float phase;
+    float frequency;
+
+    void init(float freq) {
+        phase = 0;
+        frequency = freq;
+    }
+
+    void process(float buffer[BUFFER_SIZE]) {
+        for (int i = 0; i < BUFFER_SIZE; ++i) {
+            buffer[i] = phase;
+            phase += frequency/SAMPLE_RATE;
+            if (phase >= 1.f) {
+                phase -= 1.f;
             }
         }
-        printf("\n");
     }
+};
+
+struct Sinewave {
+    Phasor phasor;
+    float table[TABLE_SIZE];
+
+    void init(float freq) {
+        phasor.init(freq);
+        for (int x = 0; x < TABLE_SIZE; x++) {
+             float fx = float(x);
+             float phase = fx / TABLE_SIZE;
+             float y = sin(phase * M_PI * 2.f);
+             table[x] = y;
+        }
+    }
+    void process(float buffer[BUFFER_SIZE]) {
+        phasor.process(buffer);
+        for (int i = 0; i < BUFFER_SIZE; ++i) {
+            int x = int(buffer[i] * TABLE_SIZE);
+            buffer[i] = table[x];
+        }
+    }
+};
+
+struct Ringmod {
+    Sinewave carrier;  
+    Sinewave modulator;
+
+    void init(float c, float m) {
+        carrier.init(c);
+        modulator.init(m);
+    }
+
+    void process(float buffer[BUFFER_SIZE]) {
+        static float carrier_buffer[BUFFER_SIZE];
+        static float mod_buffer[BUFFER_SIZE];
+
+        carrier.process(carrier_buffer);
+        modulator.process(mod_buffer);
+
+        for (int i = 0; i < BUFFER_SIZE; i++) {
+             buffer[i] = carrier_buffer[i] * mod_buffer[i];
+        }
+    }
+};
+
+int main() {
+    // Instantiate and initialize a simple ring modulation effect:
+    Ringmod rm;
+    rm.init(440.f, 220);
+
+    // Create an empty buffer:
+    float buffer[BUFFER_SIZE];
+
+    // Process two buffers of 'BUFFER_SIZE' samples:
+    for (int i = 0; i < 2; i++) {
+        // Write the triangle values for one buffer:
+        rm.process(buffer);
+        for (int s = 0; s < BUFFER_SIZE; s++) {
+            // Retrieve the sample value at index 's':
+            float sample = buffer[s];
+            // Print it:
+            int n = sample * 40 + 40;
+            for (int j = 0; j < 80; ++j) {
+                if (j == n) {
+                    printf("%f", sample);
+                } else {
+                    printf(" ");
+                }
+            }
+            printf("\n");
+        }
+    }
+
     return 0;
 }
 ```

@@ -93,6 +93,7 @@ function compressor(args, kwargs, meta)
   local attack = default(kwargs["attack"], "20")
   local release = default(kwargs["release"], "150")
   local makeup = default(kwargs["makeup"], "0")
+  local knee = default(kwargs["knee"], "0")
   local signal = default(kwargs["signal"], "burst")
   return pandoc.RawBlock("html", string.format([[
     <div class="compressor-placeholder"
@@ -103,9 +104,10 @@ function compressor(args, kwargs, meta)
       data-attack="%s"
       data-release="%s"
       data-makeup="%s"
+      data-knee="%s"
       data-signal="%s"
     ></div>
-  ]], id, mode, threshold, ratio, attack, release, makeup, signal))
+  ]], id, mode, threshold, ratio, attack, release, makeup, knee, signal))
 end
 
 -- Clipper / waveshaper: transfer curve, waveform, spectrum and sound.

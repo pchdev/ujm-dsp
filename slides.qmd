@@ -209,4 +209,7 @@ format:
 
 {{< include faust/export.qmd >}}
 {{< include faust/anatomy-cpp.qmd >}}
-{{< include faust/vcv-plugin.qmd >}}
+
+# JUCE
+{{< include faust/juce.qmd >}}
+

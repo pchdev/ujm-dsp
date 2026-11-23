@@ -192,3 +192,256 @@ struct Ringmod {
 ```
 :::
 ::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework (Tutorial) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+:::
+- **JUCE projects** are usually structured in the following way:
+:::
+:::
+
+::: {.column width="44%"}
+```{.text code-line-numbers="" filename="JUCE/Project"}
+- Builds/ # Build-related files
+- JuceLibraryCode/ # JUCE dependencies
+- MyProject.jucer # Project file
+- Source/ # Source files
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework (Tutorial) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **JUCE projects** are usually structured in the following way:
+:::
+- For our first `Ringmod` standalone, we have 3 files in the `Source/` directory. `MainComponent.h & .cpp` are the files that are going to be implemented with our simple ringmod algorithm.
+:::
+:::
+
+::: {.column width="44%"}
+```{.text code-line-numbers="" filename="JUCE/Project"}
+- Main.cpp # The application entrypoint (nothing to do here)
+- MainComponent.h # Our new Audio module (header)
+- MainComponent.cpp # Our new Audio module (source)
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework (Tutorial) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **JUCE projects** are usually structured in the following way:
+- For our first `Ringmod` standalone, we have 3 files in the `Source/` directory. `MainComponent.h & .cpp` are the files that are going to be implemented with our simple ringmod algorithm.
+:::
+- First, let's paste our `Ringmod` code in `MainComponent.h`.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="" filename="Ringmod/Source/MainComponent.h"}
+#pragma once
+
+#include <JuceHeader.h>
+
+// --------------------------------------------------------
+// Our pasted code:
+// --------------------------------------------------------
+struct Phasor { ... };
+struct Sinewave { ... };
+struct Ringmod { ... };
+
+// --------------------------------------------------------
+// JUCE code
+// --------------------------------------------------------
+class MainComponent  : public juce::AudioAppComponent {...};
+
+
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework (Tutorial) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 95%;"}
+::: {style="opacity: 0.5"}
+- **JUCE projects** are usually structured in the following way:
+- For our first `Ringmod` standalone, we have 3 files in the `Source/` directory. `MainComponent.h & .cpp` are the files that are going to be implemented with our simple ringmod algorithm.
+- First, let's paste our `Ringmod` code in `MainComponent.h`.
+:::
+- In the **JUCE API**, the equivalent of our `init(...)` method would be `prepareToPlay(...)` and the one for our `process(...)` method would be `getNextAudioBlock(...)`.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="17|19" filename="Ringmod/Source/MainComponent.h"}
+#pragma once
+
+#include <JuceHeader.h>
+
+// --------------------------------------------------------
+// Our pasted code:
+// --------------------------------------------------------
+struct Phasor { ... };
+struct Sinewave { ... };
+struct Ringmod { ... };
+
+// --------------------------------------------------------
+// JUCE code
+// --------------------------------------------------------
+class MainComponent  : public juce::AudioAppComponent {
+
+    void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
+
+    void getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) override;
+    
+};
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework (Tutorial) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- **JUCE projects** are usually structured in the following way:
+- For our first `Ringmod` standalone, we have 3 files in the `Source/` directory. `MainComponent.h & .cpp` are the files that are going to be implemented with our simple ringmod algorithm.
+- First, let's paste our `Ringmod` code in `MainComponent.h`.
+- In the **JUCE API**, the equivalent of our `init(...)` method would be `prepareToPlay(...)` and the one for our `process(...)` method would be `getNextAudioBlock(...)`.
+:::
+- We now need to write the *glue* between **our code** and the **JUCE API**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="21-24" filename="Ringmod/Source/MainComponent.h"}
+#pragma once
+
+#include <JuceHeader.h>
+
+// --------------------------------------------------------
+// Our pasted code:
+// --------------------------------------------------------
+struct Phasor { ... };
+struct Sinewave { ... };
+struct Ringmod { ... };
+
+// --------------------------------------------------------
+// JUCE code
+// --------------------------------------------------------
+class MainComponent  : public juce::AudioAppComponent {
+
+    void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
+
+    void getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) override;
+
+private:
+    //==============================================================================
+    // Your private member variables go here...
+    Ringmod rm;
+    
+};
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework (Tutorial) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- **JUCE projects** are usually structured in the following way:
+- For our first `Ringmod` standalone, we have 3 files in the `Source/` directory. `MainComponent.h & .cpp` are the files that are going to be implemented with our simple ringmod algorithm.
+- First, let's paste our `Ringmod` code in `MainComponent.h`.
+- In the **JUCE API**, the equivalent of our `init(...)` method would be `prepareToPlay(...)` and the one for our `process(...)` method would be `getNextAudioBlock(...)`.
+:::
+- We now need to write the *glue* between **our code** and the **JUCE API**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="" filename="Ringmod/Source/MainComponent.cpp"}
+void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
+{
+    // This function will be called when the audio device is started, or when
+    // its settings (i.e. sample rate, block size, etc) are changed.
+
+    // You can use this function to initialise any resources you might need,
+    // but be careful - it will be called on the audio thread, not the GUI thread.
+
+    // For more details, see the help for AudioProcessor::prepareToPlay()
+    rm.init(440.f, 20.f, sampleRate, samplesPerBlockExpected);
+}
+```
+:::
+::::
+
+<!-- ----------------------------------------------------------------------- -->
+## JUCE: a multi-purpose audio framework (Tutorial) {auto-animate=true}
+<!-- ----------------------------------------------------------------------- -->
+
+:::: {.columns .faust-layout}
+::: {.column width="50%" .add-space}
+::: {style="font-size: 90%;"}
+::: {style="opacity: 0.5"}
+- **JUCE projects** are usually structured in the following way:
+- For our first `Ringmod` standalone, we have 3 files in the `Source/` directory. `MainComponent.h & .cpp` are the files that are going to be implemented with our simple ringmod algorithm.
+- First, let's paste our `Ringmod` code in `MainComponent.h`.
+- In the **JUCE API**, the equivalent of our `init(...)` method would be `prepareToPlay(...)` and the one for our `process(...)` method would be `getNextAudioBlock(...)`.
+:::
+- We now need to write the *glue* between **our code** and the **JUCE API**.
+:::
+:::
+
+::: {.column width="44%"}
+```{.cpp code-line-numbers="" filename="Ringmod/Source/MainComponent.cpp"}
+void MainComponent::getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill)
+{
+    // Your audio-processing code goes here!
+
+    // For more details, see the help for AudioProcessor::getNextAudioBlock()
+
+    // Right now we are not producing any data, in which case we need to clear the buffer
+    // (to prevent the output of random noise)
+    bufferToFill.clearActiveBufferRegion();
+    // Get write access to left channel & right channel pointers:
+    float* ptr = bufferToFill.buffer->getWritePointer(0);
+    float* ptr2 = bufferToFill.buffer->getWritePointer(1);
+
+    // Process ringmod (only one channel)
+    rm.process(ptr, bufferToFill.numSamples);
+
+    // Copy the buffer to the right channel to make it stereo:
+    memcpy(ptr2, ptr, bufferToFill.numSamples * sizeof(float));
+}
+
+```
+:::
+::::
